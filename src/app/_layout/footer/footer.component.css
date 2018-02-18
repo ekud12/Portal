@@ -1,0 +1,30 @@
+.navbar {
+  /* background-color: rgb(113, 215, 255); */
+  min-height: 60px;
+  border-bottom: 1px solid rgb(187, 187, 187);
+  /* padding-left: 50px; */
+  padding-right: 0;
+  padding-left: 50px;
+}
+
+.navbar .logo {
+  padding-right: 10px;
+  padding-left: 10px;
+  color: rgb(255, 255, 255);
+  font-family: 'Varela Round', sans-serif;
+  margin: auto;
+  margin-right: 15px;
+  font-size: 30px;
+  text-decoration: underline;
+}
+
+.navbar .link {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.active {
+  margin-left: 10px;
+  background-color: rgb(255, 255, 255);
+  color: orange;
+}
