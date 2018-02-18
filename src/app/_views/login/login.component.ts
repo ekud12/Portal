@@ -65,7 +65,9 @@ export class LoginComponent implements OnInit {
     loginButtonValidating: 'מאמת...',
     loginButtonLink: 'dash',
     passwordRules: '^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$',
-    success_msg: 'התחברות הצליחה! הנך מועבר...'
+    usernameRules: '^(?=.*[A-Za-z])(?=.*[0-9]).*$',
+    success_msg: 'התחברות הצליחה! הנך מועבר...',
+    support_phone: 'תמיכה: 5443*'
   };
 
   forms = [
@@ -84,9 +86,9 @@ export class LoginComponent implements OnInit {
   ];
 
   errors = {
-    required: 'אנא הכנס נתונים חסרים',
-    minlength: 'נתון קצר מדי',
-    pattern: 'סיסמא לא חוקית : צריכה להיות לכלול אותיות/מספרים/סימנים.'
+    required: '.אנא הכנס נתונים חסרים',
+    minlength: 'נתון קצר מדי.',
+    pattern: 'ערך לא חוקי.'
   };
 
   isValidating = false;
@@ -103,7 +105,8 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       _usernameControl: new FormControl({ value: '', disabled: false }, [
         Validators.required,
-        Validators.minLength(8)
+        Validators.minLength(8),
+        Validators.pattern(this.options.usernameRules)
       ]),
       _passwordControl: new FormControl({ value: '', disabled: false }, [
         Validators.required,

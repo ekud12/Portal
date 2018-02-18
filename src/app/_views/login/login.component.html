@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="space-evenly stretch center" class="login-page">
 
 
-  <div class="form" fxFlex fxFill fxFlexOrder="1" fxLayout="column" fxLayoutAlign="center center">
+  <div class="form" fxFlex fxFill fxFlexOrder="1" fxLayout="column" fxLayoutAlign="center center" fxFlex.md="100">
 
     <div class="logo" fxFlex="15" fxFlexAlign="center" [@itemAnim]>
       <img src="../../../assets/imageedit_3_4969472292.png" class="logo-image" />
@@ -43,7 +43,7 @@
         © 2018
       </div>
       <div fxLayoutAlign="space-between center center">
-        <mat-icon class="links" matTooltip="תמיכה: 5443* " value="left" matTooltipHideDelay="1000">phone</mat-icon>
+        <mat-icon class="links" matTooltip="{{options.support_phone}}" value="left" matTooltipHideDelay="1000">phone</mat-icon>
         <mat-icon class="links">face</mat-icon>
       </div>
     </div>
