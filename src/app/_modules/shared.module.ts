@@ -37,6 +37,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StickyNavModule } from 'ng2-sticky-nav';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   imports: [
@@ -77,6 +78,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     StickyNavModule,
     ReactiveFormsModule
   ],
+  declarations: [PageNotFoundComponent],
   exports: [
     CdkTableModule,
     MatAutocompleteModule,
@@ -113,7 +115,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     // Others
     FlexLayoutModule,
     StickyNavModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PageNotFoundComponent
   ]
 })
 export class SharedModule {}

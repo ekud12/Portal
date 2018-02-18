@@ -1,0 +1,15 @@
+p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0 auto; */
+  font-size: 200px;
+  height:100%;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100px;
+}
