@@ -9,19 +9,19 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   links = [
     {
-      link: 'dash',
+      link: '/dash/home',
       icon: 'home',
-      tooltip: 'google'
+      tooltip: 'דף ראשי'
     },
     {
-      link: '/dash',
+      link: '/dash/settings',
       icon: 'settings',
-      tooltip: 'ynet'
+      tooltip: 'הגדרות'
     },
     {
       link: '/login',
       icon: 'exit_to_app',
-      tooltip: 'walla'
+      tooltip: 'התנתק'
     }
   ];
 

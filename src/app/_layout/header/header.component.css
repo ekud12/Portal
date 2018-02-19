@@ -1,20 +1,22 @@
 .navbar {
-  /* background-color: rgb(113, 215, 255); */
-  min-height: 60px;
+  min-height: 30px;
   border-bottom: 1px solid rgb(187, 187, 187);
-  /* padding-left: 50px; */
   padding-right: 0;
   padding-left: 50px;
+  z-index: 50;
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+  border-right: 12px solid rgb(0, 153, 255);
 }
 
 .navbar .logo {
   padding-right: 10px;
   padding-left: 10px;
-  color: rgb(255, 255, 255);
+  color: rgb(102, 102, 102);
   font-family: 'Varela Round', sans-serif;
   margin: auto;
   margin-right: 15px;
-  font-size: 30px;
+  font-size: 20px;
   text-decoration: underline;
 }
 
@@ -26,5 +28,6 @@
 .active {
   margin-left: 10px;
   background-color: rgb(255, 255, 255);
-  color: orange;
+  border: 1px solid rgba(128, 128, 128, 0.247);
+  color: rgb(0, 183, 255);
 }

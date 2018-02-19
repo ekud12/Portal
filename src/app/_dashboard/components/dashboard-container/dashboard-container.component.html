@@ -1,233 +1,32 @@
-<div style="position:absolute;top:0;left:0;right:0;bottom:0;">
+<div class="outer-div-container">
   <mat-sidenav-container #sidenav style="height:100%;width:100%;">
-    <mat-sidenav mode="push" #sidenav style="min-width:220px;">
+
+    <mat-sidenav mode="push" #sidenav style="width:220px;">
       <p>Sidenav Content</p>
     </mat-sidenav>
-    <!-- <mat-toolbar color="primary" style="min-height:64px;">
-      <span>
-        <button style="background-color:transparent;border-style:none;cursor:pointer;" (click)="sidenav.open()">
-          <i class="material-icons toolbar-link-icon" style="color:white;">menu</i>
-        </button>
-      </span>
-      <span>Fixed Header Example</span>
-    </mat-toolbar> -->
-    <app-header></app-header>
-    <div class="inner-sidenav-content">
-      <div style="padding-top:1em;padding-bottom:1em;">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Your Content</mat-card-title>
-            <mat-card-subtitle>Scroll away...</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <div style="height:2000px;">
-              <p>Scroll scroll scroll.</p>
-            </div>
 
-          </mat-card-content>
-        </mat-card>
+    <app-header ></app-header>
+
+    <div class="inner-sidenav-content" fxLayout="column" fxLayoutAlign="space-between stretch center">
+
+      <div style="padding-top:1em;padding-bottom:1em;" fxFlex="auto">
+        <!-- <mat-grid-list cols="5" rowHeight="5:5">
+          <mat-grid-tile>1</mat-grid-tile>
+          <mat-grid-tile>2</mat-grid-tile>
+          <mat-grid-tile>3</mat-grid-tile>
+          <mat-grid-tile>4</mat-grid-tile>
+          <mat-grid-tile>5</mat-grid-tile>
+          <mat-grid-tile>4</mat-grid-tile>
+          <mat-grid-tile>4</mat-grid-tile>
+          <mat-grid-tile>4</mat-grid-tile>
+          <mat-grid-tile>4</mat-grid-tile>
+        </mat-grid-list> -->
+        <router-outlet></router-outlet>
       </div>
+
       <app-footer>
       </app-footer>
+
     </div>
   </mat-sidenav-container>
 </div>
-<!--
-<div fxLayout="column" fxLayoutAlign="space-between stretch center" class="dash-wrapper">
-
-  <div fxFlex="8" fxFlexOrder="1" ngStickyNav>
-    <app-header>
-    </app-header>
-  </div>
-
-  <div fxFlex fxFlexOrder="2" fxLayout="column" fxLayoutAlign="space-between stretch center">
-    <div>
-      asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br> asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>asdasdasaasd
-      <br>
-    </div>
-
-    <app-footer>
-    </app-footer>
-  </div>
-
-
-</div> -->

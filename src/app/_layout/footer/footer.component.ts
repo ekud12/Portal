@@ -7,25 +7,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-  links = [
-    {
-      link: 'dash',
-      icon: 'home',
-      tooltip: 'google'
-    },
-    {
-      link: '/dash',
-      icon: 'settings',
-      tooltip: 'ynet'
-    },
-    {
-      link: '/login',
-      icon: 'exit_to_app',
-      tooltip: 'walla'
-    }
-  ];
-
-  @Input() isLoginScreen: boolean;
+  // links = [
+  //   {
+  //     link: 'dash',
+  //     icon: 'home',
+  //     tooltip: 'google'
+  //   },
+  //   {
+  //     link: '/dash',
+  //     icon: 'settings',
+  //     tooltip: 'ynet'
+  //   },
+  //   {
+  //     link: '/login',
+  //     icon: 'exit_to_app',
+  //     tooltip: 'walla'
+  //   }
+  // ];
 
   constructor(private router: Router) {}
 

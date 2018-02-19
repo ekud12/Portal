@@ -1,6 +1,10 @@
-/* .dash-wrapper {
-  height: 100vh;
-} */
+.outer-div-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 
 .inner-sidenav-content {
   overflow: auto;
@@ -9,4 +13,5 @@
   left: 0;
   right: 0;
   top: 64px;
+  background-color: #f1f0ee;
 }

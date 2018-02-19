@@ -1,30 +1,22 @@
-.navbar {
-  /* background-color: rgb(113, 215, 255); */
-  min-height: 60px;
-  border-bottom: 1px solid rgb(187, 187, 187);
-  /* padding-left: 50px; */
-  padding-right: 0;
+/* Style For Footer */
+.footer {
+  border-top: 0px solid rgb(201, 201, 201);
+  background-color: #111111;
+  z-index: 50;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: rgb(196, 196, 196);
+}
+
+.footer .content {
   padding-left: 50px;
+  padding-right: 50px;
 }
 
-.navbar .logo {
-  padding-right: 10px;
-  padding-left: 10px;
-  color: rgb(255, 255, 255);
-  font-family: 'Varela Round', sans-serif;
-  margin: auto;
-  margin-right: 15px;
-  font-size: 30px;
-  text-decoration: underline;
+.footer .copyright {
+  font-size: 12px;
 }
 
-.navbar .link {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.active {
-  margin-left: 10px;
-  background-color: rgb(255, 255, 255);
-  color: orange;
+.pre-footer {
+  background-color: gray;
 }

@@ -1,4 +1,4 @@
-<mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" color="primary">
+<mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" >
   <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
     <button mat-button>
       <mat-icon>menu</mat-icon>
@@ -9,8 +9,8 @@
   </div>
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <div>
-      <button mat-raised-button matTooltip={{linkItem.tooltip}} *ngFor="let linkItem of links; index as i" [routerLink]="linkItem.link"
-        routerLinkActive="active" color="accent" class="link">
+      <button mat-button matTooltip={{linkItem.tooltip}} *ngFor="let linkItem of links; index as i" [routerLink]="linkItem.link"
+        routerLinkActive="active" class="link">
         <mat-icon>{{linkItem.icon}}</mat-icon>
       </button>
     </div>

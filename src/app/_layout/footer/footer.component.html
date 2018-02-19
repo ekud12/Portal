@@ -1,18 +1,6 @@
-<mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" color="primary">
-  <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
-    <button mat-button>
-      <mat-icon>menu</mat-icon>
-    </button>
-    <div class="logo">
-      מערכת ספקים
-    </div>
+
+<div class="footer" fxLayout="row" fxLayoutAlign="space-around center center">
+  <div class="copyright">
+    © 2018
   </div>
-  <div fxLayout="row" fxLayoutAlign="space-between center">
-    <div>
-      <button mat-raised-button matTooltip={{linkItem.tooltip}} *ngFor="let linkItem of links; index as i" [routerLink]="linkItem.link"
-        routerLinkActive="active" color="accent" class="link">
-        <mat-icon>{{linkItem.icon}}</mat-icon>
-      </button>
-    </div>
-  </div>
-</mat-toolbar>
+</div>

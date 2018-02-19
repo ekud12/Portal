@@ -4,8 +4,29 @@
 body {
   margin: 0;
   font-family: 'Varela Round', sans-serif;
+  background-color: #fafafa;
 }
 
 a:link {
   text-decoration: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #979797;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(88, 174, 255);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 97, 189);
 }
