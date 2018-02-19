@@ -1,11 +1,11 @@
 <div class="outer-div-container">
   <mat-sidenav-container #sidenav style="height:100%;width:100%;">
 
-    <mat-sidenav mode="push" #sidenav style="width:220px;">
+    <mat-sidenav mode="push" #sidenav style="width:250px;" [fixedInViewport]="true">
       <p>Sidenav Content</p>
     </mat-sidenav>
 
-    <app-header></app-header>
+    <app-header [sidenav]="sidenav"></app-header>
 
     <div class="inner-sidenav-content" fxLayout="column" fxLayoutAlign="space-between stretch center">
 

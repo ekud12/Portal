@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
     }
   ];
 
-  @Input() isLoginScreen: boolean;
+  @Input() sidenav;
 
   constructor(private router: Router) {}
 
