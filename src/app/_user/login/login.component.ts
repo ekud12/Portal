@@ -20,6 +20,7 @@ import {
 } from '@angular/animations';
 
 import { ErrorStateMatcher } from '@angular/material/core';
+import { LoginFormDetails } from '../../_models/login.model';
 
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -94,6 +95,7 @@ export class LoginComponent implements OnInit {
   isValidating = false;
   isValid = false;
   loginForm: FormGroup;
+  LoginDetails = new LoginFormDetails();
 
   constructor(private router: Router, private fb: FormBuilder) {
     this.createForm();
@@ -119,6 +121,12 @@ export class LoginComponent implements OnInit {
   submitLoginForm() {
     this.isValidating = true;
     this.loginForm.disable();
+
+    // Model for login service
+    this.LoginDetails.username = this.loginForm.get('_usernameControl').value;
+    this.LoginDetails.password = this.loginForm.get('_passwordControl').value;
+    this.LoginDetails.isValidating = this.isValidating;
+
     setTimeout(() => {
       this.isValidating = false;
       this.isValid = true;

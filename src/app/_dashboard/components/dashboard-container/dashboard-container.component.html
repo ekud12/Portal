@@ -5,23 +5,18 @@
       <p>Sidenav Content</p>
     </mat-sidenav>
 
-    <app-header ></app-header>
+    <app-header></app-header>
 
     <div class="inner-sidenav-content" fxLayout="column" fxLayoutAlign="space-between stretch center">
 
-      <div style="padding-top:1em;padding-bottom:1em;" fxFlex="auto">
-        <!-- <mat-grid-list cols="5" rowHeight="5:5">
-          <mat-grid-tile>1</mat-grid-tile>
-          <mat-grid-tile>2</mat-grid-tile>
-          <mat-grid-tile>3</mat-grid-tile>
-          <mat-grid-tile>4</mat-grid-tile>
-          <mat-grid-tile>5</mat-grid-tile>
-          <mat-grid-tile>4</mat-grid-tile>
-          <mat-grid-tile>4</mat-grid-tile>
-          <mat-grid-tile>4</mat-grid-tile>
-          <mat-grid-tile>4</mat-grid-tile>
-        </mat-grid-list> -->
-        <router-outlet></router-outlet>
+      <div class="router-wrapper" fxFlex="auto">
+        <mat-grid-list cols="4" rowHeight="200px" gutterSize="50px">
+          <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
+            {{tile.text}}
+          </mat-grid-tile>
+
+        </mat-grid-list>
+        <!-- <router-outlet></router-outlet> -->
       </div>
 
       <app-footer>

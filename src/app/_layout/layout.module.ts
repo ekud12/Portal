@@ -5,11 +5,11 @@ import { SharedModule } from '../_modules/shared.module';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 
-const comps = [HeaderComponent];
+const LAYOUT_COMPONENTS = [HeaderComponent, FooterComponent];
 
 @NgModule({
   imports: [CommonModule, SharedModule, RouterModule],
-  declarations: [HeaderComponent, FooterComponent],
-  exports: [HeaderComponent, FooterComponent]
+  declarations: LAYOUT_COMPONENTS,
+  exports: LAYOUT_COMPONENTS
 })
 export class LayoutModule {}

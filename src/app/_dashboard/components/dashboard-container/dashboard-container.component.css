@@ -15,3 +15,14 @@
   top: 64px;
   background-color: #f1f0ee;
 }
+
+.router-wrapper {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  padding-right: 5em;
+  padding-left: 5em;
+}
+
+.tile {
+  border: 2px solid red;
+}
