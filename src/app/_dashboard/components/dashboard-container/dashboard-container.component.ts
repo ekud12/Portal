@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FooterComponent } from '../../../_layout/footer/footer.component';
 
 @Component({
   selector: 'app-dashboard-container',
@@ -12,6 +13,7 @@ export class DashboardContainerComponent implements OnInit {
     { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
     { text: 'Four', cols: 2, rows: 1, color: '#DDBDF1' }
   ];
+
   constructor() {}
 
   ngOnInit() {}

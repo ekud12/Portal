@@ -6,6 +6,7 @@ import { RoutingModule } from './_routing/routing.module';
 import { DashboardModule } from './_dashboard/dashboard.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './_user/user.module';
+import { DndModule } from 'ng2-dnd';
 
 @NgModule({
   declarations: [AppComponent],

@@ -67,3 +67,7 @@
 .help .copyright {
   font-size: 12px;
 }
+
+.login-card {
+  border-radius: 10px;
+}

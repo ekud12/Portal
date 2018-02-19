@@ -4,15 +4,19 @@ import { DashboardContainerComponent } from './components/dashboard-container/da
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { LayoutModule } from '../_layout/layout.module';
 import { SharedModule } from '../_modules/shared.module';
-import { DashItemContainerComponent } from './components/dash-item-container/dash-item-container.component';
+import { GridsterModule } from 'angular-gridster2';
+import { GridComponent } from './components/grid/grid.component';
 
-const DASH_COMPONENTS = [
-  DashboardContainerComponent,
-  DashItemContainerComponent
-];
+const DASH_COMPONENTS = [DashboardContainerComponent, GridComponent];
 
 @NgModule({
-  imports: [CommonModule, DashboardRoutingModule, SharedModule, LayoutModule],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    SharedModule,
+    LayoutModule,
+    GridsterModule
+  ],
   declarations: DASH_COMPONENTS,
   exports: [DashboardContainerComponent]
 })

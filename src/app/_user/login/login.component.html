@@ -1,53 +1,54 @@
 <div fxLayout="column" fxLayoutAlign="space-evenly stretch center" class="login-page">
 
 
-   <div class="form" fxFlex fxFill fxFlexOrder="1" fxLayout="column" fxLayoutAlign="center center" fxFlex.md="100">
+  <div class="form" fxFlex fxFill fxFlexOrder="1" fxLayout="column" fxLayoutAlign="start center center" fxFlex.md="100">
 
-      <div class="logo" fxFlex="15" fxFlexAlign="center" [@itemAnim]>
-         <img src="../../../assets/imageedit_3_4969472292.png" class="logo-image" />
+    <div class="logo" fxFlex="15" fxFlexAlign="center" [@itemAnim]>
+      <img src="../../../assets/imageedit_3_4969472292.png" class="logo-image" />
+    </div>
+
+    <mat-card mat-elevation-z6 class="form-container login-card" [@itemAnim]>
+
+      <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">
+
+        <h3>כניסה למערכת:</h3>
+        <mat-form-field color='primary' [hideRequiredMarker]="options.hideRequired" [floatLabel]="options.floatLabel" *ngFor="let formItem of forms;  index as i">
+          <input matInput type={{formItem.type}} disabled={{isValidating}} formControlName="{{formItem.controller}}">
+          <mat-placeholder class="placeholder">
+            <mat-icon>{{formItem.icon}}</mat-icon>
+            <b> {{formItem.name}} </b>
+          </mat-placeholder>
+          <mat-error *ngIf="loginForm.get(formItem.controller).hasError('required')">{{errors.required}}</mat-error>
+          <mat-error *ngIf="loginForm.get(formItem.controller).hasError('minlength')">{{errors.minlength}}</mat-error>
+          <mat-error *ngIf="loginForm.get(formItem.controller).hasError('pattern')">{{errors.pattern}}</mat-error>
+        </mat-form-field>
+        <div class="submit-section">
+          <button mat-raised-button fxFill color="primary" (click)="submitLoginForm()" type='button' disabled={{!loginForm.valid}}>
+            {{ isValidating ? options.loginButtonValidating :options.loginButtonName }}
+          </button>
+          <section class="loader-section">
+            <mat-progress-bar mode="indeterminate" *ngIf="isValidating">
+            </mat-progress-bar>
+          </section>
+        </div>
+      </form>
+      <div *ngIf="isValid" [@itemFade] class="success-msg" fxLayout="row" fxLayoutAlign="center center">
+        <mat-icon>done</mat-icon>
+        {{options.success_msg}}
       </div>
+    </mat-card>
 
-      <mat-card mat-elevation-z6 class="form-container" [@itemAnim]>
+  </div>
 
-         <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">
-            <h3>כניסה למערכת:</h3>
-            <mat-form-field color='primary' [hideRequiredMarker]="options.hideRequired" [floatLabel]="options.floatLabel" *ngFor="let formItem of forms;  index as i">
-               <input matInput type={{formItem.type}} disabled={{isValidating}} formControlName="{{formItem.controller}}">
-               <mat-placeholder class="placeholder">
-                  <mat-icon>{{formItem.icon}}</mat-icon>
-                  <b> {{formItem.name}} </b>
-               </mat-placeholder>
-               <mat-error *ngIf="loginForm.get(formItem.controller).hasError('required')">{{errors.required}}</mat-error>
-               <mat-error *ngIf="loginForm.get(formItem.controller).hasError('minlength')">{{errors.minlength}}</mat-error>
-               <mat-error *ngIf="loginForm.get(formItem.controller).hasError('pattern')">{{errors.pattern}}</mat-error>
-            </mat-form-field>
-            <div class="submit-section">
-               <button mat-raised-button fxFill color="primary" (click)="submitLoginForm()" type='button' disabled={{!loginForm.valid}}>
-                  {{ isValidating ? options.loginButtonValidating :options.loginButtonName }}
-               </button>
-               <section class="loader-section">
-                  <mat-progress-bar mode="indeterminate" *ngIf="isValidating">
-                  </mat-progress-bar>
-               </section>
-            </div>
-         </form>
-         <div *ngIf="isValid" [@itemFade] class="success-msg" fxLayout="row" fxLayoutAlign="center center">
-            <mat-icon>done</mat-icon>
-            {{options.success_msg}}
-         </div>
-      </mat-card>
-
-   </div>
-
-   <div class="help" fxFlex="5" fxFill fxFlexOrder="2" fxLayout="column" fxLayoutAlign="space-around stretch center">
-      <div fxLayout="row" fxLayoutAlign="space-between center center" class="content">
-         <div class="copyright">
-            © 2018
-         </div>
-         <div fxLayoutAlign="space-between center center">
-            <mat-icon class="links" matTooltip="{{options.support_phone}}" value="left" matTooltipHideDelay="1000">phone</mat-icon>
-            <mat-icon class="links">face</mat-icon>
-         </div>
+  <div class="help" fxFlex="5" fxFill fxFlexOrder="2" fxLayout="column" fxLayoutAlign="space-around stretch center">
+    <div fxLayout="row" fxLayoutAlign="space-between center center" class="content">
+      <div class="copyright">
+        © 2018
       </div>
-   </div>
+      <div fxLayoutAlign="space-between center center">
+        <mat-icon class="links" matTooltip="{{options.support_phone}}" value="left" matTooltipHideDelay="1000">phone</mat-icon>
+        <mat-icon class="links">face</mat-icon>
+      </div>
+    </div>
+  </div>
 </div>

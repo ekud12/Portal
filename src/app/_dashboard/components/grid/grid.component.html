@@ -1,0 +1,28 @@
+<mat-card style="height:79vh">
+  <gridster [options]="options" *ngIf="!remove">
+    <gridster-item [item]="item" *ngFor="let item of dashboard">
+      <div class="button-holder">
+        <div class="gridster-item-content" *ngIf="item.hasContent">
+          <div class="stuff">
+            <span>Some content to select and click without dragging the widget</span>
+            <a href="https://www.google.com" target="_blank">Link to Google</a>
+          </div>
+        </div>
+        <div class="item-buttons" *ngIf="item.hasContent">
+          <button mat-icon-button mat-raised-button class="drag-handler">
+            <mat-icon>open_with</mat-icon>
+          </button>
+          <button mat-icon-button mat-raised-button class="remove-button" (mousedown)="removeItem($event, item)" (touchstart)="removeItem($event, item)"
+            matTooltip="Remove">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <label *ngIf="!item.hasContent">{{item.label}}</label>
+        <button mat-mini-fab *ngIf="!item.hasContent" (mousedown)="removeItem($event, item)" (touchstart)="removeItem($event, item)"
+          matTooltip="Remove">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </gridster-item>
+  </gridster>
+</mat-card>
