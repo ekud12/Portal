@@ -1,17 +1,24 @@
 <div fxLayout="column" fxLayoutAlign="space-evenly stretch center" class="login-page">
 
+  <mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch">
+    <div fxLayout="row" fxLayoutAlign="space-evenly stretch">     
+      <div class="logo" fxFlexAlign="center">
+        <img src="../../../assets/meuhedet-logo.png" class="logo-image" />
+      </div>
+    </div>
+  </mat-toolbar>
+  
+ <div class="title"> 
+    <h1 _ngcontent-c3="">מערכת ספקים</h1>
+    <h2 _ngcontent-c3="">כניסה למערכת</h2> 
+  </div>
 
   <div class="form" fxFlex fxFill fxFlexOrder="1" fxLayout="column" fxLayoutAlign="start center center" fxFlex.md="100">
-
-    <div class="logo" fxFlex="15" fxFlexAlign="center" [@itemFade]>
-      <img src="../../../assets/imageedit_3_4969472292.png" class="logo-image" />
-    </div>
-
+    
     <mat-card mat-elevation-z6 class="form-container login-card" [@itemAnim]>
 
       <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">
-
-        <h3>כניסה למערכת:</h3>
+            
         <mat-form-field color='primary' [hideRequiredMarker]="options.hideRequired" [floatLabel]="options.floatLabel" *ngFor="let formItem of forms;  index as i">
           <input matInput type={{formItem.type}} disabled={{isValidating}} formControlName="{{formItem.controller}}">
           <mat-placeholder class="placeholder">
@@ -22,6 +29,7 @@
           <mat-error *ngIf="loginForm.get(formItem.controller).hasError('minlength')">{{errors.minlength}}</mat-error>
           <mat-error *ngIf="loginForm.get(formItem.controller).hasError('pattern')">{{errors.pattern}}</mat-error>
         </mat-form-field>
+
         <div class="submit-section">
           <button mat-raised-button fxFill color="primary" (click)="submitLoginForm()" type='button' disabled={{!loginForm.valid}}>
             {{ isValidating ? options.loginButtonValidating :options.loginButtonName }}
@@ -31,11 +39,14 @@
             </mat-progress-bar>
           </section>
         </div>
+
       </form>
+
       <div *ngIf="isValid" [@itemFade] class="success-msg" fxLayout="row" fxLayoutAlign="center center">
         <mat-icon>done</mat-icon>
         {{options.success_msg}}
       </div>
+
     </mat-card>
 
   </div>
@@ -51,4 +62,5 @@
       </div>
     </div>
   </div>
+  
 </div>

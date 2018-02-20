@@ -1,10 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import '~@angular/material/prebuilt-themes/indigo-pink.css'; */
 
+@font-face {
+  font-family: 'OpenSans';
+  src: url('assets/fonts/OpenSansHebrewRegular.eot');
+  src: url('assets/fonts/OpenSansHebrewRegular.eot') format('embedded-opentype'),
+       url('assets/fonts/OpenSansHebrewRegular.woff2') format('woff2'),
+       url('assets/fonts/OpenSansHebrewRegular.woff') format('woff'),
+       url('assets/fonts/OpenSansHebrewRegular.ttf') format('truetype'),
+       url('assets/fonts/OpenSansHebrewRegular.svg#OpenSansHebrewRegular') format('svg');
+}
+
+@font-face {
+  font-family: 'OpenSansBold';
+  src: url('assets/fonts/OpenSansHebrewBold.eot');
+  src: url('assets/fonts/OpenSansHebrewBold.eot') format('embedded-opentype'),
+       url('assets/fonts/OpenSansHebrewBold.woff2') format('woff2'),
+       url('assets/fonts/OpenSansHebrewBold.woff') format('woff'),
+       url('assets/fonts/OpenSansHebrewBold.ttf') format('truetype'),
+       url('assets/fonts/OpenSansHebrewBold.svg#OpenSansHebrewRegular') format('svg');
+}
+
+
 body {
   margin: 0;
-  font-family: 'Varela Round', sans-serif;
+  font-family: "OpenSans", "Varela Round", sans-serif; 
   background-color: #fafafa;
+  color: #555;
 }
 
 a:link {

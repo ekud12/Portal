@@ -158,7 +158,7 @@ export class GridComponent implements OnInit {
       {
         gridster: { cols: 2, rows: 1, y: 0, x: 2 },
         template: SpkLatestInvoicesWidgetComponent
-      }
+      },
       {
         gridster: { cols: 1, rows: 1, y: 0, x: 2 },
         template: PageNotFoundComponent
