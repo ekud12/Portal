@@ -14,9 +14,6 @@ import { PageNotFoundComponent } from '../../../_modules/page-not-found/page-not
 export interface CustomGridComponent {
   gridster: GridsterItem;
   template: any;
-  // data: any;
-  // type: any;
-  // backLink: any;
 }
 
 @Component({
@@ -29,7 +26,7 @@ export class GridComponent implements OnInit {
   options: GridsterConfig;
   dashboard: Array<CustomGridComponent>;
   remove: boolean;
-  mycomp = SpkLatestInvoicesWidgetComponent;
+
 
   static eventStop(
     item: GridsterItem,
@@ -169,11 +166,11 @@ export class GridComponent implements OnInit {
         template: SpkLatestInvoicesWidgetComponent
       },
       {
-        gridster: { cols: 2, rows: 1, y: 0, x: 2 },
+        gridster: { cols: 2, rows: 1, y: 0, x: 3 },
         template: SpkLatestInvoicesWidgetComponent
       },
       {
-        gridster: { cols: 1, rows: 1, y: 0, x: 2 },
+        gridster: { cols: 1, rows: 1, y: 0, x: 4 },
         template: SpkLatestInvoicesWidgetComponent
       }
       // {
@@ -198,6 +195,7 @@ export class GridComponent implements OnInit {
   removeItem($event, item) {
     $event.preventDefault();
     $event.stopPropagation();
+    console.log(item);
     this.dashboard.splice(this.dashboard.indexOf(item.gridster), 1);
   }
 
