@@ -10,10 +10,15 @@ import {
 } from 'angular-gridster2';
 import { SpkLatestInvoicesWidgetComponent } from '../../../_widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 import { PageNotFoundComponent } from '../../../_modules/page-not-found/page-not-found.component';
+
 export interface CustomGridComponent {
   gridster: GridsterItem;
   template: any;
+  // data: any;
+  // type: any;
+  // backLink: any;
 }
+
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
@@ -158,10 +163,18 @@ export class GridComponent implements OnInit {
       {
         gridster: { cols: 2, rows: 1, y: 0, x: 2 },
         template: SpkLatestInvoicesWidgetComponent
-      }
+      },
       {
         gridster: { cols: 1, rows: 1, y: 0, x: 2 },
-        template: PageNotFoundComponent
+        template: SpkLatestInvoicesWidgetComponent
+      },
+      {
+        gridster: { cols: 2, rows: 1, y: 0, x: 2 },
+        template: SpkLatestInvoicesWidgetComponent
+      },
+      {
+        gridster: { cols: 1, rows: 1, y: 0, x: 2 },
+        template: SpkLatestInvoicesWidgetComponent
       }
       // {
       //   cols: 1,
