@@ -16,9 +16,19 @@
   background-color: #f1f0ee;
 }
 
+.sidenav {
+  width: 250px;
+  background-color: #f1f0ee;
+  color: #000000;
+}
+
+.sidenav .menu {
+  color: #000000;
+}
+
 .router-wrapper {
-  padding-top: 2em;
-  padding-bottom: 2em;
-  padding-right: 5em;
-  padding-left: 5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  /* padding-right: 5em;
+  padding-left: 5em; */
 }

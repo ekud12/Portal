@@ -7,6 +7,7 @@ import { DashboardModule } from './_dashboard/dashboard.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './_user/user.module';
 import { DndModule } from 'ng2-dnd';
+import { WidgetsModule } from './_widgets/widgets.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { DndModule } from 'ng2-dnd';
     SharedModule,
     RoutingModule,
     DashboardModule,
+    WidgetsModule,
     UserModule
   ],
   providers: [],

@@ -1,8 +1,18 @@
 <div class="outer-div-container">
   <mat-sidenav-container #sidenav style="height:100%;width:100%;">
 
-    <mat-sidenav mode="push" #sidenav style="width:250px;" [fixedInViewport]="true">
-      <p>Sidenav Content</p>
+    <mat-sidenav mode="push" #sidenav class="sidenav" style="width:250px;" [fixedInViewport]="true">
+      <p> תפריט</p>
+      <mat-divider></mat-divider>
+      <mat-list class="menu">
+        <h3 mat-subheader>Folders</h3>
+        <mat-list-item *ngFor="let folder of folders" class="menu">
+          <a>
+            <h4 mat-line>{{folder.name}}</h4>
+            <p mat-line> {{folder.updated | date}} </p>
+          </a>
+        </mat-list-item>
+      </mat-list>
     </mat-sidenav>
 
     <app-header [sidenav]="sidenav"></app-header>

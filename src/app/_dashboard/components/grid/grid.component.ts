@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-
 import {
   CompactType,
   DisplayGrid,
@@ -9,7 +8,12 @@ import {
   GridsterItemComponentInterface,
   GridType
 } from 'angular-gridster2';
-
+import { SpkLatestInvoicesWidgetComponent } from '../../../_widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
+import { PageNotFoundComponent } from '../../../_modules/page-not-found/page-not-found.component';
+export interface CustomGridComponent {
+  gridster: GridsterItem;
+  template: any;
+}
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
@@ -18,8 +22,9 @@ import {
 })
 export class GridComponent implements OnInit {
   options: GridsterConfig;
-  dashboard: Array<GridsterItem>;
+  dashboard: Array<CustomGridComponent>;
   remove: boolean;
+  mycomp = SpkLatestInvoicesWidgetComponent;
 
   static eventStop(
     item: GridsterItem,
@@ -65,7 +70,7 @@ export class GridComponent implements OnInit {
     console.log('gridDestroy', grid);
   }
 
-  emptyCellClick(event: MouseEvent, item: GridsterItem) {
+  emptyCellClick(event: MouseEvent, item: CustomGridComponent) {
     console.log('empty cell click', event, item);
     this.dashboard.push(item);
   }
@@ -87,9 +92,9 @@ export class GridComponent implements OnInit {
       outerMarginBottom: null,
       outerMarginLeft: null,
       mobileBreakpoint: 640,
-      minCols: 1,
+      minCols: 4,
       maxCols: 4,
-      minRows: 1,
+      minRows: 4,
       maxRows: 100,
       maxItemCols: 5,
       minItemCols: 1,
@@ -99,12 +104,10 @@ export class GridComponent implements OnInit {
       minItemArea: 1,
       defaultItemCols: 1,
       defaultItemRows: 1,
-      fixedColWidth: 250,
-      fixedRowHeight: 250,
       keepFixedHeightInMobile: false,
       keepFixedWidthInMobile: false,
-      scrollSensitivity: 5,
-      scrollSpeed: 15,
+      scrollSensitivity: 4,
+      scrollSpeed: 9,
       enableEmptyCellClick: false,
       enableEmptyCellContextMenu: false,
       enableEmptyCellDrop: false,
@@ -120,13 +123,13 @@ export class GridComponent implements OnInit {
         delayStart: 0.5,
         enabled: true,
         ignoreContentClass: 'gridster-item-content',
-        ignoreContent: false,
+        ignoreContent: true,
         dragHandleClass: 'drag-handler',
         stop: GridComponent.eventStop
       },
       resizable: {
         delayStart: 1,
-        enabled: true,
+        enabled: false,
         stop: GridComponent.eventStop,
         handles: {
           s: true,
@@ -152,56 +155,24 @@ export class GridComponent implements OnInit {
     };
 
     this.dashboard = [
-      { cols: 2, rows: 1, y: 0, x: 0 },
-      { cols: 2, rows: 2, y: 0, x: 2, hasContent: true },
-      { cols: 1, rows: 1, y: 0, x: 4 },
-      { cols: 1, rows: 1, y: 0, x: 4 },
-      { cols: 1, rows: 1, y: 0, x: 4 },
-      { cols: 1, rows: 1, y: 0, x: 4 },
-      { cols: 1, rows: 1, y: 0, x: 4 },
-      { cols: 1, rows: 1, y: 0, x: 4 },
-      { cols: 1, rows: 1, y: 0, x: 4 },
-      { cols: 1, rows: 1, y: 0, x: 4 },
-      { cols: 1, rows: 1, y: 2, x: 5 },
-      { cols: undefined, rows: undefined, y: 1, x: 0 },
-      { cols: 1, rows: 1, y: undefined, x: undefined },
       {
-        cols: 2,
-        rows: 2,
-        y: 3,
-        x: 5,
-        minItemRows: 2,
-        minItemCols: 2,
-        label: 'Min rows & cols = 2'
-      },
+        gridster: { cols: 2, rows: 1, y: 0, x: 2 },
+        template: SpkLatestInvoicesWidgetComponent
+      }
       {
-        cols: 2,
-        rows: 2,
-        y: 2,
-        x: 0,
-        maxItemRows: 2,
-        maxItemCols: 2,
-        label: 'Max rows & cols = 2'
-      },
-      {
-        cols: 2,
-        rows: 1,
-        y: 2,
-        x: 2,
-        dragEnabled: true,
-        resizeEnabled: true,
-        label: 'Drag&Resize Enabled'
-      },
-      {
-        cols: 1,
-        rows: 1,
-        y: 2,
-        x: 4,
-        dragEnabled: true,
-        resizeEnabled: true,
-        label: 'Drag&Resize Disabled'
-      },
-      { cols: 1, rows: 1, y: 2, x: 6, initCallback: GridComponent.itemInit }
+        gridster: { cols: 1, rows: 1, y: 0, x: 2 },
+        template: PageNotFoundComponent
+      }
+      // {
+      //   cols: 1,
+      //   rows: 1,
+      //   y: 2,
+      //   x: 4,
+      //   dragEnabled: true,
+      //   resizeEnabled: true,
+      //   label: 'Drag&Resize Disabled'
+      // },
+      // { cols: 1, rows: 1, y: 2, x: 6, initCallback: GridComponent.itemInit }
     ];
   }
 
@@ -214,11 +185,11 @@ export class GridComponent implements OnInit {
   removeItem($event, item) {
     $event.preventDefault();
     $event.stopPropagation();
-    this.dashboard.splice(this.dashboard.indexOf(item), 1);
+    this.dashboard.splice(this.dashboard.indexOf(item.gridster), 1);
   }
 
   addItem() {
-    this.dashboard.push({});
+    this.dashboard.push();
   }
 
   destroy() {
