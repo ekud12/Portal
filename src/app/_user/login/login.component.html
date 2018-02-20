@@ -1,24 +1,24 @@
 <div fxLayout="column" fxLayoutAlign="space-evenly stretch center" class="login-page">
 
   <mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch">
-    <div fxLayout="row" fxLayoutAlign="space-evenly stretch">     
+    <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
       <div class="logo" fxFlexAlign="center">
         <img src="../../../assets/meuhedet-logo.png" class="logo-image" />
       </div>
     </div>
   </mat-toolbar>
-  
- <div class="title"> 
-    <h1 _ngcontent-c3="">מערכת ספקים</h1>
-    <h2 _ngcontent-c3="">כניסה למערכת</h2> 
+
+  <div class="title">
+    <h1>פורטל ספקים</h1>
+    <h2>כניסה למערכת</h2>
   </div>
 
   <div class="form" fxFlex fxFill fxFlexOrder="1" fxLayout="column" fxLayoutAlign="start center center" fxFlex.md="100">
-    
+
     <mat-card mat-elevation-z6 class="form-container login-card" [@itemAnim]>
 
       <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">
-            
+
         <mat-form-field color='primary' [hideRequiredMarker]="options.hideRequired" [floatLabel]="options.floatLabel" *ngFor="let formItem of forms;  index as i">
           <input matInput type={{formItem.type}} disabled={{isValidating}} formControlName="{{formItem.controller}}">
           <mat-placeholder class="placeholder">
@@ -62,5 +62,5 @@
       </div>
     </div>
   </div>
-  
+
 </div>

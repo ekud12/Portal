@@ -25,7 +25,7 @@
 }
 
 .form-container {
-    background: rgba(255,255,255,.85);
+    background: rgba(255, 255, 255, 0.925);
     width: 37%;
 }
 
@@ -41,7 +41,7 @@
 
 .submit-section button {
   font-family: 'OpenSansBold';
-  background-color: #009bdf;
+  /* background-color: #009bdf; */
   padding: 2px 0;
   color:#fff;
   font-weight: normal;
