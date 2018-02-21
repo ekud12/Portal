@@ -3,10 +3,13 @@ import { Routes } from '@angular/router';
 
 export const rootRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', loadChildren: '../features/user/user.module#UserModule' },
+  {
+    path: 'login',
+    loadChildren: '../app/features/user/user.module#UserModule'
+  },
   {
     path: 'dash',
-    loadChildren: '../features/dashboard/dashboard.module#DashboardModule'
+    loadChildren: '../app/features/dashboard/dashboard.module#DashboardModule'
   },
   { path: '**', component: PageNotFoundComponent }
 ];

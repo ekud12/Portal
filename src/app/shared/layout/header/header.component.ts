@@ -9,7 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 export class HeaderComponent implements OnInit {
   links = [
     {
-      link: '/dasdddh/home',
+      link: '/dash/home',
       icon: 'home',
       tooltip: 'דף ראשי'
     },
