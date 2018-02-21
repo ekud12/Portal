@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, NgComponentOutlet } from '@angular/common';
-import { DashboardContainerComponent } from './components/dashboard-container/dashboard-container.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { LayoutModule } from '../_layout/layout.module';
-import { SharedModule } from '../_modules/shared.module';
 import { GridsterModule } from 'angular-gridster2';
 import { GridComponent } from './components/grid/grid.component';
+import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
+import { SharedModule } from '../../shared/shared.module';
 
 const DASH_COMPONENTS = [DashboardContainerComponent, GridComponent];
 
@@ -14,7 +13,6 @@ const DASH_COMPONENTS = [DashboardContainerComponent, GridComponent];
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-    LayoutModule,
     GridsterModule
   ],
   declarations: DASH_COMPONENTS,

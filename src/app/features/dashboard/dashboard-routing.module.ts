@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardContainerComponent } from './components/dashboard-container/dashboard-container.component';
-import { PageNotFoundComponent } from '../_modules/page-not-found/page-not-found.component';
 import { GridComponent } from './components/grid/grid.component';
-
+import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
+import { PageNotFoundComponent } from '../../shared/page-not-found/page-not-found.component';
 
 const dashRoutes: Routes = [
   {

@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../_modules/shared.module';
-import { RoutingModule } from '../_routing/routing.module';
 import { LoginComponent } from './login/login.component';
 import { UserRoutingModule } from './user-routing.module';
 import { ChangePassComponent } from './change-pass/change-pass.component';
+import { SharedModule } from '../../shared/shared.module';
 
 const comps = [LoginComponent];
 

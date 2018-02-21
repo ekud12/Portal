@@ -20,7 +20,7 @@ import {
 } from '@angular/animations';
 
 import { ErrorStateMatcher } from '@angular/material/core';
-import { LoginFormDetails } from '../../_models/login.model';
+import { LoginFormDetails } from '../models/login.model';
 
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(

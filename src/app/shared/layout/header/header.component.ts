@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   links = [
     {
-      link: '/dash/home',
+      link: '/dasdddh/home',
       icon: 'home',
       tooltip: 'דף ראשי'
     },

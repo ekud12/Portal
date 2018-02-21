@@ -8,8 +8,7 @@ import {
   GridsterItemComponentInterface,
   GridType
 } from 'angular-gridster2';
-import { SpkLatestInvoicesWidgetComponent } from '../../../_widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
-import { PageNotFoundComponent } from '../../../_modules/page-not-found/page-not-found.component';
+import { SpkLatestInvoicesWidgetComponent } from '../../../invoices/components/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 
 export interface CustomGridComponent {
   gridster: GridsterItem;
@@ -26,7 +25,6 @@ export class GridComponent implements OnInit {
   options: GridsterConfig;
   dashboard: Array<CustomGridComponent>;
   remove: boolean;
-
 
   static eventStop(
     item: GridsterItem,

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FooterComponent } from '../../../_layout/footer/footer.component';
 
 @Component({
   selector: 'app-dashboard-container',
