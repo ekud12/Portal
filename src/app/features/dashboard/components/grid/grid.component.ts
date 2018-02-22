@@ -8,7 +8,9 @@ import {
   GridsterItemComponentInterface,
   GridType
 } from 'angular-gridster2';
-import { SpkLatestInvoicesWidgetComponent } from '../../../invoices/components/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
+import {
+  SpkLatestInvoicesWidgetComponent
+} from '../../../invoices/components/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 
 export interface CustomGridComponent {
   gridster: GridsterItem;
@@ -156,19 +158,19 @@ export class GridComponent implements OnInit {
 
     this.dashboard = [
       {
-        gridster: { cols: 2, rows: 1, y: 0, x: 2 },
+        gridster: { cols: 2, rows: 1, y: undefined, x: undefined },
         template: SpkLatestInvoicesWidgetComponent
       },
       {
-        gridster: { cols: 1, rows: 1, y: 0, x: 2 },
+        gridster: { cols: 1, rows: 1, y: undefined, x: undefined },
         template: SpkLatestInvoicesWidgetComponent
       },
       {
-        gridster: { cols: 2, rows: 1, y: 0, x: 3 },
+        gridster: { cols: 2, rows: 1, y: undefined, x: undefined },
         template: SpkLatestInvoicesWidgetComponent
       },
       {
-        gridster: { cols: 1, rows: 1, y: 0, x: 4 },
+        gridster: { cols: 1, rows: 1, y: undefined, x: undefined },
         template: SpkLatestInvoicesWidgetComponent
       }
       // {
@@ -194,7 +196,7 @@ export class GridComponent implements OnInit {
     $event.preventDefault();
     $event.stopPropagation();
     console.log(item);
-    this.dashboard.splice(this.dashboard.indexOf(item.gridster), 1);
+    this.dashboard.splice(this.dashboard.indexOf(item), 1);
   }
 
   addItem() {

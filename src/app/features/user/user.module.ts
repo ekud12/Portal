@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
-import { UserRoutingModule } from './user-routing.module';
 import { ChangePassComponent } from './change-pass/change-pass.component';
 import { SharedModule } from '../../shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { userRoutes } from './routes';
 
-const comps = [LoginComponent];
+const comps = [LoginComponent, ChangePassComponent];
 
 @NgModule({
-  imports: [CommonModule, SharedModule, UserRoutingModule],
-  declarations: [LoginComponent, ChangePassComponent],
-  exports: [LoginComponent, ChangePassComponent]
+  imports: [CommonModule, SharedModule, RouterModule.forChild(userRoutes)],
+  declarations: comps,
+  exports: comps
 })
 export class UserModule {}

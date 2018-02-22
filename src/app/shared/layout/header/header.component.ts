@@ -8,15 +8,15 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   links = [
+    // {
+    //   link: '/dash/zakaut',
+    //   icon: 'home',
+    //   tooltip: 'דף ראשי'
+    // },
     {
-      link: '/dash/home',
-      icon: 'home',
-      tooltip: 'דף ראשי'
-    },
-    {
-      link: '/dash/settings',
-      icon: 'settings',
-      tooltip: 'הגדרות'
+      link: '/dash/grid',
+      icon: 'grid_on',
+      tooltip: 'דשבורד'
     },
     {
       link: '/login',

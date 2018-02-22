@@ -1,0 +1,63 @@
+<mat-card fxLayout="row" fxLayoutAlign="start stretch center">
+
+  <mat-tab-group dir="rtl" [@.disabled]="true">
+    <mat-tab label="העברת כרטיס מגנטי">
+      <form>
+        <mat-form-field>
+          <input matInput placeholder="העבר כרטיס מגנטי">
+        </mat-form-field>
+
+      </form>
+    </mat-tab>
+
+    <mat-tab label="דווח עם אישור זמני">
+      <form>
+
+        <mat-form-field>
+          <mat-select matInput placeholder="ת.ז."></mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <input matInput placeholder="שנת לידה">
+
+
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="מספר כ.זמני">
+        </mat-form-field>
+        <button mat-button>שלח</button>
+      </form>
+    </mat-tab>
+
+    <mat-tab label="דווח ידני">
+      <form>
+
+        <mat-form-field>
+          <mat-select matInput placeholder="ת.ז."></mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <input matInput placeholder="שנת לידה">
+
+
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="מספר כ.זמני">
+        </mat-form-field>
+
+        <mat-radio-group>
+          <mat-radio-button value="1">קורא כרטיסים פגום</mat-radio-button>
+          <mat-radio-button value="2">כרטיס פגום</mat-radio-button>
+        </mat-radio-group>
+
+        <button mat-button>שלח</button>
+      </form>
+    </mat-tab>
+
+
+  </mat-tab-group>
+</mat-card>

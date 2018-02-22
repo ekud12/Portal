@@ -105,22 +105,23 @@ export class LoginComponent implements OnInit {
 
   createForm() {
     this.loginForm = this.fb.group({
-      _usernameControl: new FormControl({ value: '', disabled: false }, [
+      _usernameControl: new FormControl({ value: '', disabled: true }, [
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(6),
         Validators.pattern(this.options.usernameRules)
       ]),
-      _passwordControl: new FormControl({ value: '', disabled: false }, [
+      _passwordControl: new FormControl({ value: '', disabled: true }, [
         Validators.required,
-        Validators.minLength(8),
-        Validators.pattern(this.options.passwordRules)
+        Validators.minLength(6),
+        Validators.pattern(this.options.usernameRules)
       ])
     });
+    this.enableForm();
   }
 
   submitLoginForm() {
     this.isValidating = true;
-    this.loginForm.disable();
+    this.disableForm();
 
     // Model for login service
     this.LoginDetails.username = this.loginForm.get('_usernameControl').value;
@@ -132,5 +133,16 @@ export class LoginComponent implements OnInit {
       this.isValid = true;
     }, 3000);
     setTimeout(() => this.router.navigate(['dash']), 5000);
+  }
+
+  enableForm() {
+    this.loginForm.get('_usernameControl').enable();
+    this.loginForm.get('_passwordControl').enable();
+  }
+
+  disableForm() {
+    this.loginForm.disable();
+    this.loginForm.get('_usernameControl').disable();
+    this.loginForm.get('_passwordControl').disable();
   }
 }

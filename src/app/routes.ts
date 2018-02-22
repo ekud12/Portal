@@ -2,14 +2,14 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { Routes } from '@angular/router';
 
 export const rootRoutes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/user', pathMatch: 'full' },
   {
-    path: 'login',
-    loadChildren: '../app/features/user/user.module#UserModule'
+    path: 'user',
+    loadChildren: 'app/features/user/user.module#UserModule'
   },
   {
     path: 'dash',
-    loadChildren: '../app/features/dashboard/dashboard.module#DashboardModule'
+    loadChildren: 'app/features/dashboard/dashboard.module#DashboardModule'
   },
   { path: '**', component: PageNotFoundComponent }
 ];

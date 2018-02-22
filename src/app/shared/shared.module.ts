@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
     FlexLayoutModule,
     ReactiveFormsModule,
     RouterModule,
-    materialImports,
+    materialImports
   ],
   declarations: [PageNotFoundComponent, HeaderComponent, FooterComponent],
   exports: [
