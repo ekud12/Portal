@@ -13,26 +13,31 @@
   left: 0;
   right: 0;
   top: 64px;
-  background-color: #f1f0ee;
+  background: url('../../../../assets/images/invoice-bg.png') top center;
+  background-size: cover;
 }
 
 .sidenav {
   width: 250px;
-  background-color: #f1f0ee;
-  color: #000000;
+  background-color: #ffffff;
+  color: #555;
 }
 
-.sidenav .menu {
-  color: #000000;
+.sidenav h1 {
+  padding-right:25px;
+  margin: 0;
+  background: #009bdf;
+  padding-right: 15px;
+  color: #ffffff;
+  height: 64px;
+  line-height: 64px;
+  font-size: 22px;
 }
+
 
 .router-wrapper {
   padding-top: 1em;
   padding-bottom: 1em;
   /* padding-right: 5em;
   padding-left: 5em; */
-}
-
-.active {
-  background-color: red;
 }

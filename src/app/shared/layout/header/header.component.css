@@ -1,22 +1,15 @@
 .navbar {
-  border-bottom: 1px solid rgb(187, 187, 187);
   padding-right: 0;
   padding-left: 50px;
-  z-index: 50;
-  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
-  border-right: 12px solid rgb(0, 153, 255);
+  z-index: 99999999;
+  height: 64px;
+  line-height: 64px;
+  background: #fff;
 }
 
 .navbar .logo {
   padding-right: 10px;
-  padding-left: 10px;
-  color: rgb(102, 102, 102);
-  font-family: 'Varela Round', sans-serif;
-  margin: auto;
-  margin-right: 15px;
-  font-size: 20px;
-  text-decoration: underline;
+  margin-top: 30px;
 }
 
 .navbar .link {
@@ -25,8 +18,16 @@
 }
 
 .active {
-  margin-left: 10px;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgba(128, 128, 128, 0.247);
-  color: rgb(0, 183, 255);
+  background: rgba(149, 204, 238, 0.4);
+  color:#fff;
+}
+
+.navbar .link {
+  margin: 15px 0 20px 18px;
+  color: #0082d0 !important;
+  box-shadow: 0px 0px 0px 1px rgba(0, 130, 208, 1) inset;
+  font-weight: normal;
+  border-radius: 0.28571429rem;
+  text-transform: none;
+  text-shadow: none !important;
 }
