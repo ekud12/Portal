@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState, versionSelector } from '../../../core/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +10,9 @@ import { Router, RouterLink } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  appState$: Observable<AppState>;
+  version$: Observable<string>;
+
   links = [
     // {
     //   link: '/dash/zakaut',
@@ -27,7 +33,10 @@ export class HeaderComponent implements OnInit {
 
   @Input() sidenav;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store<any>) {
+    this.version$ = store.select(versionSelector);
+    this.appState$ = store.select('app');
+  }
 
   ngOnInit() {}
 }

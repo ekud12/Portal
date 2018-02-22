@@ -15,4 +15,8 @@
       </button>
     </div>
   </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- מס' גרסה - {{(appState$ | async)?.version}} -->
+     מס' גרסה - {{version$ | async}}
+  </div>
 </mat-toolbar>

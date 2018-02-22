@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { HeaderComponent, FooterComponent } from './layout';
 import { materialImports } from './material-imports';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { RouterModule } from '@angular/router';
     FlexLayoutModule,
     ReactiveFormsModule,
     RouterModule,
-    materialImports
+    materialImports,
+    StoreModule.forFeature('sharedFeature', {})
   ],
   declarations: [PageNotFoundComponent, HeaderComponent, FooterComponent],
   exports: [

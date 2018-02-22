@@ -12,6 +12,7 @@ import * as fromUserStore from '../store';
 })
 export class UserPanelComponent implements OnInit {
   user$: Observable<string>;
+  version$: Observable<string>;
 
   constructor(private store: Store<any>) {
     this.user$ = store.select(fromUserStore.selector);
