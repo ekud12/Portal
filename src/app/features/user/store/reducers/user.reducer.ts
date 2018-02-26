@@ -1,3 +1,5 @@
+import * as userActions from '../actions';
+
 export interface UserState {
   sapakim: any[];
   username: string;
@@ -9,34 +11,13 @@ export const initialState: UserState = {
 };
 
 export function reducer(state = initialState, action: any): UserState {
-  //   switch (action.type) {
-  //     case fromPizzas.LOAD_PIZZAS: {
-  //       return {
-  //         ...state,
-  //         loading: true
-  //       };
-  //     }
-
-  //     case fromPizzas.LOAD_PIZZAS_SUCCESS: {
-  //       const data = action.payload;
-  //       return {
-  //         ...state,
-  //         loading: false,
-  //         loaded: true,
-  //         data
-  //       };
-  //     }
-
-  //     case fromPizzas.LOAD_PIZZAS_FAIL: {
-  //       return {
-  //         ...state,
-  //         loading: false,
-  //         loaded: false
-  //       };
-  //     }
-  //   }
-
+  switch (action.type) {
+    case userActions.UPDATE_NAME_SUCCESS: {
+      return {
+        ...state,
+        username: action.payload
+      };
+    }
+  }
   return state;
 }
-
-

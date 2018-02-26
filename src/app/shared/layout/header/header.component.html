@@ -14,9 +14,18 @@
         <mat-icon>{{linkItem.icon}}</mat-icon>
       </button>
     </div>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="space-between center">
-    <!-- מס' גרסה - {{(appState$ | async)?.version}} -->
-     מס' גרסה - {{version$ | async}}
+    <mat-basic-chip>
+      {{userName$ | async}}
+    </mat-basic-chip>
+
+    <div>
+      מס' גרסה - {{version$ | async}}
+    </div>
+    <button mat-button (click)="updateVersion()" class="link">
+      עדכן גרסה
+    </button>
+    <button mat-button (click)="changeName()" class="link">
+      שנה שם לכוכב האמיתי
+    </button>
   </div>
 </mat-toolbar>

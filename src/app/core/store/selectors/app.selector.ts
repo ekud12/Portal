@@ -11,4 +11,7 @@ const appSelector = (state: any) => {
   return state.app;
 };
 
-export const versionSelector = createSelector(appSelector, (state: AppState) => state.version);
+export const versionSelector = createSelector(
+  appSelector,
+  (state: AppState) => state.version
+);

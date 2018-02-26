@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState, versionSelector } from '../../../core/store';
+import { AppState, versionSelector, UpdateVersion } from '../../../core/store';
 import { Observable } from 'rxjs/Observable';
+import { UpdateName, selector } from '../../../features/user/store';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 export class HeaderComponent implements OnInit {
   appState$: Observable<AppState>;
   version$: Observable<string>;
+  userName$: Observable<string>;
 
   links = [
     // {
@@ -36,6 +38,15 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private store: Store<any>) {
     this.version$ = store.select(versionSelector);
     this.appState$ = store.select('app');
+    this.userName$ = store.select(selector);
+  }
+
+  updateVersion() {
+    this.store.dispatch(new UpdateVersion('8.02'));
+  }
+
+  changeName() {
+    this.store.dispatch(new UpdateName('liel'));
   }
 
   ngOnInit() {}
