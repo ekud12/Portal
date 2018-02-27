@@ -8,7 +8,7 @@ export const zakautRoutes: Routes = [
     component: ZakautActionsComponent,
     children: [
       { path: '', component: PageNotFoundComponent },
-      { path: '**', redirectTo: '/dash/home' }
+      { path: '**', redirectTo: '/portal/home' }
     ]
   }
 ];

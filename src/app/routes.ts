@@ -8,7 +8,7 @@ export const rootRoutes: Routes = [
     loadChildren: 'app/features/user/user.module#UserModule'
   },
   {
-    path: 'dash',
+    path: 'portal',
     loadChildren: 'app/portal/portal.module#PortalModule'
   },
   { path: '**', component: PageNotFoundComponent }

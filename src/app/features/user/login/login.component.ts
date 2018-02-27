@@ -132,7 +132,7 @@ export class LoginComponent implements OnInit {
       this.isValidating = false;
       this.isValid = true;
     }, 3000);
-    setTimeout(() => this.router.navigate(['dash']), 5000);
+    setTimeout(() => this.router.navigate(['portal']), 5000);
   }
 
   enableForm() {
