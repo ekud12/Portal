@@ -7,6 +7,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { InvoicesModule } from '../invoices/invoices.module';
 import { RouterModule } from '@angular/router';
 import { dashRoutes } from './routes';
+import { UserModule } from '../user/user.module';
 
 const DASH_COMPONENTS = [DashboardContainerComponent, GridComponent];
 
@@ -15,6 +16,7 @@ const DASH_COMPONENTS = [DashboardContainerComponent, GridComponent];
     CommonModule,
     SharedModule,
     InvoicesModule,
+    UserModule,
     GridsterModule,
     RouterModule.forChild(dashRoutes)
   ],

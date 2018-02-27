@@ -1,4 +1,5 @@
-<mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch">
+<mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch"
+  #mainToolbar>
   <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
     <button mat-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
@@ -14,9 +15,11 @@
         <mat-icon>{{linkItem.icon}}</mat-icon>
       </button>
     </div>
-    <mat-basic-chip>
+
+    <mat-chip color="primary">
       {{userName$ | async}}
-    </mat-basic-chip>
+    </mat-chip>
+
 
     <div>
       מס' גרסה - {{version$ | async}}

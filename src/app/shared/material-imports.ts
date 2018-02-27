@@ -32,6 +32,8 @@ import {
   MatTooltipModule,
   MatStepperModule
 } from '@angular/material';
+import { OverlayModule } from '@angular/cdk/overlay';
+
 
 export const materialImports = [
   CdkTableModule,
@@ -65,5 +67,6 @@ export const materialImports = [
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  OverlayModule,
 ];

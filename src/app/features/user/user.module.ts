@@ -12,6 +12,8 @@ import { effects } from './store';
 import { reducer } from './store';
 import { UserPanelComponent } from './user-panel/user-panel.component';
 import { EffectsModule } from '@ngrx/effects';
+import { MdePopoverModule } from '@material-extended/mde';
+
 
 const comps = [LoginComponent, ChangePassComponent, UserPanelComponent];
 
@@ -19,6 +21,7 @@ const comps = [LoginComponent, ChangePassComponent, UserPanelComponent];
   imports: [
     CommonModule,
     SharedModule,
+    MdePopoverModule,
     RouterModule.forChild(userRoutes),
     StoreModule.forFeature('user', reducer),
     EffectsModule.forFeature(effects)

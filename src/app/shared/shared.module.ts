@@ -8,12 +8,13 @@ import { HeaderComponent, FooterComponent } from './layout';
 import { materialImports } from './material-imports';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-
+import { MdePopoverModule } from '@material-extended/mde';
 @NgModule({
   imports: [
     CommonModule,
     FlexLayoutModule,
     ReactiveFormsModule,
+    MdePopoverModule,
     RouterModule,
     materialImports,
     StoreModule.forFeature('sharedFeature', {})
