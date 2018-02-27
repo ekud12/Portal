@@ -13,7 +13,7 @@
   left: 0;
   right: 0;
   top: 64px;
-  background: url('../../../../assets/images/invoice-bg.png') top center;
+  background: url('../../../assets/images/invoice-bg.png') top center;
   background-size: cover;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .sidenav h1 {
-  padding-right:25px;
+  padding-right: 25px;
   margin: 0;
   background: #009bdf;
   padding-right: 15px;
@@ -33,7 +33,6 @@
   line-height: 64px;
   font-size: 22px;
 }
-
 
 .router-wrapper {
   padding-top: 1em;

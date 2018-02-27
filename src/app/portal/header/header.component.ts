@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState, versionSelector, UpdateVersion } from '../../../core/store';
 import { Observable } from 'rxjs/Observable';
-import { UpdateName } from '../../../features/user/store';
+import { AppState, UpdateVersion, versionSelector } from '../../core/store';
+import { UpdateName } from '../../features/user/store';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,6 @@ import { UpdateName } from '../../../features/user/store';
 export class HeaderComponent implements OnInit {
   appState$: Observable<AppState>;
   version$: Observable<string>;
-
 
   links = [
     // {
@@ -25,7 +24,7 @@ export class HeaderComponent implements OnInit {
       link: '/dash/grid',
       icon: 'grid_on',
       tooltip: 'דשבורד'
-    },
+    }
     // {
     //   link: '/login',
     //   icon: 'exit_to_app',

@@ -9,7 +9,7 @@ export const rootRoutes: Routes = [
   },
   {
     path: 'dash',
-    loadChildren: 'app/features/dashboard/dashboard.module#DashboardModule'
+    loadChildren: 'app/portal/portal.module#PortalModule'
   },
   { path: '**', component: PageNotFoundComponent }
 ];

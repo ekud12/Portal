@@ -175,6 +175,10 @@
   dependencies:
     tslib "^1.7.1"
 
+"@material-extended/mde@^1.0.0-alpha.10":
+  version "1.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@material-extended/mde/-/mde-1.0.0-alpha.10.tgz#c2d46e9b872c209f50465af227565521c0a9b21e"
+
 "@ngrx/effects@^5.1.0":
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-5.1.0.tgz#cef84576b2d0333f19188aedfe156fd301bff70a"

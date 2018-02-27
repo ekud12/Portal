@@ -1,12 +1,12 @@
-import { GridComponent } from './components/grid/grid.component';
-import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
-import { PageNotFoundComponent } from '../../shared/page-not-found/page-not-found.component';
 import { Routes } from '@angular/router';
+import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
+import { GridComponent } from './grid/grid.component';
+import { ContainerComponent } from './container/container.component';
 
-export const dashRoutes: Routes = [
+export const portalRoutes: Routes = [
   {
     path: '',
-    component: DashboardContainerComponent,
+    component: ContainerComponent,
     children: [
       { path: '', redirectTo: 'zakaut', pathMatch: 'full' },
       { path: 'home', component: PageNotFoundComponent },
