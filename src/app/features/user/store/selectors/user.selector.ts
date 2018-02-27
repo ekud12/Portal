@@ -4,12 +4,9 @@ import { UserState } from '..';
 export const getUserState = createFeatureSelector<UserState>('user');
 export const userSelector = createSelector(
   getUserState,
-  (state: UserState) => state.username
+  (state: UserState) => state.user
 );
-export const sapakimSelector = createSelector(
-  getUserState,
-  (state: UserState) => state.sapakim
-);
+
 export const activeSapakSelector = createSelector(
   getUserState,
   (state: UserState) => state.activeSapak

@@ -6,29 +6,33 @@
   <mat-icon>keyboard_arrow_down</mat-icon>
 </button>
 <mat-menu #menu="matMenu" class="menu" yPosition="below" [overlapTrigger]="false">
-  <ng-template matMenuContent fxLayout="column" fxLayoutAlign="space-between center center">
-    <div (click)="$event.stopPropagation();" fxLayout="column" fxLayoutAlign="space-between center center" class="spk-chooser">
-      <span>
+  <ng-template matMenuContent>
+    <div (click)="$event.stopPropagation();" fxLayout="column" fxLayoutAlign="space-between center center" class="spk-chooser"
+      fxLayoutGap="20px">
+      <div class="header">
         החלפת ספק:
-      </span>
+      </div>
       <mat-form-field>
-        <mat-select placeholder="בחר ספק">
-          <mat-option *ngFor="let sapak of availableSapakim$ | async" [value]="sapak.kodSapak">
+        <mat-select placeholder="בחר ספק אחר:" [(value)]="selectedSapakKod">
+          <mat-option *ngFor="let sapak of (user$ | async)?.availableSapakim" [value]="sapak.kodSapak" matTooltip="{{sapak.permissions[0].desc}}"
+            matTooltipPosition="left">
             {{ sapak.description }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-raised-button color="primary">החלף</button>
+
     </div>
+    <button *ngIf="selectedSapakKod != ''" mat-menu-item color="primary" (click)="changeActiveSapak()">
+      <mat-icon>cached</mat-icon>החלף</button>
     <mat-divider></mat-divider>
     <button mat-menu-item>
       <mat-icon>settings</mat-icon>
       <span>הגדרות</span>
     </button>
     <mat-divider></mat-divider>
-    <button mat-menu-item>
+    <button mat-menu-item [routerLink]="['/login']">
       <mat-icon>exit_to_app</mat-icon>
-      <span>התנתק ({{userName$ | async}})</span>
+      <span>התנתק ({{(user$ | async)?.username}})</span>
     </button>
   </ng-template>
 </mat-menu>

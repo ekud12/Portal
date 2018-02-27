@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { UserState } from '../store';
+import { UserState, ChangeSapak } from '../store';
 
 import * as fromUserStore from '../store';
-import { Sapak } from '../models/sapak';
+import { User } from '../models/user.model';
+import { Sapak } from '../models/sapak.model';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-user-panel',
@@ -13,15 +15,22 @@ import { Sapak } from '../models/sapak';
   encapsulation: ViewEncapsulation.None
 })
 export class UserPanelComponent implements OnInit {
-  userName$: Observable<string>;
+  user$: Observable<User>;
   activeSapak$: Observable<Sapak>;
-  availableSapakim$: Observable<Sapak[]>;
+
+  selectedSapakKod = '';
 
   constructor(private store: Store<any>) {
-    this.userName$ = store.select(fromUserStore.userSelector);
-    this.availableSapakim$ = store.select(fromUserStore.sapakimSelector);
+    this.user$ = store.select(fromUserStore.userSelector);
     this.activeSapak$ = store.select(fromUserStore.activeSapakSelector);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.activeSapak$.subscribe(spk => (this.selectedSapak = spk));
+  }
+
+  changeActiveSapak() {
+    this.store.dispatch(new ChangeSapak(this.selectedSapakKod));
+    this.selectedSapakKod = '';
+  }
 }

@@ -26,11 +26,11 @@ export class HeaderComponent implements OnInit {
       icon: 'grid_on',
       tooltip: 'דשבורד'
     },
-    {
-      link: '/login',
-      icon: 'exit_to_app',
-      tooltip: 'התנתק'
-    }
+    // {
+    //   link: '/login',
+    //   icon: 'exit_to_app',
+    //   tooltip: 'התנתק'
+    // }
   ];
 
   @Input() sidenav;

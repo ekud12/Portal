@@ -12,4 +12,12 @@ export class UserEffects {
   updateUsername$ = this.actions$
     .ofType(userActions.UPDATE_NAME)
     .pipe(map(() => new userActions.UpdateNameSuccess('liel')));
+
+  @Effect()
+  changeSapak$ = this.actions$
+    .ofType(userActions.CHANGE_SAPAK)
+    .pipe(
+      map((action: userActions.ChangeSapak) => action.payload),
+      map(kodSapak => new userActions.ChangeSapakSuccess(kodSapak))
+    );
 }
