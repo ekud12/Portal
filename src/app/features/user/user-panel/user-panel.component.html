@@ -1,7 +1,7 @@
 <button mat-button fxLayout="row" fxLayoutAlign="start center center" class="user-panel-container" [matMenuTriggerFor]="menu">
   <mat-icon>account_circle</mat-icon>
   <span class="spk">
-    terem14 
+    {{(activeSapak$ | async)?.description}}
   </span>
   <mat-icon>keyboard_arrow_down</mat-icon>
 </button>
@@ -13,8 +13,8 @@
       </span>
       <mat-form-field>
         <mat-select placeholder="בחר ספק">
-          <mat-option *ngFor="let food of foods" [value]="food.value">
-            {{ food.viewValue }}
+          <mat-option *ngFor="let sapak of availableSapakim$ | async" [value]="sapak.kodSapak">
+            {{ sapak.description }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -28,7 +28,7 @@
     <mat-divider></mat-divider>
     <button mat-menu-item>
       <mat-icon>exit_to_app</mat-icon>
-      <span>התנתק</span>
+      <span>התנתק ({{userName$ | async}})</span>
     </button>
   </ng-template>
 </mat-menu>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { UserState } from '../store';
 
 import * as fromUserStore from '../store';
+import { Sapak } from '../models/sapak';
 
 @Component({
   selector: 'app-user-panel',
@@ -12,16 +13,14 @@ import * as fromUserStore from '../store';
   encapsulation: ViewEncapsulation.None
 })
 export class UserPanelComponent implements OnInit {
-  user$: Observable<string>;
-  version$: Observable<string>;
+  userName$: Observable<string>;
+  activeSapak$: Observable<Sapak>;
+  availableSapakim$: Observable<Sapak[]>;
 
-  foods = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' }
-  ];
   constructor(private store: Store<any>) {
-    this.user$ = store.select(fromUserStore.selector);
+    this.userName$ = store.select(fromUserStore.userSelector);
+    this.availableSapakim$ = store.select(fromUserStore.sapakimSelector);
+    this.activeSapak$ = store.select(fromUserStore.activeSapakSelector);
   }
 
   ngOnInit() {}
