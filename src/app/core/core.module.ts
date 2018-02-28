@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { app, versionSelector, effects } from './store';
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer
+} from '@ngrx/router-store';
+
+import { reducers, versionSelector, effects, CustomSerializer } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClient } from 'selenium-webdriver/http';
 import { BackendService } from './services/backend.service';
@@ -13,13 +18,17 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     HttpClientModule,
-    StoreModule.forRoot({ app }),
+    StoreModule.forRoot( reducers ),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
-    EffectsModule.forRoot(effects)
+    EffectsModule.forRoot(effects),
+    StoreRouterConnectingModule
   ],
   declarations: [],
-  providers: [BackendService]
+  providers: [
+    BackendService,
+    { provide: RouterStateSerializer, useClass: CustomSerializer }
+  ]
 })
 export class CoreModule {}

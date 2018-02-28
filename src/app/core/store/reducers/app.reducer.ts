@@ -1,27 +1,42 @@
-import * as appStoreActions from '../actions';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Params
+} from '@angular/router';
+import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
 
-export interface AppState {
-  version: string;
+import * as fromRouter from '@ngrx/router-store';
+
+export interface RouterStateUrl {
+  url: string;
+  queryParams: Params;
+  params: Params;
 }
 
-export const initialState: AppState = {
-  version: '0.0.1'
+export interface RouterState {
+  routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
+}
+
+export const reducers: ActionReducerMap<RouterState> = {
+  routerReducer: fromRouter.routerReducer
 };
 
-export function app(
-  state = initialState,
-  action: appStoreActions.AppAction
-): AppState {
-  switch (action.type) {
-    case appStoreActions.UPDATE_VERSION: {
-      return { ...state };
+export const getRouterState = createFeatureSelector<
+  fromRouter.RouterReducerState<RouterStateUrl>
+>('routerReducer');
+
+export class CustomSerializer
+  implements fromRouter.RouterStateSerializer<RouterStateUrl> {
+  serialize(routerState: RouterStateSnapshot): RouterStateUrl {
+    const { url } = routerState;
+    const { queryParams } = routerState.root;
+
+    let state: ActivatedRouteSnapshot = routerState.root;
+    while (state.firstChild) {
+      state = state.firstChild;
     }
-    case appStoreActions.UPDATE_VERSION_SUCCESS: {
-      return { ...state, version: action.payload };
-    }
-    case appStoreActions.UPDATE_VERSION_FAIL: {
-      return { ...state };
-    }
+    const { params } = state;
+
+    return { url, queryParams, params };
   }
-  return state;
 }
