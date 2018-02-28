@@ -8,13 +8,44 @@
         </mat-form-field>
 
       </form>
+
+      <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">
+
+        <mat-form-field color='primary' [hideRequiredMarker]="options.hideRequired" [floatLabel]="options.floatLabel" *ngFor="let formItem of forms;  index as i">
+          <input matInput type={{formItem.type}} formControlName="{{formItem.controller}}">
+          <mat-placeholder class="placeholder">
+            <mat-icon>{{formItem.icon}}</mat-icon>
+            <b> {{formItem.name}} </b>
+          </mat-placeholder>
+          <mat-error *ngIf="loginForm.get(formItem.controller).hasError('required')">{{errors.required}}</mat-error>
+          <mat-error *ngIf="loginForm.get(formItem.controller).hasError('minlength')">{{errors.minlength}}</mat-error>
+          <mat-error *ngIf="loginForm.get(formItem.controller).hasError('pattern')">{{errors.pattern}}</mat-error>
+        </mat-form-field>
+
+        <div class="submit-section">
+          <button mat-raised-button fxFill color="primary" (click)="submitLoginForm()" type='button' disabled={{!loginForm.valid}}>
+            {{ isValidating ? options.loginButtonValidating :options.loginButtonName }}
+          </button>
+          <section class="loader-section">
+            <mat-progress-bar mode="indeterminate" *ngIf="isValidating">
+            </mat-progress-bar>
+          </section>
+        </div>
+
+      </form>
+
+
+
+
     </mat-tab>
 
     <mat-tab label="דווח עם אישור זמני">
       <form>
 
         <mat-form-field>
-          <mat-select matInput placeholder="ת.ז."></mat-select>
+          <mat-select matInput placeholder="ת.ז.">
+            <mat-option></mat-option>
+          </mat-select>
         </mat-form-field>
 
 

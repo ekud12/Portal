@@ -28,6 +28,10 @@
   color: rgb(0, 16, 20);
   text-decoration: underline;
 }
+.spk-chooser-btn {
+  width: 100%;
+  background-color: rgb(242, 251, 255);
+}
 
 .mat-menu-item {
   color: rgb(44, 44, 44);

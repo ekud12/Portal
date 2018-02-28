@@ -22,7 +22,8 @@
       </mat-form-field>
 
     </div>
-    <button *ngIf="selectedSapakKod != ''" mat-menu-item color="primary" (click)="changeActiveSapak()">
+    <button *ngIf="selectedSapakKod != ''" mat-button class="spk-chooser-btn" (click)="changeActiveSapak()" fxLayout="row"
+      fxLayoutAlign="space-around stretch center">
       <mat-icon>cached</mat-icon>החלף</button>
     <mat-divider></mat-divider>
     <button mat-menu-item>
