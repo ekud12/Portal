@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     //   tooltip: 'דף ראשי'
     // },
     {
-      link: '/dash/grid',
+      link: '/portal/grid',
       icon: 'grid_on',
       tooltip: 'דשבורד'
     }

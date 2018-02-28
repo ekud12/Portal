@@ -8,7 +8,9 @@ import {
   GridsterItemComponentInterface,
   GridType
 } from 'angular-gridster2';
-import { SpkLatestInvoicesWidgetComponent } from '../../features/invoices/components/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
+import {
+  SpkLatestInvoicesWidgetComponent
+} from '../../features/invoices/components/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 
 export interface CustomGridComponent {
   gridster: GridsterItem;
