@@ -6,7 +6,7 @@ import { UserState, ChangeSapak } from '../store';
 import * as fromUserStore from '../store';
 import { User } from '../models/user.model';
 import { Sapak } from '../models/sapak.model';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Go } from '../../../core/store';
 
 @Component({
   selector: 'app-user-panel',
@@ -20,7 +20,7 @@ export class UserPanelComponent implements OnInit {
 
   selectedSapakKod = '';
 
-  constructor(private store: Store<any>) {
+  constructor(private store: Store<UserState>) {
     this.user$ = store.select(fromUserStore.userSelector);
     this.activeSapak$ = store.select(fromUserStore.activeSapakSelector);
   }
@@ -32,5 +32,13 @@ export class UserPanelComponent implements OnInit {
   changeActiveSapak() {
     this.store.dispatch(new ChangeSapak(this.selectedSapakKod));
     this.selectedSapakKod = '';
+  }
+
+  logoutUser() {
+    this.store.dispatch(
+      new Go({
+        path: ['/login']
+      })
+    );
   }
 }

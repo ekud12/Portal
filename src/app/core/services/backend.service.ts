@@ -12,9 +12,7 @@ enum httpMethods {
 export class BackendService {
   baseUrl: string;
   tokenBaseUrl: string;
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   checkVersion(type) {
     return this.http.get('https://jsonplaceholder.typicode.com/posts/1');

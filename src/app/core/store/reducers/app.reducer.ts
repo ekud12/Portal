@@ -6,7 +6,9 @@ import {
 import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
 
 import * as fromRouter from '@ngrx/router-store';
-
+export interface AppState {
+  version: string;
+}
 export interface RouterStateUrl {
   url: string;
   queryParams: Params;

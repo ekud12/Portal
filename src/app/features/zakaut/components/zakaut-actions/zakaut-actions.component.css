@@ -1,0 +1,45 @@
+/* Style For Form */
+.form {
+  font-size: 1.28571429rem;
+  position: relative;
+  max-width: 100%;
+  padding: 50px 50px;
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.925);
+  width: 37%;
+}
+
+.mat-form-field {
+  font-family: 'OpenSans';
+  color: #555;
+}
+
+.login-card {
+  border-radius: 5px;
+  padding: 30px;
+}
+
+.submit-section button {
+  font-family: 'OpenSansBold';
+  /* background-color: #009bdf; */
+  padding: 2px 0;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  margin-top: 20px !important;
+}
+
+.loader-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 0;
+}
+
+.success-msg {
+  color: green;
+  font-size: 24px;
+  font-weight: bolder;
+}

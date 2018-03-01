@@ -20,19 +20,29 @@ import {
 } from '@angular/animations';
 
 import { ErrorStateMatcher } from '@angular/material/core';
-import { LoginFormDetails } from '../models/login.model';
-
+import { LoginModel } from '../models/login.model';
+import * as localConfigVars from './login.const';
+import { Store } from '@ngrx/store';
+import { UserState } from '../store';
+import { Observable } from 'rxjs/Observable';
+import { User } from '../models/user.model';
+import * as fromUserStore from '../store';
+import { moveAnimation } from '../../../core/animations';
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
     form: FormGroupDirective | NgForm | null
   ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(
-      control &&
-      control.invalid &&
-      (control.dirty || control.touched || isSubmitted)
-    );
+    if (control.value === '') {
+      return false;
+    } else {
+      return !!(
+        control &&
+        control.invalid &&
+        (control.dirty || control.touched || isSubmitted)
+      );
+    }
   }
 }
 
@@ -40,64 +50,31 @@ export class LoginErrorStateMatcher implements ErrorStateMatcher {
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  animations: [
-    trigger('itemAnim', [
-      transition(':enter', [
-        style({ transform: 'translateY(10%)', opacity: 0 }),
-        animate(600)
-      ]),
-      transition(':leave', [
-        style({ transform: 'translateY(10%)', opacity: 0 }),
-        animate(600)
-      ])
-    ]),
-    trigger('itemFade', [
-      transition(':enter', [style({ opacity: 0 }), animate(500)]),
-      transition(':leave', [style({ opacity: 0 }), animate(500)])
-    ])
-  ]
+  animations: [moveAnimation]
 })
+
 export class LoginComponent implements OnInit {
   matcher = new LoginErrorStateMatcher();
-  options = {
-    hideRequired: false,
-    floatLabel: 'never',
-    loginButtonName: 'כניסה',
-    loginButtonValidating: 'מאמת...',
-    loginButtonLink: 'dash',
-    passwordRules: '^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$',
-    usernameRules: '^(?=.*[A-Za-z])(?=.*[0-9]).*$',
-    success_msg: 'התחברות הצליחה! הנך מועבר...',
-    support_phone: 'תמיכה: 5443*'
-  };
+  user$: Observable<User>;
+  loginErrors$: Observable<string[]>;
+  isValidating$: Observable<boolean>;
 
-  forms = [
-    {
-      icon: 'person',
-      name: 'שם משתמש',
-      type: 'text',
-      controller: '_usernameControl'
-    },
-    {
-      icon: 'lock',
-      name: 'סיסמא',
-      type: 'password',
-      controller: '_passwordControl'
-    }
-  ];
+  options = localConfigVars.options;
+  forms = localConfigVars.forms;
+  errors = localConfigVars.errors;
 
-  errors = {
-    required: '.אנא הכנס נתונים חסרים',
-    minlength: 'נתון קצר מדי.',
-    pattern: 'ערך לא חוקי.'
-  };
-
-  isValidating = false;
   isValid = false;
   loginForm: FormGroup;
-  LoginDetails = new LoginFormDetails();
+  LoginDetails = new LoginModel();
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private store: Store<UserState>
+  ) {
+    this.user$ = store.select(fromUserStore.userSelector);
+    this.loginErrors$ = store.select(fromUserStore.userErrorsSelector);
+    this.isValidating$ = store.select(fromUserStore.userLoadingSelector);
     this.createForm();
   }
 
@@ -120,19 +97,13 @@ export class LoginComponent implements OnInit {
   }
 
   submitLoginForm() {
-    this.isValidating = true;
     this.disableForm();
 
     // Model for login service
     this.LoginDetails.username = this.loginForm.get('_usernameControl').value;
     this.LoginDetails.password = this.loginForm.get('_passwordControl').value;
-    this.LoginDetails.isValidating = this.isValidating;
 
-    setTimeout(() => {
-      this.isValidating = false;
-      this.isValid = true;
-    }, 3000);
-    setTimeout(() => this.router.navigate(['portal']), 5000);
+    this.store.dispatch(new fromUserStore.UserLogin(this.LoginDetails));
   }
 
   enableForm() {
