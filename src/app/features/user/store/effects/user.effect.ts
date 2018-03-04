@@ -17,7 +17,7 @@ export class UserEffects {
       return this.userService.login(loginDetails).pipe(
         switchMap(res => [
           new userActions.UserLoginSuccess(res),
-          new userActions.UserLoginCompleted('finally')
+          new userActions.UserLoginCompleted('redirect')
         ]),
 
         catchError(error => of(new userActions.UserLoginFail(error)))
@@ -31,7 +31,7 @@ export class UserEffects {
     .pipe(
       map(() => {
         return new fromRoot.Go({
-          path: ['/portal']
+          path: ['/portal/zakaut']
         });
       })
     );

@@ -1,7 +1,7 @@
 <button mat-button fxLayout="row" fxLayoutAlign="start center center" class="user-panel-container" [matMenuTriggerFor]="menu">
   <mat-icon>account_circle</mat-icon>
   <span class="spk">
-    {{(activeSapak$ | async)?.kodSapak}}
+    {{(activeSapak$ | async)?.description}}
   </span>
   <mat-icon>keyboard_arrow_down</mat-icon>
 </button>

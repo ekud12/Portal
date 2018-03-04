@@ -19,48 +19,6 @@ export const initialState: UserState = {
   isLoading: false,
   errors: []
 };
-// export const initialState: UserState = {
-//   user: {
-//     availableSapakim: [
-//       {
-//         kodSapak: '123',
-//         description: 'רגיל',
-//         permissions: [
-//           {
-//             permissionType: Zakaut.With_Card_Only,
-//             desc: 'יכול לבצע בדיקת זכאות באמצעות כרטיס בלבד'
-//           }
-//         ]
-//       },
-//       {
-//         kodSapak: '456',
-//         description: 'אינו מנתח',
-//         permissions: [
-//           {
-//             permissionType: Zakaut.With_Card_And_Manual_Not_Surgeon,
-//             desc: 'יכול לבצע בדיקת זכאות '
-//           }
-//         ]
-//       },
-//       {
-//         kodSapak: '789',
-//         description: 'מנתח',
-//         permissions: [
-//           {
-//             permissionType: Zakaut.With_Card_And_Manual_Surgeon,
-//             desc: 'יכול לבצע בדיקת זכאות '
-//           }
-//         ]
-//       }
-//     ],
-//     username: 'shalom'
-//   },
-//   activeSapak: {
-//     kodSapak: '000',
-//     description: 'דוגמא ראשונית'
-//   },
-//   errors: []
-// };
 
 export function reducer(state = initialState, action: any): UserState {
   switch (action.type) {
@@ -85,6 +43,11 @@ export function reducer(state = initialState, action: any): UserState {
       return {
         ...state,
         errors: state.errors.concat(action.payload)
+      };
+    }
+    case userActions.LOGIN_USER_COMPLETED: {
+      return {
+        ...state
       };
     }
 

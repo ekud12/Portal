@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { UserState, ChangeSapak } from '../store';
@@ -12,7 +12,8 @@ import { Go } from '../../../core/store';
   selector: 'app-user-panel',
   templateUrl: './user-panel.component.html',
   styleUrls: ['./user-panel.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserPanelComponent implements OnInit {
   user$: Observable<User>;
@@ -26,7 +27,8 @@ export class UserPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.activeSapak$.subscribe(spk => (this.selectedSapak = spk));
+    this.user$.subscribe(val => console.log(val));
+    this.activeSapak$.subscribe(val => console.log(val));
   }
 
   changeActiveSapak() {
