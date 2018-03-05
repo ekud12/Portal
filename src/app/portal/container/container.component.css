@@ -13,7 +13,7 @@
   left: 0;
   right: 0;
   top: 64px;
-  background: url('../../../assets/images/invoice-bg.png') top center;
+  /* background: url('../../../assets/images/invoice-bg.png') top center; */
   background-size: cover;
 }
 
