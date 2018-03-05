@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  http: { baseUrl: '' }
+  http: { baseUrl: '' },
+  version: '',
+  bug: ''
 };

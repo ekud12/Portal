@@ -7,12 +7,17 @@
   color: rgb(255, 255, 255);
 }
 
-.footer .content {
+.content {
   padding-left: 50px;
   padding-right: 50px;
 }
 
-.footer .copyright {
+.copyright {
+  padding-right: 5px;
+  font-size: 12px;
+}
+
+.version {
   font-size: 12px;
 }
 

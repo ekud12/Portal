@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '@environment';
 
 @Component({
   selector: 'app-footer',
@@ -25,7 +26,11 @@ export class FooterComponent implements OnInit {
   //   }
   // ];
 
+  appVersion: string;
+
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.appVersion = environment.version;
+  }
 }
