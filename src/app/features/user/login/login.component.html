@@ -16,7 +16,7 @@
   <div class="form" fxFlex fxFill fxFlexOrder="1" fxLayout="column" fxLayoutAlign="start center center" fxFlex.md="100">
 
     <mat-card mat-elevation-z6 class="form-container login-card" [@itemAnim]>
-
+      <button mat-raised-button (click)="autoLogin()">טסט</button>
       <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">
 
         <mat-form-field color='primary' [hideRequiredMarker]="options.hideRequired" [floatLabel]="options.floatLabel" *ngFor="let formItem of forms;  index as i">

@@ -52,7 +52,6 @@ export class LoginErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login.component.css'],
   animations: [moveAnimation]
 })
-
 export class LoginComponent implements OnInit {
   matcher = new LoginErrorStateMatcher();
   user$: Observable<User>;
@@ -106,6 +105,11 @@ export class LoginComponent implements OnInit {
     this.store.dispatch(new fromUserStore.UserLogin(this.LoginDetails));
   }
 
+  autoLogin() {
+    this.loginForm.get('_usernameControl').setValue('test1234');
+    this.loginForm.get('_passwordControl').setValue('test1234');
+    this.submitLoginForm();
+  }
   enableForm() {
     this.loginForm.get('_usernameControl').enable();
     this.loginForm.get('_passwordControl').enable();
