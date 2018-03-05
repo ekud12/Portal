@@ -9,7 +9,9 @@ import { StoreModule } from '@ngrx/store';
 
 import { effects } from './store';
 
-import { reducer } from './store';
+// import { reducer } from './store';
+import { reducer } from '@user/store/*';
+
 import { UserPanelComponent } from './user-panel/user-panel.component';
 import { EffectsModule } from '@ngrx/effects';
 import { MdePopoverModule } from '@material-extended/mde';
