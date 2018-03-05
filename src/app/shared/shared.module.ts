@@ -16,7 +16,6 @@ import { MdePopoverModule } from '@material-extended/mde';
     MdePopoverModule,
     RouterModule,
     materialImports,
-    StoreModule.forFeature('sharedFeature', {})
   ],
   declarations: [PageNotFoundComponent],
   exports: [
