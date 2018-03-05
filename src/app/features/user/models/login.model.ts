@@ -1,7 +1,7 @@
 export class LoginModel {
   username: string;
   password: string;
-  grant_type: 'password';
+  grant_type: string = 'password';
 }
 
 export class LoginResponse {

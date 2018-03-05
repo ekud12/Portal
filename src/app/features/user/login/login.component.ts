@@ -106,8 +106,8 @@ export class LoginComponent implements OnInit {
   }
 
   autoLogin() {
-    this.loginForm.get('_usernameControl').setValue('test1234');
-    this.loginForm.get('_passwordControl').setValue('test1234');
+    this.loginForm.get('_usernameControl').setValue('testim6');
+    this.loginForm.get('_passwordControl').setValue('testim1');
     this.submitLoginForm();
   }
   enableForm() {

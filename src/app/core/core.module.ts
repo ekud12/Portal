@@ -15,6 +15,7 @@ import { BackendService } from './services/backend.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { rxjs_imports } from './rxjs-imports';
 import { ErrorHandler } from './http/error-handler.interceptor';
+import { httpParamsInterceptor } from './http/url-encoder.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -30,6 +31,11 @@ import { ErrorHandler } from './http/error-handler.interceptor';
   providers: [
     BackendService,
     { provide: RouterStateSerializer, useClass: CustomSerializer },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: httpParamsInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandler,

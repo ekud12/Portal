@@ -2,6 +2,7 @@ import * as userActions from '../actions';
 import { User } from '../../models/user.model';
 import { Sapak } from '../../models/sapak.model';
 import { sapakActions } from '../actions';
+import { Zakaut } from '../../models/permission.model';
 
 export interface UserState {
   user: User;
@@ -30,11 +31,14 @@ export function reducer(state = initialState, action: any): UserState {
     case userActions.LOGIN_USER_SUCCESS: {
       return {
         ...state,
-        user: {
-          username: action.payload.username,
-          availableSapakim: []
+        user: { username: action.payload.userName, availableSapakim: [] },
+        activeSapak: {
+          kodSapak: '222',
+          description: 'ליאל',
+          permissions: [
+            { permissionType: Zakaut.With_Card_Only, desc: 'ליא ליאל' }
+          ]
         },
-        activeSapak: action.payload.user.availableSapakim[0],
         isLoading: false
       };
     }
