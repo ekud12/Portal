@@ -7,10 +7,9 @@ import { RouterModule } from '@angular/router';
 import { userRoutes } from './routes';
 import { StoreModule } from '@ngrx/store';
 
-import { effects } from './store';
+import { effects, userReducer } from './store';
 
 // import { reducer } from './store';
-import { reducer } from '@user/store/*';
 
 import { UserPanelComponent } from './user-panel/user-panel.component';
 import { EffectsModule } from '@ngrx/effects';
@@ -24,7 +23,7 @@ const comps = [LoginComponent, ChangePassComponent, UserPanelComponent];
     CommonModule,
     SharedModule,
     MdePopoverModule,
-    StoreModule.forFeature('user', reducer),
+    StoreModule.forFeature('user', userReducer),
     EffectsModule.forFeature(effects)
   ],
   providers: [UserService],

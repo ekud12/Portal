@@ -8,14 +8,14 @@ export interface ZakautState {
   isLoading: boolean;
 }
 
-export const initialState: ZakautState = {
+export const zakautInitialState: ZakautState = {
   zakautQuery: null,
   zakautQueryResponse: null,
   isLoading: false,
   errors: []
 };
 
-export function reducer(state = initialState, action: any): ZakautState {
+export function zakautReducer(state = zakautInitialState, action: any): ZakautState {
   switch (action.type) {
     case userActions.CHECK_ZAKAUT_WITH_CARD: {
       return {

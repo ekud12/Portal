@@ -12,7 +12,8 @@
     "lib": ["es2017", "dom"],
     "baseUrl": "./src",
     "paths": {
-      "@user/store/*": ["app/features/user/store"],
+      "@userStore": ["app/features/user/store"],
+      "@zakautStore": ["app/features/zakaut/store"],
       "@environment": ["environments/environment"],
       "@http-routes": ["app/core/http/http-routes"]
     }

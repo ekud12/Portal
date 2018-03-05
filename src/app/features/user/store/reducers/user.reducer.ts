@@ -10,7 +10,7 @@ export interface UserState {
   errors: string[];
   isLoading: boolean;
 }
-export const initialState: UserState = {
+export const userInitialState: UserState = {
   user: {
     availableSapakim: [],
     username: null
@@ -20,7 +20,7 @@ export const initialState: UserState = {
   errors: []
 };
 
-export function reducer(state = initialState, action: any): UserState {
+export function userReducer(state = userInitialState, action: any): UserState {
   switch (action.type) {
     case userActions.LOGIN_USER: {
       return {
