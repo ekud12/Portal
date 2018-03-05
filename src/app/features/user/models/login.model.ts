@@ -1,9 +1,7 @@
 
-export class LoginFormDetails {
+export class LoginModel {
   username: string;
   password: string;
-  error: string;
-  isValidating: boolean;
 }
 
 // export interface WidgetWrapper {

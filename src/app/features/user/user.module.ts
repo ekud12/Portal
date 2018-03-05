@@ -13,7 +13,8 @@ import { reducer } from './store';
 import { UserPanelComponent } from './user-panel/user-panel.component';
 import { EffectsModule } from '@ngrx/effects';
 import { MdePopoverModule } from '@material-extended/mde';
-
+import { UserService } from './user.service';
+import { CoreModule } from '../../core/core.module';
 
 const comps = [LoginComponent, ChangePassComponent, UserPanelComponent];
 
@@ -21,11 +22,13 @@ const comps = [LoginComponent, ChangePassComponent, UserPanelComponent];
   imports: [
     CommonModule,
     SharedModule,
+    CoreModule,
     MdePopoverModule,
     RouterModule.forChild(userRoutes),
     StoreModule.forFeature('user', reducer),
     EffectsModule.forFeature(effects)
   ],
+  providers: [UserService],
   declarations: comps,
   exports: comps
 })

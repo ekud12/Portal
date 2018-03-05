@@ -3,7 +3,6 @@ import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { RouterState, UpdateVersion, versionSelector } from '../../core/store';
-import { UpdateName } from '../../features/user/store';
 
 @Component({
   selector: 'app-header',

@@ -7,7 +7,7 @@
       </div>
     </div>
   </mat-toolbar>
-  <app-user-panel></app-user-panel>
+
   <div class="title">
     <h1>פורטל ספקים</h1>
     <h2>כניסה למערכת</h2>
@@ -32,14 +32,17 @@
 
         <div class="submit-section">
           <button mat-raised-button fxFill color="primary" (click)="submitLoginForm()" type='button' disabled={{!loginForm.valid}}>
-            {{ isValidating ? options.loginButtonValidating :options.loginButtonName }}
+            <!-- {{ isValidating ? options.loginButtonValidating :options.loginButtonName }} -->
+            {{ (isValidating$ | async) ? options.loginButtonValidating :options.loginButtonName }}
           </button>
           <section class="loader-section">
-            <mat-progress-bar mode="indeterminate" *ngIf="isValidating">
+            <mat-progress-bar mode="indeterminate" *ngIf="(isValidating$ | async)">
             </mat-progress-bar>
           </section>
         </div>
-
+        <div *ngIf="loginErrors$ | async">
+          {{ (loginErrors$ | async)[0]}}
+        </div>
       </form>
 
       <div *ngIf="isValid" [@itemFade] class="success-msg" fxLayout="row" fxLayoutAlign="center center">

@@ -5,6 +5,7 @@
   </span>
   <mat-icon>keyboard_arrow_down</mat-icon>
 </button>
+
 <mat-menu #menu="matMenu" class="menu" yPosition="below" [overlapTrigger]="false">
   <ng-template matMenuContent>
     <div (click)="$event.stopPropagation();" fxLayout="column" fxLayoutAlign="space-between center center" class="spk-chooser"
@@ -22,8 +23,7 @@
       </mat-form-field>
 
     </div>
-    <button *ngIf="selectedSapakKod != ''" mat-button class="spk-chooser-btn" (click)="changeActiveSapak()" fxLayout="row"
-      fxLayoutAlign="space-around stretch center">
+    <button *ngIf="selectedSapakKod != ''" mat-button class="spk-chooser-btn" (click)="changeActiveSapak()" fxLayout="row" fxLayoutAlign="space-around stretch center">
       <mat-icon>cached</mat-icon>החלף</button>
     <mat-divider></mat-divider>
     <button mat-menu-item>
@@ -31,7 +31,7 @@
       <span>הגדרות</span>
     </button>
     <mat-divider></mat-divider>
-    <button mat-menu-item [routerLink]="['/login']">
+    <button mat-menu-item (click)="logoutUser()">
       <mat-icon>exit_to_app</mat-icon>
       <span>התנתק ({{(user$ | async)?.username}})</span>
     </button>
