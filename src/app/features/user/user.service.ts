@@ -15,7 +15,7 @@ export class UserService {
   constructor(private backendService: BackendService) {}
 
   login(loginDetails: LoginModel): Observable<any> {
-    return this.backendService.get<LoginResponse>(
+    return this.backendService.post<LoginResponse>(
       httpRoutes.LOGIN,
       loginDetails
     );
