@@ -13,12 +13,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClient } from 'selenium-webdriver/http';
 import { BackendService } from './services/backend.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { rxjs_imports } from './rxjs-imports';
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    StoreModule.forRoot( reducers ),
+    StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
