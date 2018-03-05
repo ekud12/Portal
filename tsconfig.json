@@ -12,7 +12,9 @@
     "lib": ["es2017", "dom"],
     "baseUrl": "./src",
     "paths": {
-      "@user/store/*": ["app/features/user/store"]
+      "@user/store/*": ["app/features/user/store"],
+      "@environment": ["environments/environment"],
+      "@http-routes": ["app/core/http/http-routes"]
     }
   }
 }

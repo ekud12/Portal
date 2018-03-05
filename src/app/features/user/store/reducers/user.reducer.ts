@@ -31,8 +31,8 @@ export function reducer(state = initialState, action: any): UserState {
       return {
         ...state,
         user: {
-          username: action.payload.user.username,
-          availableSapakim: action.payload.user.availableSapakim
+          username: action.payload.username,
+          availableSapakim: []
         },
         activeSapak: action.payload.user.availableSapakim[0],
         isLoading: false
