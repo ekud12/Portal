@@ -23,7 +23,7 @@ import { MdePopoverModule } from '@material-extended/mde';
     materialImports,
     FlexLayoutModule,
     ReactiveFormsModule,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ]
 })
 export class SharedModule {}
