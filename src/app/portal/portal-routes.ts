@@ -13,7 +13,7 @@ export const portalRoutes: Routes = [
       { path: 'grid', component: GridComponent },
       {
         path: 'zakaut',
-        loadChildren: '../features/zakaut/zakaut.module#ZakautModule'
+        loadChildren: 'app/features/zakaut/zakaut.module#ZakautModule'
       },
       { path: '**', redirectTo: '/portal/home' }
     ]

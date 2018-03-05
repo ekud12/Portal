@@ -1,11 +1,12 @@
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { Routes } from '@angular/router';
+import { LoginComponent } from './features/user/login/login.component';
 
 export const rootRoutes: Routes = [
-  { path: '', redirectTo: '/user', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
-    path: 'user',
-    loadChildren: 'app/features/user/user.module#UserModule'
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'portal',

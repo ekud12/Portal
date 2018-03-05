@@ -1,7 +1,6 @@
 import * as userActions from '../actions';
 import { User } from '../../models/user.model';
 import { Sapak } from '../../models/sapak.model';
-import { Zakaut } from '../../models/permission.model';
 import { sapakActions } from '../actions';
 
 export interface UserState {

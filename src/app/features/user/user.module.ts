@@ -22,7 +22,6 @@ const comps = [LoginComponent, ChangePassComponent, UserPanelComponent];
     CommonModule,
     SharedModule,
     MdePopoverModule,
-    RouterModule.forChild(userRoutes),
     StoreModule.forFeature('user', reducer),
     EffectsModule.forFeature(effects)
   ],

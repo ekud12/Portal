@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { DndModule } from 'ng2-dnd';
 import { SharedModule } from './shared/shared.module';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { rootRoutes } from './routes';
@@ -18,7 +17,7 @@ import { BackendService } from './core/services/backend.service';
     BrowserAnimationsModule,
     SharedModule,
     UserModule,
-    RouterModule.forRoot(rootRoutes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(rootRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
