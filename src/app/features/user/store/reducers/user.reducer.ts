@@ -35,13 +35,15 @@ export function reducer(state = initialState, action: any): UserState {
           availableSapakim: []
         },
         activeSapak: action.payload.user.availableSapakim[0],
+        errors: [],
         isLoading: false
       };
     }
     case userActions.LOGIN_USER_FAILURE: {
       return {
         ...state,
-        errors: state.errors.concat(action.payload)
+        errors: state.errors.concat(action.payload),
+        isLoading: false
       };
     }
     case userActions.LOGIN_USER_COMPLETED: {
