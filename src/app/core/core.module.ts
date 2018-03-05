@@ -12,8 +12,9 @@ import { reducers, versionSelector, effects, CustomSerializer } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClient } from 'selenium-webdriver/http';
 import { BackendService } from './services/backend.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { rxjs_imports } from './rxjs-imports';
+import { ErrorHandler } from './http/error-handler.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +29,12 @@ import { rxjs_imports } from './rxjs-imports';
   declarations: [],
   providers: [
     BackendService,
-    { provide: RouterStateSerializer, useClass: CustomSerializer }
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandler,
+      multi: true
+    }
   ]
 })
 export class CoreModule {

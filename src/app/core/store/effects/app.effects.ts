@@ -12,20 +12,4 @@ export class AppEffects {
     private actions$: Actions,
     private backendService: BackendService
   ) {}
-
-  @Effect()
-  checkVersion$ = this.actions$.ofType(appActions.UPDATE_VERSION).pipe(
-    switchMap(action => {
-      return this.backendService
-        .checkVersion(action.type)
-        .pipe(
-          map(
-            result =>
-              result
-                ? new appActions.UpdateVersionSuccess((result as any).userId)
-                : new appActions.UpdateVersionFail()
-          )
-        );
-    })
-  );
 }
