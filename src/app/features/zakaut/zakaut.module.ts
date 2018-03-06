@@ -10,7 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { effects } from './store';
-import { reducer } from './store';
+import { zakautReducer } from './store';
 
 const WIDGET_COMPONENTS = [];
 const ACTION_COMPONENTS = [ZakautActionsComponent];
@@ -24,7 +24,7 @@ const ZAKAUT_COMPONENTS = [...WIDGET_COMPONENTS, ...ACTION_COMPONENTS];
     UserModule,
     FormsModule,
     RouterModule.forChild(zakautRoutes),
-    StoreModule.forFeature('zakaut', reducer),
+    StoreModule.forFeature('zakaut', zakautReducer),
     EffectsModule.forFeature(effects)
   ],
   entryComponents: [ZakautActionsComponent],

@@ -8,19 +8,18 @@ import {
   RouterStateSerializer
 } from '@ngrx/router-store';
 
-import { reducers, versionSelector, effects, CustomSerializer } from './store';
+import { reducers, effects, CustomSerializer, getInitialState } from './store';
 import { EffectsModule } from '@ngrx/effects';
-import { HttpClient } from 'selenium-webdriver/http';
 import { BackendService } from './services/backend.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { rxjs_imports } from './rxjs-imports';
 import { ErrorHandler } from './http/error-handler.interceptor';
-import { httpParamsInterceptor } from './http/url-encoder.interceptor';
+import { httpParamsInterceptor } from './http/httpParamsInterceptor';
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, { initialState: getInitialState() }),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),

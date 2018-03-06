@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { RouterState, UpdateVersion, versionSelector } from '../../core/store';
 
 @Component({
   selector: 'app-header',

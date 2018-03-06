@@ -16,28 +16,22 @@ export class BackendService {
   get<T>(url: string, params?: any): any {
     // TODO: @shalom.l implement <T> notation
 
-    const options = this._generateParams(params);
-
     return this.http.get(this._generateUrl(url), { params: params });
   }
 
   post<T>(url: string, body: any, multipartData?: FormData) {
     return this.http.post(this._generateUrl(url), body);
   }
-  delete(url: string, params?: any) {}
-  update(url: string, body: any, multipartData?: FormData) {}
+
+  delete(url: string, params?: any) {
+    return this.http.delete(this._generateUrl(url), { params: params });
+  }
+
+  put(url: string, body: any, multipartData?: FormData) {
+    return this.http.put(this._generateUrl(url), body);
+  }
 
   private _generateUrl(url) {
     return `${this.baseUrl}/${url}`;
-  }
-
-  private _generateParams(rawParams) {
-    let options = {};
-
-    if (rawParams) {
-      options = { params: new HttpParams({ fromObject: rawParams }) };
-    }
-
-    return options;
   }
 }
