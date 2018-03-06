@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormControl,
@@ -25,6 +30,7 @@ import { Store } from '@ngrx/store';
 import * as fromStore from '@userStore';
 import { Sapak } from 'app/features/user/models/sapak.model';
 import { Zakaut } from 'app/features/user/models/permission.model';
+import { ZakautQueryModel } from 'app/features/zakaut/models/zakaut-query.model';
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -48,6 +54,7 @@ export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   selector: 'app-zakaut-actions',
   templateUrl: './zakaut-actions.component.html',
   styleUrls: ['./zakaut-actions.component.css']
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ZakautActionsComponent implements OnInit {
   //#region options and errors for all the Forms
@@ -55,7 +62,7 @@ export class ZakautActionsComponent implements OnInit {
     hideRequired: true,
     floatLabel: 'never',
     BtnName: 'בדוק זכאות',
-    BtnValidating: 'בודק זכאות',
+    BtnValidating: 'בודק זכאות, אנא המתן...',
     idLength: 9,
     tempCardNumberLength: 4,
     errors: {
@@ -64,19 +71,18 @@ export class ZakautActionsComponent implements OnInit {
       pattern: 'ערך לא תקין'
     },
     prefixes: [
-      { value: 1, viewValue: 'ת"ז' },
-      { value: 9, viewValue: 'דרכון' }
+      { value: '1', viewValue: 'ת"ז' },
+      { value: '9', viewValue: 'דרכון' }
     ],
     zakautWithCardForm: {
       cardInputRule: '^([0-9]{5}=[0-9]{30})+$'
     },
     zakautWithTempCardForm: {
       idInputRule: '^([0-9]{1,9})$',
-      // dobInputRule: '^([0-9]{4,4})$',
       cardInputRule: '^([0-9]{1,4})$'
     },
     possibleYears: [...Array.from(Array(1 + 118).keys())]
-      .map(v => 1900 + v)
+      .map(v => `${1900 + v}`)
       .reverse()
   };
 
@@ -85,13 +91,16 @@ export class ZakautActionsComponent implements OnInit {
   // Global Vars
   matcher = new ZakautErrorStateMatcher();
   isValidating = false;
-  isValid = false;
   tabsDisabled = false;
   currentSapak$: Observable<Sapak>;
 
-  selectedValueForPrefixId = 1;
+  selectedValueForPrefixId = '1';
+
   zakautWithCardForm: FormGroup;
   zakautWithTempCardForm: FormGroup;
+  zakautManualForm: FormGroup;
+
+  zakautRequest = new ZakautQueryModel();
 
   constructor(
     private fb: FormBuilder,
@@ -111,11 +120,18 @@ export class ZakautActionsComponent implements OnInit {
         this.tabsDisabled = false;
       }
     });
-    this.selectedValueForPrefixId = this.vars.prefixes[0].value;
+    // this.selectedValueForPrefixId = this.vars.prefixes[0].value;
+    // console.log(this.selectedValueForPrefixId);
   }
+
   createForms() {
     this.createFormZakautWithCard();
     this.createFormZakautWithTempCard();
+  }
+
+  disableAllForms() {
+    this.disableWithCardForm();
+    this.disableTempForm();
   }
 
   //#region ZakautWithCard
@@ -134,7 +150,7 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautWithCardForm.get('_zakautWithCardControl').enable();
   }
 
-  disableForm() {
+  disableWithCardForm() {
     this.zakautWithCardForm.disable();
     this.zakautWithCardForm.get('_zakautWithCardControl').disable();
   }
@@ -143,6 +159,10 @@ export class ZakautActionsComponent implements OnInit {
   //#region ZakautWithTempCard
   createFormZakautWithTempCard() {
     this.zakautWithTempCardForm = this.fb.group({
+      _zakautWithTempCardIdPrefixControl: new FormControl(
+        { value: '1', disabled: true },
+        [Validators.required]
+      ),
       _zakautWithTempCardIdControl: new FormControl(
         { value: '', disabled: true },
         [
@@ -168,6 +188,9 @@ export class ZakautActionsComponent implements OnInit {
   }
 
   enableTempForm() {
+    this.zakautWithTempCardForm
+      .get('_zakautWithTempCardIdPrefixControl')
+      .enable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardIdControl').enable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').enable();
     this.zakautWithTempCardForm
@@ -177,6 +200,9 @@ export class ZakautActionsComponent implements OnInit {
 
   disableTempForm() {
     this.zakautWithTempCardForm.disable();
+    this.zakautWithTempCardForm
+      .get('_zakautWithTempCardIdPrefixControl')
+      .disable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardIdControl').disable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').disable();
     this.zakautWithTempCardForm
@@ -185,8 +211,37 @@ export class ZakautActionsComponent implements OnInit {
   }
   //#endregion
 
-  validateCard() {
+  validateCard(form: FormGroup) {
     this.isValidating = true;
-    this.disableForm();
+    this.disableAllForms();
+    this.zakautRequest = this.buildRequest(form);
+    console.log(this.zakautRequest);
+  }
+
+  buildRequest(form: FormGroup): ZakautQueryModel {
+    switch (form) {
+      case this.zakautWithCardForm: {
+        this.zakautRequest.cardNumber = form.get(
+          '_zakautWithCardControl'
+        ).value;
+        this.zakautRequest.requestType = '1';
+        break;
+      }
+      case this.zakautWithTempCardForm: {
+        this.zakautRequest.dateOfBirth = form.get(
+          '_zakautWithTempCardDOBControl'
+        ).value;
+        this.zakautRequest.requestType = '2';
+        this.zakautRequest.id = form.get('_zakautWithTempCardIdControl').value;
+        this.zakautRequest.idPrefix = form.get(
+          '_zakautWithTempCardIdPrefixControl'
+        ).value;
+        this.zakautRequest.tempCard = form.get(
+          '_zakautWithTempCardNumberControl'
+        ).value;
+        break;
+      }
+    }
+    return this.zakautRequest;
   }
 }

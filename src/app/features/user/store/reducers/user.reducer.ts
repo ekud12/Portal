@@ -31,10 +31,34 @@ export function userReducer(state = userInitialState, action: any): UserState {
     case userActions.LOGIN_USER_SUCCESS: {
       return {
         ...state,
-        user: { username: action.payload.userName, availableSapakim: [] },
+        user: {
+          username: action.payload.userName,
+          availableSapakim: [
+            {
+              kodSapak: '123',
+              description: 'רגיל',
+              permissions: {
+                zakaut: {
+                  permissionType: Zakaut.With_Card_Only,
+                  desc: 'עם כרטיס בלבד'
+                }
+              }
+            },
+            {
+              kodSapak: '456',
+              description: 'רגיל לא מנתח',
+              permissions: {
+                zakaut: {
+                  permissionType: Zakaut.With_Card_And_Manual_Not_Surgeon,
+                  desc: 'עם כרטיס וידני לא מנתח'
+                }
+              }
+            }
+          ]
+        },
         activeSapak: {
-          kodSapak: '222',
-          description: 'ליאל',
+          kodSapak: '123',
+          description: 'רגיל',
           permissions: {
             zakaut: {
               permissionType: Zakaut.With_Card_Only,
@@ -58,6 +82,15 @@ export function userReducer(state = userInitialState, action: any): UserState {
       };
     }
 
+    case userActions.LOGOUT_USER_COMPLETED: {
+      return {
+        ...state,
+        user: { username: null, availableSapakim: [] },
+        activeSapak: null,
+        isLoading: false
+      };
+    }
+
     case userActions.CHANGE_SAPAK_SUCCESS: {
       return {
         ...state,
@@ -69,4 +102,15 @@ export function userReducer(state = userInitialState, action: any): UserState {
   }
 
   return state;
+}
+
+function b64DecodeUnicode(str) {
+  return decodeURIComponent(
+    atob(str)
+      .split('')
+      .map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join('')
+  );
 }

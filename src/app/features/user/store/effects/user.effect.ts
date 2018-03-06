@@ -35,4 +35,26 @@ export class UserEffects {
         });
       })
     );
+
+  @Effect()
+  logoutUser$ = this.actions$
+    .ofType(userActions.LOGOUT_USER)
+    .pipe(
+      map(
+        (action: userActions.UserLogout) =>
+          new userActions.UserLogoutCompleted()
+      ),
+      catchError(error => of(new userActions.UserLoginFail(error)))
+    );
+
+  @Effect()
+  logoutUserRedirect$ = this.actions$
+    .ofType(userActions.LOGOUT_USER_COMPLETED)
+    .pipe(
+      map(() => {
+        return new fromRoot.Go({
+          path: ['/login']
+        });
+      })
+    );
 }

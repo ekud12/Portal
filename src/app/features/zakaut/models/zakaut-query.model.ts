@@ -1,9 +1,10 @@
 export class ZakautQueryModel {
-  isManual: boolean;
-  cardNumber?: number;
-  id?: number;
-  idPrefix?: number;
-  dateOfBirth?: number;
+  requestType: string;
+  cardNumber?: string;
+  tempCard?: string;
+  id?: string;
+  idPrefix?: string;
+  dateOfBirth?: string;
   noCardReason?: ZakautNoCardReason;
 }
 

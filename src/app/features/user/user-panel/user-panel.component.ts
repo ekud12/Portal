@@ -39,10 +39,6 @@ export class UserPanelComponent implements OnInit {
   }
 
   logoutUser() {
-    this.store.dispatch(
-      new Go({
-        path: ['/login']
-      })
-    );
+    this.store.dispatch(new fromUserStore.UserLogout());
   }
 }

@@ -15,8 +15,7 @@
       </div>
       <mat-form-field>
         <mat-select placeholder="בחר ספק אחר:" [(value)]="selectedSapakKod">
-          <mat-option *ngFor="let sapak of (user$ | async)?.availableSapakim" [value]="sapak.kodSapak" matTooltip="{{sapak.permissions[0].desc}}"
-            matTooltipPosition="left">
+          <mat-option *ngFor="let sapak of (user$ | async)?.availableSapakim" [value]="sapak.kodSapak" matTooltip="{{sapak.permissions['zakaut'].desc}}" matTooltipPosition="left">
             {{ sapak.description }}
           </mat-option>
         </mat-select>
