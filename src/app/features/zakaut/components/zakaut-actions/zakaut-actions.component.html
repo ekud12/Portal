@@ -28,7 +28,7 @@
 
     </mat-tab>
 
-    <mat-tab label="דווח עם אישור זמני" disabled="">
+    <mat-tab label="דווח עם אישור זמני" ngIf="(currentSapak$ | async)?.Permissions[0].permissionType == 0">
       <form>
 
         <mat-form-field>

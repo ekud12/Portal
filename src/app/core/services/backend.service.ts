@@ -14,7 +14,7 @@ export class BackendService {
   }
 
   get<T>(url: string, params?: any): any {
-    //TODO: @shalom.l implement <T> notation
+    // TODO: @shalom.l implement <T> notation
 
     const options = this._generateParams(params);
 
