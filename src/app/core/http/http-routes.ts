@@ -1,3 +1,4 @@
 export enum httpRoutes {
-  LOGIN = 'token'
+  LOGIN = 'token',
+  ZAKAUT_API = 'api/zakaut'
 }

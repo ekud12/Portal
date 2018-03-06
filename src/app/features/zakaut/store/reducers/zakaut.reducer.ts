@@ -15,29 +15,28 @@ export const zakautInitialState: ZakautState = {
   errors: []
 };
 
-export function zakautReducer(state = zakautInitialState, action: any): ZakautState {
+export function zakautReducer(
+  state = zakautInitialState,
+  action: any
+): ZakautState {
   switch (action.type) {
-    case userActions.CHECK_ZAKAUT_WITH_CARD: {
+    case userActions.CHECK_ZAKAUT: {
       return {
         ...state,
         isLoading: true
       };
     }
-    case userActions.CHECK_ZAKAUT_WITH_CARD_SUCCESS: {
+    case userActions.CHECK_ZAKAUT_SUCCESS: {
       return {
         ...state,
-        zakautQueryResponse: action.payload
+        zakautQueryResponse: action.payload,
+        isLoading: false
       };
     }
-    case userActions.CHECK_ZAKAUT_WITH_CARD_FAILURE: {
+    case userActions.CHECK_ZAKAUT_FAIL: {
       return {
         ...state,
-        errors: state.errors.concat(action.payload)
-      };
-    }
-    case userActions.CHECK_ZAKAUT_WITH_CARD_COMPLETED: {
-      return {
-        ...state,
+        errors: state.errors.concat(action.payload),
         isLoading: false
       };
     }

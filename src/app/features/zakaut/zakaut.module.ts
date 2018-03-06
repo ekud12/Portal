@@ -11,6 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { effects } from './store';
 import { zakautReducer } from './store';
+import { ZakautService } from './zakaut.service';
 
 const WIDGET_COMPONENTS = [];
 const ACTION_COMPONENTS = [ZakautActionsComponent];
@@ -28,6 +29,7 @@ const ZAKAUT_COMPONENTS = [...WIDGET_COMPONENTS, ...ACTION_COMPONENTS];
     EffectsModule.forFeature(effects)
   ],
   entryComponents: [ZakautActionsComponent],
+  providers: [ZakautService],
   declarations: [ZakautActionsComponent],
   exports: [ZakautActionsComponent]
 })

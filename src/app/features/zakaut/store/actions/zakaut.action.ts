@@ -1,37 +1,24 @@
 import { Action } from '@ngrx/store';
+import { ZakautQueryModel } from 'app/features/zakaut/models/zakaut-query.model';
 
-export const CHECK_ZAKAUT_WITH_CARD = '[Zakaut] Check Zakaut With Card';
-export const CHECK_ZAKAUT_WITH_CARD_FAILURE =
-  '[Zakaut] Check Zakaut With Card Fail';
-export const CHECK_ZAKAUT_WITH_CARD_SUCCESS =
-  '[Zakaut] Check Zakaut With Card Success';
-export const CHECK_ZAKAUT_WITH_CARD_COMPLETED =
-  '[Zakaut] Check Zakaut With Card Completed';
+export const CHECK_ZAKAUT = '[Zakaut] Check Zakaut';
+export const CHECK_ZAKAUT_SUCCESS = '[Zakaut] Check Zakaut Success';
+export const CHECK_ZAKAUT_FAIL = '[Zakaut] Check Zakaut Fail';
 
-// User Actions
-export class CheckZakautWithCard implements Action {
-  readonly type = CHECK_ZAKAUT_WITH_CARD;
+// Zakaut Actions
+export class CheckZakaut implements Action {
+  readonly type = CHECK_ZAKAUT;
+  constructor(public payload: ZakautQueryModel) {}
+}
+
+export class CheckZakautSuccess implements Action {
+  readonly type = CHECK_ZAKAUT_SUCCESS;
   constructor(public payload: any) {}
 }
 
-export class CheckZakautWithCardFail implements Action {
-  readonly type = CHECK_ZAKAUT_WITH_CARD_FAILURE;
+export class CheckZakautFail implements Action {
+  readonly type = CHECK_ZAKAUT_FAIL;
   constructor(public payload: any) {}
 }
 
-export class CheckZakautWithCardSuccess implements Action {
-  readonly type = CHECK_ZAKAUT_WITH_CARD_SUCCESS;
-  constructor(public payload: any) {
-    console.log(payload);
-  }
-}
-export class CheckZakautWithCardCompleted implements Action {
-  readonly type = CHECK_ZAKAUT_WITH_CARD_COMPLETED;
-  constructor(public payload: any) {}
-}
-
-export type userActions =
-  | CheckZakautWithCard
-  | CheckZakautWithCardSuccess
-  | CheckZakautWithCardFail
-  | CheckZakautWithCardCompleted;
+export type userActions = CheckZakaut | CheckZakautSuccess | CheckZakautFail;

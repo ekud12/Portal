@@ -27,7 +27,8 @@ import {
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import * as fromStore from '@userStore';
+import * as fromUserStore from '@userStore';
+import * as fromZakautStore from '@zakautStore';
 import { Sapak } from 'app/features/user/models/sapak.model';
 import { Zakaut } from 'app/features/user/models/permission.model';
 import { ZakautQueryModel } from 'app/features/zakaut/models/zakaut-query.model';
@@ -104,9 +105,12 @@ export class ZakautActionsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<fromStore.UserState>
+    private userStore: Store<fromUserStore.UserState>,
+    private zakautStore: Store<fromZakautStore.ZakautState>
   ) {
-    this.currentSapak$ = this.store.select(fromStore.activeSapakSelector);
+    this.currentSapak$ = this.userStore.select(
+      fromUserStore.activeSapakSelector
+    );
   }
 
   ngOnInit() {
@@ -216,6 +220,9 @@ export class ZakautActionsComponent implements OnInit {
     this.disableAllForms();
     this.zakautRequest = this.buildRequest(form);
     console.log(this.zakautRequest);
+    this.zakautStore.dispatch(
+      new fromZakautStore.CheckZakaut(this.zakautRequest)
+    );
   }
 
   buildRequest(form: FormGroup): ZakautQueryModel {
