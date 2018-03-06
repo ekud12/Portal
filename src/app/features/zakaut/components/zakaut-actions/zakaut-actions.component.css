@@ -43,3 +43,12 @@
   font-size: 24px;
   font-weight: bolder;
 }
+
+.actions-container {
+  width: 100%;
+}
+
+.actions-card {
+  width: 40%;
+}
+

@@ -20,7 +20,6 @@ export class UserLoginFail implements Action {
 export class UserLoginSuccess implements Action {
   readonly type = LOGIN_USER_SUCCESS;
   constructor(public payload: any) {
-    console.log(payload);
   }
 }
 export class UserLoginCompleted implements Action {

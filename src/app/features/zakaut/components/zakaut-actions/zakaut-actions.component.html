@@ -1,83 +1,113 @@
-<mat-card fxLayout="row" fxLayoutAlign="start stretch center">
+<div class="actions-container" fxLayout="row" fxLayoutAlign="space-around center center">
 
-  <mat-tab-group dir="rtl" [@.disabled]="true">
-    <mat-tab label="העברת כרטיס מגנטי">
-      <form #zakautWithCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="zakautWithCardForm"
-        class="form" novalidate>
+  <mat-card fxLayout="row" fxLayoutAlign="space-around center center" class="actions-card">
 
-        <mat-form-field [floatLabel]="options.zakautWithCardForm.floatLabel">
-          <input matInput type="password" formControlName="_zakautWithCardControl" placeholder="כרטיס מגנטי" [errorStateMatcher]="matcher">
-          <!-- <mat-error *ngIf="loginForm.get(formItem.controller).hasError('required')">{{errors.required}}</mat-error>
+    <mat-tab-group dir="rtl" [@.disabled]="true">
+      <mat-tab label="העברת כרטיס מגנטי">
+        <h5>הערות: המטופל עם כרטיס מגנטי - הזנה באמצעות העברת הכרטיס </h5>
+        <form #zakautWithCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="zakautWithCardForm"
+          class="form" novalidate>
+
+          <mat-form-field [floatLabel]="vars.floatLabel">
+            <input matInput type="password" formControlName="_zakautWithCardControl" placeholder="כרטיס מגנטי" [errorStateMatcher]="matcher">
+            <!-- <mat-error *ngIf="loginForm.get(formItem.controller).hasError('required')">{{errors.required}}</mat-error>
           <mat-error *ngIf="loginForm.get(formItem.controller).hasError('minlength')">{{errors.minlength}}</mat-error>-->
-          <mat-error *ngIf="zakautWithCardForm.get('_zakautWithCardControl').hasError('pattern')">{{errors.pattern}}</mat-error>
-        </mat-form-field>
+            <mat-error *ngIf="zakautWithCardForm.get('_zakautWithCardControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
+          </mat-form-field>
 
-        <div class="submit-section">
-          <button mat-raised-button fxFill color="primary" (click)="validateCard()" type='button' disabled={{!zakautWithCardForm.valid}}>
-            {{ isValidating ? options.zakautWithCardForm.zakautWithCardBtnValidating : options.zakautWithCardForm.zakautWithCardBtnName
-            }}
-          </button>
-          <section class="loader-section">
-            <mat-progress-bar mode="indeterminate" *ngIf="isValidating">
-            </mat-progress-bar>
-          </section>
-        </div>
-
-      </form>
+          <div class="submit-section">
+            <button mat-raised-button fxFill color="primary" (click)="validateCard()" type='button' disabled={{!zakautWithCardForm.valid}}>
+              {{ isValidating ? vars.BtnValidating : vars.BtnName }}
+            </button>
+            <section class="loader-section">
+              <mat-progress-bar mode="indeterminate" *ngIf="isValidating">
+              </mat-progress-bar>
+            </section>
+          </div>
+        </form>
 
 
-    </mat-tab>
+      </mat-tab>
+      <mat-tab label="דווח עם אישור זמני">
+        <h5>הערות: המטופל ללא כרטיס מגנטי - הזנה באמצעות אישור זמני </h5>
+        <form #zakautWithTempCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" class="form"
+          novalidate [formGroup]="zakautWithTempCardForm">
+          <div fxLayout="row" fxLayoutAlign="space-between stretch center" fxLayoutGap>
+            <mat-form-field>
+              <input matInput placeholder="תעודת זהות" type="text" maxlength="{{vars.idLength}}" formControlName="_zakautWithTempCardIdControl"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardIdControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
+              <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardIdControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select [(value)]="selectedValueForPrefixId">
+                <mat-option *ngFor="let prefix of vars.prefixes" [value]="prefix.value">
+                  {{prefix.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-    <mat-tab label="דווח עם אישור זמני" ngIf="(currentSapak$ | async)?.Permissions[0].permissionType == 0">
-      <form>
-
-        <mat-form-field>
-          <mat-select matInput placeholder="ת.ז.">
-            <mat-option></mat-option>
-          </mat-select>
-        </mat-form-field>
-
-
-        <mat-form-field>
-          <input matInput placeholder="שנת לידה">
-
-
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput placeholder="מספר כ.זמני">
-        </mat-form-field>
-        <button mat-button>שלח</button>
-      </form>
-    </mat-tab>
-
-    <mat-tab label="דווח ידני">
-      <form>
-
-        <mat-form-field>
-          <mat-select matInput placeholder="ת.ז."></mat-select>
-        </mat-form-field>
-
-
-        <mat-form-field>
-          <input matInput placeholder="שנת לידה">
+          <mat-form-field>
+            <!-- <input matInput placeholder="שנת לידה" type="text" maxlength="4" formControlName="_zakautWithTempCardDOBControl" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
+            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error> -->
+            <mat-select placeholder="שנת לידה" formControlName="_zakautWithTempCardDOBControl" [errorStateMatcher]="matcher">
+              <mat-option *ngFor="let year of vars.possibleYears" [value]="year">
+                {{ year }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').hasError('required')">{{vars.errors.required}}</mat-error>
+          </mat-form-field>
 
 
-        </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="מספר אישור זמני" type="text" maxlength="{{vars.tempCardNumberLength}}" formControlName="_zakautWithTempCardNumberControl"
+              [errorStateMatcher]="matcher">
+            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
+            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
+          </mat-form-field>
 
-        <mat-form-field>
-          <input matInput placeholder="מספר כ.זמני">
-        </mat-form-field>
+          <div class="submit-section">
+            <button mat-raised-button fxFill color="primary" (click)="validateCard()" type='button' disabled={{!zakautWithTempCardForm.valid}}>
+              {{ isValidating ? vars.BtnValidating : vars.BtnName }}
+            </button>
+            <section class="loader-section">
+              <mat-progress-bar mode="indeterminate" *ngIf="isValidating">
+              </mat-progress-bar>
+            </section>
+          </div>
+        </form>
+      </mat-tab>
 
-        <mat-radio-group>
-          <mat-radio-button value="1">קורא כרטיסים פגום</mat-radio-button>
-          <mat-radio-button value="2">כרטיס פגום</mat-radio-button>
-        </mat-radio-group>
+      <mat-tab label="דווח ידני" disabled="tabsDisabled">
+        <form>
 
-        <button mat-button>שלח</button>
-      </form>
-    </mat-tab>
+          <mat-form-field>
+            <mat-select matInput placeholder="ת.ז."></mat-select>
+          </mat-form-field>
 
 
-  </mat-tab-group>
-</mat-card>
+          <mat-form-field>
+            <input matInput placeholder="שנת לידה">
+
+
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="מספר כ.זמני">
+          </mat-form-field>
+
+          <mat-radio-group>
+            <mat-radio-button value="1">קורא כרטיסים פגום</mat-radio-button>
+            <mat-radio-button value="2">כרטיס פגום</mat-radio-button>
+          </mat-radio-group>
+
+          <button mat-button>שלח</button>
+        </form>
+      </mat-tab>
+
+
+    </mat-tab-group>
+  </mat-card>
+</div>

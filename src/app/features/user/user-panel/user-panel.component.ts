@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { UserState, ChangeSapak } from '../store';
@@ -26,10 +31,7 @@ export class UserPanelComponent implements OnInit {
     this.activeSapak$ = store.select(fromUserStore.activeSapakSelector);
   }
 
-  ngOnInit() {
-    this.user$.subscribe(val => console.log(val));
-    this.activeSapak$.subscribe(val => console.log(val));
-  }
+  ngOnInit() {}
 
   changeActiveSapak() {
     this.store.dispatch(new ChangeSapak(this.selectedSapakKod));

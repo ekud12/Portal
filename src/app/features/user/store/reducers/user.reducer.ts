@@ -35,9 +35,12 @@ export function userReducer(state = userInitialState, action: any): UserState {
         activeSapak: {
           kodSapak: '222',
           description: 'ליאל',
-          permissions: [
-            { permissionType: Zakaut.With_Card_Only, desc: 'ליא ליאל' }
-          ]
+          permissions: {
+            zakaut: {
+              permissionType: Zakaut.With_Card_Only,
+              desc: 'עם כרטיס בלבד'
+            }
+          }
         },
         isLoading: false
       };

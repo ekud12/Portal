@@ -14,6 +14,7 @@
   right: 0;
   top: 64px;
   /* background: url('../../../assets/images/invoice-bg.png') top center; */
+  background-color: rgb(210, 233, 255);
   background-size: cover;
 }
 

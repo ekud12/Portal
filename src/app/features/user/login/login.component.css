@@ -1,6 +1,7 @@
 .login-page {
   height: 100vh;
   /* background: url('../../../../assets/images/invoice-bg.png') top center; */
+  background-color: rgb(210, 233, 255);
   background-size: cover;
 }
 
