@@ -31,7 +31,10 @@ import * as fromUserStore from '@userStore';
 import * as fromZakautStore from '@zakautStore';
 import { Sapak } from 'app/features/user/models/sapak.model';
 import { Zakaut } from 'app/features/user/models/permission.model';
-import { ZakautQueryModel } from 'app/features/zakaut/models/zakaut-query.model';
+import {
+  ZakautQueryModel,
+  ZakautNoCardReason
+} from 'app/features/zakaut/models/zakaut-query.model';
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -66,6 +69,7 @@ export class ZakautActionsComponent implements OnInit {
     BtnValidating: 'בודק זכאות, אנא המתן...',
     idLength: 9,
     tempCardNumberLength: 4,
+    manualCardNumberLength: 8,
     errors: {
       required: 'שדה חובה',
       minlength: 'נתון קצר מדי',
@@ -75,12 +79,23 @@ export class ZakautActionsComponent implements OnInit {
       { value: '1', viewValue: 'ת"ז' },
       { value: '9', viewValue: 'דרכון' }
     ],
+    reasons: [
+      { value: ZakautNoCardReason.BAD_CARD, viewValue: 'כרטיס פגום' },
+      {
+        value: ZakautNoCardReason.BAD_CARD_READER,
+        viewValue: 'קורא כרטיסים פגום'
+      }
+    ],
     zakautWithCardForm: {
       cardInputRule: '^([0-9]{5}=[0-9]{30})+$'
     },
     zakautWithTempCardForm: {
       idInputRule: '^([0-9]{1,9})$',
       cardInputRule: '^([0-9]{1,4})$'
+    },
+    zakautManualForm: {
+      idInputRule: '^([0-9]{1,9})$',
+      cardInputRule: '^([0-9]{1,8})$'
     },
     possibleYears: [...Array.from(Array(1 + 118).keys())]
       .map(v => `${1900 + v}`)
@@ -91,7 +106,7 @@ export class ZakautActionsComponent implements OnInit {
 
   // Global Vars
   matcher = new ZakautErrorStateMatcher();
-  isValidating = false;
+  isValidating$: Observable<boolean>;
   tabsDisabled = false;
   currentSapak$: Observable<Sapak>;
 
@@ -111,31 +126,50 @@ export class ZakautActionsComponent implements OnInit {
     this.currentSapak$ = this.userStore.select(
       fromUserStore.activeSapakSelector
     );
+    this.isValidating$ = this.zakautStore.select(
+      fromZakautStore.zakautLoadingSelector
+    );
   }
 
   ngOnInit() {
     this.createForms();
     this.currentSapak$.subscribe(sapak => {
-      if (
-        sapak.permissions['zakaut'].permissionType === Zakaut.With_Card_Only
-      ) {
-        this.tabsDisabled = true;
-      } else {
-        this.tabsDisabled = false;
+      this.zakautRequest.sapakCode = sapak.kodSapak;
+      if (sapak.kodSapak !== '') {
+        if (
+          sapak.permissions['zakaut'].permissionType === Zakaut.With_Card_Only
+        ) {
+          this.tabsDisabled = true;
+        } else {
+          this.tabsDisabled = false;
+        }
       }
     });
-    // this.selectedValueForPrefixId = this.vars.prefixes[0].value;
-    // console.log(this.selectedValueForPrefixId);
+    this.isValidating$.subscribe(val => {
+      if (val) {
+        this.disableAllForms();
+      } else {
+        this.enableAllForms();
+      }
+    });
   }
 
   createForms() {
     this.createFormZakautWithCard();
     this.createFormZakautWithTempCard();
+    this.createFormManual();
   }
 
   disableAllForms() {
     this.disableWithCardForm();
     this.disableTempForm();
+    this.disableManualForm();
+  }
+
+  enableAllForms() {
+    this.enableForm();
+    this.enableManualForm();
+    this.enableTempForm();
   }
 
   //#region ZakautWithCard
@@ -215,36 +249,102 @@ export class ZakautActionsComponent implements OnInit {
   }
   //#endregion
 
+  //#region ZakautManual
+  createFormManual() {
+    this.zakautManualForm = this.fb.group({
+      _zakautManualIdPrefixControl: new FormControl(
+        { value: '1', disabled: true },
+        [Validators.required]
+      ),
+      _zakautManualIdControl: new FormControl({ value: '', disabled: true }, [
+        Validators.required,
+        Validators.minLength(9),
+        Validators.pattern(this.vars.zakautManualForm.idInputRule)
+      ]),
+      _zakautManualDOBControl: new FormControl({ value: '', disabled: true }, [
+        Validators.required
+      ]),
+      _zakautManualCardNumberControl: new FormControl(
+        { value: '', disabled: true },
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(this.vars.zakautManualForm.cardInputRule)
+        ]
+      ),
+      _zakautManualReasonControl: new FormControl(
+        { value: '', disabled: true },
+        [Validators.required]
+      )
+    });
+    this.enableManualForm();
+  }
+
+  enableManualForm() {
+    this.zakautManualForm.get('_zakautManualIdPrefixControl').enable();
+    this.zakautManualForm.get('_zakautManualIdControl').enable();
+    this.zakautManualForm.get('_zakautManualDOBControl').enable();
+    this.zakautManualForm.get('_zakautManualCardNumberControl').enable();
+    this.zakautManualForm.get('_zakautManualReasonControl').enable();
+  }
+
+  disableManualForm() {
+    this.zakautManualForm.disable();
+    this.zakautManualForm.get('_zakautManualIdPrefixControl').disable();
+    this.zakautManualForm.get('_zakautManualIdControl').disable();
+    this.zakautManualForm.get('_zakautManualDOBControl').disable();
+    this.zakautManualForm.get('_zakautManualCardNumberControl').disable();
+    this.zakautManualForm.get('_zakautManualReasonControl').disable();
+  }
+  //#endregion
+
   validateCard(form: FormGroup) {
-    this.isValidating = true;
-    this.disableAllForms();
+    // this.disableAllForms();
     this.zakautRequest = this.buildRequest(form);
-    console.log(this.zakautRequest);
     this.zakautStore.dispatch(
       new fromZakautStore.CheckZakaut(this.zakautRequest)
     );
   }
 
+  // TODO: Make Generic
   buildRequest(form: FormGroup): ZakautQueryModel {
     switch (form) {
       case this.zakautWithCardForm: {
+        this.zakautRequest.requestType = '01';
         this.zakautRequest.cardNumber = form.get(
           '_zakautWithCardControl'
         ).value;
-        this.zakautRequest.requestType = '1';
         break;
       }
       case this.zakautWithTempCardForm: {
-        this.zakautRequest.dateOfBirth = form.get(
-          '_zakautWithTempCardDOBControl'
-        ).value;
-        this.zakautRequest.requestType = '2';
+        this.zakautRequest.requestType = '02';
         this.zakautRequest.id = form.get('_zakautWithTempCardIdControl').value;
         this.zakautRequest.idPrefix = form.get(
           '_zakautWithTempCardIdPrefixControl'
         ).value;
+        this.zakautRequest.dateOfBirth = form.get(
+          '_zakautWithTempCardDOBControl'
+        ).value;
         this.zakautRequest.tempCard = form.get(
           '_zakautWithTempCardNumberControl'
+        ).value;
+        break;
+      }
+      case this.zakautManualForm: {
+        this.zakautRequest.requestType = '03';
+        this.zakautRequest.id = form.get('_zakautManualIdControl').value;
+        this.zakautRequest.idPrefix = form.get(
+          '_zakautManualIdPrefixControl'
+        ).value;
+        this.zakautRequest.dateOfBirth = form.get(
+          '_zakautManualDOBControl'
+        ).value;
+
+        this.zakautRequest.tempCard = form.get(
+          '_zakautManualCardNumberControl'
+        ).value;
+        this.zakautRequest.noCardReason = form.get(
+          '_zakautManualReasonControl'
         ).value;
         break;
       }

@@ -10,11 +10,13 @@ import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
 import { RouterState, routerInitialState } from './router.reducer';
 
 import * as fromRouter from '@ngrx/router-store';
+import { ZakautState } from '@zakautStore';
+import { UserState } from '@userStore';
 
 export interface AppState {
   router: fromRouter.RouterReducerState<RouterState>;
-  user: any;
-  zakaut: any;
+  user: UserState;
+  zakaut: ZakautState;
 }
 
 export function defaultReducer<T>(state: T) {
@@ -30,7 +32,12 @@ export const reducers: ActionReducerMap<AppState> = {
 export function getInitialState(): AppState {
   return {
     router: routerInitialState,
-    user: {},
-    zakaut: {}
+    user: { activeSapak: null, user: null, errors: [], isLoading: false },
+    zakaut: {
+      zakautQuery: null,
+      zakautQueryResponse: null,
+      isLoading: false,
+      errors: []
+    }
   };
 }

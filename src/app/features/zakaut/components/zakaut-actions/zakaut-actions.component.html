@@ -15,10 +15,10 @@
           </mat-form-field>
           <div class="submit-section">
             <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithCardForm)" type='button' disabled={{!zakautWithCardForm.valid}}>
-              {{ isValidating ? vars.BtnValidating : vars.BtnName }}
+              {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
             </button>
             <section class="loader-section">
-              <mat-progress-bar mode="indeterminate" *ngIf="isValidating">
+              <mat-progress-bar mode="indeterminate" *ngIf="(isValidating$|async)">
               </mat-progress-bar>
             </section>
           </div>
@@ -66,10 +66,10 @@
 
           <div class="submit-section">
             <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithTempCardForm)" type='button' disabled={{!zakautWithTempCardForm.valid}}>
-              {{ isValidating ? vars.BtnValidating : vars.BtnName }}
+              {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
             </button>
             <section class="loader-section">
-              <mat-progress-bar mode="indeterminate" *ngIf="isValidating">
+              <mat-progress-bar mode="indeterminate" *ngIf="(isValidating$|async)">
               </mat-progress-bar>
             </section>
           </div>
@@ -81,16 +81,16 @@
       <mat-tab label="דווח ידני" [disabled]="tabsDisabled">
         <h5>הערות: המטופל עם כרטיס אבל יש בעיה - הזנה ידנית </h5>
         <form #zakautManualFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" class="form"
-          novalidate [formGroup]="zakautWithTempCardForm">
+          novalidate [formGroup]="zakautManualForm">
           <div fxLayout="row" fxLayoutAlign="space-between stretch center" fxLayoutGap>
             <mat-form-field hintLabel="(באורך 9 ספרות)">
-              <input matInput placeholder="תעודת זהות" type="text" maxlength="{{vars.idLength}}" formControlName="_zakautWithTempCardIdControl"
+              <input matInput placeholder="תעודת זהות" type="text" maxlength="{{vars.idLength}}" formControlName="_zakautManualIdControl"
                 [errorStateMatcher]="matcher">
-              <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardIdControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
-              <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardIdControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
+              <mat-error *ngIf="zakautManualForm.get('_zakautManualIdControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
+              <mat-error *ngIf="zakautManualForm.get('_zakautManualIdControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
             </mat-form-field>
             <mat-form-field hintLabel="(תעודת זהות/דרכון)">
-              <mat-select formControlName="_zakautWithTempCardIdPrefixControl" [errorStateMatcher]="matcher">
+              <mat-select formControlName="_zakautManualIdPrefixControl" [errorStateMatcher]="matcher">
                 <mat-option *ngFor="let prefix of vars.prefixes" [value]="prefix.value">
                   {{prefix.viewValue}}
                 </mat-option>
@@ -99,28 +99,33 @@
           </div>
 
           <mat-form-field hintLabel="(בחר מהרשימה)">
-            <mat-select placeholder="שנת לידה" formControlName="_zakautWithTempCardDOBControl" [errorStateMatcher]="matcher">
+            <mat-select placeholder="שנת לידה" formControlName="_zakautManualDOBControl" [errorStateMatcher]="matcher">
               <mat-option *ngFor="let year of vars.possibleYears" [value]="year">
                 {{ year }}
               </mat-option>
             </mat-select>
 
-            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').hasError('required')">{{vars.errors.required}}</mat-error>
+            <mat-error *ngIf="zakautManualForm.get('_zakautManualDOBControl').hasError('required')">{{vars.errors.required}}</mat-error>
           </mat-form-field>
 
-          <mat-form-field hintLabel="(באורך 4 ספרות)">
-            <input matInput placeholder="מספר אישור זמני" type="text" maxlength="{{vars.tempCardNumberLength}}" formControlName="_zakautWithTempCardNumberControl"
+          <mat-form-field hintLabel="(באורך 8 ספרות)">
+            <input matInput placeholder="מספר כרטיס" type="text" maxlength="{{vars.manualCardNumberLength}}" formControlName="_zakautManualCardNumberControl"
               [errorStateMatcher]="matcher">
-            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
-            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
+            <mat-error *ngIf="zakautManualForm.get('_zakautManualCardNumberControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
+            <mat-error *ngIf="zakautManualForm.get('_zakautManualCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
           </mat-form-field>
+          <p> סיבת אי העברת כרטיס: </p>
+          <mat-radio-group formControlName="_zakautManualReasonControl">
+            <mat-radio-button *ngFor="let reason of vars.reasons" [value]="reason.value"> {{reason.viewValue}}</mat-radio-button>
+          </mat-radio-group>
+
 
           <div class="submit-section">
-            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithTempCardForm)" type='button' disabled={{!zakautWithTempCardForm.valid}}>
-              {{ isValidating ? vars.BtnValidating : vars.BtnName }}
+            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautManualForm)" type='button' disabled={{!zakautManualForm.valid}}>
+              {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
             </button>
             <section class="loader-section">
-              <mat-progress-bar mode="indeterminate" *ngIf="isValidating">
+              <mat-progress-bar mode="indeterminate" *ngIf="(isValidating$|async)">
               </mat-progress-bar>
             </section>
           </div>

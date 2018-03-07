@@ -23,12 +23,14 @@ export function zakautReducer(
     case userActions.CHECK_ZAKAUT: {
       return {
         ...state,
+        zakautQuery: action.payload,
         isLoading: true
       };
     }
     case userActions.CHECK_ZAKAUT_SUCCESS: {
       return {
         ...state,
+        zakautQuery: null,
         zakautQueryResponse: action.payload,
         isLoading: false
       };
@@ -36,7 +38,8 @@ export function zakautReducer(
     case userActions.CHECK_ZAKAUT_FAIL: {
       return {
         ...state,
-        errors: state.errors.concat(action.payload),
+        zakautQuery: null,
+        errors: [...state.errors, action.payload],
         isLoading: false
       };
     }
