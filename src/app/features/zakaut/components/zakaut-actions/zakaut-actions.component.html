@@ -1,6 +1,6 @@
 <div class="actions-container" fxLayout="row" fxLayoutAlign="space-around center center">
 
-  <mat-card fxLayout="row" fxLayoutAlign="space-around center center" class="actions-card">
+  <mat-card fxLayout="column" fxLayoutAlign="space-around center center" class="actions-card">
 
     <mat-tab-group dir="rtl" [@.disabled]="true">
 
@@ -134,5 +134,9 @@
 
 
     </mat-tab-group>
+
+    <mat-card *ngIf="(zakautResponse$|async)" class="response-msg">
+      תוצאת בדיקה: {{(zakautResponse$ | async)}}
+    </mat-card>
   </mat-card>
 </div>

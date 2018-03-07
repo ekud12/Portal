@@ -107,16 +107,16 @@ export class ZakautActionsComponent implements OnInit {
   // Global Vars
   matcher = new ZakautErrorStateMatcher();
   isValidating$: Observable<boolean>;
-  tabsDisabled = false;
   currentSapak$: Observable<Sapak>;
+  zakautResponse$: Observable<string>;
+  zakautRequest = new ZakautQueryModel();
 
+  tabsDisabled = false;
   selectedValueForPrefixId = '1';
 
   zakautWithCardForm: FormGroup;
   zakautWithTempCardForm: FormGroup;
   zakautManualForm: FormGroup;
-
-  zakautRequest = new ZakautQueryModel();
 
   constructor(
     private fb: FormBuilder,
@@ -128,6 +128,9 @@ export class ZakautActionsComponent implements OnInit {
     );
     this.isValidating$ = this.zakautStore.select(
       fromZakautStore.zakautLoadingSelector
+    );
+    this.zakautResponse$ = this.zakautStore.select(
+      fromZakautStore.zakautResponseSelector
     );
   }
 

@@ -21,7 +21,7 @@ export class ZakautEffects {
       return this.zakautService
         .checkZakaut(zakautRequest)
         .pipe(
-          switchMap(res => [new userActions.CheckZakautSuccess(res)]),
+          switchMap(res => [new userActions.CheckZakautSuccess(res.data)]),
           catchError(error => of(new userActions.CheckZakautFail(error)))
         );
     })
