@@ -115,7 +115,7 @@
             <mat-error *ngIf="zakautManualForm.get('_zakautManualCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
           </mat-form-field>
           <p> סיבת אי העברת כרטיס: </p>
-          <mat-radio-group formControlName="_zakautManualReasonControl">
+          <mat-radio-group formControlName="_zakautManualReasonControl" fxLayout="row" fxLayoutAlign="space-around center center">
             <mat-radio-button *ngFor="let reason of vars.reasons" [value]="reason.value"> {{reason.viewValue}}</mat-radio-button>
           </mat-radio-group>
 

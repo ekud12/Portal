@@ -24,7 +24,7 @@ export class ErrorHandler implements HttpInterceptor {
   handleError(error): ErrorObservable {
     let errorMessage = '';
     if (error instanceof HttpErrorResponse) {
-      console.error(`${error.name} ::  ${error.error} | ${error.message}`);
+      // console.error(`${error.name} ::  ${error.error} | ${error.message}`);
       errorMessage = error.message;
     }
     return new ErrorObservable(errorMessage);

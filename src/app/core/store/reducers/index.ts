@@ -5,13 +5,19 @@ import {
   RouterStateSnapshot,
   Params
 } from '@angular/router';
-import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  ActionReducerMap,
+  ActionReducer,
+  MetaReducer
+} from '@ngrx/store';
 
 import { RouterState, routerInitialState } from './router.reducer';
 
 import * as fromRouter from '@ngrx/router-store';
 import { ZakautState } from '@zakautStore';
 import { UserState } from '@userStore';
+import { localStorageSync } from 'ngrx-store-localstorage';
 
 export interface AppState {
   router: fromRouter.RouterReducerState<RouterState>;
@@ -41,3 +47,13 @@ export function getInitialState(): AppState {
     }
   };
 }
+
+export function localStorageSyncReducer(
+  reducer: ActionReducer<any>
+): ActionReducer<any> {
+  return localStorageSync({ keys: ['user'], rehydrate: true })(reducer);
+}
+
+export const metaReducers: Array<MetaReducer<any, any>> = [
+  localStorageSyncReducer
+];

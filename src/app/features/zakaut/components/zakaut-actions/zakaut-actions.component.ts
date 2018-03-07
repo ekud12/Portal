@@ -153,7 +153,7 @@ export class ZakautActionsComponent implements OnInit {
       }
     });
   }
-
+  //#region Actions on all Forms
   createForms() {
     this.createFormZakautWithCard();
     this.createFormZakautWithTempCard();
@@ -171,6 +171,7 @@ export class ZakautActionsComponent implements OnInit {
     this.enableManualForm();
     this.enableTempForm();
   }
+  //#endregion
 
   //#region ZakautWithCard
   createFormZakautWithCard() {
@@ -308,6 +309,7 @@ export class ZakautActionsComponent implements OnInit {
 
   // TODO: Make Generic
   buildRequest(form: FormGroup): ZakautQueryModel {
+    this.clearRequest();
     switch (form) {
       case this.zakautWithCardForm: {
         this.zakautRequest.requestType = '01';
@@ -325,7 +327,7 @@ export class ZakautActionsComponent implements OnInit {
         this.zakautRequest.dateOfBirth = form.get(
           '_zakautWithTempCardDOBControl'
         ).value;
-        this.zakautRequest.tempCard = form.get(
+        this.zakautRequest.cardNumber = form.get(
           '_zakautWithTempCardNumberControl'
         ).value;
         break;
@@ -340,7 +342,7 @@ export class ZakautActionsComponent implements OnInit {
           '_zakautManualDOBControl'
         ).value;
 
-        this.zakautRequest.tempCard = form.get(
+        this.zakautRequest.cardNumber = form.get(
           '_zakautManualCardNumberControl'
         ).value;
         this.zakautRequest.noCardReason = form.get(
@@ -350,5 +352,14 @@ export class ZakautActionsComponent implements OnInit {
       }
     }
     return this.zakautRequest;
+  }
+
+  clearRequest() {
+    this.zakautRequest.requestType = null;
+    this.zakautRequest.cardNumber = null;
+    this.zakautRequest.id = null;
+    this.zakautRequest.idPrefix = null;
+    this.zakautRequest.dateOfBirth = null;
+    this.zakautRequest.noCardReason = null;
   }
 }

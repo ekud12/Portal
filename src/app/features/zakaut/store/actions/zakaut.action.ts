@@ -4,6 +4,7 @@ import { ZakautQueryModel } from 'app/features/zakaut/models/zakaut-query.model'
 export const CHECK_ZAKAUT = '[Zakaut] Check Zakaut';
 export const CHECK_ZAKAUT_SUCCESS = '[Zakaut] Check Zakaut Success';
 export const CHECK_ZAKAUT_FAIL = '[Zakaut] Check Zakaut Fail';
+export const CHECK_ZAKAUT_COMPLETED = '[Zakaut] Check Zakaut Completed';
 
 // Zakaut Actions
 export class CheckZakaut implements Action {
@@ -21,4 +22,12 @@ export class CheckZakautFail implements Action {
   constructor(public payload: any) {}
 }
 
-export type userActions = CheckZakaut | CheckZakautSuccess | CheckZakautFail;
+export class CheckZakautCompleted implements Action {
+  readonly type = CHECK_ZAKAUT_COMPLETED;
+}
+
+export type userActions =
+  | CheckZakaut
+  | CheckZakautSuccess
+  | CheckZakautFail
+  | CheckZakautCompleted;

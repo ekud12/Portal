@@ -24,22 +24,27 @@ export function zakautReducer(
       return {
         ...state,
         zakautQuery: action.payload,
+        zakautQueryResponse: null,
+        errors: [],
         isLoading: true
       };
     }
     case userActions.CHECK_ZAKAUT_SUCCESS: {
       return {
         ...state,
-        zakautQuery: null,
-        zakautQueryResponse: action.payload,
-        isLoading: false
+        zakautQueryResponse: action.payload
       };
     }
     case userActions.CHECK_ZAKAUT_FAIL: {
       return {
         ...state,
+        errors: [...state.errors, action.payload]
+      };
+    }
+    case userActions.CHECK_ZAKAUT_COMPLETED: {
+      return {
+        ...state,
         zakautQuery: null,
-        errors: [...state.errors, action.payload],
         isLoading: false
       };
     }
