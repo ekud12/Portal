@@ -29,43 +29,27 @@ export function userReducer(state = userInitialState, action: any): UserState {
       };
     }
     case userActions.LOGIN_USER_SUCCESS: {
+      const suppliersList: Sapak[] = [];
+      const rawSuppliersData = JSON.parse(action.payload.suppliersHebrew);
+      Object.keys(rawSuppliersData).map(key =>
+        suppliersList.push({
+          kodSapak: rawSuppliersData[key].SupplierCode,
+          description: rawSuppliersData[key].SupplierDesc,
+          permissions: {
+            zakaut: {
+              permissionType: Zakaut.With_Card_And_Manual_Surgeon,
+              desc: 'יכול לבצע העברה בכרטיס או ידנית'
+            }
+          }
+        })
+      );
       return {
         ...state,
         user: {
           username: action.payload.userName,
-          availableSapakim: [
-            {
-              kodSapak: '123',
-              description: 'רגיל',
-              permissions: {
-                zakaut: {
-                  permissionType: Zakaut.With_Card_Only,
-                  desc: 'עם כרטיס בלבד'
-                }
-              }
-            },
-            {
-              kodSapak: '456',
-              description: 'רגיל לא מנתח',
-              permissions: {
-                zakaut: {
-                  permissionType: Zakaut.With_Card_And_Manual_Not_Surgeon,
-                  desc: 'עם כרטיס וידני לא מנתח'
-                }
-              }
-            }
-          ]
+          availableSapakim: suppliersList
         },
-        activeSapak: {
-          kodSapak: '123',
-          description: 'רגיל',
-          permissions: {
-            zakaut: {
-              permissionType: Zakaut.With_Card_Only,
-              desc: 'עם כרטיס בלבד'
-            }
-          }
-        },
+        activeSapak: suppliersList[0],
         isLoading: false
       };
     }
@@ -81,12 +65,12 @@ export function userReducer(state = userInitialState, action: any): UserState {
         ...state
       };
     }
-
     case userActions.LOGOUT_USER_COMPLETED: {
       return {
         ...state,
         user: { username: null, availableSapakim: [] },
-        activeSapak: null,
+        activeSapak: { kodSapak: '' },
+        errors: [],
         isLoading: false
       };
     }
@@ -102,15 +86,4 @@ export function userReducer(state = userInitialState, action: any): UserState {
   }
 
   return state;
-}
-
-function b64DecodeUnicode(str) {
-  return decodeURIComponent(
-    atob(str)
-      .split('')
-      .map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      })
-      .join('')
-  );
 }

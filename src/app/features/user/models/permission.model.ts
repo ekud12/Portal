@@ -1,6 +1,6 @@
 export class Permission {
   permissionType: Zakaut | Invoice;
-  desc: string;
+  desc?: string;
 }
 
 // Permission Type Enums
