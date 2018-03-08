@@ -39,9 +39,9 @@
               <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardIdControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
             </mat-form-field>
             <mat-form-field hintLabel="(תעודת זהות/דרכון)">
-              <mat-select formControlName="_zakautWithTempCardIdPrefixControl" [errorStateMatcher]="matcher">
-                <mat-option *ngFor="let prefix of vars.prefixes" [value]="prefix.value">
-                  {{prefix.viewValue}}
+              <mat-select formControlName="_zakautWithTempCardIdTypeControl" [errorStateMatcher]="matcher">
+                <mat-option *ngFor="let type of vars.idTypes" [value]="type.value">
+                  {{type.viewValue}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -90,9 +90,9 @@
               <mat-error *ngIf="zakautManualForm.get('_zakautManualIdControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
             </mat-form-field>
             <mat-form-field hintLabel="(תעודת זהות/דרכון)">
-              <mat-select formControlName="_zakautManualIdPrefixControl" [errorStateMatcher]="matcher">
-                <mat-option *ngFor="let prefix of vars.prefixes" [value]="prefix.value">
-                  {{prefix.viewValue}}
+              <mat-select formControlName="_zakautManualIdTypeControl" [errorStateMatcher]="matcher">
+                <mat-option *ngFor="let type of vars.idTypes" [value]="type.value">
+                  {{type.viewValue}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

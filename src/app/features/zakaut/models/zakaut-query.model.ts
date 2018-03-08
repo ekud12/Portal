@@ -1,11 +1,12 @@
 export class ZakautQueryModel {
-  requestType: string;
-  cardNumber?: string;
-  id?: string;
-  idPrefix?: string;
-  dateOfBirth?: string;
-  noCardReason?: ZakautNoCardReason;
+  userName: string;
   sapakCode?: string;
+  requestType: string;
+  idType?: string;
+  id?: string;
+  dateOfBirth?: string;
+  cardNumber?: string;
+  noCardReason?: ZakautNoCardReason;
 }
 
 export enum ZakautNoCardReason {

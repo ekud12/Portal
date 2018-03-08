@@ -8,6 +8,12 @@ export const userSelector = createSelector(
   (state: UserState) => state.user
 );
 
+export const userNameSelector = createSelector(
+  getUserState,
+  (state: UserState) => state.user.username
+);
+
+
 export const activeSapakSelector = createSelector(
   getUserState,
   (state: UserState) => state.activeSapak
