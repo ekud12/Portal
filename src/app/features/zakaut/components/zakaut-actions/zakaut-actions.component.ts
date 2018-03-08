@@ -145,17 +145,24 @@ export class ZakautActionsComponent implements OnInit {
       this.zakautRequest.userName = username;
     });
     this.currentSapak$.subscribe(sapak => {
+      this.resetAllForms();
       this.zakautRequest.sapakCode = sapak.kodSapak;
       if (sapak.kodSapak !== '') {
         switch (sapak.permissions['zakaut'].permissionType) {
           case Zakaut.With_Card_Only: {
             this.tabsDisabled = true;
+            this.zakautRequest.isSurgeon = false;
             break;
           }
           case Zakaut.With_Card_And_Manual_Not_Surgeon: {
             this.zakautManualForm
               .get('_zakautManualCardNumberControl')
               .enable();
+            this.zakautRequest.isSurgeon = false;
+            break;
+          }
+          case Zakaut.With_Card_And_Manual_Surgeon: {
+            this.zakautRequest.isSurgeon = true;
             break;
           }
         }
@@ -191,6 +198,12 @@ export class ZakautActionsComponent implements OnInit {
     this.enableForm();
     this.enableManualForm();
     this.enableTempForm();
+  }
+
+  resetAllForms() {
+    this.zakautManualForm.reset();
+    this.zakautWithCardForm.reset();
+    this.zakautWithTempCardForm.reset();
   }
   //#endregion
 
@@ -320,7 +333,6 @@ export class ZakautActionsComponent implements OnInit {
   //#endregion
 
   validateCard(form: FormGroup) {
-    // this.disableAllForms();
     this.zakautRequest = this.buildRequest(form);
     this.zakautStore.dispatch(
       new fromZakautStore.CheckZakaut(this.zakautRequest)
@@ -366,7 +378,6 @@ export class ZakautActionsComponent implements OnInit {
             '_zakautManualCardNumberControl'
           ).value;
         }
-
         this.zakautRequest.noCardReason = form.get(
           '_zakautManualReasonControl'
         ).value;

@@ -37,7 +37,7 @@ export function userReducer(state = userInitialState, action: any): UserState {
           description: rawSuppliersData[key].SupplierDesc,
           permissions: {
             zakaut: {
-              permissionType: Zakaut.With_Card_And_Manual_Not_Surgeon,
+              permissionType: Zakaut.With_Card_And_Manual_Surgeon,
               desc: 'יכול לבצע העברה בכרטיס או ידנית'
             }
           }

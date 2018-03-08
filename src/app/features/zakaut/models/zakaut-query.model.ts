@@ -7,9 +7,10 @@ export class ZakautQueryModel {
   dateOfBirth?: string;
   cardNumber?: string;
   noCardReason?: ZakautNoCardReason;
+  isSurgeon?: boolean;
 }
 
 export enum ZakautNoCardReason {
-  BAD_CARD = '22225',
-  BAD_CARD_READER = '22224'
+  BAD_CARD = '1',
+  BAD_CARD_READER = '2'
 }
