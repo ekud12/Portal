@@ -18,6 +18,7 @@ export class ZakautEffects {
   checkZakaut$ = this.actions$.ofType(userActions.CHECK_ZAKAUT).pipe(
     map((action: userActions.CheckZakaut) => action.payload),
     switchMap((zakautRequest: ZakautQueryModel) => {
+      console.log(zakautRequest);
       return this.zakautService
         .checkZakaut(zakautRequest)
         .pipe(

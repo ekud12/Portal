@@ -48,6 +48,14 @@ export function zakautReducer(
         isLoading: false
       };
     }
+
+    case userActions.RESET_ZAKAUT: {
+      return {
+        ...state,
+        zakautQueryResponse: null,
+        errors: []
+      };
+    }
   }
 
   return state;

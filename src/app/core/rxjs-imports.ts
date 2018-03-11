@@ -16,5 +16,7 @@
 import { switchMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { timer } from 'rxjs/observable/timer';
+import { take } from 'rxjs/operators';
 
 export const rxjs_imports = [switchMap, map, of];

@@ -35,6 +35,8 @@ import {
   ZakautQueryModel,
   ZakautNoCardReason
 } from 'app/features/zakaut/models/zakaut-query.model';
+import { timer } from 'rxjs/observable/timer';
+import { take, map, switchMap } from 'rxjs/operators';
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -110,7 +112,11 @@ export class ZakautActionsComponent implements OnInit {
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
   zakautResponse$: Observable<string>;
+  zakautErrors$: Observable<string[]>;
   zakautRequest = new ZakautQueryModel();
+
+  countDown;
+  count = 15;
 
   tabsDisabled = false;
   selectedValueForIdType = '1';
@@ -133,6 +139,9 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautResponse$ = this.zakautStore.select(
       fromZakautStore.zakautResponseSelector
     );
+    this.zakautErrors$ = this.zakautStore.select(
+      fromZakautStore.zakautErrorsSelector
+    );
     this.loggedUserName$ = this.userStore.select(
       fromUserStore.userNameSelector
     );
@@ -144,6 +153,17 @@ export class ZakautActionsComponent implements OnInit {
     this.loggedUserName$.subscribe(username => {
       this.zakautRequest.userName = username;
     });
+    this.zakautResponse$.subscribe(val => {
+      if (val !== null) {
+        this.startTimer();
+      }
+    });
+    this.zakautErrors$.subscribe(val => {
+      if (val.length > 0) {
+        this.startTimer();
+      }
+    });
+
     this.currentSapak$.subscribe(sapak => {
       this.resetAllForms();
       this.zakautRequest.sapakCode = sapak.kodSapak;
@@ -179,6 +199,22 @@ export class ZakautActionsComponent implements OnInit {
         this.enableAllForms();
       }
     });
+  }
+
+  // fix for multiple calls
+  startTimer() {
+    this.countDown = 0;
+    // this.count = 10;
+    this.countDown = timer(0, 1000)
+      .pipe(take(this.count), map(() => --this.count))
+      .subscribe(
+        val => {},
+        err => {},
+        () => {
+          (this.count = 10),
+            this.zakautStore.dispatch(new fromZakautStore.ResetZakaut());
+        }
+      );
   }
 
   //#region Actions on all Forms
@@ -320,6 +356,7 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautManualForm.get('_zakautManualIdControl').enable();
     this.zakautManualForm.get('_zakautManualDOBControl').enable();
     this.zakautManualForm.get('_zakautManualReasonControl').enable();
+    this.zakautManualForm.get('_zakautManualCardNumberControl').enable();
   }
 
   disableManualForm() {

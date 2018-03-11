@@ -135,8 +135,14 @@
 
     </mat-tab-group>
 
-    <mat-card *ngIf="(zakautResponse$|async)" class="response-msg">
-      תוצאת בדיקה: {{(zakautResponse$ | async)}}
+    <mat-card *ngIf="(zakautErrors$|async).length > 0" class="response-msg-bad">
+      {{(zakautErrors$ | async)}}
+      <p>הודעה זו תיעלם בעוד {{count}} שניות.</p>
+    </mat-card>
+    <mat-card *ngIf="(zakautResponse$|async) !== null" class="response-msg-good">
+      {{(zakautResponse$ | async)}}
+      <p>הודעה זו תיעלם בעוד {{count}} שניות.</p>
     </mat-card>
   </mat-card>
+
 </div>

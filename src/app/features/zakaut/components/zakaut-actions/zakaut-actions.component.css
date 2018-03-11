@@ -52,6 +52,10 @@
   width: 40%;
 }
 
-.response-msg {
-  background-color: orange;
+.response-msg-good {
+  background-color: rgb(153, 255, 187);
+}
+
+.response-msg-bad {
+  background-color: rgb(255, 108, 108);
 }
