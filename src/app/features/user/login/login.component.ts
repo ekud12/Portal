@@ -73,13 +73,13 @@ export class LoginComponent implements OnInit {
   ) {
     this.user$ = store.select(fromUserStore.userSelector);
     this.loginErrors$ = store.select(fromUserStore.userErrorsSelector);
+    this.isValidating$ = store.select(fromUserStore.userLoadingSelector);
+    this.createForm();
     this.loginErrors$.subscribe(val => {
       if (Array.isArray(val) && val.length) {
         this.enableForm();
       }
     });
-    this.isValidating$ = store.select(fromUserStore.userLoadingSelector);
-    this.createForm();
   }
 
   ngOnInit() {}

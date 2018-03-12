@@ -5,16 +5,17 @@
     <mat-tab-group dir="rtl" [@.disabled]="true">
 
       <!-- MagneticCard Form -->
-      <mat-tab label="העברת כרטיס מגנטי">
+      <mat-tab label="העברת כרטיס מגנטי" (click)="setFocus()">
         <h5>הערות: המטופל עם כרטיס מגנטי - הזנה באמצעות העברת הכרטיס </h5>
         <form #zakautWithCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="zakautWithCardForm"
           class="form" novalidate>
           <mat-form-field [floatLabel]="vars.floatLabel">
-            <input matInput type="password" formControlName="_zakautWithCardControl" placeholder="כרטיס מגנטי" [errorStateMatcher]="matcher">
+            <input matInput type="password" formControlName="_zakautWithCardControl" placeholder="כרטיס מגנטי" [errorStateMatcher]="matcher"
+              autofocus #cardFocusFirstTag>
             <mat-error *ngIf="zakautWithCardForm.get('_zakautWithCardControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
           </mat-form-field>
           <div class="submit-section">
-            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithCardForm)" type='button' disabled={{!zakautWithCardForm.valid}}>
+            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithCardForm)" type='button' disabled={{(!zakautWithCardForm.valid||timerActive)}}>
               {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
             </button>
             <section class="loader-section">
@@ -65,7 +66,7 @@
           </mat-form-field>
 
           <div class="submit-section">
-            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithTempCardForm)" type='button' disabled={{!zakautWithTempCardForm.valid}}>
+            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithTempCardForm)" type='button' disabled={{(!zakautWithTempCardForm.valid||timerActive)}}>
               {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
             </button>
             <section class="loader-section">
@@ -121,7 +122,7 @@
 
 
           <div class="submit-section">
-            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautManualForm)" type='button' disabled={{!zakautManualForm.valid}}>
+            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautManualForm)" type='button' disabled={{(!zakautManualForm.valid||timerActive)}}>
               {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
             </button>
             <section class="loader-section">
@@ -136,13 +137,19 @@
     </mat-tab-group>
 
     <mat-card *ngIf="(zakautErrors$|async).length > 0" class="response-msg-bad">
-      {{(zakautErrors$ | async)}}
-      <p>הודעה זו תיעלם בעוד {{count}} שניות.</p>
+      <div fxLayout="row" fxLayoutAlign="space-between center center">
+        <mat-icon>error_outline</mat-icon>
+        {{(zakautErrors$ | async)}}
+      </div>
+
     </mat-card>
     <mat-card *ngIf="(zakautResponse$|async) !== null" class="response-msg-good">
-      {{(zakautResponse$ | async)}}
-      <p>הודעה זו תיעלם בעוד {{count}} שניות.</p>
+      <div fxLayout="row" fxLayoutAlign="space-between center center">
+        <mat-icon>done</mat-icon>
+        {{(zakautResponse$ | async)}}
+      </div>
     </mat-card>
+    <p *ngIf="(zakautErrors$|async).length > 0 ||(zakautResponse$|async) !== null">הודעה זו תיעלם בעוד {{count}} שניות.</p>
   </mat-card>
 
 </div>

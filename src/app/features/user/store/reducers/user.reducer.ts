@@ -25,7 +25,8 @@ export function userReducer(state = userInitialState, action: any): UserState {
     case userActions.LOGIN_USER: {
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        errors: []
       };
     }
     case userActions.LOGIN_USER_SUCCESS: {

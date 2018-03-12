@@ -32,7 +32,7 @@ export function zakautReducer(
     case userActions.CHECK_ZAKAUT_SUCCESS: {
       return {
         ...state,
-        zakautQueryResponse: action.payload
+        zakautQueryResponse: `אישור זכאות נקלט בהצלחה! ${action.payload}`
       };
     }
     case userActions.CHECK_ZAKAUT_FAIL: {

@@ -36,7 +36,7 @@ import {
   ZakautNoCardReason
 } from 'app/features/zakaut/models/zakaut-query.model';
 import { timer } from 'rxjs/observable/timer';
-import { take, map, switchMap } from 'rxjs/operators';
+import { take, map, switchMap, tap } from 'rxjs/operators';
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -44,7 +44,7 @@ export class ZakautErrorStateMatcher implements ErrorStateMatcher {
     form: FormGroupDirective | NgForm | null
   ): boolean {
     const isSubmitted = form && form.submitted;
-    if (control.value === '') {
+    if (!control.value) {
       return false;
     } else {
       return !!(
@@ -89,7 +89,7 @@ export class ZakautActionsComponent implements OnInit {
       }
     ],
     zakautWithCardForm: {
-      cardInputRule: '^([0-9]{5}=[0-9]{30})+$'
+      cardInputRule: '^B([0-9]{5}=[0-9]{30})+$'
     },
     zakautWithTempCardForm: {
       idInputRule: '^([0-9]{1,9})$',
@@ -114,9 +114,13 @@ export class ZakautActionsComponent implements OnInit {
   zakautResponse$: Observable<string>;
   zakautErrors$: Observable<string[]>;
   zakautRequest = new ZakautQueryModel();
+  timerActive = false;
 
-  countDown;
+  @ViewChild('cardFocusFirstTag') cardInputFocus;
+
+  countDown$;
   count = 15;
+  autoCheck = false;
 
   tabsDisabled = false;
   selectedValueForIdType = '1';
@@ -192,27 +196,49 @@ export class ZakautActionsComponent implements OnInit {
     });
 
     // loaders
-    this.isValidating$.subscribe(val => {
-      if (val) {
-        this.disableAllForms();
-      } else {
-        this.enableAllForms();
+    // this.isValidating$.subscribe(val => {
+    //   if (val) {
+    //     this.disableAllForms();
+    //   } else {
+    //     this.enableAllForms();
+    //   }
+    // });
+
+    // setFocus on card input
+    this.setFocus();
+    this.onChanges();
+  }
+  onChanges(): void {
+    this.zakautWithCardForm.valueChanges.subscribe(val => {
+      if (this.zakautWithCardForm.valid) {
+        if (!this.timerActive) {
+          this.validateCard(this.zakautWithCardForm);
+        } else {
+          this.zakautWithCardForm.get('_zakautWithCardControl').setValue(null);
+        }
       }
     });
+  }
+  setFocus() {
+    this.cardInputFocus.nativeElement.focus();
   }
 
   // fix for multiple calls
   startTimer() {
-    this.countDown = 0;
     // this.count = 10;
-    this.countDown = timer(0, 1000)
-      .pipe(take(this.count), map(() => --this.count))
+    this.count = 10;
+    this.timerActive = true;
+    this.countDown$ = timer(0, 1000)
+      .pipe(take(this.count), tap(() => --this.count))
       .subscribe(
         val => {},
         err => {},
         () => {
           (this.count = 10),
             this.zakautStore.dispatch(new fromZakautStore.ResetZakaut());
+          this.zakautWithCardForm.get('_zakautWithCardControl').enable();
+          this.timerActive = false;
+          console.log(this.timerActive);
         }
       );
   }
@@ -382,9 +408,12 @@ export class ZakautActionsComponent implements OnInit {
     switch (form) {
       case this.zakautWithCardForm: {
         this.zakautRequest.requestType = '01';
-        this.zakautRequest.cardNumber = form.get(
-          '_zakautWithCardControl'
-        ).value;
+        this.zakautRequest.cardNumber = form
+          .get('_zakautWithCardControl')
+          .value.slice(1);
+        this.zakautRequest.idType = this.zakautRequest.cardNumber.slice(0, 1);
+        form.get('_zakautWithCardControl').setValue(null);
+        form.get('_zakautWithCardControl').disable();
         break;
       }
       case this.zakautWithTempCardForm: {
@@ -431,5 +460,9 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautRequest.idType = null;
     this.zakautRequest.dateOfBirth = null;
     this.zakautRequest.noCardReason = null;
+  }
+
+  private createTimer(): Observable<number> {
+    return timer(0, 1000);
   }
 }
