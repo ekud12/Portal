@@ -40,9 +40,9 @@
             </mat-progress-bar>
           </section>
         </div>
-        <div *ngIf="loginErrors$ | async">
+        <mat-card *ngIf="(loginErrors$ | async)?.length > 0" class="error">
           {{ (loginErrors$ | async)[0]}}
-        </div>
+        </mat-card>
       </form>
 
       <div *ngIf="isValid" [@itemFade] class="success-msg" fxLayout="row" fxLayoutAlign="center center">

@@ -74,6 +74,7 @@ export class LoginComponent implements OnInit {
     this.user$ = store.select(fromUserStore.userSelector);
     this.loginErrors$ = store.select(fromUserStore.userErrorsSelector);
     this.isValidating$ = store.select(fromUserStore.userLoadingSelector);
+
     this.createForm();
     this.loginErrors$.subscribe(val => {
       if (Array.isArray(val) && val.length) {
@@ -88,8 +89,8 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       _usernameControl: new FormControl({ value: '', disabled: true }, [
         Validators.required,
-        Validators.minLength(6),
-        Validators.pattern(this.options.usernameRules)
+        Validators.minLength(6)
+        // Validators.pattern(this.options.usernameRules)
       ]),
       _passwordControl: new FormControl({ value: '', disabled: true }, [
         Validators.required,

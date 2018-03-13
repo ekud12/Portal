@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import * as userActions from '../actions';
 import { of } from 'rxjs/observable/of';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, tap } from 'rxjs/operators';
 import { UserService } from '../../user.service';
 import { LoginModel } from '../../models/login.model';
 import * as fromRoot from '../../../../core/store';
@@ -19,11 +19,13 @@ export class UserEffects {
           new userActions.UserLoginSuccess(res),
           new userActions.UserLoginCompleted('redirect')
         ]),
-
-        catchError(error => of(new userActions.UserLoginFail(error)))
+        catchError(error =>
+          of(new userActions.UserLoginFail(error.error.error_description))
+        )
       );
     })
   );
+
 
   @Effect()
   loginUserSuccess$ = this.actions$

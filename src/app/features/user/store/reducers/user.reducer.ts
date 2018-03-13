@@ -55,6 +55,7 @@ export function userReducer(state = userInitialState, action: any): UserState {
       };
     }
     case userActions.LOGIN_USER_FAILURE: {
+
       return {
         ...state,
         errors: state.errors.concat(action.payload),

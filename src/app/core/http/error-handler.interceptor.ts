@@ -10,7 +10,12 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-
+import { httpRoutes } from '@http-routes';
+/**
+ *  Error Interceptor
+ *  Returns any request but if error caught
+ *  pass it to the handler
+ */
 @Injectable()
 export class ErrorHandler implements HttpInterceptor {
   constructor() {}
@@ -21,12 +26,21 @@ export class ErrorHandler implements HttpInterceptor {
     return next.handle(request).pipe(catchError(e => this.handleError(e)));
   }
 
+  /**
+   * handle Errors Returned from HTTP calls
+   * depends on the type of error it
+   * @returns Error Message as ErrorObservable
+   */
   handleError(error): ErrorObservable {
+    console.log(error);
     let errorMessage = '';
     if (error instanceof HttpErrorResponse) {
-      // console.error(`${error.name} ::  ${error.error} | ${error.message}`);
+      if (error.url.endsWith(httpRoutes.LOGIN)) {
+        errorMessage = error.error.error_description;
+      }
       errorMessage = error.message;
+      console.error(`${error.name} ::  ${error.error} | ${error.message}`);
     }
-    return new ErrorObservable(errorMessage);
+    return new ErrorObservable(error);
   }
 }

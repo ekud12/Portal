@@ -1,11 +1,12 @@
-<div class="actions-container" fxLayout="row" fxLayoutAlign="space-around center center">
+<div class="actions-container" fxLayout="row" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign="space-around center center">
 
-  <mat-card fxLayout="column" fxLayoutAlign="space-around center center" class="actions-card">
+  <mat-card fxLayout="column" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign.xs="space-around center center"
+    class="actions-card">
 
-    <mat-tab-group dir="rtl" [@.disabled]="true">
+    <mat-tab-group dir="rtl" [@.disabled]="true" >
 
       <!-- MagneticCard Form -->
-      <mat-tab label="העברת כרטיס מגנטי" (click)="setFocus()">
+      <mat-tab label="העברת כרטיס מגנטי" (click)="setFocus()" fxFlex.xs="10px">
         <h5>הערות: המטופל עם כרטיס מגנטי - הזנה באמצעות העברת הכרטיס </h5>
         <form #zakautWithCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="zakautWithCardForm"
           class="form" novalidate>

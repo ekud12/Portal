@@ -51,7 +51,10 @@ export function getInitialState(): AppState {
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
-  return localStorageSync({ keys: ['user'], rehydrate: true })(reducer);
+  return localStorageSync({
+    keys: [{ user: ['user', 'activeSapak', 'isLoading'] }],
+    rehydrate: true
+  })(reducer);
 }
 
 export const metaReducers: Array<MetaReducer<any, any>> = [
