@@ -29,17 +29,16 @@ export class ErrorHandler implements HttpInterceptor {
   /**
    * handle Errors Returned from HTTP calls
    * depends on the type of error it
+   * extracting the error occurs inside effects
    * @returns Error Message as ErrorObservable
    */
   handleError(error): ErrorObservable {
-    console.log(error);
     let errorMessage = '';
     if (error instanceof HttpErrorResponse) {
       if (error.url.endsWith(httpRoutes.LOGIN)) {
         errorMessage = error.error.error_description;
       }
       errorMessage = error.message;
-      console.error(`${error.name} ::  ${error.error} | ${error.message}`);
     }
     return new ErrorObservable(error);
   }

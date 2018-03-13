@@ -225,7 +225,6 @@ export class ZakautActionsComponent implements OnInit {
 
   // fix for multiple calls
   startTimer() {
-    // this.count = 10;
     this.count = 10;
     this.timerActive = true;
     this.countDown$ = timer(0, 1000)
@@ -238,7 +237,6 @@ export class ZakautActionsComponent implements OnInit {
             this.zakautStore.dispatch(new fromZakautStore.ResetZakaut());
           this.zakautWithCardForm.get('_zakautWithCardControl').enable();
           this.timerActive = false;
-          console.log(this.timerActive);
         }
       );
   }

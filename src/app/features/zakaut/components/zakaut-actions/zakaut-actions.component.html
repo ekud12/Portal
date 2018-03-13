@@ -3,7 +3,7 @@
   <mat-card fxLayout="column" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign.xs="space-around center center"
     class="actions-card">
 
-    <mat-tab-group dir="rtl" [@.disabled]="true" >
+    <mat-tab-group dir="rtl" [@.disabled]="true">
 
       <!-- MagneticCard Form -->
       <mat-tab label="העברת כרטיס מגנטי" (click)="setFocus()" fxFlex.xs="10px">
@@ -16,7 +16,7 @@
             <mat-error *ngIf="zakautWithCardForm.get('_zakautWithCardControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
           </mat-form-field>
           <div class="submit-section">
-            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithCardForm)" type='button' disabled={{(!zakautWithCardForm.valid||timerActive)}}>
+            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithCardForm)" type='button' disabled={{(!zakautWithCardForm.valid||timerActive||(isValidating$|async))}}>
               {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
             </button>
             <section class="loader-section">
@@ -67,7 +67,7 @@
           </mat-form-field>
 
           <div class="submit-section">
-            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithTempCardForm)" type='button' disabled={{(!zakautWithTempCardForm.valid||timerActive)}}>
+            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithTempCardForm)" type='button' disabled={{(!zakautWithTempCardForm.valid||timerActive||(isValidating$|async))}}>
               {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
             </button>
             <section class="loader-section">
@@ -123,7 +123,7 @@
 
 
           <div class="submit-section">
-            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautManualForm)" type='button' disabled={{(!zakautManualForm.valid||timerActive)}}>
+            <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautManualForm)" type='button' disabled={{(!zakautManualForm.valid||timerActive||(isValidating$|async))}}>
               {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
             </button>
             <section class="loader-section">

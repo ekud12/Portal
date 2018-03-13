@@ -18,12 +18,13 @@ export class ZakautEffects {
   checkZakaut$ = this.actions$.ofType(userActions.CHECK_ZAKAUT).pipe(
     map((action: userActions.CheckZakaut) => action.payload),
     switchMap((zakautRequest: ZakautQueryModel) => {
-      console.log(zakautRequest);
       return this.zakautService
         .checkZakaut(zakautRequest)
         .pipe(
           switchMap(res => [new userActions.CheckZakautSuccess(res.data)]),
-          catchError(error => of(new userActions.CheckZakautFail(error)))
+          catchError(error =>
+            of(new userActions.CheckZakautFail(error.error.errors[0]))
+          )
         );
     })
   );
