@@ -38,6 +38,11 @@ import {
 import { timer } from 'rxjs/observable/timer';
 import { take, map, switchMap, tap } from 'rxjs/operators';
 
+/**
+ * Zakaut Error State Matcher
+ * This creates a class for Checking if form control is
+ * valid for showing various errors
+ */
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
@@ -63,7 +68,15 @@ export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ZakautActionsComponent implements OnInit {
-  //#region options and errors for all the Forms
+  /**
+   * Global Vars object for all 3 forms in the component.
+   * each form has its own validators values and
+   * @argument vars global vars shared with all forms
+   * @argument idTypes prefixes for ID Type in forms
+   * @argument reasons reasons for radioboxes in Manual form
+   * @argument possibleYears year range for forms
+   */
+  //#region
   vars = {
     hideRequired: true,
     floatLabel: 'never',
@@ -103,11 +116,12 @@ export class ZakautActionsComponent implements OnInit {
       .map(v => `${1900 + v}`)
       .reverse()
   };
-
-  //#endregion
-
-  // Global Vars
   matcher = new ZakautErrorStateMatcher();
+
+  /** Various Store Observables
+   *  Global timer
+   *  Request for checking Zakaut
+   */
   isValidating$: Observable<boolean>;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
@@ -115,20 +129,25 @@ export class ZakautActionsComponent implements OnInit {
   zakautErrors$: Observable<string[]>;
   zakautRequest = new ZakautQueryModel();
   timerActive = false;
-
-  @ViewChild('cardFocusFirstTag') cardInputFocus;
-
   countDown$;
   count = 15;
   autoCheck = false;
-
   tabsDisabled = false;
   selectedValueForIdType = '1';
+  //#endregion
+
+  @ViewChild('cardFocusFirstTag') cardInputFocus;
 
   zakautWithCardForm: FormGroup;
   zakautWithTempCardForm: FormGroup;
   zakautManualForm: FormGroup;
 
+  /**
+   * Bind selectors from stores to local vars and create the forms
+   * @param {FormBuilder} fb -  Build the form
+   * @param {Store<UserState>} userStore - access userStore
+   * @param {zakautStore<ZakautState>} zakautStore - access zakautStore
+   */
   constructor(
     private fb: FormBuilder,
     private userStore: Store<fromUserStore.UserState>,
@@ -152,6 +171,13 @@ export class ZakautActionsComponent implements OnInit {
     this.createForms();
   }
 
+  /**
+   * OnInit function that does the following:
+   * - Get userName and current sapak and assign to the outgoing request.
+   * - Check if we got back response or error from checking zakaut and start timer to reset state.
+   * - Lock tabs according to sapak type, and reset forms if changed.
+   * - Listen to Changes in card field for automatic activation
+   */
   ngOnInit() {
     // store listen
     this.loggedUserName$.subscribe(username => {
@@ -194,20 +220,10 @@ export class ZakautActionsComponent implements OnInit {
         this.disableAllForms();
       }
     });
-
-    // loaders
-    // this.isValidating$.subscribe(val => {
-    //   if (val) {
-    //     this.disableAllForms();
-    //   } else {
-    //     this.enableAllForms();
-    //   }
-    // });
-
-    // setFocus on card input
     this.setFocus();
     this.onChanges();
   }
+
   onChanges(): void {
     this.zakautWithCardForm.valueChanges.subscribe(val => {
       if (this.zakautWithCardForm.valid) {
@@ -219,6 +235,7 @@ export class ZakautActionsComponent implements OnInit {
       }
     });
   }
+
   setFocus() {
     this.cardInputFocus.nativeElement.focus();
   }

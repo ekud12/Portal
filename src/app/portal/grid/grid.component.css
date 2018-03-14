@@ -1,5 +1,5 @@
 gridster {
-  background-color: #f1f0ee;
+  background-color: rgb(210, 233, 255);
 }
 
 gridster-item {
@@ -32,6 +32,7 @@ gridster-item .gridster-item-content {
 :host {
   width: 100%;
   height: 100%;
+  margin-right: 10px;
   display: flex;
   flex-direction: column;
 }

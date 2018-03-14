@@ -8,9 +8,7 @@ import {
   GridsterItemComponentInterface,
   GridType
 } from 'angular-gridster2';
-import {
-  SpkLatestInvoicesWidgetComponent
-} from '../../features/invoices/components/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
+import { SpkLatestInvoicesWidgetComponent } from '../../features/invoices/components/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 
 export interface CustomGridComponent {
   gridster: GridsterItem;
@@ -87,17 +85,17 @@ export class GridComponent implements OnInit {
       itemResizeCallback: GridComponent.itemResize,
       itemInitCallback: GridComponent.itemInit,
       itemRemovedCallback: GridComponent.itemRemoved,
-      margin: 30,
+      margin: 10,
       outerMargin: true,
       outerMarginTop: null,
-      outerMarginRight: null,
+      outerMarginRight: 0,
       outerMarginBottom: null,
       outerMarginLeft: null,
       mobileBreakpoint: 640,
-      minCols: 4,
-      maxCols: 4,
-      minRows: 4,
-      maxRows: 100,
+      minCols: 10,
+      maxCols: 10,
+      minRows: 10,
+      maxRows: 10,
       maxItemCols: 5,
       minItemCols: 1,
       maxItemRows: 2,
@@ -150,7 +148,7 @@ export class GridComponent implements OnInit {
       disablePushOnResize: true,
       pushDirections: { north: true, east: true, south: true, west: true },
       pushResizeItems: false,
-      displayGrid: DisplayGrid.None,
+      displayGrid: DisplayGrid.Always,
       disableWindowResize: false,
       disableWarnings: false,
       scrollToNewItems: true
