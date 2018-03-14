@@ -10,6 +10,8 @@ import { NgModule } from '@angular/core';
 import { ContainerComponent } from './container/container.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { SpkLatestInvoicesWidgetComponent } from 'app/portal/widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
+import { ZakautWidgetComponent } from './widgets/zakaut-widget/zakaut-widget.component';
 
 const DASH_COMPONENTS = [
   ContainerComponent,
@@ -18,6 +20,7 @@ const DASH_COMPONENTS = [
   FooterComponent
 ];
 
+const GRID_WIDGETS = [SpkLatestInvoicesWidgetComponent, ZakautWidgetComponent];
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +30,8 @@ const DASH_COMPONENTS = [
     GridsterModule,
     RouterModule.forChild(portalRoutes)
   ],
-  declarations: [DASH_COMPONENTS],
+  entryComponents: GRID_WIDGETS,
+  declarations: [...DASH_COMPONENTS, ...GRID_WIDGETS],
   exports: [ContainerComponent]
 })
 export class PortalModule {}

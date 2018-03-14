@@ -1,40 +1,7 @@
 <div style="height:85vh">
   <gridster [options]="options">
     <gridster-item [item]="item.gridster" *ngFor="let item of dashboard">
-      <mat-card fxLayout="row" fxLayoutAlign="start center center">
-        <i class="material-icons" (click)="removeItem($event, item)">close</i>
-        <i class="material-icons">lock</i>
-        <div class="drag-handler">
-          <i class="material-icons">swap_horiz</i>
-        </div>
-      </mat-card>
-
-
-      <ng-container *ngComponentOutlet="item.template"></ng-container>
-      <!-- <div class="button-holder">
-        <div class="gridster-item-content" *ngIf="item.hasContent">
-          <div class="stuff">
-            <span>Some content to select and click without dragging the widget</span>
-            <a href="https://www.google.com" target="_blank">Link to Google</a>
-          </div>
-        </div>
-        <div class="item-buttons" *ngIf="item.hasContent">
-          <button mat-icon-button mat-raised-button class="drag-handler">
-            <mat-icon>open_with</mat-icon>
-          </button>
-          <button mat-icon-button mat-raised-button class="remove-button" (mousedown)="removeItem($event, item)" (touchstart)="removeItem($event, item)"
-            matTooltip="Remove">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-        <label *ngIf="!item.hasContent">{{item.label}}</label>
-        <button mat-mini-fab *ngIf="!item.hasContent" (mousedown)="removeItem($event, item)" (touchstart)="removeItem($event, item)"
-          matTooltip="Remove">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div> -->
-      <!-- </div> -->
-
+      <ng-container *ngComponentOutlet="item.myTemplate"></ng-container>
     </gridster-item>
   </gridster>
 </div>

@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SpkLatestInvoicesWidgetComponent } from './components/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 import { SharedModule } from '../../shared/shared.module';
 
-const WIDGET_COMPONENTS = [SpkLatestInvoicesWidgetComponent];
+const WIDGET_COMPONENTS = [];
 
 @NgModule({
   imports: [CommonModule, SharedModule],

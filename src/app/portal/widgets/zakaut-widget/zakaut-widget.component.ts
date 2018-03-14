@@ -6,9 +6,15 @@ import { GridsterItem } from 'angular-gridster2';
   templateUrl: './zakaut-widget.component.html',
   styleUrls: ['./zakaut-widget.component.css']
 })
-export class ZakautWidgetComponent implements OnInit, GridsterItem {
+export class ZakautWidgetComponent implements OnInit {
+  public static myGridSterItemConfig: GridsterItem = {
+    cols: 2,
+    rows: 1,
+    dragEnabled: true
+  };
   constructor() {}
-  rows = 4;
-  cols = 3;
-  ngOnInit() {}
+
+  ngOnInit() {
+    console.log('CREATED:::::::');
+  }
 }

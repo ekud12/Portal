@@ -1,0 +1,17 @@
+:host {
+  width: 100%;
+}
+.mycard {
+  height: 140px;
+  background-color: rgb(255, 255, 255);
+  margin: 10px 10px;
+  border: 1px solid rgb(211, 211, 211);
+  padding: 0 auto;
+}
+
+.widget-header {
+  align-self: flex-start;
+}
+
+.content {
+}

@@ -8,12 +8,9 @@ import {
   GridsterItemComponentInterface,
   GridType
 } from 'angular-gridster2';
-import { SpkLatestInvoicesWidgetComponent } from '../../features/invoices/components/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
-
-export interface CustomGridComponent {
-  gridster: GridsterItem;
-  template: any;
-}
+import { SpkLatestInvoicesWidgetComponent } from '../widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
+import { ZakautWidgetComponent } from '../widgets/zakaut-widget/zakaut-widget.component';
+import { CustomGridComponent } from './custom-grid-item';
 
 @Component({
   selector: 'app-grid',
@@ -85,12 +82,12 @@ export class GridComponent implements OnInit {
       itemResizeCallback: GridComponent.itemResize,
       itemInitCallback: GridComponent.itemInit,
       itemRemovedCallback: GridComponent.itemRemoved,
-      margin: 10,
+      margin: 30,
       outerMargin: true,
       outerMarginTop: null,
-      outerMarginRight: 0,
+      outerMarginRight: 10,
       outerMarginBottom: null,
-      outerMarginLeft: null,
+      outerMarginLeft: 10,
       mobileBreakpoint: 640,
       minCols: 10,
       maxCols: 10,
@@ -146,31 +143,43 @@ export class GridComponent implements OnInit {
       pushItems: true,
       disablePushOnDrag: false,
       disablePushOnResize: true,
-      pushDirections: { north: true, east: true, south: true, west: true },
+      pushDirections: { north: true, east: false, south: true, west: true },
       pushResizeItems: false,
-      displayGrid: DisplayGrid.Always,
+      displayGrid: DisplayGrid.None,
       disableWindowResize: false,
       disableWarnings: false,
       scrollToNewItems: true
     };
 
+    // const a = new CustomGridComponent({}, SpkLatestInvoicesWidgetComponent);
+    const b = new CustomGridComponent(
+      ZakautWidgetComponent,
+      ZakautWidgetComponent.myGridSterItemConfig
+    );
+
     this.dashboard = [
-      {
-        gridster: { cols: 2, rows: 1, y: undefined, x: undefined },
-        template: SpkLatestInvoicesWidgetComponent
-      },
-      {
-        gridster: { cols: 1, rows: 1, y: undefined, x: undefined },
-        template: SpkLatestInvoicesWidgetComponent
-      },
-      {
-        gridster: { cols: 2, rows: 1, y: undefined, x: undefined },
-        template: SpkLatestInvoicesWidgetComponent
-      },
-      {
-        gridster: { cols: 1, rows: 1, y: undefined, x: undefined },
-        template: SpkLatestInvoicesWidgetComponent
-      }
+      b,
+      b,
+      b,
+      b,
+      b
+
+      // {
+      //   gridster: { cols: 2, rows: 1, y: undefined, x: undefined },
+      //   template: SpkLatestInvoicesWidgetComponent
+      // },
+      // {
+      //   gridster: { cols: 1, rows: 1, y: undefined, x: undefined },
+      //   template: SpkLatestInvoicesWidgetComponent
+      // },
+      // {
+      //   gridster: { cols: 2, rows: 1, y: undefined, x: undefined },
+      //   template: SpkLatestInvoicesWidgetComponent
+      // },
+      // {
+      //   gridster: { cols: 1, rows: 1, y: undefined, x: undefined },
+      //   template: SpkLatestInvoicesWidgetComponent
+      // }
       // {
       //   cols: 1,
       //   rows: 1,

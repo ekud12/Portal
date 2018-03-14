@@ -12,12 +12,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { effects } from './store';
 import { zakautReducer } from './store';
 import { ZakautService } from './zakaut.service';
-import { ZakautWidgetComponent } from './widgets/zakaut-widget/zakaut-widget.component';
 
-const WIDGET_COMPONENTS = [ZakautWidgetComponent];
 const ACTION_COMPONENTS = [ZakautActionsComponent];
-
-const ZAKAUT_COMPONENTS = [...WIDGET_COMPONENTS, ...ACTION_COMPONENTS];
 
 @NgModule({
   imports: [
@@ -29,9 +25,9 @@ const ZAKAUT_COMPONENTS = [...WIDGET_COMPONENTS, ...ACTION_COMPONENTS];
     StoreModule.forFeature('zakaut', zakautReducer),
     EffectsModule.forFeature(effects)
   ],
-  entryComponents: [ZAKAUT_COMPONENTS],
+  entryComponents: ACTION_COMPONENTS,
   providers: [ZakautService],
-  declarations: [ZAKAUT_COMPONENTS],
-  exports: [ZAKAUT_COMPONENTS]
+  declarations: ACTION_COMPONENTS,
+  exports: ACTION_COMPONENTS
 })
 export class ZakautModule {}
