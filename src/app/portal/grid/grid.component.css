@@ -1,11 +1,9 @@
 gridster {
-  /* margin-right: 10px; */
   background-color: rgb(210, 233, 255);
 }
 
 gridster-item {
   background-color: transparent;
-  /* padding: 10px 10px; */
   box-sizing: unset;
 }
 

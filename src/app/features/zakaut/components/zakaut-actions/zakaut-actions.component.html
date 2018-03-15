@@ -1,12 +1,12 @@
 <div class="actions-container" fxLayout="row" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign="space-around center center">
 
-  <mat-card fxLayout="column" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign.xs="space-around center center"
-    class="actions-card">
+  <mat-card fxLayout="column" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
+    class="actions-card" ngClass.xs="actions-card-mobile">
 
     <mat-tab-group dir="rtl" [@.disabled]="true">
 
       <!-- MagneticCard Form -->
-      <mat-tab label="העברת כרטיס מגנטי" (click)="setFocus()" fxFlex.xs="10px">
+      <mat-tab label="העברת כרטיס מגנטי" (click)="setFocus()" fxFlex.xs="10">
         <h5>הערות: המטופל עם כרטיס מגנטי - הזנה באמצעות העברת הכרטיס </h5>
         <form #zakautWithCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="zakautWithCardForm"
           class="form" novalidate>
@@ -33,7 +33,8 @@
         <h5>הערות: המטופל ללא כרטיס מגנטי - הזנה באמצעות אישור זמני </h5>
         <form #zakautWithTempCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" class="form"
           novalidate [formGroup]="zakautWithTempCardForm">
-          <div fxLayout="row" fxLayoutAlign="space-between stretch center" fxLayoutGap>
+          <div fxLayout="row" fxLayoutAlign="space-between stretch center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
+            fxLayoutGap>
             <mat-form-field hintLabel="(באורך 9 ספרות)">
               <input matInput placeholder="תעודת זהות" type="text" maxlength="{{vars.idLength}}" formControlName="_zakautWithTempCardIdControl"
                 [errorStateMatcher]="matcher">
@@ -84,7 +85,8 @@
         <h5>הערות: המטופל עם כרטיס אבל יש בעיה - הזנה ידנית </h5>
         <form #zakautManualFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" class="form"
           novalidate [formGroup]="zakautManualForm">
-          <div fxLayout="row" fxLayoutAlign="space-between stretch center" fxLayoutGap>
+          <div fxLayout="row" fxLayoutAlign="space-between stretch center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
+            fxLayoutGap>
             <mat-form-field hintLabel="(באורך 9 ספרות)">
               <input matInput placeholder="תעודת זהות" type="text" maxlength="{{vars.idLength}}" formControlName="_zakautManualIdControl"
                 [errorStateMatcher]="matcher">
@@ -117,7 +119,8 @@
             <mat-error *ngIf="zakautManualForm.get('_zakautManualCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
           </mat-form-field>
           <p> סיבת אי העברת כרטיס: </p>
-          <mat-radio-group formControlName="_zakautManualReasonControl" fxLayout="row" fxLayoutAlign="space-around center center">
+          <mat-radio-group formControlName="_zakautManualReasonControl" fxLayout="row" fxLayoutAlign="space-around center center" fxLayout.xs="column"
+            fxLayout.xs="column" fxLayoutAlign.xs="start stretch center">
             <mat-radio-button *ngFor="let reason of vars.reasons" [value]="reason.value"> {{reason.viewValue}}</mat-radio-button>
           </mat-radio-group>
 

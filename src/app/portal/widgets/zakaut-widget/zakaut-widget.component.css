@@ -2,16 +2,32 @@
   width: 100%;
 }
 .mycard {
-  height: 140px;
+  height: 135px;
   background-color: rgb(255, 255, 255);
-  margin: 10px 10px;
+  margin: 15px 25px;
   border: 1px solid rgb(211, 211, 211);
-  padding: 0 auto;
+  padding: 0 0;
 }
 
 .widget-header {
-  align-self: flex-start;
+  background-color: rgb(0, 162, 255);
+  color: white;
+  padding-left: 10px;
+  padding-right: 20px;
+}
+.widget-header:before {
+  content: '';
+  position: absolute;
+  border-left: 10px #ff9900 solid;
+  right: 0;
+  height: 20%;
 }
 
 .content {
+  padding: 10px 10px;
+  margin: 0 0;
+}
+
+.actions {
+  padding: 5px 5px;
 }

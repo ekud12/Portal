@@ -51,6 +51,9 @@
 .actions-card {
   width: 50%;
 }
+.actions-card-mobile {
+  width: 90%;
+}
 
 .response-msg-good {
   background-color: rgb(153, 255, 187);
