@@ -14,8 +14,6 @@ import { SpkLatestInvoicesWidgetComponent } from '../widgets/spk-latest-invoices
 import { ZakautWidgetComponent } from '../widgets/zakaut-widget/zakaut-widget.component';
 import { CustomGridComponent } from './custom-grid-item';
 import { Observable } from 'rxjs/Observable';
-
-
 import { GridService } from 'app/portal/grid/grid.service';
 
 @Component({
@@ -164,6 +162,9 @@ export class GridComponent implements OnInit {
       ZakautWidgetComponent.myGridSterItemConfig
     );
 
+    this.service.add(b);
+    this.service.add(b);
+    this.service.add(b);
     this.service.add(b);
     this.service.add(b);
     this.dashboard = this.service.get();

@@ -282,6 +282,7 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautWithCardForm.reset();
     this.zakautWithTempCardForm.reset();
   }
+
   //#endregion
 
   //#region ZakautWithCard

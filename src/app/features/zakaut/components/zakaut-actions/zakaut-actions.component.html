@@ -29,7 +29,7 @@
 
 
       <!-- TemporaryCard Form -->
-      <mat-tab label="דווח עם אישור זמני" [disabled]="tabsDisabled">
+      <mat-tab label="דווח עם אישור זמני">
         <h5>הערות: המטופל ללא כרטיס מגנטי - הזנה באמצעות אישור זמני </h5>
         <form #zakautWithTempCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" class="form"
           novalidate [formGroup]="zakautWithTempCardForm">
@@ -81,7 +81,7 @@
 
 
       <!-- Manual Form -->
-      <mat-tab label="דווח ידני" [disabled]="tabsDisabled">
+      <mat-tab label="דווח ידני">
         <h5>הערות: המטופל עם כרטיס אבל יש בעיה - הזנה ידנית </h5>
         <form #zakautManualFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" class="form"
           novalidate [formGroup]="zakautManualForm">

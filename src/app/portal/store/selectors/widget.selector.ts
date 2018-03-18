@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { WidgetState } from '../reducers';
+import { WidgetState } from '@portalStore';
 
 export const getWidgetsState = createFeatureSelector<WidgetState>('widgets');
 
