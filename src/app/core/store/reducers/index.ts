@@ -17,12 +17,14 @@ import { RouterState, routerInitialState } from './router.reducer';
 import * as fromRouter from '@ngrx/router-store';
 import { ZakautState } from '@zakautStore';
 import { UserState } from '@userStore';
+import { WidgetState } from '@portalStore';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 export interface AppState {
   router: fromRouter.RouterReducerState<RouterState>;
   user: UserState;
   zakaut: ZakautState;
+  widgets: WidgetState;
 }
 
 export function defaultReducer<T>(state: T) {
@@ -32,7 +34,8 @@ export function defaultReducer<T>(state: T) {
 export const reducers: ActionReducerMap<AppState> = {
   router: fromRouter.routerReducer,
   user: defaultReducer,
-  zakaut: defaultReducer
+  zakaut: defaultReducer,
+  widgets: defaultReducer
 };
 
 export function getInitialState(): AppState {
@@ -44,7 +47,8 @@ export function getInitialState(): AppState {
       zakautQueryResponse: null,
       isLoading: false,
       errors: []
-    }
+    },
+    widgets: { activeWidgets: [] }
   };
 }
 

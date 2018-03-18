@@ -12,6 +12,12 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SpkLatestInvoicesWidgetComponent } from 'app/portal/widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 import { ZakautWidgetComponent } from './widgets/zakaut-widget/zakaut-widget.component';
+import { GridService } from './grid/grid.service';
+import { Store, StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { effects } from './store';
+import { widgetReducer } from 'app/portal/store/reducers';
+import { CustomGridComponent } from './grid/custom-grid-item';
 
 const DASH_COMPONENTS = [
   ContainerComponent,
@@ -20,16 +26,21 @@ const DASH_COMPONENTS = [
   FooterComponent
 ];
 
-const GRID_WIDGETS = [SpkLatestInvoicesWidgetComponent, ZakautWidgetComponent];
+const GRID_WIDGETS = [
+  SpkLatestInvoicesWidgetComponent,
+  ZakautWidgetComponent
+];
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    InvoicesModule,
     UserModule,
     GridsterModule,
+    // StoreModule.forFeature('widgets', widgetReducer),
+    // EffectsModule.forFeature(effects),
     RouterModule.forChild(portalRoutes)
   ],
+  providers: [GridService],
   entryComponents: GRID_WIDGETS,
   declarations: [...DASH_COMPONENTS, ...GRID_WIDGETS],
   exports: [ContainerComponent]

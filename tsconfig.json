@@ -13,6 +13,7 @@
     "baseUrl": "./src",
     "paths": {
       "@userStore": ["app/features/user/store"],
+      "@portalStore": ["app/portal/store"],
       "@zakautStore": ["app/features/zakaut/store"],
       "@environment": ["environments/environment"],
       "@http-routes": ["app/core/http/http-routes"]

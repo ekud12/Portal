@@ -4,6 +4,7 @@ import { CustomGridComponent } from '../../grid/custom-grid-item';
 export interface WidgetState {
   activeWidgets: CustomGridComponent[];
 }
+
 export const widgetInitialState: WidgetState = {
   activeWidgets: []
 };

@@ -6,11 +6,17 @@ import {
   GridsterConfig,
   GridsterItem,
   GridsterItemComponentInterface,
-  GridType
+  GridType,
+  GridsterItemComponent
 } from 'angular-gridster2';
+
 import { SpkLatestInvoicesWidgetComponent } from '../widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 import { ZakautWidgetComponent } from '../widgets/zakaut-widget/zakaut-widget.component';
 import { CustomGridComponent } from './custom-grid-item';
+import { Observable } from 'rxjs/Observable';
+
+
+import { GridService } from 'app/portal/grid/grid.service';
 
 @Component({
   selector: 'app-grid',
@@ -19,56 +25,59 @@ import { CustomGridComponent } from './custom-grid-item';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridComponent implements OnInit {
+  widgetsArray$: Observable<CustomGridComponent[]>;
   options: GridsterConfig;
   dashboard: Array<CustomGridComponent>;
   remove: boolean;
+
+  constructor(private service: GridService) {}
 
   static eventStop(
     item: GridsterItem,
     itemComponent: GridsterItemComponentInterface,
     event: MouseEvent
   ) {
-    console.log('eventStop', item, itemComponent, event);
+    // console.log('eventStop', item, itemComponent, event);
   }
 
   static itemChange(
     item: GridsterItem,
     itemComponent: GridsterItemComponentInterface
   ) {
-    console.log('itemChanged', item, itemComponent);
+    // console.log('itemChanged', item, itemComponent);
   }
 
   static itemResize(
     item: GridsterItem,
     itemComponent: GridsterItemComponentInterface
   ) {
-    console.log('itemResized', item, itemComponent);
+    // console.log('itemResized', item, itemComponent);
   }
 
   static itemInit(
     item: GridsterItem,
     itemComponent: GridsterItemComponentInterface
   ) {
-    console.log('itemInitialized', item, itemComponent);
+    // console.log('itemInitialized', item, itemComponent);
   }
 
   static itemRemoved(
     item: GridsterItem,
     itemComponent: GridsterItemComponentInterface
   ) {
-    console.log('itemRemoved', item, itemComponent);
+    // console.log('itemRemoved', item, itemComponent);
   }
 
   static gridInit(grid: GridsterComponentInterface) {
-    console.log('gridInit', grid);
+    // console.log('gridInit', grid);
   }
 
   static gridDestroy(grid: GridsterComponentInterface) {
-    console.log('gridDestroy', grid);
+    // console.log('gridDestroy', grid);
   }
 
   emptyCellClick(event: MouseEvent, item: CustomGridComponent) {
-    console.log('empty cell click', event, item);
+    // console.log('empty cell click', event, item);
     this.dashboard.push(item);
   }
 
@@ -82,7 +91,7 @@ export class GridComponent implements OnInit {
       itemResizeCallback: GridComponent.itemResize,
       itemInitCallback: GridComponent.itemInit,
       itemRemovedCallback: GridComponent.itemRemoved,
-      margin: 30,
+      margin: 15,
       outerMargin: true,
       outerMarginTop: null,
       outerMarginRight: 10,
@@ -150,47 +159,14 @@ export class GridComponent implements OnInit {
       disableWarnings: false,
       scrollToNewItems: true
     };
-
-    // const a = new CustomGridComponent({}, SpkLatestInvoicesWidgetComponent);
     const b = new CustomGridComponent(
       ZakautWidgetComponent,
       ZakautWidgetComponent.myGridSterItemConfig
     );
 
-    this.dashboard = [
-      b,
-      b,
-      b,
-      b,
-      b
-
-      // {
-      //   gridster: { cols: 2, rows: 1, y: undefined, x: undefined },
-      //   template: SpkLatestInvoicesWidgetComponent
-      // },
-      // {
-      //   gridster: { cols: 1, rows: 1, y: undefined, x: undefined },
-      //   template: SpkLatestInvoicesWidgetComponent
-      // },
-      // {
-      //   gridster: { cols: 2, rows: 1, y: undefined, x: undefined },
-      //   template: SpkLatestInvoicesWidgetComponent
-      // },
-      // {
-      //   gridster: { cols: 1, rows: 1, y: undefined, x: undefined },
-      //   template: SpkLatestInvoicesWidgetComponent
-      // }
-      // {
-      //   cols: 1,
-      //   rows: 1,
-      //   y: 2,
-      //   x: 4,
-      //   dragEnabled: true,
-      //   resizeEnabled: true,
-      //   label: 'Drag&Resize Disabled'
-      // },
-      // { cols: 1, rows: 1, y: 2, x: 6, initCallback: GridComponent.itemInit }
-    ];
+    this.service.add(b);
+    this.service.add(b);
+    this.dashboard = this.service.get();
   }
 
   changedOptions() {
@@ -202,7 +178,6 @@ export class GridComponent implements OnInit {
   removeItem($event, item) {
     $event.preventDefault();
     $event.stopPropagation();
-    console.log(item);
     this.dashboard.splice(this.dashboard.indexOf(item), 1);
   }
 
