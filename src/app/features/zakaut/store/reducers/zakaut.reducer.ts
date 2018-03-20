@@ -27,7 +27,6 @@ export function zakautReducer(state = zakautInitialState, action: any): ZakautSt
       };
     }
     case userActions.CHECK_ZAKAUT_SUCCESS: {
-      console.log(action.payload);
       return {
         ...state,
         zakautQueryResponse: [...state.zakautQueryResponse, ...action.payload]
@@ -51,7 +50,8 @@ export function zakautReducer(state = zakautInitialState, action: any): ZakautSt
       return {
         ...state,
         zakautQueryResponse: [],
-        errors: []
+        errors: [],
+        isLoading: false
       };
     }
   }

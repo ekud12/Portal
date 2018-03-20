@@ -208,10 +208,14 @@ export class ZakautActionsComponent implements OnInit {
         val => {},
         err => {},
         () => {
-          (this.count = 10), this.zakautStore.dispatch(new fromZakautStore.ResetZakaut());
-          this.zakautWithCardForm.get('_zakautWithCardControl').enable();
-          this.zakautWithCardForm.get('_zakautWithCardTreatCodeControl').enable();
-          this.timerActive = false;
+          this.currentSapak$.subscribe(sapak => {
+            if (sapak.kodSapak !== '') {
+              (this.count = 10), this.zakautStore.dispatch(new fromZakautStore.ResetZakaut());
+              this.zakautWithCardForm.get('_zakautWithCardControl').enable();
+              this.zakautWithCardForm.get('_zakautWithCardTreatCodeControl').enable();
+              this.timerActive = false;
+            }
+          });
         }
       );
   }
