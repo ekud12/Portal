@@ -39,7 +39,7 @@ export function userReducer(state = userInitialState, action: any): UserState {
           permissions: {
             zakaut: {
               permissionType: Zakaut.With_Card_And_Manual_Not_Surgeon,
-              desc: 'יכול לבצע העברה בכרטיס או ידנית'
+              desc: 'יכול לבצע העברה ללא טיפול'
             }
           }
         })
@@ -55,7 +55,6 @@ export function userReducer(state = userInitialState, action: any): UserState {
       };
     }
     case userActions.LOGIN_USER_FAILURE: {
-
       return {
         ...state,
         errors: state.errors.concat(action.payload),
@@ -80,9 +79,7 @@ export function userReducer(state = userInitialState, action: any): UserState {
     case userActions.CHANGE_SAPAK_SUCCESS: {
       return {
         ...state,
-        activeSapak: state.user.availableSapakim.find(
-          toFind => toFind.kodSapak === action.payload
-        )
+        activeSapak: state.user.availableSapakim.find(toFind => toFind.kodSapak === action.payload)
       };
     }
   }

@@ -1,7 +1,12 @@
 import { GridsterItem } from 'angular-gridster2';
-import { ZakautWidgetComponent } from '../widgets/zakaut-widget/zakaut-widget.component';
 import { Component, Injectable } from '@angular/core';
+import { ZakautWidgetComponent } from 'app/portal/widgets/zakaut-widget/zakaut-widget.component';
 
+@Component({
+  selector: 'app-custom-grid-item',
+  templateUrl: './custom-grid-item.component.html',
+  styleUrls: ['./custom-grid-item.component.css']
+})
 export class CustomGridComponent {
   gridster: GridsterItem;
   myTemplate: ZakautWidgetComponent;

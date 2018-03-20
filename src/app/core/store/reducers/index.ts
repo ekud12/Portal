@@ -17,7 +17,6 @@ import { RouterState, routerInitialState } from './router.reducer';
 import * as fromRouter from '@ngrx/router-store';
 import { ZakautState } from '@zakautStore';
 import { UserState } from '@userStore';
-import { WidgetState } from '@portalStore';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 export interface AppState {

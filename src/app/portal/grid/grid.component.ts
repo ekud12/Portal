@@ -12,9 +12,9 @@ import {
 
 import { SpkLatestInvoicesWidgetComponent } from '../widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 import { ZakautWidgetComponent } from '../widgets/zakaut-widget/zakaut-widget.component';
-import { CustomGridComponent } from './custom-grid-item';
 import { Observable } from 'rxjs/Observable';
 import { GridService } from 'app/portal/grid/grid.service';
+import { CustomGridComponent } from 'app/portal/grid/custom-grid-item/custom-grid-item.component';
 
 @Component({
   selector: 'app-grid',

@@ -5,7 +5,7 @@ import { UserModule } from '../features/user/user.module';
 import { RouterModule } from '@angular/router';
 import { portalRoutes } from './portal-routes';
 import { GridComponent } from './grid/grid.component';
-import { GridsterModule } from 'angular-gridster2';
+import { GridsterModule, GridsterItem } from 'angular-gridster2';
 import { NgModule } from '@angular/core';
 import { ContainerComponent } from './container/container.component';
 import { HeaderComponent } from './header/header.component';
@@ -13,7 +13,6 @@ import { FooterComponent } from './footer/footer.component';
 import { SpkLatestInvoicesWidgetComponent } from 'app/portal/widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 import { ZakautWidgetComponent } from './widgets/zakaut-widget/zakaut-widget.component';
 import { GridService } from './grid/grid.service';
-import { CustomGridComponent } from './grid/custom-grid-item';
 
 const DASH_COMPONENTS = [
   ContainerComponent,
@@ -31,7 +30,10 @@ const GRID_WIDGETS = [SpkLatestInvoicesWidgetComponent, ZakautWidgetComponent];
     GridsterModule,
     RouterModule.forChild(portalRoutes)
   ],
-  providers: [GridService],
+  providers: [
+    GridService,
+    { provide: 'GridsterItem', useClass: FooterComponent }
+  ],
   entryComponents: GRID_WIDGETS,
   declarations: [...DASH_COMPONENTS, ...GRID_WIDGETS],
   exports: [ContainerComponent]

@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormControl,
@@ -15,14 +10,7 @@ import {
   FormGroupDirective,
   NgForm
 } from '@angular/forms';
-import {
-  trigger,
-  state,
-  animate,
-  transition,
-  style,
-  group
-} from '@angular/animations';
+import { trigger, state, animate, transition, style, group } from '@angular/animations';
 
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Observable } from 'rxjs/Observable';
@@ -31,10 +19,7 @@ import * as fromUserStore from '@userStore';
 import * as fromZakautStore from '@zakautStore';
 import { Sapak } from 'app/features/user/models/sapak.model';
 import { Zakaut } from 'app/features/user/models/permission.model';
-import {
-  ZakautQueryModel,
-  ZakautNoCardReason
-} from 'app/features/zakaut/models/zakaut-query.model';
+import { ZakautQueryModel, ZakautNoCardReason } from 'app/features/zakaut/models/zakaut-query.model';
 import { timer } from 'rxjs/observable/timer';
 import { take, map, switchMap, tap } from 'rxjs/operators';
 
@@ -44,19 +29,12 @@ import { take, map, switchMap, tap } from 'rxjs/operators';
  * valid for showing various errors
  */
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     if (!control.value) {
       return false;
     } else {
-      return !!(
-        control &&
-        control.invalid &&
-        (control.dirty || control.touched || isSubmitted)
-      );
+      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
     }
   }
 }
@@ -90,10 +68,8 @@ export class ZakautActionsComponent implements OnInit {
       minlength: 'נתון קצר מדי',
       pattern: 'ערך לא תקין'
     },
-    idTypes: [
-      { value: '1', viewValue: 'ת"ז' },
-      { value: '9', viewValue: 'דרכון' }
-    ],
+    idTypes: [{ value: '1', viewValue: 'ת"ז' }, { value: '9', viewValue: 'דרכון' }],
+    treatments: [{ value: '89.5', viewValue: 'כריתת אונה למתחילים' }, { value: '112.1', viewValue: 'כריתת אונה למתקדמים' }],
     reasons: [
       { value: ZakautNoCardReason.BAD_CARD, viewValue: 'כרטיס פגום' },
       {
@@ -102,7 +78,7 @@ export class ZakautActionsComponent implements OnInit {
       }
     ],
     zakautWithCardForm: {
-      cardInputRule: '^B([0-9]{5}=[0-9]{30})+$'
+      cardInputRule: '^B([0-9]{5}=[0-9]{30})$'
     },
     zakautWithTempCardForm: {
       idInputRule: '^([0-9]{1,9})$',
@@ -112,9 +88,7 @@ export class ZakautActionsComponent implements OnInit {
       idInputRule: '^([0-9]{1,9})$',
       cardInputRule: '^([0-9]{1,8})$'
     },
-    possibleYears: [...Array.from(Array(1 + 118).keys())]
-      .map(v => `${1900 + v}`)
-      .reverse()
+    possibleYears: [...Array.from(Array(1 + 118).keys())].map(v => `${1900 + v}`).reverse()
   };
   matcher = new ZakautErrorStateMatcher();
 
@@ -132,8 +106,10 @@ export class ZakautActionsComponent implements OnInit {
   countDown$;
   count = 15;
   autoCheck = false;
-  tabsDisabled = false;
   selectedValueForIdType = '1';
+  isSurgeon = false;
+  hideCardInput = true;
+  hideTreatInput = false;
   //#endregion
 
   @ViewChild('cardFocusFirstTag') cardInputFocus;
@@ -153,21 +129,11 @@ export class ZakautActionsComponent implements OnInit {
     private userStore: Store<fromUserStore.UserState>,
     private zakautStore: Store<fromZakautStore.ZakautState>
   ) {
-    this.currentSapak$ = this.userStore.select(
-      fromUserStore.activeSapakSelector
-    );
-    this.isValidating$ = this.zakautStore.select(
-      fromZakautStore.zakautLoadingSelector
-    );
-    this.zakautResponse$ = this.zakautStore.select(
-      fromZakautStore.zakautResponseSelector
-    );
-    this.zakautErrors$ = this.zakautStore.select(
-      fromZakautStore.zakautErrorsSelector
-    );
-    this.loggedUserName$ = this.userStore.select(
-      fromUserStore.userNameSelector
-    );
+    this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
+    this.isValidating$ = this.zakautStore.select(fromZakautStore.zakautLoadingSelector);
+    this.zakautResponse$ = this.zakautStore.select(fromZakautStore.zakautResponseSelector);
+    this.zakautErrors$ = this.zakautStore.select(fromZakautStore.zakautErrorsSelector);
+    this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.createForms();
   }
 
@@ -200,19 +166,26 @@ export class ZakautActionsComponent implements OnInit {
       if (sapak.kodSapak !== '') {
         switch (sapak.permissions['zakaut'].permissionType) {
           case Zakaut.With_Card_Only: {
-            this.tabsDisabled = true;
             this.zakautRequest.isSurgeon = false;
+            this.isSurgeon = false;
+            this.hideTreatInput = true;
+            this.hideCardInput = false;
             break;
           }
           case Zakaut.With_Card_And_Manual_Not_Surgeon: {
-            this.zakautManualForm
-              .get('_zakautManualCardNumberControl')
-              .enable();
             this.zakautRequest.isSurgeon = false;
+            this.isSurgeon = false;
+            this.hideTreatInput = false;
+            this.hideCardInput = true;
+            this.enableIrreleventForSurgeon();
             break;
           }
           case Zakaut.With_Card_And_Manual_Surgeon: {
             this.zakautRequest.isSurgeon = true;
+            this.isSurgeon = true;
+            this.hideTreatInput = false;
+            this.hideCardInput = true;
+            this.disableIrreleventForSurgeon();
             break;
           }
         }
@@ -220,24 +193,7 @@ export class ZakautActionsComponent implements OnInit {
         this.disableAllForms();
       }
     });
-    this.setFocus();
     this.onChanges();
-  }
-
-  onChanges(): void {
-    this.zakautWithCardForm.valueChanges.subscribe(val => {
-      if (this.zakautWithCardForm.valid) {
-        if (!this.timerActive) {
-          this.validateCard(this.zakautWithCardForm);
-        } else {
-          this.zakautWithCardForm.get('_zakautWithCardControl').setValue(null);
-        }
-      }
-    });
-  }
-
-  setFocus() {
-    this.cardInputFocus.nativeElement.focus();
   }
 
   // fix for multiple calls
@@ -250,9 +206,9 @@ export class ZakautActionsComponent implements OnInit {
         val => {},
         err => {},
         () => {
-          (this.count = 10),
-            this.zakautStore.dispatch(new fromZakautStore.ResetZakaut());
+          (this.count = 10), this.zakautStore.dispatch(new fromZakautStore.ResetZakaut());
           this.zakautWithCardForm.get('_zakautWithCardControl').enable();
+          this.zakautWithCardForm.get('_zakautWithCardTreatCodeControl').enable();
           this.timerActive = false;
         }
       );
@@ -283,26 +239,42 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautWithTempCardForm.reset();
   }
 
+  disableIrreleventForSurgeon() {
+    this.zakautManualForm.get('_zakautManualCardNumberControl').disable();
+    this.zakautManualForm.get('_zakautManualReasonControl').disable();
+  }
+
+  enableIrreleventForSurgeon() {
+    this.zakautManualForm.get('_zakautManualCardNumberControl').enable();
+    this.zakautManualForm.get('_zakautManualReasonControl').enable();
+  }
+
   //#endregion
+
+  CheckAutoActivate() {
+    console.log(this.zakautWithCardForm.get('_zakautWithCardControl'));
+  }
 
   //#region ZakautWithCard
   createFormZakautWithCard() {
     this.zakautWithCardForm = this.fb.group({
-      _zakautWithCardControl: new FormControl({ value: '', disabled: true }, [
+      _zakautWithCardControl: new FormControl({ value: '' }, [
         Validators.required,
         Validators.minLength(6),
         Validators.pattern(this.vars.zakautWithCardForm.cardInputRule)
-      ])
+      ]),
+      _zakautWithCardTreatCodeControl: new FormControl({ value: '' }, [Validators.required])
     });
-    this.enableForm();
+    // this.enableForm();
   }
 
   enableForm() {
+    this.zakautWithCardForm.get('_zakautWithCardTreatCodeControl').enable();
     this.zakautWithCardForm.get('_zakautWithCardControl').enable();
   }
 
   disableWithCardForm() {
-    this.zakautWithCardForm.disable();
+    this.zakautWithCardForm.get('_zakautWithCardTreatCodeControl').disable();
     this.zakautWithCardForm.get('_zakautWithCardControl').disable();
   }
   //#endregion
@@ -310,85 +282,58 @@ export class ZakautActionsComponent implements OnInit {
   //#region ZakautWithTempCard
   createFormZakautWithTempCard() {
     this.zakautWithTempCardForm = this.fb.group({
-      _zakautWithTempCardIdTypeControl: new FormControl(
-        { value: '1', disabled: true },
-        [Validators.required]
-      ),
-      _zakautWithTempCardIdControl: new FormControl(
-        { value: '', disabled: true },
-        [
-          Validators.required,
-          Validators.minLength(9),
-          Validators.pattern(this.vars.zakautWithTempCardForm.idInputRule)
-        ]
-      ),
-      _zakautWithTempCardDOBControl: new FormControl(
-        { value: '', disabled: true },
-        [Validators.required]
-      ),
-      _zakautWithTempCardNumberControl: new FormControl(
-        { value: '', disabled: true },
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.pattern(this.vars.zakautWithTempCardForm.cardInputRule)
-        ]
-      )
+      _zakautWithTempCardIdTypeControl: new FormControl({ value: '1', disabled: true }, [Validators.required]),
+      _zakautWithTempCardIdControl: new FormControl({ value: '', disabled: true }, [
+        Validators.required,
+        Validators.minLength(9),
+        Validators.pattern(this.vars.zakautWithTempCardForm.idInputRule)
+      ]),
+      _zakautWithTempCardDOBControl: new FormControl({ value: '', disabled: true }, [Validators.required]),
+      _zakautWithTempCardNumberControl: new FormControl({ value: '', disabled: true }, [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.pattern(this.vars.zakautWithTempCardForm.cardInputRule)
+      ]),
+      _zakautWithTempCardTreatCodeControl: new FormControl({ value: '' }, [Validators.required])
     });
     this.enableTempForm();
   }
 
   enableTempForm() {
-    this.zakautWithTempCardForm
-      .get('_zakautWithTempCardIdTypeControl')
-      .enable();
+    this.zakautWithTempCardForm.get('_zakautWithTempCardIdTypeControl').enable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardIdControl').enable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').enable();
-    this.zakautWithTempCardForm
-      .get('_zakautWithTempCardNumberControl')
-      .enable();
+    this.zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').enable();
+    this.zakautWithTempCardForm.get('_zakautWithTempCardTreatCodeControl').enable();
   }
 
   disableTempForm() {
     this.zakautWithTempCardForm.disable();
-    this.zakautWithTempCardForm
-      .get('_zakautWithTempCardIdTypeControl')
-      .disable();
+    this.zakautWithTempCardForm.get('_zakautWithTempCardIdTypeControl').disable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardIdControl').disable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').disable();
-    this.zakautWithTempCardForm
-      .get('_zakautWithTempCardNumberControl')
-      .disable();
+    this.zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').disable();
+    this.zakautWithTempCardForm.get('_zakautWithTempCardTreatCodeControl').disable();
   }
   //#endregion
 
   //#region ZakautManual
   createFormManual() {
     this.zakautManualForm = this.fb.group({
-      _zakautManualIdTypeControl: new FormControl(
-        { value: '1', disabled: true },
-        [Validators.required]
-      ),
+      _zakautManualIdTypeControl: new FormControl({ value: '1', disabled: true }, [Validators.required]),
       _zakautManualIdControl: new FormControl({ value: '', disabled: true }, [
         Validators.required,
         Validators.minLength(9),
         Validators.pattern(this.vars.zakautManualForm.idInputRule)
       ]),
-      _zakautManualDOBControl: new FormControl({ value: '', disabled: true }, [
-        Validators.required
+      _zakautManualDOBControl: new FormControl({ value: '', disabled: true }, [Validators.required]),
+      _zakautManualCardNumberControl: new FormControl({ value: '', disabled: true }, [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(this.vars.zakautManualForm.cardInputRule)
       ]),
-      _zakautManualCardNumberControl: new FormControl(
-        { value: '', disabled: true },
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(this.vars.zakautManualForm.cardInputRule)
-        ]
-      ),
-      _zakautManualReasonControl: new FormControl(
-        { value: '', disabled: true },
-        [Validators.required]
-      )
+      _zakautManualReasonControl: new FormControl({ value: '', disabled: true }, [Validators.required]),
+      _zakautManualTreatCodeControl: new FormControl({ value: '' }, [Validators.required])
     });
     this.enableManualForm();
   }
@@ -399,6 +344,7 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautManualForm.get('_zakautManualDOBControl').enable();
     this.zakautManualForm.get('_zakautManualReasonControl').enable();
     this.zakautManualForm.get('_zakautManualCardNumberControl').enable();
+    this.zakautManualForm.get('_zakautManualTreatCodeControl').enable();
   }
 
   disableManualForm() {
@@ -408,14 +354,28 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautManualForm.get('_zakautManualDOBControl').disable();
     this.zakautManualForm.get('_zakautManualCardNumberControl').disable();
     this.zakautManualForm.get('_zakautManualReasonControl').disable();
+    this.zakautManualForm.get('_zakautManualTreatCodeControl').disable();
   }
   //#endregion
 
+  onChanges(): void {
+    this.zakautWithCardForm.get('_zakautWithCardControl').valueChanges.subscribe(() => {
+      if (this.zakautWithCardForm.get('_zakautWithCardControl').valid) {
+        if (!this.timerActive) {
+          this.validateCard(this.zakautWithCardForm);
+        }
+      }
+    });
+    this.zakautWithCardForm.get('_zakautWithCardTreatCodeControl').valueChanges.subscribe(val => {
+      if (val !== '') {
+        this.hideCardInput = false;
+      }
+    });
+  }
+
   validateCard(form: FormGroup) {
     this.zakautRequest = this.buildRequest(form);
-    this.zakautStore.dispatch(
-      new fromZakautStore.CheckZakaut(this.zakautRequest)
-    );
+    this.zakautStore.dispatch(new fromZakautStore.CheckZakaut(this.zakautRequest));
   }
 
   // TODO: Make Generic
@@ -424,10 +384,8 @@ export class ZakautActionsComponent implements OnInit {
     switch (form) {
       case this.zakautWithCardForm: {
         this.zakautRequest.requestType = '01';
-        this.zakautRequest.cardNumber = form
-          .get('_zakautWithCardControl')
-          .value.slice(1);
-        this.zakautRequest.idType = this.zakautRequest.cardNumber.slice(0, 1);
+        this.zakautRequest.cardNumber = form.get('_zakautWithCardControl').value.slice(1);
+        this.zakautRequest.idType = this.zakautRequest.cardNumber.slice(6, 7);
         form.get('_zakautWithCardControl').setValue(null);
         form.get('_zakautWithCardControl').disable();
         break;
@@ -435,34 +393,20 @@ export class ZakautActionsComponent implements OnInit {
       case this.zakautWithTempCardForm: {
         this.zakautRequest.requestType = '02';
         this.zakautRequest.id = form.get('_zakautWithTempCardIdControl').value;
-        this.zakautRequest.idType = form.get(
-          '_zakautWithTempCardIdTypeControl'
-        ).value;
-        this.zakautRequest.dateOfBirth = form.get(
-          '_zakautWithTempCardDOBControl'
-        ).value;
-        this.zakautRequest.cardNumber = form.get(
-          '_zakautWithTempCardNumberControl'
-        ).value;
+        this.zakautRequest.idType = form.get('_zakautWithTempCardIdTypeControl').value;
+        this.zakautRequest.dateOfBirth = form.get('_zakautWithTempCardDOBControl').value;
+        this.zakautRequest.cardNumber = form.get('_zakautWithTempCardNumberControl').value;
         break;
       }
       case this.zakautManualForm: {
         this.zakautRequest.requestType = '03';
         this.zakautRequest.id = form.get('_zakautManualIdControl').value;
-        this.zakautRequest.idType = form.get(
-          '_zakautManualIdTypeControl'
-        ).value;
-        this.zakautRequest.dateOfBirth = form.get(
-          '_zakautManualDOBControl'
-        ).value;
+        this.zakautRequest.idType = form.get('_zakautManualIdTypeControl').value;
+        this.zakautRequest.dateOfBirth = form.get('_zakautManualDOBControl').value;
         if (!form.get('_zakautManualCardNumberControl').disabled) {
-          this.zakautRequest.cardNumber = form.get(
-            '_zakautManualCardNumberControl'
-          ).value;
+          this.zakautRequest.cardNumber = form.get('_zakautManualCardNumberControl').value;
         }
-        this.zakautRequest.noCardReason = form.get(
-          '_zakautManualReasonControl'
-        ).value;
+        this.zakautRequest.noCardReason = form.get('_zakautManualReasonControl').value;
         break;
       }
     }

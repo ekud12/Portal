@@ -6,15 +6,23 @@
     <mat-tab-group dir="rtl" [@.disabled]="true">
 
       <!-- MagneticCard Form -->
-      <mat-tab label="העברת כרטיס מגנטי" (click)="setFocus()" fxFlex.xs="10">
+      <mat-tab label="העברת כרטיס מגנטי" fxFlex.xs="10">
         <h5>הערות: המטופל עם כרטיס מגנטי - הזנה באמצעות העברת הכרטיס </h5>
         <form #zakautWithCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="zakautWithCardForm"
           class="form" novalidate>
-          <mat-form-field [floatLabel]="vars.floatLabel">
+          <mat-form-field *ngIf="!hideTreatInput">
+            <mat-select placeholder="בחר טיפול" formControlName="_zakautWithCardTreatCodeControl" [errorStateMatcher]="matcher">
+              <mat-option *ngFor="let treat of vars.treatments" [value]="treat.value">
+                {{ treat.value}} - {{treat.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field [floatLabel]="vars.floatLabel" *ngIf="!hideCardInput">
             <input matInput type="password" formControlName="_zakautWithCardControl" placeholder="כרטיס מגנטי" [errorStateMatcher]="matcher"
-              autofocus #cardFocusFirstTag>
+              autofocus #cardFocusFirstTag (change)="CheckAutoActivate($event)">
             <mat-error *ngIf="zakautWithCardForm.get('_zakautWithCardControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
           </mat-form-field>
+
           <div class="submit-section">
             <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithCardForm)" type='button' disabled={{(!zakautWithCardForm.valid||timerActive||(isValidating$|async))}}>
               {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
@@ -67,6 +75,14 @@
             <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
           </mat-form-field>
 
+          <mat-form-field *ngIf="!hideTreatInput">
+            <mat-select placeholder="בחר טיפול" formControlName="_zakautWithTempCardTreatCodeControl" [errorStateMatcher]="matcher">
+              <mat-option *ngFor="let treat of vars.treatments" [value]="treat.value">
+                {{ treat.value}} - {{treat.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <div class="submit-section">
             <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithTempCardForm)" type='button' disabled={{(!zakautWithTempCardForm.valid||timerActive||(isValidating$|async))}}>
               {{ (isValidating$|async) ? vars.BtnValidating : vars.BtnName }}
@@ -112,18 +128,27 @@
             <mat-error *ngIf="zakautManualForm.get('_zakautManualDOBControl').hasError('required')">{{vars.errors.required}}</mat-error>
           </mat-form-field>
 
-          <mat-form-field hintLabel="(באורך 8 ספרות)">
-            <input matInput placeholder="מספר כרטיס" type="text" maxlength="{{vars.manualCardNumberLength}}" formControlName="_zakautManualCardNumberControl"
-              [errorStateMatcher]="matcher">
-            <mat-error *ngIf="zakautManualForm.get('_zakautManualCardNumberControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
-            <mat-error *ngIf="zakautManualForm.get('_zakautManualCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
-          </mat-form-field>
-          <p> סיבת אי העברת כרטיס: </p>
-          <mat-radio-group formControlName="_zakautManualReasonControl" fxLayout="row" fxLayoutAlign="space-around center center" fxLayout.xs="column"
-            fxLayout.xs="column" fxLayoutAlign.xs="start stretch center">
-            <mat-radio-button *ngFor="let reason of vars.reasons" [value]="reason.value"> {{reason.viewValue}}</mat-radio-button>
-          </mat-radio-group>
+          <div *ngIf="!isSurgeon" fxLayout="column" fxLayoutAlign="space-around stretch center">
+            <mat-form-field hintLabel="(באורך 8 ספרות)">
+              <input matInput placeholder="מספר כרטיס" type="text" maxlength="{{vars.manualCardNumberLength}}" formControlName="_zakautManualCardNumberControl"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="zakautManualForm.get('_zakautManualCardNumberControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
+              <mat-error *ngIf="zakautManualForm.get('_zakautManualCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
+            </mat-form-field>
+            <p> סיבת אי העברת כרטיס: </p>
+            <mat-radio-group formControlName="_zakautManualReasonControl" fxLayout="row" fxLayoutAlign="space-around center center" fxLayout.xs="column"
+              fxLayout.xs="column" fxLayoutAlign.xs="start stretch center">
+              <mat-radio-button *ngFor="let reason of vars.reasons" [value]="reason.value"> {{reason.viewValue}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
 
+          <mat-form-field *ngIf="!hideTreatInput">
+            <mat-select placeholder="בחר טיפול" formControlName="_zakautManualTreatCodeControl" [errorStateMatcher]="matcher">
+              <mat-option *ngFor="let treat of vars.treatments" [value]="treat.value">
+                {{ treat.value}} - {{treat.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
           <div class="submit-section">
             <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautManualForm)" type='button' disabled={{(!zakautManualForm.valid||timerActive||(isValidating$|async))}}>
