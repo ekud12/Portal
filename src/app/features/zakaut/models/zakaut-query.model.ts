@@ -8,6 +8,7 @@ export class ZakautQueryModel {
   cardNumber?: string;
   noCardReason?: ZakautNoCardReason;
   isSurgeon?: boolean;
+  treatmentCode?: string;
 }
 
 export enum ZakautNoCardReason {

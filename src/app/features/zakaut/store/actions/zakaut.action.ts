@@ -16,7 +16,7 @@ export class CheckZakaut implements Action {
 
 export class CheckZakautSuccess implements Action {
   readonly type = CHECK_ZAKAUT_SUCCESS;
-  constructor(public payload: string) {}
+  constructor(public payload: any) {}
 }
 
 export class CheckZakautFail implements Action {
@@ -32,9 +32,4 @@ export class ResetZakaut implements Action {
   readonly type = RESET_ZAKAUT;
 }
 
-export type userActions =
-  | CheckZakaut
-  | CheckZakautSuccess
-  | CheckZakautFail
-  | CheckZakautCompleted
-  | ResetZakaut;
+export type userActions = CheckZakaut | CheckZakautSuccess | CheckZakautFail | CheckZakautCompleted | ResetZakaut;

@@ -3,36 +3,34 @@ import { ZakautQueryModel } from '../../models/zakaut-query.model';
 
 export interface ZakautState {
   zakautQuery: ZakautQueryModel;
-  zakautQueryResponse: string;
+  zakautQueryResponse: string[];
   errors: string[];
   isLoading: boolean;
 }
 
 export const zakautInitialState: ZakautState = {
   zakautQuery: null,
-  zakautQueryResponse: null,
+  zakautQueryResponse: [],
   isLoading: false,
   errors: []
 };
 
-export function zakautReducer(
-  state = zakautInitialState,
-  action: any
-): ZakautState {
+export function zakautReducer(state = zakautInitialState, action: any): ZakautState {
   switch (action.type) {
     case userActions.CHECK_ZAKAUT: {
       return {
         ...state,
         zakautQuery: action.payload,
-        zakautQueryResponse: null,
+        zakautQueryResponse: [],
         errors: [],
         isLoading: true
       };
     }
     case userActions.CHECK_ZAKAUT_SUCCESS: {
+      console.log(action.payload);
       return {
         ...state,
-        zakautQueryResponse: `אישור זכאות נקלט בהצלחה! ${action.payload}`
+        zakautQueryResponse: [...state.zakautQueryResponse, ...action.payload]
       };
     }
     case userActions.CHECK_ZAKAUT_FAIL: {
@@ -52,7 +50,7 @@ export function zakautReducer(
     case userActions.RESET_ZAKAUT: {
       return {
         ...state,
-        zakautQueryResponse: null,
+        zakautQueryResponse: [],
         errors: []
       };
     }

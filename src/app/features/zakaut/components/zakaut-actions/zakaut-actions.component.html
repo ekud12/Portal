@@ -172,13 +172,16 @@
       </div>
 
     </mat-card>
-    <mat-card *ngIf="(zakautResponse$|async) !== null" class="response-msg-good">
-      <div fxLayout="row" fxLayoutAlign="space-between center center">
-        <mat-icon>done</mat-icon>
-        {{(zakautResponse$ | async)}}
+    <mat-card *ngIf="((zakautResponse$|async) !== null && (zakautResponse$|async).length > 0)" class="response-msg-good">
+      <div fxLayout="column" fxLayoutAlign="start stretch center" fxLayoutPadding="8px">
+        <mat-list *ngFor="let msg of (zakautResponse$|async)">
+          <mat-list-item>
+            <mat-icon>done</mat-icon> {{msg}} </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
       </div>
     </mat-card>
-    <p *ngIf="(zakautErrors$|async).length > 0 ||(zakautResponse$|async) !== null">הודעה זו תיעלם בעוד {{count}} שניות.</p>
+    <p *ngIf="(zakautErrors$|async).length > 0 || ((zakautResponse$|async) !== null && (zakautResponse$|async).length > 0)">הודעה זו תיעלם בעוד {{count}} שניות.</p>
   </mat-card>
 
 </div>

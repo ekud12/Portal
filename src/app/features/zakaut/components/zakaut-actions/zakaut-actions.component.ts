@@ -99,7 +99,7 @@ export class ZakautActionsComponent implements OnInit {
   isValidating$: Observable<boolean>;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
-  zakautResponse$: Observable<string>;
+  zakautResponse$: Observable<string[]>;
   zakautErrors$: Observable<string[]>;
   zakautRequest = new ZakautQueryModel();
   timerActive = false;
@@ -151,7 +151,9 @@ export class ZakautActionsComponent implements OnInit {
     });
     this.zakautResponse$.subscribe(val => {
       if (val !== null) {
-        this.startTimer();
+        if (val.length > 0) {
+          this.startTimer();
+        }
       }
     });
     this.zakautErrors$.subscribe(val => {
@@ -386,6 +388,7 @@ export class ZakautActionsComponent implements OnInit {
         this.zakautRequest.requestType = '01';
         this.zakautRequest.cardNumber = form.get('_zakautWithCardControl').value.slice(1);
         this.zakautRequest.idType = this.zakautRequest.cardNumber.slice(6, 7);
+        this.zakautRequest.treatmentCode = form.get('_zakautWithCardTreatCodeControl').value;
         form.get('_zakautWithCardControl').setValue(null);
         form.get('_zakautWithCardControl').disable();
         break;
@@ -396,6 +399,7 @@ export class ZakautActionsComponent implements OnInit {
         this.zakautRequest.idType = form.get('_zakautWithTempCardIdTypeControl').value;
         this.zakautRequest.dateOfBirth = form.get('_zakautWithTempCardDOBControl').value;
         this.zakautRequest.cardNumber = form.get('_zakautWithTempCardNumberControl').value;
+        this.zakautRequest.treatmentCode = form.get('_zakautWithTempCardTreatCodeControl').value;
         break;
       }
       case this.zakautManualForm: {
@@ -407,6 +411,7 @@ export class ZakautActionsComponent implements OnInit {
           this.zakautRequest.cardNumber = form.get('_zakautManualCardNumberControl').value;
         }
         this.zakautRequest.noCardReason = form.get('_zakautManualReasonControl').value;
+        this.zakautRequest.treatmentCode = form.get('_zakautManualTreatCodeControl').value;
         break;
       }
     }

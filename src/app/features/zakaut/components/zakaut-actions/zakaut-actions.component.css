@@ -16,8 +16,6 @@
   color: #555;
 }
 
-
-
 .submit-section button {
   font-family: 'OpenSansBold';
   /* background-color: #009bdf; */
@@ -54,6 +52,8 @@
 
 .response-msg-good {
   background-color: rgb(153, 255, 187);
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .response-msg-bad {
