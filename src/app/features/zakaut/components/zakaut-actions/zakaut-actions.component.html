@@ -68,13 +68,6 @@
             <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').hasError('required')">{{vars.errors.required}}</mat-error>
           </mat-form-field>
 
-          <mat-form-field hintLabel="(באורך 4 ספרות)">
-            <input matInput placeholder="מספר אישור זמני" type="text" maxlength="{{vars.tempCardNumberLength}}" formControlName="_zakautWithTempCardNumberControl"
-              [errorStateMatcher]="matcher">
-            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
-            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
-          </mat-form-field>
-
           <mat-form-field *ngIf="!hideTreatInput">
             <mat-select placeholder="בחר טיפול" formControlName="_zakautWithTempCardTreatCodeControl" [errorStateMatcher]="matcher">
               <mat-option *ngFor="let treat of vars.treatments" [value]="treat.value">
@@ -82,6 +75,15 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+
+          <mat-form-field hintLabel="(באורך 4 ספרות)">
+            <input matInput placeholder="מספר אישור זמני" type="text" maxlength="{{vars.tempCardNumberLength}}" formControlName="_zakautWithTempCardNumberControl"
+              [errorStateMatcher]="matcher">
+            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
+            <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
+          </mat-form-field>
+
+
 
           <div class="submit-section">
             <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautWithTempCardForm)" type='button' disabled={{(!zakautWithTempCardForm.valid||timerActive||(isValidating$|async))}}>
@@ -128,6 +130,14 @@
             <mat-error *ngIf="zakautManualForm.get('_zakautManualDOBControl').hasError('required')">{{vars.errors.required}}</mat-error>
           </mat-form-field>
 
+          <mat-form-field *ngIf="!hideTreatInput">
+            <mat-select placeholder="בחר טיפול" formControlName="_zakautManualTreatCodeControl" [errorStateMatcher]="matcher">
+              <mat-option *ngFor="let treat of vars.treatments" [value]="treat.value">
+                {{ treat.value}} - {{treat.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <div *ngIf="!isSurgeon" fxLayout="column" fxLayoutAlign="space-around stretch center">
             <mat-form-field hintLabel="(באורך 8 ספרות)">
               <input matInput placeholder="מספר כרטיס" type="text" maxlength="{{vars.manualCardNumberLength}}" formControlName="_zakautManualCardNumberControl"
@@ -142,13 +152,7 @@
             </mat-radio-group>
           </div>
 
-          <mat-form-field *ngIf="!hideTreatInput">
-            <mat-select placeholder="בחר טיפול" formControlName="_zakautManualTreatCodeControl" [errorStateMatcher]="matcher">
-              <mat-option *ngFor="let treat of vars.treatments" [value]="treat.value">
-                {{ treat.value}} - {{treat.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+
 
           <div class="submit-section">
             <button mat-raised-button fxFill color="primary" (click)="validateCard(zakautManualForm)" type='button' disabled={{(!zakautManualForm.valid||timerActive||(isValidating$|async))}}>

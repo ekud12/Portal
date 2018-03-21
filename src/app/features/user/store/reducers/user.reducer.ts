@@ -41,7 +41,8 @@ export function userReducer(state = userInitialState, action: any): UserState {
               permissionType: Zakaut.With_Card_And_Manual_Not_Surgeon,
               desc: 'יכול לבצע העברה ללא טיפול'
             }
-          }
+          },
+          treatments: []
         })
       );
       return {
@@ -70,13 +71,14 @@ export function userReducer(state = userInitialState, action: any): UserState {
       return {
         ...state,
         user: { username: null, availableSapakim: [] },
-        activeSapak: { kodSapak: '' },
+        activeSapak: { kodSapak: '', treatments: [] },
         errors: [],
         isLoading: false
       };
     }
 
     case userActions.CHANGE_SAPAK_SUCCESS: {
+      // add change treatments
       return {
         ...state,
         activeSapak: state.user.availableSapakim.find(toFind => toFind.kodSapak === action.payload)
