@@ -169,9 +169,10 @@
 
     </mat-tab-group>
 
-    <mat-card *ngIf="(zakautErrors$|async).length > 0" class="response-msg-bad">
+    <mat-card *ngIf="(zakautErrors$|async).length > 0" class="response-msg-bad" fxLayout="row" fxLayoutAlign="space-between stretch center"
+      fxLayoutPadding="20px" fxLayout.xs="column">
+      <mat-icon class=" Vicon ">error_outline</mat-icon>
       <div fxLayout="row" fxLayoutAlign="space-between center center">
-        <mat-icon>error_outline</mat-icon>
         {{(zakautErrors$ | async)}}
       </div>
 

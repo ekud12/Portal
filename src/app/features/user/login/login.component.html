@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="space-evenly stretch center" class="login-page">
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch center" class="login-page" [@itemFade]>
 
   <mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch">
     <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
@@ -15,7 +15,8 @@
 
   <div class="form" fxFlex fxFill fxFlexOrder="1" fxLayout="column" fxLayoutAlign="start center center" fxFlex.md="100">
 
-    <mat-card mat-elevation-z6 class="form-container login-card" [@itemAnim]>
+    <!-- <mat-card mat-elevation-z6 class="form-container login-card" [@itemAnim]> -->
+    <mat-card mat-elevation-z6 class="form-container login-card">
       <button mat-raised-button (click)="autoLogin()">טסט</button>
       <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">
 

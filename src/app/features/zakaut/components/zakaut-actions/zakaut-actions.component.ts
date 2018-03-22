@@ -168,10 +168,12 @@ export class ZakautActionsComponent implements OnInit {
       if (sapak.kodSapak !== '') {
         switch (sapak.permissions['zakaut'].permissionType) {
           case Zakaut.With_Card_Only: {
+            console.log(sapak.permissions['zakaut'].permissionType);
             this.zakautRequest.isSurgeon = false;
             this.isSurgeon = false;
             this.hideTreatInput = true;
             this.hideCardInput = false;
+            this.disableIrreleventForNoTreat();
             break;
           }
           case Zakaut.With_Card_And_Manual_Not_Surgeon: {
@@ -253,6 +255,11 @@ export class ZakautActionsComponent implements OnInit {
   enableIrreleventForSurgeon() {
     this.zakautManualForm.get('_zakautManualCardNumberControl').enable();
     this.zakautManualForm.get('_zakautManualReasonControl').enable();
+  }
+
+  disableIrreleventForNoTreat() {
+    this.zakautWithTempCardForm.get('_zakautWithTempCardTreatCodeControl').disable();
+    this.zakautManualForm.get('_zakautManualTreatCodeControl').disable();
   }
 
   //#endregion

@@ -66,5 +66,14 @@
 }
 
 .response-msg-bad {
-  background-color: rgb(255, 0, 0);
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgb(185, 0, 0);
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.response-msg-bad .Vicon {
+  font-weight: bold;
+  color: rgb(221, 0, 0);
+  font-size: 30px !important;
 }

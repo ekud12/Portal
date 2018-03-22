@@ -10,14 +10,7 @@ import {
   FormGroupDirective,
   NgForm
 } from '@angular/forms';
-import {
-  trigger,
-  state,
-  animate,
-  transition,
-  style,
-  group
-} from '@angular/animations';
+import { trigger, state, animate, transition, style, group } from '@angular/animations';
 
 import { ErrorStateMatcher } from '@angular/material/core';
 import { LoginModel } from '../models/login.model';
@@ -28,20 +21,14 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user.model';
 import * as fromUserStore from '../store';
 import { moveAnimation } from '../../../core/animations';
+import { fadeAnimation } from 'app/core/animations/animations';
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     if (control.value === '') {
       return false;
     } else {
-      return !!(
-        control &&
-        control.invalid &&
-        (control.dirty || control.touched || isSubmitted)
-      );
+      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
     }
   }
 }
@@ -50,7 +37,7 @@ export class LoginErrorStateMatcher implements ErrorStateMatcher {
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  animations: [moveAnimation]
+  animations: [fadeAnimation]
 })
 export class LoginComponent implements OnInit {
   matcher = new LoginErrorStateMatcher();
@@ -66,11 +53,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   LoginDetails = new LoginModel();
 
-  constructor(
-    private router: Router,
-    private fb: FormBuilder,
-    private store: Store<UserState>
-  ) {
+  constructor(private router: Router, private fb: FormBuilder, private store: Store<UserState>) {
     this.user$ = store.select(fromUserStore.userSelector);
     this.loginErrors$ = store.select(fromUserStore.userErrorsSelector);
     this.isValidating$ = store.select(fromUserStore.userLoadingSelector);
