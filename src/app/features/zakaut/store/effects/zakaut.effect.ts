@@ -9,10 +9,7 @@ import { ZakautService } from '../../zakaut.service';
 
 @Injectable()
 export class ZakautEffects {
-  constructor(
-    private actions$: Actions,
-    private zakautService: ZakautService
-  ) {}
+  constructor(private actions$: Actions, private zakautService: ZakautService) {}
 
   @Effect()
   checkZakaut$ = this.actions$.ofType(userActions.CHECK_ZAKAUT).pipe(
@@ -22,9 +19,7 @@ export class ZakautEffects {
         .checkZakaut(zakautRequest)
         .pipe(
           switchMap(res => [new userActions.CheckZakautSuccess(res.data)]),
-          catchError(error =>
-            of(new userActions.CheckZakautFail(error.error.errors[0]))
-          )
+          catchError(error => of(new userActions.CheckZakautFail(error)))
         );
     })
   );

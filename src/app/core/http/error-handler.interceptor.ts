@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
@@ -19,10 +13,7 @@ import { httpRoutes } from '@http-routes';
 @Injectable()
 export class ErrorHandler implements HttpInterceptor {
   constructor() {}
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(e => this.handleError(e)));
   }
 
@@ -33,13 +24,17 @@ export class ErrorHandler implements HttpInterceptor {
    * @returns Error Message as ErrorObservable
    */
   handleError(error): ErrorObservable {
+    console.log(error);
     let errorMessage = '';
     if (error instanceof HttpErrorResponse) {
       if (error.url.endsWith(httpRoutes.LOGIN)) {
         errorMessage = error.error.error_description;
+      } else if (error.url.endsWith(httpRoutes.ZAKAUT_API)) {
+        errorMessage = error.error.errors === null ? error.error.message : error.error.errors;
+      } else {
+        errorMessage = error.message;
       }
-      errorMessage = error.message;
     }
-    return new ErrorObservable(error);
+    return new ErrorObservable(errorMessage);
   }
 }

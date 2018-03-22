@@ -19,7 +19,7 @@ import * as fromUserStore from '@userStore';
 import * as fromZakautStore from '@zakautStore';
 import { Sapak } from 'app/features/user/models/sapak.model';
 import { Zakaut } from 'app/features/user/models/permission.model';
-import { ZakautQueryModel, ZakautNoCardReason } from 'app/features/zakaut/models/zakaut-query.model';
+import { ZakautQueryModel, ZakautNoCardReason, ZakautResponseModel } from 'app/features/zakaut/models/zakaut-query.model';
 import { timer } from 'rxjs/observable/timer';
 import { take, map, switchMap, tap } from 'rxjs/operators';
 
@@ -99,7 +99,7 @@ export class ZakautActionsComponent implements OnInit {
   isValidating$: Observable<boolean>;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
-  zakautResponse$: Observable<string[]>;
+  zakautResponse$: Observable<ZakautResponseModel>;
   zakautErrors$: Observable<string[]>;
   zakautRequest = new ZakautQueryModel();
   timerActive = false;
@@ -117,6 +117,8 @@ export class ZakautActionsComponent implements OnInit {
   zakautWithCardForm: FormGroup;
   zakautWithTempCardForm: FormGroup;
   zakautManualForm: FormGroup;
+
+  objectKeys = Object.keys;
 
   /**
    * Bind selectors from stores to local vars and create the forms
@@ -151,9 +153,7 @@ export class ZakautActionsComponent implements OnInit {
     });
     this.zakautResponse$.subscribe(val => {
       if (val !== null) {
-        if (val.length > 0) {
-          this.startTimer();
-        }
+        this.startTimer();
       }
     });
     this.zakautErrors$.subscribe(val => {

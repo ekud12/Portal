@@ -11,6 +11,11 @@ export class ZakautQueryModel {
   treatmentCode?: string;
 }
 
+export class ZakautResponseModel {
+  messages: string[];
+  extraData: {};
+}
+
 export enum ZakautNoCardReason {
   BAD_CARD = '1',
   BAD_CARD_READER = '2'
