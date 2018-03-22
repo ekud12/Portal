@@ -176,19 +176,23 @@
       </div>
 
     </mat-card>
-    <mat-card *ngIf="((zakautResponse$|async) !== null)" class="response-msg-good">
-      <div fxLayout="column" fxLayoutAlign="start stretch center" fxLayoutPadding="8px">
-        <mat-list *ngFor="let msg of (zakautResponse$|async).messages">
+    <mat-card *ngIf="((zakautResponse$|async) !== null)" class="response-msg-good" fxLayout="row" fxLayoutAlign="space-between center center"
+      fxLayoutPadding="20px" fxLayout.xs="column">
+      <div>
+        <mat-icon class=" Vicon ">done</mat-icon>
+      </div>
+      <div fxLayout="column " fxLayoutAlign="start stretch center " fxLayoutPadding="8px ">
+        <mat-list *ngFor="let msg of (zakautResponse$|async).messages " class="info ">
           <mat-list-item>
-            <mat-icon>done</mat-icon> {{msg}} </mat-list-item>
+            - {{msg}} </mat-list-item>
         </mat-list>
-        <mat-list *ngFor="let key of objectKeys((zakautResponse$|async)?.extraData)">
+        <mat-list *ngFor="let key of objectKeys((zakautResponse$|async)?.extraData) ">
           <mat-list-item>
-            <mat-icon>done</mat-icon> {{ key }} : {{(zakautResponse$|async)?.extraData[key]}}</mat-list-item>
+            - {{ key }} : {{(zakautResponse$|async)?.extraData[key]}}</mat-list-item>
         </mat-list>
       </div>
     </mat-card>
-    <p *ngIf="(zakautErrors$|async).length > 0 || ((zakautResponse$|async) !== null)">הודעה זו תיעלם בעוד {{count}} שניות.</p>
+    <p *ngIf="(zakautErrors$|async).length> 0 || ((zakautResponse$|async) !== null)">הודעה זו תיעלם בעוד {{count}} שניות.</p>
   </mat-card>
 
 </div>

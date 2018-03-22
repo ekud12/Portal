@@ -18,7 +18,6 @@
 
 .submit-section button {
   font-family: 'OpenSansBold';
-  /* background-color: #009bdf; */
   padding: 2px 0;
   color: #fff;
   font-weight: normal;
@@ -51,9 +50,19 @@
 }
 
 .response-msg-good {
-  background-color: rgb(153, 255, 187);
-  margin-right: 20px;
-  margin-left: 20px;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid green;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.response-msg-good .info {
+  font-weight: bold;
+}
+.response-msg-good .Vicon {
+  font-weight: bold;
+  color: green;
+  font-size: 40px !important;
 }
 
 .response-msg-bad {
