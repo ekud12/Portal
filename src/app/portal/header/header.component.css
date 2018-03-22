@@ -17,9 +17,14 @@
   margin-right: 10px;
 }
 
+.navbar .hamburger {
+  background: #009bdf;
+  color: white;
+}
+
 .active {
   background: rgba(149, 204, 238, 0.4);
-  color:#fff;
+  color: #fff;
 }
 
 .navbar .link {

@@ -1,6 +1,6 @@
 .login-page {
   height: 100vh;
-  /* background: url('../../../../assets/images/invoice-bg.png') top center; */
+  background: url('../../../../assets/images/invoice-bg.png') top center;
   background-color: rgb(210, 233, 255);
   background-size: cover;
 }
@@ -27,12 +27,12 @@
 }
 
 .form-container {
-  background: rgba(255, 255, 255, 0.925);
+  background: rgba(255, 255, 255, 1);
   width: 37vw;
 }
 
 .mob-form-container {
-  background: rgba(255, 255, 255, 0.925);
+  background: rgba(255, 255, 255, 1);
   width: 70vw;
 }
 

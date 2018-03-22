@@ -3,11 +3,10 @@
   <mat-card fxLayout="column" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
     class="actions-card" ngClass.xs="actions-card-mobile">
 
-    <mat-tab-group dir="rtl" [@.disabled]="true">
+    <mat-tab-group dir="rtl" [@.disabled]="true" class="tab-group">
 
       <!-- MagneticCard Form -->
       <mat-tab label="העברת כרטיס מגנטי" fxFlex.xs="10">
-        <h5>הערות: המטופל עם כרטיס מגנטי - הזנה באמצעות העברת הכרטיס </h5>
         <form #zakautWithCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="zakautWithCardForm"
           class="form" novalidate>
           <mat-form-field *ngIf="!hideTreatInput">
@@ -17,7 +16,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field [floatLabel]="vars.floatLabel" *ngIf="!hideCardInput">
+          <mat-form-field [floatLabel]="vars.floatLabel" *ngIf="!hideCardInput" class="mat-form-field-custom">
             <input matInput type="password" formControlName="_zakautWithCardControl" placeholder="כרטיס מגנטי" [errorStateMatcher]="matcher"
               autofocus #cardFocusFirstTag (change)="CheckAutoActivate($event)">
             <mat-error *ngIf="zakautWithCardForm.get('_zakautWithCardControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
@@ -38,18 +37,19 @@
 
       <!-- TemporaryCard Form -->
       <mat-tab label="דווח עם אישור זמני">
-        <h5>הערות: המטופל ללא כרטיס מגנטי - הזנה באמצעות אישור זמני </h5>
         <form #zakautWithTempCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" class="form"
           novalidate [formGroup]="zakautWithTempCardForm">
-          <div fxLayout="row" fxLayoutAlign="space-between stretch center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
-            fxLayoutGap>
-            <mat-form-field hintLabel="(באורך 9 ספרות)">
+
+          <div fxLayout="row" fxLayoutAlign="space-between center center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center">
+
+            <mat-form-field hintLabel="(באורך 9 ספרות)" class="mat-form-field-custom">
               <input matInput placeholder="תעודת זהות" type="text" maxlength="{{vars.idLength}}" formControlName="_zakautWithTempCardIdControl"
                 [errorStateMatcher]="matcher">
               <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardIdControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
               <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardIdControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
             </mat-form-field>
-            <mat-form-field hintLabel="(תעודת זהות/דרכון)">
+
+            <mat-form-field hintLabel="(תעודת זהות/דרכון)" class="mat-form-field-custom">
               <mat-select formControlName="_zakautWithTempCardIdTypeControl" [errorStateMatcher]="matcher">
                 <mat-option *ngFor="let type of vars.idTypes" [value]="type.value">
                   {{type.viewValue}}
@@ -58,7 +58,7 @@
             </mat-form-field>
           </div>
 
-          <mat-form-field hintLabel="(בחר מהרשימה)">
+          <mat-form-field hintLabel="(בחר מהרשימה)" class="mat-form-field-custom">
             <mat-select placeholder="שנת לידה" formControlName="_zakautWithTempCardDOBControl" [errorStateMatcher]="matcher">
               <mat-option *ngFor="let year of vars.possibleYears" [value]="year">
                 {{ year }}
@@ -68,7 +68,7 @@
             <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').hasError('required')">{{vars.errors.required}}</mat-error>
           </mat-form-field>
 
-          <mat-form-field *ngIf="!hideTreatInput">
+          <mat-form-field *ngIf="!hideTreatInput" class="mat-form-field-custom" >
             <mat-select placeholder="בחר טיפול" formControlName="_zakautWithTempCardTreatCodeControl" [errorStateMatcher]="matcher">
               <mat-option *ngFor="let treat of vars.treatments" [value]="treat.value">
                 {{ treat.value}} - {{treat.viewValue}}
@@ -76,7 +76,7 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field hintLabel="(באורך 4 ספרות)">
+          <mat-form-field hintLabel="(באורך 4 ספרות)" class="mat-form-field-custom" >
             <input matInput placeholder="מספר אישור זמני" type="text" maxlength="{{vars.tempCardNumberLength}}" formControlName="_zakautWithTempCardNumberControl"
               [errorStateMatcher]="matcher">
             <mat-error *ngIf="zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
@@ -100,18 +100,17 @@
 
       <!-- Manual Form -->
       <mat-tab label="דווח ידני">
-        <h5>הערות: המטופל עם כרטיס אבל יש בעיה - הזנה ידנית </h5>
         <form #zakautManualFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" class="form"
           novalidate [formGroup]="zakautManualForm">
           <div fxLayout="row" fxLayoutAlign="space-between stretch center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
             fxLayoutGap>
-            <mat-form-field hintLabel="(באורך 9 ספרות)">
+            <mat-form-field hintLabel="(באורך 9 ספרות)" class="mat-form-field-custom">
               <input matInput placeholder="תעודת זהות" type="text" maxlength="{{vars.idLength}}" formControlName="_zakautManualIdControl"
                 [errorStateMatcher]="matcher">
               <mat-error *ngIf="zakautManualForm.get('_zakautManualIdControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
               <mat-error *ngIf="zakautManualForm.get('_zakautManualIdControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
             </mat-form-field>
-            <mat-form-field hintLabel="(תעודת זהות/דרכון)">
+            <mat-form-field hintLabel="(תעודת זהות/דרכון)" class="mat-form-field-custom">
               <mat-select formControlName="_zakautManualIdTypeControl" [errorStateMatcher]="matcher">
                 <mat-option *ngFor="let type of vars.idTypes" [value]="type.value">
                   {{type.viewValue}}
@@ -120,7 +119,7 @@
             </mat-form-field>
           </div>
 
-          <mat-form-field hintLabel="(בחר מהרשימה)">
+          <mat-form-field hintLabel="(בחר מהרשימה)" class="mat-form-field-custom">
             <mat-select placeholder="שנת לידה" formControlName="_zakautManualDOBControl" [errorStateMatcher]="matcher">
               <mat-option *ngFor="let year of vars.possibleYears" [value]="year">
                 {{ year }}
@@ -130,7 +129,7 @@
             <mat-error *ngIf="zakautManualForm.get('_zakautManualDOBControl').hasError('required')">{{vars.errors.required}}</mat-error>
           </mat-form-field>
 
-          <mat-form-field *ngIf="!hideTreatInput">
+          <mat-form-field *ngIf="!hideTreatInput" class="mat-form-field-custom">
             <mat-select placeholder="בחר טיפול" formControlName="_zakautManualTreatCodeControl" [errorStateMatcher]="matcher">
               <mat-option *ngFor="let treat of vars.treatments" [value]="treat.value">
                 {{ treat.value}} - {{treat.viewValue}}
@@ -139,7 +138,7 @@
           </mat-form-field>
 
           <div *ngIf="!isSurgeon" fxLayout="column" fxLayoutAlign="space-around stretch center">
-            <mat-form-field hintLabel="(באורך 8 ספרות)">
+            <mat-form-field hintLabel="(באורך 8 ספרות)" class="mat-form-field-custom">
               <input matInput placeholder="מספר כרטיס" type="text" maxlength="{{vars.manualCardNumberLength}}" formControlName="_zakautManualCardNumberControl"
                 [errorStateMatcher]="matcher">
               <mat-error *ngIf="zakautManualForm.get('_zakautManualCardNumberControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
