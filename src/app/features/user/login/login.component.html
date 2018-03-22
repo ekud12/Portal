@@ -1,22 +1,27 @@
-<div fxLayout="column" fxLayoutAlign="space-evenly stretch center" class="login-page" [@itemFade]>
+<div fxLayout="column" fxLayoutAlign="start  center" class="login-page" [@itemFade]>
 
-  <mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch">
+  <mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-between stretch">
     <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
-      <div class="logo" fxFlexAlign="center">
+      <div class="logo">
         <img src="../../../assets/images/meuhedet-logo.png" class="logo-image" />
       </div>
     </div>
   </mat-toolbar>
 
-  <div class="title">
+  <div class="title" fxHide.lt-md fxFlexOrder="1">
     <h1>פורטל ספקים</h1>
     <h2>כניסה למערכת</h2>
   </div>
 
-  <div class="form" fxFlex fxFill fxFlexOrder="1" fxLayout="column" fxLayoutAlign="start center center" fxFlex.md="100">
+  <div fxLayout="column" fxLayoutAlign="space-between stretch stretch" fxShow.lt-md fxHide.gt-sm>
+    <span class="mob-header">פורטל ספקים</span>
+    <span class="mob-sub-header">כניסה למערכת</span>
+  </div>
+
+  <div class="form" fxFlex fxFill fxFlexOrder="2" fxLayout="column" fxLayoutAlign="start center center" fxFlex.xs="100">
 
     <!-- <mat-card mat-elevation-z6 class="form-container login-card" [@itemAnim]> -->
-    <mat-card mat-elevation-z6 class="form-container login-card">
+    <mat-card mat-elevation-z6 class="form-container login-card" ngClass.lt-md="mob-form-container">
       <button mat-raised-button (click)="autoLogin()">טסט</button>
       <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">
 
@@ -55,7 +60,7 @@
 
   </div>
 
-  <div class="help" fxFlex="5" fxFill fxFlexOrder="2" fxLayout="column" fxLayoutAlign="space-around stretch center">
+  <div class="help" fxFlex="5" fxFill fxFlexOrder="3" fxLayout="column" fxLayoutAlign="space-around stretch center">
     <div fxLayout="row" fxLayoutAlign="space-between center center" class="content">
       <div class="copyright">
         © 2018

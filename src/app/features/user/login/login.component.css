@@ -28,7 +28,12 @@
 
 .form-container {
   background: rgba(255, 255, 255, 0.925);
-  width: 37%;
+  width: 37vw;
+}
+
+.mob-form-container {
+  background: rgba(255, 255, 255, 0.925);
+  width: 70vw;
 }
 
 .mat-form-field {
@@ -96,6 +101,26 @@ h2 {
   line-height: 40px;
   margin-top: -13px;
   margin-bottom: 30px;
+}
+
+.mob-header {
+  background: #ffffff;
+  padding-right: 15px;
+  color: #f36f21;
+  font-size: 28px;
+  font-family: OpenSansBold;
+  height: 60px;
+  line-height: 50px;
+}
+
+.mob-sub-header {
+  background: #009bdf;
+  padding-right: 15px;
+  color: #ffffff;
+  font-size: 23px;
+  height: 40px;
+  line-height: 40px;
+  margin-bottom: 5rem;
 }
 
 /* Style For Footer */
