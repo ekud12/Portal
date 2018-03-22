@@ -35,11 +35,6 @@
   font-size: 22px;
 }
 
-.router-wrapper {
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-
 .menu-btn {
   font-size: 18px;
   padding: 15px 15px;
@@ -52,3 +47,10 @@
   background-color: rgb(0, 153, 255);
   color: white;
 }
+
+
+.router-wrapper {
+  padding-top: 1em;
+  padding-bottom: 5em;
+}
+

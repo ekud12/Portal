@@ -35,6 +35,7 @@
     "gridstack": "^0.3.0",
     "hammerjs": "^2.0.8",
     "lodash": "^4.17.5",
+    "mdn-polyfills": "^5.5.0",
     "ng2-dnd": "^5.0.2",
     "ng2-sticky-nav": "^0.1.0",
     "ng4-gridstack": "^0.3.40",

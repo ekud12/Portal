@@ -1,5 +1,6 @@
 import * as userActions from '../actions';
 import { ZakautQueryModel, ZakautResponseModel } from '../../models/zakaut-query.model';
+import 'mdn-polyfills/String.prototype.padStart';
 
 export interface ZakautState {
   zakautQuery: ZakautQueryModel;

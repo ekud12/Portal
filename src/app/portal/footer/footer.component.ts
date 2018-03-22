@@ -8,27 +8,9 @@ import { environment } from '@environment';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-  // links = [
-  //   {
-  //     link: 'dash',
-  //     icon: 'home',
-  //     tooltip: 'google'
-  //   },
-  //   {
-  //     link: '/dash',
-  //     icon: 'settings',
-  //     tooltip: 'ynet'
-  //   },
-  //   {
-  //     link: '/login',
-  //     icon: 'exit_to_app',
-  //     tooltip: 'walla'
-  //   }
-  // ];
-
   appVersion: string;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit() {
     this.appVersion = environment.version;

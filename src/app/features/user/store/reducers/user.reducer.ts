@@ -2,7 +2,7 @@ import * as userActions from '../actions';
 import { User } from '../../models/user.model';
 import { Sapak } from '../../models/sapak.model';
 import { sapakActions } from '../actions';
-import { Zakaut } from '../../models/permission.model';
+import { Zakaut, ZakautDesc } from '../../models/permission.model';
 
 export interface UserState {
   user: User;
@@ -32,19 +32,19 @@ export function userReducer(state = userInitialState, action: any): UserState {
     case userActions.LOGIN_USER_SUCCESS: {
       const suppliersList: Sapak[] = [];
       const rawSuppliersData = JSON.parse(action.payload.suppliersHebrew);
-      Object.keys(rawSuppliersData).map(key =>
+      Object.keys(rawSuppliersData).map(key => {
         suppliersList.push({
           kodSapak: rawSuppliersData[key].SupplierCode,
           description: rawSuppliersData[key].SupplierDesc,
           permissions: {
             zakaut: {
-              permissionType: Zakaut.With_Card_And_Manual_Not_Surgeon,
-              desc: 'יכול לבצע העברה ללא טיפול'
+              permissionType: +rawSuppliersData[key].SupplierType,
+              desc: ZakautDesc[+rawSuppliersData[key].SupplierType]
             }
           },
           treatments: []
-        })
-      );
+        });
+      });
       return {
         ...state,
         user: {
