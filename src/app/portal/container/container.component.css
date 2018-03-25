@@ -16,6 +16,7 @@
   background: url('../../../assets/images/invoice-bg.png') top center;
   background-color: rgb(210, 233, 255);
   background-size: cover;
+  z-index: -5;
 }
 
 .sidenav {
@@ -48,9 +49,7 @@
   color: white;
 }
 
-
 .router-wrapper {
   padding-top: 1em;
   padding-bottom: 5em;
 }
-
