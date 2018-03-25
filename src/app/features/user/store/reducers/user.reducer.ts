@@ -1,8 +1,9 @@
 import * as userActions from '../actions';
 import { User } from '../../models/user.model';
-import { Sapak } from '../../models/sapak.model';
+import { Sapak, SapakTreatment, SapakTreatmentsRequest } from '../../models/sapak.model';
 import { sapakActions } from '../actions';
 import { Zakaut, ZakautDesc } from '../../models/permission.model';
+import { activeSapakSelector } from '@userStore';
 
 export interface UserState {
   user: User;
@@ -29,6 +30,8 @@ export function userReducer(state = userInitialState, action: any): UserState {
         errors: []
       };
     }
+
+    /** make login call change sapak to get treatments */
     case userActions.LOGIN_USER_SUCCESS: {
       const suppliersList: Sapak[] = [];
       const rawSuppliersData = JSON.parse(action.payload.suppliersHebrew);
@@ -38,7 +41,8 @@ export function userReducer(state = userInitialState, action: any): UserState {
           description: rawSuppliersData[key].SupplierDesc,
           permissions: {
             zakaut: {
-              permissionType: +rawSuppliersData[key].SupplierType,
+              // permissionType: +rawSuppliersData[key].SupplierType,
+              permissionType: 1,
               desc: ZakautDesc[+rawSuppliersData[key].SupplierType]
             }
           },
@@ -77,14 +81,53 @@ export function userReducer(state = userInitialState, action: any): UserState {
       };
     }
 
-    case userActions.CHANGE_SAPAK_SUCCESS: {
-      // add change treatments
+    case userActions.CHANGE_SAPAK: {
       return {
         ...state,
-        activeSapak: state.user.availableSapakim.find(toFind => toFind.kodSapak === action.payload)
+        isLoading: true
+      };
+    }
+
+    case userActions.CHANGE_SAPAK_DEFAULT: {
+      const a = new SapakTreatmentsRequest(state.user.username, state.user.availableSapakim[0].kodSapak);
+      action.payload = a;
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    case userActions.CHANGE_SAPAK_SUCCESS: {
+      const treatments: SapakTreatment[] = [];
+      action.payload.map(value => {
+        const treat = getNewTreatObject(value);
+        treatments.push(treat);
+      });
+      const newSapakIdentity = state.user.availableSapakim.find(toFind => toFind.kodSapak === action.newSapak);
+      newSapakIdentity.treatments = treatments;
+
+      return {
+        ...state,
+        activeSapak: newSapakIdentity,
+        isLoading: false
+      };
+    }
+
+    case userActions.CHANGE_SAPAK_FAILURE: {
+      return {
+        ...state,
+        errors: action.payload,
+        isLoading: false
       };
     }
   }
 
   return state;
 }
+
+const getNewTreatObject = dataRaw => {
+  const treat = new SapakTreatment();
+  treat.treatCode = dataRaw['treatmentCodeField'];
+  treat.treatDesc = dataRaw['treatmentDescField'];
+  return treat;
+};

@@ -2,14 +2,19 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import * as userActions from '../actions';
 import * as zakautStore from '@zakautStore';
+import * as userStore from '@userStore';
 import { of } from 'rxjs/observable/of';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
+import 'rxjs/add/operator/take';
+import { switchMap, map, catchError, tap, withLatestFrom } from 'rxjs/operators';
 import { UserService } from '../../user.service';
 import { LoginModel } from '../../models/login.model';
 import * as fromRoot from '../../../../core/store';
+import { SapakTreatmentsRequest } from 'app/features/user/models/sapak.model';
+import { UserState } from '@userStore';
+import { Store } from '@ngrx/store';
 @Injectable()
 export class UserEffects {
-  constructor(private actions$: Actions, private userService: UserService) {}
+  constructor(private actions$: Actions, private userService: UserService, private store$: Store<UserState>) {}
 
   @Effect()
   loginUser$ = this.actions$.ofType(userActions.LOGIN_USER).pipe(
@@ -18,7 +23,11 @@ export class UserEffects {
       return this.userService
         .login(loginDetails)
         .pipe(
-          switchMap(res => [new userActions.UserLoginSuccess(res), new userActions.UserLoginCompleted('redirect')]),
+          switchMap(res => [
+            new userActions.UserLoginSuccess(res),
+            new userActions.ChangeSapakDefault(),
+            new userActions.UserLoginCompleted('redirect')
+          ]),
           catchError(error => of(new userActions.UserLoginFail(error.error.error_description)))
         );
     })

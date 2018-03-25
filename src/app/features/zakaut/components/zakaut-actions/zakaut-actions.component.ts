@@ -17,11 +17,13 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import * as fromUserStore from '@userStore';
 import * as fromZakautStore from '@zakautStore';
-import { Sapak } from 'app/features/user/models/sapak.model';
+import { Sapak, SapakTreatment, SapakTreatmentsRequest } from 'app/features/user/models/sapak.model';
 import { Zakaut } from 'app/features/user/models/permission.model';
 import { ZakautQueryModel, ZakautNoCardReason, ZakautResponseModel } from 'app/features/zakaut/models/zakaut-query.model';
 import { timer } from 'rxjs/observable/timer';
 import { take, map, switchMap, tap } from 'rxjs/operators';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { MatSnackBar } from '@angular/material';
 
 /**
  * Zakaut Error State Matcher
@@ -69,7 +71,6 @@ export class ZakautActionsComponent implements OnInit {
       pattern: 'ערך לא תקין'
     },
     idTypes: [{ value: '1', viewValue: 'ת"ז' }, { value: '9', viewValue: 'דרכון' }],
-    treatments: [{ value: '89.5', viewValue: 'כריתת אונה למתחילים' }, { value: '112.1', viewValue: 'כריתת אונה למתקדמים' }],
     reasons: [
       { value: ZakautNoCardReason.BAD_CARD, viewValue: 'כרטיס פגום' },
       {
@@ -101,6 +102,7 @@ export class ZakautActionsComponent implements OnInit {
   loggedUserName$: Observable<string>;
   zakautResponse$: Observable<ZakautResponseModel>;
   zakautErrors$: Observable<string[]>;
+  userLoadingIndicator$: Observable<boolean>;
   zakautRequest = new ZakautQueryModel();
   timerActive = false;
   countDown$;
@@ -110,6 +112,9 @@ export class ZakautActionsComponent implements OnInit {
   isSurgeon = false;
   hideCardInput = true;
   hideTreatInput = false;
+  // treatments: [{ value: '89.5', viewValue: 'כריתת אונה למתחילים' }, { value: '112.1', viewValue: 'כריתת אונה למתקדמים' }],
+  treatments: SapakTreatment[];
+
   //#endregion
 
   @ViewChild('cardFocusFirstTag') cardInputFocus;
@@ -129,13 +134,16 @@ export class ZakautActionsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userStore: Store<fromUserStore.UserState>,
-    private zakautStore: Store<fromZakautStore.ZakautState>
+    private zakautStore: Store<fromZakautStore.ZakautState>,
+    private spinnerService: Ng4LoadingSpinnerService,
+    public snackBar: MatSnackBar
   ) {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.isValidating$ = this.zakautStore.select(fromZakautStore.zakautLoadingSelector);
     this.zakautResponse$ = this.zakautStore.select(fromZakautStore.zakautResponseSelector);
     this.zakautErrors$ = this.zakautStore.select(fromZakautStore.zakautErrorsSelector);
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
+    this.userLoadingIndicator$ = this.userStore.select(fromUserStore.userLoadingSelector);
     this.createForms();
   }
 
@@ -151,6 +159,7 @@ export class ZakautActionsComponent implements OnInit {
     this.loggedUserName$.subscribe(username => {
       this.zakautRequest.userName = username;
     });
+
     this.zakautResponse$.subscribe(val => {
       if (val !== null) {
         this.startTimer();
@@ -162,13 +171,18 @@ export class ZakautActionsComponent implements OnInit {
       }
     });
 
+    this.userLoadingIndicator$.subscribe(val => {
+      val ? this.spinnerService.show() : this.spinnerService.hide();
+    });
+
     this.currentSapak$.subscribe(sapak => {
       this.resetAllForms();
       this.zakautRequest.sapakCode = sapak.kodSapak;
+      this.treatments = sapak.treatments;
+      console.log(this.treatments);
       if (sapak.kodSapak !== '') {
         switch (sapak.permissions['zakaut'].permissionType) {
           case Zakaut.With_Card_Only: {
-            console.log(sapak.permissions['zakaut'].permissionType);
             this.zakautRequest.isSurgeon = false;
             this.isSurgeon = false;
             this.hideTreatInput = true;
@@ -198,6 +212,13 @@ export class ZakautActionsComponent implements OnInit {
       }
     });
     this.onChanges();
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 2000,
+      verticalPosition: 'top'
+    });
   }
 
   // fix for multiple calls

@@ -1,9 +1,16 @@
 /* Style For Form */
 .form {
+  font-size: 1.1rem;
+  position: relative;
+  max-width: 100%;
+  margin: 3em 11em;
+}
+
+.mob-form {
   font-size: 1.28571429rem;
   position: relative;
   max-width: 100%;
-  margin: 3em 10em;
+  margin: 2em 1em;
 }
 
 .mat-form-field {
@@ -82,15 +89,14 @@
   padding-left: 20px;
   padding-bottom: 20px;
   padding-top: 5px;
-
   border: 1px solid rgb(192, 192, 192);
-  border-radius: 7px;
-  border-right: 10px solid orange;
+  border-radius: 2px;
+  border-right: 20px solid rgb(0, 140, 255);
 }
 
 .tab-group {
   width: 100%;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 ::ng-deep .mat-tab-labels {

@@ -3,24 +3,16 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import {
-  StoreRouterConnectingModule,
-  RouterStateSerializer
-} from '@ngrx/router-store';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 
-import {
-  reducers,
-  effects,
-  CustomSerializer,
-  getInitialState,
-  metaReducers
-} from './store';
+import { reducers, effects, CustomSerializer, getInitialState, metaReducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { BackendService } from './services/backend.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { rxjs_imports } from './rxjs-imports';
 import { ErrorHandler } from './http/error-handler.interceptor';
 import { HttpParamsInterceptor } from './http/httpParamsInterceptor';
+
 
 @NgModule({
   imports: [
@@ -59,9 +51,7 @@ export class CoreModule {
     parentModule: CoreModule
   ) {
     if (parentModule) {
-      throw new Error(
-        'CoreModule is already loaded. Import it in the AppModule only'
-      );
+      throw new Error('CoreModule is already loaded. Import it in the AppModule only');
     }
   }
 }

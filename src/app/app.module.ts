@@ -8,6 +8,7 @@ import { rootRoutes } from './routes';
 import { UserModule } from './features/user/user.module';
 import { CoreModule } from './core/core.module';
 import { BackendService } from './core/services/backend.service';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { BackendService } from './core/services/backend.service';
     BrowserAnimationsModule,
     SharedModule,
     UserModule,
-    RouterModule.forRoot(rootRoutes)
+    RouterModule.forRoot(rootRoutes),
+    Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
