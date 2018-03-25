@@ -19,6 +19,11 @@ export const activeSapakSelector = createSelector(
   (state: UserState) => state.activeSapak
 );
 
+export const activeSapakTreatmentsSelector = createSelector(
+  getUserState,
+  (state: UserState) => state.activeSapak.treatments
+);
+
 export const userErrorsSelector = createSelector(
   getUserState,
   (state: UserState) => state.errors

@@ -1,16 +1,7 @@
 export * from './router.reducer';
 
-import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Params
-} from '@angular/router';
-import {
-  createFeatureSelector,
-  ActionReducerMap,
-  ActionReducer,
-  MetaReducer
-} from '@ngrx/store';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Params } from '@angular/router';
+import { createFeatureSelector, ActionReducerMap, ActionReducer, MetaReducer } from '@ngrx/store';
 
 import { RouterState, routerInitialState } from './router.reducer';
 
@@ -48,15 +39,11 @@ export function getInitialState(): AppState {
   };
 }
 
-export function localStorageSyncReducer(
-  reducer: ActionReducer<any>
-): ActionReducer<any> {
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
     keys: [{ user: ['user', 'activeSapak', 'isLoading'] }],
     rehydrate: true
   })(reducer);
 }
 
-export const metaReducers: Array<MetaReducer<any, any>> = [
-  localStorageSyncReducer
-];
+export const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];

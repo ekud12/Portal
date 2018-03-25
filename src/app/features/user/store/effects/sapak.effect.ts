@@ -14,7 +14,7 @@ export class SapakEffects {
 
   @Effect()
   changeSapak$ = this.actions$.ofType(userActions.CHANGE_SAPAK, userActions.CHANGE_SAPAK_DEFAULT).pipe(
-    map((action: userActions.ChangeSapak) => action.payload),
+    map((action: userActions.ChangeSapak | userActions.ChangeSapakDefault) => action.payload),
     switchMap((getTreatModel: SapakTreatmentsRequest) => {
       return this.userService
         .getTreatmentsForSapak(getTreatModel)

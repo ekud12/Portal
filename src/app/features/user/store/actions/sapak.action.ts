@@ -18,6 +18,7 @@ export class ChangeSapak implements Action {
 
 export class ChangeSapakDefault implements Action {
   readonly type = CHANGE_SAPAK_DEFAULT;
+  constructor(public payload: any) {}
 }
 
 export class ChangeSapakFail implements Action {

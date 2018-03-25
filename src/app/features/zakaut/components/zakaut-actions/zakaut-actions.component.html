@@ -11,7 +11,7 @@
           novalidate ngClass="form" ngClass.lt-md="mob-form" fxLayoutGap="15px">
           <mat-form-field *ngIf="!hideTreatInput" class="mat-form-field-custom">
             <mat-select placeholder="בחר טיפול" formControlName="_zakautWithCardTreatCodeControl" [errorStateMatcher]="matcher">
-              <mat-option *ngFor="let treat of treatments" [value]="treat.treatCode">
+              <mat-option *ngFor="let treat of (currentSapakTreatments$ |async)" [value]="treat.treatCode">
                 {{ treat.treatCode}} - {{treat.treatDesc}}
               </mat-option>
             </mat-select>
@@ -70,7 +70,7 @@
 
           <mat-form-field *ngIf="!hideTreatInput" class="mat-form-field-custom">
             <mat-select placeholder="בחר טיפול" formControlName="_zakautWithTempCardTreatCodeControl" [errorStateMatcher]="matcher">
-              <mat-option *ngFor="let treat of treatments" [value]="treat.treatCode">
+              <mat-option *ngFor="let treat of (currentSapakTreatments$ |async)" [value]="treat.treatCode">
                 {{ treat.treatCode}} - {{treat.treatDesc}}
               </mat-option>
             </mat-select>
@@ -131,7 +131,7 @@
 
           <mat-form-field *ngIf="!hideTreatInput" class="mat-form-field-custom">
             <mat-select placeholder="בחר טיפול" formControlName="_zakautManualTreatCodeControl" [errorStateMatcher]="matcher">
-              <mat-option *ngFor="let treat of treatments" [value]="treat.treatCode">
+              <mat-option *ngFor="let treat of (currentSapakTreatments$ |async)" [value]="treat.treatCode">
                 {{ treat.treatCode}} - {{treat.treatDesc}}
               </mat-option>
             </mat-select>

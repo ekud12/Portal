@@ -14,7 +14,7 @@ import { UserState } from '@userStore';
 import { Store } from '@ngrx/store';
 @Injectable()
 export class UserEffects {
-  constructor(private actions$: Actions, private userService: UserService, private store$: Store<UserState>) {}
+  constructor(private actions$: Actions, private userService: UserService) {}
 
   @Effect()
   loginUser$ = this.actions$.ofType(userActions.LOGIN_USER).pipe(
@@ -25,7 +25,7 @@ export class UserEffects {
         .pipe(
           switchMap(res => [
             new userActions.UserLoginSuccess(res),
-            new userActions.ChangeSapakDefault(),
+            new userActions.ChangeSapakDefault(null),
             new userActions.UserLoginCompleted('redirect')
           ]),
           catchError(error => of(new userActions.UserLoginFail(error.error.error_description)))

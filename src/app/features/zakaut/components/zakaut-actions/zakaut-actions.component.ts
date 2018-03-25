@@ -99,6 +99,7 @@ export class ZakautActionsComponent implements OnInit {
    */
   isValidating$: Observable<boolean>;
   currentSapak$: Observable<Sapak>;
+  currentSapakTreatments$: Observable<SapakTreatment[]>;
   loggedUserName$: Observable<string>;
   zakautResponse$: Observable<ZakautResponseModel>;
   zakautErrors$: Observable<string[]>;
@@ -113,7 +114,6 @@ export class ZakautActionsComponent implements OnInit {
   hideCardInput = true;
   hideTreatInput = false;
   // treatments: [{ value: '89.5', viewValue: 'כריתת אונה למתחילים' }, { value: '112.1', viewValue: 'כריתת אונה למתקדמים' }],
-  treatments: SapakTreatment[];
 
   //#endregion
 
@@ -144,6 +144,7 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautErrors$ = this.zakautStore.select(fromZakautStore.zakautErrorsSelector);
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.userLoadingIndicator$ = this.userStore.select(fromUserStore.userLoadingSelector);
+    this.currentSapakTreatments$ = this.userStore.select(fromUserStore.activeSapakTreatmentsSelector);
     this.createForms();
   }
 
@@ -178,8 +179,6 @@ export class ZakautActionsComponent implements OnInit {
     this.currentSapak$.subscribe(sapak => {
       this.resetAllForms();
       this.zakautRequest.sapakCode = sapak.kodSapak;
-      this.treatments = sapak.treatments;
-      console.log(this.treatments);
       if (sapak.kodSapak !== '') {
         switch (sapak.permissions['zakaut'].permissionType) {
           case Zakaut.With_Card_Only: {
