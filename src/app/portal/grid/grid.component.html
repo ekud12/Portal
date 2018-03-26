@@ -1,7 +1,7 @@
 <div style="height:85vh">
   <gridster [options]="options">
-    <gridster-item [item]="item.gridster" *ngFor="let item of dashboard">
-      <ng-container *ngComponentOutlet="item.myTemplate"></ng-container>
+    <gridster-item [item]="item" *ngFor="let item of dashboard">
+      <ng-container *ngComponentOutlet="item.content"></ng-container>
     </gridster-item>
   </gridster>
 </div>

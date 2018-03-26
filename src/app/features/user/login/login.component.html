@@ -13,14 +13,14 @@
     <h2>כניסה למערכת</h2>
   </div>
 
-  <div fxLayout="column" fxLayoutAlign="space-between stretch stretch" fxShow.lt-md fxHide.gt-sm>
+  <div fxLayout="column" fxLayoutAlign="space-between center stretch" fxShow.lt-md fxHide.gt-sm>
     <span class="mob-header">פורטל ספקים</span>
     <span class="mob-sub-header">כניסה למערכת</span>
   </div>
+
   <button mat-raised-button (click)="autoLogin()">T</button>
   <div class="form" fxFlex fxFill fxFlexOrder="2" fxLayout="column" fxLayoutAlign="start center center" fxFlex.xs="100">
 
-    <!-- <mat-card mat-elevation-z6 class="form-container login-card" [@itemAnim]> -->
     <mat-card mat-elevation-z6 class="form-container login-card" ngClass.lt-md="mob-form-container">
 
       <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">

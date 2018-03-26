@@ -12,28 +12,14 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SpkLatestInvoicesWidgetComponent } from 'app/portal/widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 import { ZakautWidgetComponent } from './widgets/zakaut-widget/zakaut-widget.component';
-import { GridService } from './grid/grid.service';
+import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
 
-const DASH_COMPONENTS = [
-  ContainerComponent,
-  GridComponent,
-  HeaderComponent,
-  FooterComponent
-];
+const DASH_COMPONENTS = [ContainerComponent, GridComponent, HeaderComponent, FooterComponent];
 
 const GRID_WIDGETS = [SpkLatestInvoicesWidgetComponent, ZakautWidgetComponent];
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    UserModule,
-    GridsterModule,
-    RouterModule.forChild(portalRoutes)
-  ],
-  providers: [
-    GridService,
-    { provide: 'GridsterItem', useClass: FooterComponent }
-  ],
+  imports: [CommonModule, SharedModule, UserModule, GridsterModule, RouterModule.forChild(portalRoutes)],
+  providers: [{ provide: 'GridsterItem', useClass: FooterComponent }],
   entryComponents: GRID_WIDGETS,
   declarations: [...DASH_COMPONENTS, ...GRID_WIDGETS],
   exports: [ContainerComponent]
