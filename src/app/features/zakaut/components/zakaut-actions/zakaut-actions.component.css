@@ -96,6 +96,10 @@
   border-right: 20px solid #009bdf;
 }
 
+.mat-form-field-custom:hover {
+  border-right: 20px solid #df9800;
+}
+
 .tab-group {
   width: 100%;
   justify-content: center;

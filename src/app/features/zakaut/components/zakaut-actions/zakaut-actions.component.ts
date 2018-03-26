@@ -134,8 +134,7 @@ export class ZakautActionsComponent implements OnInit {
     private fb: FormBuilder,
     private userStore: Store<fromUserStore.UserState>,
     private zakautStore: Store<fromZakautStore.ZakautState>,
-    private spinnerService: Ng4LoadingSpinnerService,
-    public snackBar: MatSnackBar
+    private spinnerService: Ng4LoadingSpinnerService
   ) {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.isValidating$ = this.zakautStore.select(fromZakautStore.zakautLoadingSelector);
@@ -210,13 +209,6 @@ export class ZakautActionsComponent implements OnInit {
       }
     });
     this.onChanges();
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message, null, {
-      duration: 2000,
-      verticalPosition: 'top'
-    });
   }
 
   // fix for multiple calls
@@ -448,7 +440,7 @@ export class ZakautActionsComponent implements OnInit {
     return this.zakautRequest;
   }
 
-  clearRequest() {
+  private clearRequest() {
     this.zakautRequest.requestType = null;
     this.zakautRequest.cardNumber = null;
     this.zakautRequest.id = null;
@@ -460,4 +452,6 @@ export class ZakautActionsComponent implements OnInit {
   private createTimer(): Observable<number> {
     return timer(0, 1000);
   }
+
+
 }

@@ -48,7 +48,8 @@
         <form #zakautWithTempCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" novalidate
           [formGroup]="zakautWithTempCardForm" ngClass="form" ngClass.lt-md="mob-form">
 
-          <div fxLayout="row" fxLayoutAlign="space-between center center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center">
+          <div fxLayout="row" fxLayoutAlign="space-between center center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
+            fxLayoutGap.xs="20px">
 
             <mat-form-field hintLabel="(באורך 9 ספרות)" class="mat-form-field-custom">
               <input matInput placeholder="תעודת זהות" type="text" maxlength="{{vars.idLength}}" formControlName="_zakautWithTempCardIdControl"
@@ -115,7 +116,7 @@
         <form #zakautManualFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" novalidate [formGroup]="zakautManualForm"
           ngClass="form" ngClass.lt-md="mob-form">
           <div fxLayout="row" fxLayoutAlign="space-between stretch stretch" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
-            fxLayoutGap>
+            fxLayoutGap.xs="20px">
             <mat-form-field hintLabel="(באורך 9 ספרות)" class="mat-form-field-custom">
               <input matInput placeholder="תעודת זהות" type="text" maxlength="{{vars.idLength}}" formControlName="_zakautManualIdControl"
                 [errorStateMatcher]="matcher">
@@ -180,8 +181,9 @@
 
     </mat-tab-group>
 
+    <!-- Responses From Server -->
     <mat-card *ngIf="(zakautErrors$|async).length > 0" class="response-msg-bad" fxLayout="row" fxLayoutAlign="space-between stretch center"
-      fxLayoutPadding="20px" fxLayout.xs="column">
+      fxLayoutPadding="20px" fxLayout.xs="column" fxLayoutAlign.xs="space-between center center" fxLayoutGap.xs="15px">
       <mat-icon class=" Vicon ">error_outline</mat-icon>
       <div fxLayout="row" fxLayoutAlign="space-between center center">
         {{(zakautErrors$ | async)}}
