@@ -25,7 +25,7 @@ import { fadeAnimation } from 'app/core/animations/animations';
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
-    if (control.value === '') {
+    if (!control.value) {
       return false;
     } else {
       return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));

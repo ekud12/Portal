@@ -132,3 +132,8 @@ a:link {
     transform: scale(1);
   }
 }
+
+::ng-deep mat-raised-button[disabled] {
+  color: red !important;
+  background-color: red !important;
+}

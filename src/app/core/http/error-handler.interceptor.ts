@@ -31,6 +31,8 @@ export class ErrorHandler implements HttpInterceptor {
         errorMessage = error.error.error_description;
       } else if (error.url.endsWith(httpRoutes.ZAKAUT_API)) {
         errorMessage = error.error.errors === null ? error.error.message : error.error.errors;
+      } else if (error.url.endsWith(httpRoutes.TREATMENTS_API)) {
+        errorMessage = error.error.errors === null ? error.error.message : error.error.errors;
       } else {
         errorMessage = error.message;
       }

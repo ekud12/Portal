@@ -23,7 +23,7 @@ export class UserPanelComponent implements OnInit {
   SapakTreatmentsRequest: SapakTreatmentsRequest;
   selectedSapakKod = '';
 
-  constructor(private store: Store<UserState>, public snackBar: MatSnackBar) {
+  constructor(private store: Store<UserState>) {
     this.user$ = store.select(fromUserStore.userSelector);
     this.activeSapak$ = store.select(fromUserStore.activeSapakSelector);
   }
@@ -39,19 +39,11 @@ export class UserPanelComponent implements OnInit {
     this.SapakTreatmentsRequest.kodSapak = this.selectedSapakKod;
     this.store.dispatch(new ChangeSapak(this.SapakTreatmentsRequest));
     this.selectedSapakKod = '';
-    this.activeSapak$.take(1).subscribe(val => this.openSnackBar(`קוד ספק פעיל שונה ל warning: ${val.kodSapak}`, null));
   }
 
   logoutUser() {
     this.store.dispatch(new fromUserStore.UserLogout());
   }
 
-  private openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, null, {
-      duration: 2000,
-      verticalPosition: 'top',
-      direction: 'rtl',
-      panelClass: 'snack-item'
-    });
-  }
+
 }

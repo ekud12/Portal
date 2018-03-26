@@ -28,7 +28,7 @@ export class UserEffects {
             new userActions.ChangeSapakDefault(null),
             new userActions.UserLoginCompleted('redirect')
           ]),
-          catchError(error => of(new userActions.UserLoginFail(error.error.error_description)))
+          catchError(error => of(new userActions.UserLoginFail(error)))
         );
     })
   );

@@ -452,6 +452,4 @@ export class ZakautActionsComponent implements OnInit {
   private createTimer(): Observable<number> {
     return timer(0, 1000);
   }
-
-
 }

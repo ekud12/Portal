@@ -12,7 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { rxjs_imports } from './rxjs-imports';
 import { ErrorHandler } from './http/error-handler.interceptor';
 import { HttpParamsInterceptor } from './http/httpParamsInterceptor';
-
+import { ToastService } from './services/toast-service.service';
 
 @NgModule({
   imports: [
@@ -31,6 +31,7 @@ import { HttpParamsInterceptor } from './http/httpParamsInterceptor';
   declarations: [],
   providers: [
     BackendService,
+    ToastService,
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     {
       provide: HTTP_INTERCEPTORS,

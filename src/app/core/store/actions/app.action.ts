@@ -18,7 +18,4 @@ export class UpdateVersionSuccess implements Action {
   constructor(public payload: string) {}
 }
 
-export type AppAction =
-  | UpdateVersion
-  | UpdateVersionFail
-  | UpdateVersionSuccess;
+export type AppAction = UpdateVersion | UpdateVersionFail | UpdateVersionSuccess;

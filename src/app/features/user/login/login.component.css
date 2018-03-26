@@ -21,7 +21,7 @@
 
 /* Style For Form */
 .form {
-  font-size: 1.28571429rem;
+  font-size: 0.95rem;
   position: relative;
   max-width: 100%;
 }
@@ -36,9 +36,11 @@
   width: 70vw;
 }
 
-.mat-form-field {
+.mat-form-field-custom {
+  /* margin-top: 8px; */
   font-family: 'OpenSans';
   color: #555;
+  /* padding: 8px 8px; */
 }
 
 .login-card {

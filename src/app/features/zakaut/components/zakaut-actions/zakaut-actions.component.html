@@ -1,7 +1,12 @@
-<div class="actions-container" fxLayout="row" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign="space-around center center">
+<div class="actions-container" fxLayout="column" fxLayoutAlign="start  center" fxLayout.xs="column" fxLayoutAlign="space-around center center">
+
+  <div class="title" fxHide.lt-md fxFlexOrder="1">
+    <h1>פורטל ספקים</h1>
+    <h2>בדיקת זכאות</h2>
+  </div>
 
   <mat-card fxLayout="column" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
-    class="actions-card" ngClass.xs="actions-card-mobile">
+    class="actions-card" ngClass.xs="actions-card-mobile" fxFlexOrder="2">
 
     <mat-tab-group dir="rtl" [@.disabled]="true" class="tab-group">
 
@@ -16,7 +21,7 @@
           <mat-form-field *ngIf="!hideTreatInput" class="mat-form-field-custom">
             <mat-select placeholder="בחר טיפול" formControlName="_zakautWithCardTreatCodeControl" [errorStateMatcher]="matcher">
               <mat-option *ngFor="let treat of (currentSapakTreatments$ |async)" [value]="treat.treatCode">
-                {{ treat.treatCode}} - {{treat.treatDesc}}
+                {{treat.treatDesc}} ({{ treat.treatCode}})
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -80,7 +85,7 @@
           <mat-form-field *ngIf="!hideTreatInput" class="mat-form-field-custom">
             <mat-select placeholder="בחר טיפול" formControlName="_zakautWithTempCardTreatCodeControl" [errorStateMatcher]="matcher">
               <mat-option *ngFor="let treat of (currentSapakTreatments$ |async)" [value]="treat.treatCode">
-                {{ treat.treatCode}} - {{treat.treatDesc}}
+                {{treat.treatDesc}} ({{ treat.treatCode}})
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -145,7 +150,7 @@
           <mat-form-field *ngIf="!hideTreatInput" class="mat-form-field-custom">
             <mat-select placeholder="בחר טיפול" formControlName="_zakautManualTreatCodeControl" [errorStateMatcher]="matcher">
               <mat-option *ngFor="let treat of (currentSapakTreatments$ |async)" [value]="treat.treatCode">
-                {{ treat.treatCode}} - {{treat.treatDesc}}
+                {{treat.treatDesc}} ({{ treat.treatCode}})
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -158,8 +163,8 @@
               <mat-error *ngIf="zakautManualForm.get('_zakautManualCardNumberControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
             </mat-form-field>
             <p> סיבת אי העברת כרטיס: </p>
-            <mat-radio-group formControlName="_zakautManualReasonControl" fxLayout="row" fxLayoutAlign="space-around center center" fxLayout.xs="column"
-              fxLayout.xs="column" fxLayoutAlign.xs="start stretch center">
+            <mat-radio-group formControlName="_zakautManualReasonControl" fxLayout="column" fxLayoutAlign="start stretch center" fxLayoutGap="10px"
+              fxLayout.xs="column" fxLayout.xs="column" fxLayoutAlign.xs="start stretch center">
               <mat-radio-button *ngFor="let reason of vars.reasons" [value]="reason.value"> {{reason.viewValue}}</mat-radio-button>
             </mat-radio-group>
           </div>

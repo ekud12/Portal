@@ -26,7 +26,7 @@ export const forms = [
 ];
 
 export const errors = {
-  required: '.אנא הכנס נתונים חסרים',
+  required: 'אנא הכנס נתונים חסרים.',
   minlength: 'נתון קצר מדי.',
   pattern: 'ערך לא חוקי.'
 };

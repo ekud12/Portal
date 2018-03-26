@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="start  center" class="login-page" [@itemFade]>
+<div fxLayout="column" fxLayoutAlign="start center" class="login-page" [@itemFade]>
 
   <mat-toolbar role="header" fxLayout="row" fxLayoutAlign="space-between stretch" class="navbar" fxLayout.lt-md="column" fxLayoutAlign.lt-md="space-between stretch">
     <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
@@ -17,18 +17,18 @@
     <span class="mob-header">פורטל ספקים</span>
     <span class="mob-sub-header">כניסה למערכת</span>
   </div>
-
+  <button mat-raised-button (click)="autoLogin()">T</button>
   <div class="form" fxFlex fxFill fxFlexOrder="2" fxLayout="column" fxLayoutAlign="start center center" fxFlex.xs="100">
 
     <!-- <mat-card mat-elevation-z6 class="form-container login-card" [@itemAnim]> -->
     <mat-card mat-elevation-z6 class="form-container login-card" ngClass.lt-md="mob-form-container">
-      <button mat-raised-button (click)="autoLogin()">טסט</button>
+
       <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">
 
         <mat-form-field color='primary' [hideRequiredMarker]="options.hideRequired" [floatLabel]="options.floatLabel" *ngFor="let formItem of forms;  index as i"
           class="mat-form-field-custom">
 
-          <input matInput type={{formItem.type}} formControlName="{{formItem.controller}}">
+          <input matInput type={{formItem.type}} formControlName="{{formItem.controller}}" [errorStateMatcher]="matcher">
           <mat-placeholder class="placeholder">
             <mat-icon>{{formItem.icon}}</mat-icon>
             <b> {{formItem.name}} </b>

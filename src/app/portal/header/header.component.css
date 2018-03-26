@@ -7,7 +7,7 @@
   -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.75);
-  border-bottom: 2px solid rgb(0, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0);
 }
 
 .navbar .logo {

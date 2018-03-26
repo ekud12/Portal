@@ -41,13 +41,34 @@ export function userReducer(state = userInitialState, action: any): UserState {
           description: rawSuppliersData[key].SupplierDesc,
           permissions: {
             zakaut: {
-              // permissionType: +rawSuppliersData[key].SupplierType,
-              permissionType: 1,
+              permissionType: +rawSuppliersData[key].SupplierType,
               desc: ZakautDesc[+rawSuppliersData[key].SupplierType]
             }
           },
           treatments: []
         });
+      });
+      suppliersList.push({
+        kodSapak: '2345234',
+        description: 'ספק מסוג אחר 1',
+        permissions: {
+          zakaut: {
+            permissionType: 0,
+            desc: 'יכול לבדוק רק בלי לבחור טיפול'
+          }
+        },
+        treatments: []
+      });
+      suppliersList.push({
+        kodSapak: '249998888',
+        description: 'ספק מסוג אחר 2',
+        permissions: {
+          zakaut: {
+            permissionType: 2,
+            desc: 'מנתח!!!!!'
+          }
+        },
+        treatments: []
       });
       return {
         ...state,
