@@ -4,21 +4,22 @@
     <h1>פורטל ספקים</h1>
     <h2>הזנת חשבוניות ממוכנת (FalconX)</h2>
   </div>
+
   <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="50px">
     <form #filterInvoices fxLayout="row" fxLayoutAlign="space-around  center center" novalidate fxLayoutGap="50px" class="invoices-filter-form">
 
       <mat-form-field [floatLabel]="vars.floatLabel">
-        <input matInput placeholder="מספר חשבונית">
+        <input matInput placeholder="מספר חשבונית" (keyup)="applyFilterInvoiceNumber($event.target.value)">
       </mat-form-field>
 
       <mat-form-field [floatLabel]="vars.floatLabel">
-        <input matInput [matDatepicker]="picker" placeholder="מתאריך" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+        <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field [floatLabel]="vars.floatLabel">
-        <input matInput [matDatepicker]="picker2" placeholder="עד תאריך" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+        <input matInput readonly [matDatepicker]="picker2" placeholder="עד תאריך" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>

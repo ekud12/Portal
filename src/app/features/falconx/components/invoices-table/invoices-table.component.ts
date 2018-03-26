@@ -4,7 +4,7 @@ import { PageNotFoundComponent } from '../../../../shared/page-not-found/page-no
 import { invoicesVars } from './table-utils';
 
 export interface Element {
-  id: number;
+  id: string;
   date: string;
   name: string;
   symbol: string;
@@ -12,17 +12,11 @@ export interface Element {
 }
 
 const ELEMENT_DATA: Element[] = [
-  { id: 1, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
-  { id: 2, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
-  { id: 3, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
-  { id: 4, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
-  { id: 1, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
-  { id: 1, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 0 },
-  { id: 1, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
-  { id: 1, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
-  { id: 1, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
-  { id: 1, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
-  { id: 1, name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 }
+  { id: '1', name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
+  { id: '2', name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
+  { id: '3', name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
+  { id: '5', name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 },
+  { id: '8888', name: 'Hydrogen', date: '17/12/2018', symbol: 'H', type: 1 }
 ];
 
 @Component({
@@ -37,6 +31,7 @@ export class InvoicesTableComponent implements OnInit, AfterViewInit {
     hideRequired: true,
     floatLabel: 'never'
   };
+
   dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -51,7 +46,9 @@ export class InvoicesTableComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.dataSource.filterPredicate = (data: Element, filter: string) => data.id === filter || filter === 'all';
+  }
 
   openDialog(): void {
     this.dialog.open(PageNotFoundComponent, {
@@ -61,5 +58,11 @@ export class InvoicesTableComponent implements OnInit, AfterViewInit {
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
+  }
+
+  applyFilterInvoiceNumber(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 }

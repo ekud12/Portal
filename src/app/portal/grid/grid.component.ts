@@ -77,7 +77,7 @@ export class GridComponent implements OnInit {
       outerMarginRight: 10,
       outerMarginBottom: null,
       outerMarginLeft: 10,
-      mobileBreakpoint: 640,
+      mobileBreakpoint: 700,
       minCols: 10,
       maxCols: 10,
       minRows: 10,
@@ -140,7 +140,13 @@ export class GridComponent implements OnInit {
       scrollToNewItems: true
     };
 
-    this.dashboard = [{ cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent }];
+    this.dashboard = [
+      { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
+      { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
+      { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
+      { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
+      { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent }
+    ];
   }
 
   changedOptions() {
