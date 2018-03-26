@@ -6,7 +6,11 @@
     <mat-tab-group dir="rtl" [@.disabled]="true" class="tab-group">
 
       <!-- MagneticCard Form -->
-      <mat-tab label="העברת כרטיס מגנטי" fxFlex.xs="10">
+      <mat-tab fxFlex.xs="10">
+        <ng-template mat-tab-label>
+          <mat-icon>credit_card </mat-icon>
+          <div>העברת כרטיס</div>
+        </ng-template>
         <form #zakautWithCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="zakautWithCardForm"
           novalidate ngClass="form" ngClass.lt-md="mob-form" fxLayoutGap="15px">
           <mat-form-field *ngIf="!hideTreatInput" class="mat-form-field-custom">
@@ -36,7 +40,11 @@
 
 
       <!-- TemporaryCard Form -->
-      <mat-tab label="דווח עם אישור זמני">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>hourglass_empty</mat-icon>
+          <div>אישור זמני</div>
+        </ng-template>
         <form #zakautWithTempCardFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" novalidate
           [formGroup]="zakautWithTempCardForm" ngClass="form" ngClass.lt-md="mob-form">
 
@@ -99,7 +107,11 @@
 
 
       <!-- Manual Form -->
-      <mat-tab label="דווח ידני">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>create </mat-icon>
+          <div>אישור ידני</div>
+        </ng-template>
         <form #zakautManualFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" fxLayoutGap="20px" novalidate [formGroup]="zakautManualForm"
           ngClass="form" ngClass.lt-md="mob-form">
           <div fxLayout="row" fxLayoutAlign="space-between stretch stretch" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"

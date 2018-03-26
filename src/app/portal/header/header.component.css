@@ -3,17 +3,15 @@
   padding-left: 50px;
   z-index: 99999999;
   height: 64px;
-  line-height: 64px;
   background: #fff;
   -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.75);
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid rgb(0, 0, 0);
 }
 
 .navbar .logo {
   padding-right: 10px;
-  height: 100%;
 }
 
 .navbar .link {

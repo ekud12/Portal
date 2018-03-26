@@ -113,7 +113,6 @@ export class ZakautActionsComponent implements OnInit {
   isSurgeon = false;
   hideCardInput = true;
   hideTreatInput = false;
-  // treatments: [{ value: '89.5', viewValue: 'כריתת אונה למתחילים' }, { value: '112.1', viewValue: 'כריתת אונה למתקדמים' }],
 
   //#endregion
 
