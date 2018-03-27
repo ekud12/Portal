@@ -134,7 +134,7 @@ export class GridComponent implements OnInit {
       disablePushOnResize: true,
       pushDirections: { north: true, east: false, south: true, west: true },
       pushResizeItems: false,
-      displayGrid: DisplayGrid.OnDragAndResize,
+      displayGrid: DisplayGrid.None,
       disableWindowResize: false,
       disableWarnings: false,
       scrollToNewItems: true
