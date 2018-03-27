@@ -47,7 +47,7 @@ export class InvoicesTableComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
   ngOnInit() {
-    this.dataSource.filterPredicate = (data: Element, filter: string) => data.id === filter || filter === 'all';
+    this.dataSource.filterPredicate = (data: Element, filter: string) => data.id.includes(filter) || filter === 'all';
   }
 
   openDialog(): void {

@@ -20,6 +20,6 @@ export class UserService {
   }
 
   getTreatmentsForSapak(model: SapakTreatmentsRequest): Observable<any> {
-    return this.backendService.post<SapakTreatmentsListResponse>(httpRoutes.TREATMENTS_API, model);
+    return this.backendService.post<SapakTreatmentsListResponse>(httpRoutes.TREATMENTS_FOR_SAPAK_EP, model);
   }
 }

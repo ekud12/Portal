@@ -211,7 +211,6 @@ export class ZakautActionsComponent implements OnInit {
     this.onChanges();
   }
 
-  // fix for multiple calls
   startTimer() {
     this.count = 10;
     this.timerActive = true;

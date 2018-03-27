@@ -51,7 +51,7 @@ a:link {
 }
 
 /*--- App Loader Spinner excerpt ---*/
-.center-spinner {
+/* .center-spinner {
   margin-top: 40vh;
   align-self: center;
 }
@@ -75,7 +75,6 @@ a:link {
   color: rgb(59, 59, 59);
   font-size: 25px;
   font-weight: bold;
-  /* background-color: black; */
 }
 
 .sk-chasing-dots .sk-child {
@@ -131,4 +130,4 @@ a:link {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
-}
+} */
