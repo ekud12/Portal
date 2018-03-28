@@ -4,12 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --environment=dev",
-    "build": "ng build --prod",
+    "start": "ng serve --environment=dev ",
+    "build": "ng build --prod -bh /PortalSapakim/ --build-optimizer -vendor-chunk=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buildQA": "ng build --env=qa --aot --build-optimizer -vendor-chunk=true"
+    "buildQA": "ng build --env=qa --aot -bh /PortalSapakim/ --build-optimizer -vendor-chunk=true"
   },
   "private": true,
   "dependencies": {
