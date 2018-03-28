@@ -1,6 +1,6 @@
 <button mat-button fxLayout="row" fxLayoutAlign="start center center" class="user-panel-container" [matMenuTriggerFor]="menu">
-  <mat-icon >account_circle</mat-icon>
-  <mat-spinner *ngIf="(userLoader$ | async)" [diameter]="25" class="usr-spn"></mat-spinner>
+  <mat-icon>account_circle</mat-icon>
+  <mat-spinner *ngIf="(userLoader$ | async)" [diameter]="22" class="usr-spn"></mat-spinner>
   <span class="spk">
     {{(activeSapak$ | async)?.description}}
   </span>

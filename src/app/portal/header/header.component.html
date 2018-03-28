@@ -2,8 +2,11 @@
   fxLayoutGap.xs="60px" #mainToolbar>
   <div fxLayout="row" fxLayoutAlign="space-evenly stretch" fxLayoutAlign.xs="space-between stretch">
     <button class="hamburger" mat-button (click)="sidenav.toggle()">
-      <mat-icon *ngIf="!isGlobalLoading">menu</mat-icon>
-      <mat-spinner *ngIf="isGlobalLoading"></mat-spinner>
+      <div class="hamburger hamburger--arrowturn-r">
+        <div class="hamburger-box">
+          <div class="hamburger-inner"></div>
+        </div>
+      </div>
     </button>
     <div class="logo" fxFlexAlign="center">
       <img src="assets/images/meuhedet-logo.png" />
@@ -14,4 +17,3 @@
   </div>
 
 </mat-toolbar>
-<mat-progress-bar mode="indeterminate" *ngIf="isGlobalLoading"></mat-progress-bar>

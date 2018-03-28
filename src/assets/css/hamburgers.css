@@ -1,0 +1,71 @@
+/*!
+ * Hamburgers
+ * @description Tasty CSS-animated hamburgers
+ * @author Jonathan Suh @jonsuh
+ * @site https://jonsuh.com/hamburgers
+ * @link https://github.com/jonsuh/hamburgers
+ */
+.hamburger {
+  display: inline-block;
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  font: inherit;
+  color: white;
+  text-transform: none;
+  background-color: #009bdf;
+  border: 0;
+  margin: 0;
+  overflow: visible;
+}
+.hamburger:hover {
+  /* opacity: 0.7; */
+}
+
+.hamburger-box {
+  width: 40px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+  color: white;
+}
+
+.hamburger-inner {
+  display: block;
+  color: white;
+  top: 50%;
+}
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  width: 40px;
+  height: 4px;
+  background-color: white;
+  border-radius: 4px;
+  position: absolute;
+  transition-property: transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+.hamburger-inner::before,
+.hamburger-inner::after {
+  content: '';
+  display: block;
+}
+.hamburger-inner::before {
+  top: -10px;
+}
+.hamburger-inner::after {
+  bottom: -10px;
+}
+
+.hamburger--arrowturn-r:hover .hamburger-inner {
+  transform: rotate(-180deg);
+}
+.hamburger--arrowturn-r:hover .hamburger-inner::before {
+  transform: translate3d(-12px, 5px, 0) rotate(-35deg) scale(0.5, 1);
+}
+.hamburger--arrowturn-r:hover .hamburger-inner::after {
+  transform: translate3d(-12px, -5px, 0) rotate(35deg) scale(0.5, 1);
+}

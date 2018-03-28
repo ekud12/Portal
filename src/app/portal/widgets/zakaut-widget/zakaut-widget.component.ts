@@ -9,6 +9,6 @@ export class ZakautWidgetComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log('CREATED:::SPK WIDGET::::');
+    // console.log('CREATED:::SPK WIDGET::::');
   }
 }
