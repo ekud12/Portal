@@ -19,13 +19,14 @@ import { MatSnackBar } from '@angular/material';
 export class UserPanelComponent implements OnInit {
   user$: Observable<User>;
   activeSapak$: Observable<Sapak>;
-
+  userLoader$: Observable<boolean>;
   SapakTreatmentsRequest: SapakTreatmentsRequest;
   selectedSapakKod = '';
 
   constructor(private store: Store<UserState>) {
     this.user$ = store.select(fromUserStore.userSelector);
     this.activeSapak$ = store.select(fromUserStore.activeSapakSelector);
+    this.userLoader$ = store.select(fromUserStore.userLoadingSelector);
   }
 
   ngOnInit() {
@@ -44,6 +45,22 @@ export class UserPanelComponent implements OnInit {
   logoutUser() {
     this.store.dispatch(new fromUserStore.UserLogout());
   }
-
-
 }
+
+// this.userLoaderStatus$.subscribe(show => {
+//   if (show) {
+//     if (this.timer) {
+//       return;
+//     }
+//     this.timer = setTimeout(() => {
+//       this.timer = null;
+//       this.isLoading = true;
+//     }, 2000);
+//   } else {
+//     if (this.timer) {
+//       clearTimeout(this.timer);
+//       this.timer = null;
+//     }
+//     this.isLoading = false;
+//   }
+// });

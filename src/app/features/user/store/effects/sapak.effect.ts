@@ -44,7 +44,7 @@ export class SapakEffects {
 
     .pipe(
       map((action: userActions.ChangeSapakSuccess) => action.newSapak),
-      tap(val => this.toaster.openSnackBar(`קוד ספק פעיל שונה ל : ${val}.`, null))
+      tap(val => this.toaster.openSnackBar(`ספק פעיל שונה ל : ${val}.`, null))
     );
 
   @Effect({ dispatch: false })

@@ -4,15 +4,51 @@
     <mat-sidenav mode="over" #sidenav class="sidenav" style="width:250px;" [fixedInViewport]="true">
       <h1>תפריט</h1>
       <div fxLayout="column" fxLayoutAlign="space-around stretch center">
-        <button mat-button routerLink="/portal/grid" routerLinkActive="active" class="menu-btn">Dashboard</button>
+        <!-- <button mat-button routerLink="/portal/grid" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
+          true}">Dashboard</button>
         <mat-divider></mat-divider>
-        <button mat-button routerLink="/portal/zakaut" routerLinkActive="active" class="menu-btn">זכאות</button>
+        <button mat-button routerLink="/portal/zakaut" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
+          true}">זכאות</button>
         <mat-divider></mat-divider>
-        <button mat-button routerLink="/portal/falconx" routerLinkActive="active" class="menu-btn">FalconX</button>
+        <button mat-button routerLink="/portal/falconx" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
+          true}">FalconX</button>
         <mat-divider></mat-divider>
-        <button mat-button routerLink="/portal/invoices" routerLinkActive="active" class="menu-btn">הזנת חשבוניות ידנית</button>
-        <mat-divider></mat-divider>
+        <button mat-button routerLink="/portal/invoices" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
+          true}">הזנת חשבוניות ידנית</button>
+        <mat-divider></mat-divider> -->
 
+        <mat-accordion fxLayout="column" fxLayoutAlign="space-around stretch center">
+          <button mat-button class="menu-btn">aaa</button>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                FalconX
+              </mat-panel-title>
+              <mat-panel-description>
+                הזנת חשבוניות אוטומטית
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <button mat-button routerLink="/portal/falconx" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
+              true}">צפיה בחשבוניות שהועלו</button>
+            <button mat-button routerLink="/portal/falconx/newInvoice" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
+              true}">העלאת קובץ חשבונית חדשה</button>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                FalconX
+              </mat-panel-title>
+              <mat-panel-description>
+                הזנת חשבוניות אוטומטית
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <button mat-button routerLink="/portal/falconx" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
+              true}">צפיה בחשבוניות שהועלו</button>
+            <button mat-button routerLink="/portal/falconx/newInvoice" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
+              true}">העלאת קובץ חשבונית חדשה</button>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-divider></mat-divider>
       </div>
 
     </mat-sidenav>

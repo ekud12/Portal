@@ -1,5 +1,6 @@
 <button mat-button fxLayout="row" fxLayoutAlign="start center center" class="user-panel-container" [matMenuTriggerFor]="menu">
-  <mat-icon>account_circle</mat-icon>
+  <mat-icon >account_circle</mat-icon>
+  <mat-spinner *ngIf="(userLoader$ | async)" [diameter]="25" class="usr-spn"></mat-spinner>
   <span class="spk">
     {{(activeSapak$ | async)?.description}}
   </span>
@@ -9,13 +10,14 @@
 <mat-menu #menu="matMenu" class="menu" yPosition="below" [overlapTrigger]="false">
   <ng-template matMenuContent>
     <div (click)="$event.stopPropagation();" fxLayout="column" fxLayoutAlign="space-between center center" class="spk-chooser"
-      fxLayoutGap="20px">
+      fxLayoutGap="10px">
       <div class="header">
         החלפת ספק:
       </div>
       <mat-form-field>
         <mat-select placeholder="בחר ספק אחר:" [(value)]="selectedSapakKod">
-          <mat-option *ngFor="let sapak of (user$ | async)?.availableSapakim" [value]="sapak.kodSapak" matTooltip="{{sapak.permissions['zakaut'].desc}}" matTooltipPosition="left">
+          <mat-option *ngFor="let sapak of (user$ | async)?.availableSapakim" [value]="sapak.kodSapak" matTooltip="{{sapak.permissions['zakaut'].desc}}"
+            matTooltipPosition="left">
             {{ sapak.description }}
           </mat-option>
         </mat-select>

@@ -6,3 +6,4 @@ export const spinnerTemplate = `
   <div class="sk-child sk-dot2"></div>
 </div>
 </div>`;
+// export const spinnerTemplate = `xcbvzxcvcvzxvzvsdcsdfsdf`;

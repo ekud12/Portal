@@ -6,9 +6,8 @@ import { UploadNewInvoiceComponent } from './components/upload-new-invoice/uploa
 export const falconxRoutes: Routes = [
   {
     path: '',
-    component: InvoicesTableComponent,
     children: [
-      { path: '', component: PageNotFoundComponent },
+      { path: '', component: InvoicesTableComponent },
       { path: 'newInvoice', component: UploadNewInvoiceComponent },
       { path: '**', redirectTo: '/portal/falconx' }
     ]

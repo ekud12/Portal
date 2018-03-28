@@ -1,5 +1,4 @@
 .user-panel-container {
-  /* width: 150px; */
   height: 64px;
   background-color: white;
   color: rgb(37, 37, 37);
@@ -13,15 +12,16 @@
 }
 
 .menu {
-  min-width: 250px !important;
+  min-width: 270px !important;
   background-color: rgb(255, 255, 255);
   border-radius: 3px !important;
 }
 
 .menu .spk-chooser {
   padding: 15px 15px;
-  background-color: rgb(242, 251, 255);
+  background-color: rgb(255, 255, 255);
   font-weight: bold;
+  box-shadow: inset 0 8px 9px -7px rgba(0, 0, 0, 0.7);
 }
 
 .menu .spk-chooser .header {
@@ -30,7 +30,9 @@
 }
 .spk-chooser-btn {
   width: 100%;
-  background-color: rgb(242, 251, 255);
+  background-color: #009bdf;
+  font-weight: bold;
+  color: white;
 }
 
 .mat-menu-item {
@@ -47,8 +49,15 @@
   color: rgb(255, 255, 255);
   background-color: rgb(0, 195, 255) !important;
 }
-
 .snack-item {
   font-weight: bold;
-  text-decoration: underline;
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+.usr-spn {
+  float: right !important;
+  stroke: rgb(0, 16, 20) !important;
+  margin-left: 5px !important;
+  margin-top: 5px !important;
 }

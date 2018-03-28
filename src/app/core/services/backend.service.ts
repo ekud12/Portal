@@ -22,8 +22,6 @@ export class BackendService {
   }
 
   get<T>(url: string, params?: any): any {
-    // TODO: @shalom.l implement <T> notation
-
     return this.http.get(this._generateUrl(url), { params: params }).timeoutWith(5000, Observable.throw(this.timeoutError));
   }
 
