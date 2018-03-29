@@ -4,21 +4,32 @@
     <mat-sidenav mode="push" #sidenav class="sidenav" style="width:250px;" [fixedInViewport]="true">
       <h1>תפריט</h1>
       <div fxLayout="column" fxLayoutAlign="space-around stretch center">
-        <button mat-button routerLink="/portal/grid" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
-          true}">Dashboard</button>
-        <mat-divider></mat-divider>
-        <button mat-button routerLink="/portal/zakaut" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
-          true}">זכאות</button>
-        <mat-divider></mat-divider>
-        <button mat-button routerLink="/portal/falconx" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
-          true}">FalconX</button>
-        <mat-divider></mat-divider>
-        <button mat-button routerLink="/portal/invoices" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
-          true}">הזנת חשבוניות ידנית</button>
-        <mat-divider></mat-divider>
 
         <mat-accordion fxLayout="column" fxLayoutAlign="space-around stretch center">
-          <button mat-button class="menu-btn">aaa</button>
+
+          <button mat-button routerLink="/portal/zakaut" routerLinkActive="active" routerLinkActiveOptions="{exact:
+            true}" class="menu-btn">זכאות</button>
+          <mat-divider></mat-divider>
+
+          <button mat-button routerLink="/portal/grid" routerLinkActive="active" routerLinkActiveOptions="{exact:
+              true}" class="menu-btn">Dashboard</button>
+          <mat-divider></mat-divider>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header color="primary">
+              <mat-panel-title>
+                ExtraNet
+              </mat-panel-title>
+              <mat-panel-description>
+                הזנת חשבוניות ידנית
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <button mat-button routerLink="/portal/invoices" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+              true}" class="menu-btn">צפיה בחשבוניות</button>
+            <button mat-button routerLink="/portal/invoice/treatments" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+              true}" class="menu-btn">הוספת טיפול</button>
+          </mat-expansion-panel>
+          <mat-divider></mat-divider>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -28,25 +39,12 @@
                 הזנת חשבוניות אוטומטית
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <button mat-button routerLink="/portal/falconx" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
-              true}">צפיה בחשבוניות שהועלו</button>
-            <button mat-button routerLink="/portal/falconx/newInvoice" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
-              true}">העלאת קובץ חשבונית חדשה</button>
+            <button mat-button routerLink="/portal/falconx" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+              true}" class="menu-btn">צפיה בחשבוניות שהועלו</button>
+            <button mat-button routerLink="/portal/falconx/newInvoice" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+              true}" class="menu-btn">העלאת קובץ חשבונית חדשה</button>
           </mat-expansion-panel>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                FalconX
-              </mat-panel-title>
-              <mat-panel-description>
-                הזנת חשבוניות אוטומטית
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <button mat-button routerLink="/portal/falconx" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
-              true}">צפיה בחשבוניות שהועלו</button>
-            <button mat-button routerLink="/portal/falconx/newInvoice" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
-              true}">העלאת קובץ חשבונית חדשה</button>
-          </mat-expansion-panel>
+
         </mat-accordion>
         <mat-divider></mat-divider>
       </div>
@@ -59,8 +57,9 @@
       <div class="router-wrapper" fxFlex="auto">
         <router-outlet></router-outlet>
       </div>
-        <app-footer>
-        </app-footer>
+      <!-- <app-chart1></app-chart1> -->
+      <app-footer>
+      </app-footer>
 
     </div>
   </mat-sidenav-container>

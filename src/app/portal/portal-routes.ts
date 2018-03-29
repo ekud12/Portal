@@ -11,7 +11,7 @@ export const portalRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'falconx', pathMatch: 'full' },
       { path: 'home', component: PageNotFoundComponent },
-      { path: 'grid', component: GridComponent },
+      { path: 'grid', component: Grid2Component },
       {
         path: 'zakaut',
         loadChildren: 'app/features/zakaut/zakaut.module#ZakautModule'

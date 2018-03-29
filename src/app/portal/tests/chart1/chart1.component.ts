@@ -10,6 +10,22 @@ export class Chart1Component implements OnInit {
     {
       name: 'Germany',
       value: 40632
+    },
+    {
+      name: 'Germany2',
+      value: 40632
+    },
+    {
+      name: 'Germany3',
+      value: 40632
+    },
+    {
+      name: 'Germany4',
+      value: 40632
+    },
+    {
+      name: 'Germany5',
+      value: 40632
     }
   ];
   multi: any[];

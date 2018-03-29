@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import '~@angular/material/prebuilt-themes/indigo-pink.css'; */
-
+@import '~gridstack/dist/gridstack.min.css';
 @font-face {
   font-family: 'OpenSans';
   src: url('./assets/fonts/OpenSansHebrewRegular.eot');
