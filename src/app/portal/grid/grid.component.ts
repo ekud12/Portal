@@ -14,6 +14,7 @@ import { SpkLatestInvoicesWidgetComponent } from '../widgets/spk-latest-invoices
 import { ZakautWidgetComponent } from '../widgets/zakaut-widget/zakaut-widget.component';
 import { Observable } from 'rxjs/Observable';
 import { PageNotFoundComponent } from '../../shared/page-not-found/page-not-found.component';
+import { FalconxInvChartComponent } from '../widgets/falconx-inv-chart/falconx-inv-chart.component';
 
 @Component({
   selector: 'app-grid',
@@ -142,6 +143,7 @@ export class GridComponent implements OnInit {
 
     this.dashboard = [
       { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
+      { cols: 4, rows: 2, y: 0, x: 0, hasContent: true, content: FalconxInvChartComponent },
       { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
       { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
       { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },

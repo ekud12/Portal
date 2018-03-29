@@ -13,15 +13,16 @@ import { FooterComponent } from './footer/footer.component';
 import { SpkLatestInvoicesWidgetComponent } from 'app/portal/widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 import { ZakautWidgetComponent } from './widgets/zakaut-widget/zakaut-widget.component';
 import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
+import { FalconxInvChartComponent } from './widgets/falconx-inv-chart/falconx-inv-chart.component';
 
 const DASH_COMPONENTS = [ContainerComponent, GridComponent, HeaderComponent, FooterComponent];
 
-const GRID_WIDGETS = [SpkLatestInvoicesWidgetComponent, ZakautWidgetComponent];
+const GRID_WIDGETS = [SpkLatestInvoicesWidgetComponent, ZakautWidgetComponent, FalconxInvChartComponent];
 @NgModule({
   imports: [CommonModule, SharedModule, UserModule, GridsterModule, RouterModule.forChild(portalRoutes)],
   providers: [{ provide: 'GridsterItem', useClass: FooterComponent }],
   entryComponents: GRID_WIDGETS,
-  declarations: [...DASH_COMPONENTS, ...GRID_WIDGETS],
+  declarations: [...DASH_COMPONENTS, ...GRID_WIDGETS, FalconxInvChartComponent],
   exports: [ContainerComponent]
 })
 export class PortalModule {}

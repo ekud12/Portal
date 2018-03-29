@@ -22,7 +22,6 @@ import { Zakaut } from 'app/features/user/models/permission.model';
 import { ZakautQueryModel, ZakautNoCardReason, ZakautResponseModel } from 'app/features/zakaut/models/zakaut-query.model';
 import { timer } from 'rxjs/observable/timer';
 import { take, map, switchMap, tap } from 'rxjs/operators';
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { MatSnackBar } from '@angular/material';
 
 /**
@@ -133,8 +132,7 @@ export class ZakautActionsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userStore: Store<fromUserStore.UserState>,
-    private zakautStore: Store<fromZakautStore.ZakautState>,
-    private spinnerService: Ng4LoadingSpinnerService
+    private zakautStore: Store<fromZakautStore.ZakautState>
   ) {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.isValidating$ = this.zakautStore.select(fromZakautStore.zakautLoadingSelector);
@@ -168,10 +166,6 @@ export class ZakautActionsComponent implements OnInit {
       if (val.length > 0) {
         this.startTimer();
       }
-    });
-
-    this.userLoadingIndicator$.subscribe(val => {
-      val ? this.spinnerService.show() : this.spinnerService.hide();
     });
 
     this.currentSapak$.subscribe(sapak => {

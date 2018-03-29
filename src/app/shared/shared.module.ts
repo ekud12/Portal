@@ -8,9 +8,8 @@ import { materialImports } from './material-imports';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { MdePopoverModule } from '@material-extended/mde';
-import { ChartsModule } from 'ng2-charts';
 @NgModule({
-  imports: [CommonModule, FlexLayoutModule, ReactiveFormsModule, MdePopoverModule, RouterModule, materialImports, ChartsModule],
+  imports: [CommonModule, FlexLayoutModule, ReactiveFormsModule, MdePopoverModule, RouterModule, materialImports],
   declarations: [PageNotFoundComponent],
   exports: [materialImports, FlexLayoutModule, ReactiveFormsModule, PageNotFoundComponent]
 })
