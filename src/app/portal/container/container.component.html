@@ -1,7 +1,7 @@
 <div class="outer-div-container" [@itemFade]>
   <mat-sidenav-container #sidenav style="height:100%;width:100%;">
 
-    <mat-sidenav mode="over" #sidenav class="sidenav" style="width:250px;" [fixedInViewport]="true">
+    <mat-sidenav mode="push" #sidenav class="sidenav" style="width:250px;" [fixedInViewport]="true">
       <h1>תפריט</h1>
       <div fxLayout="column" fxLayoutAlign="space-around stretch center">
         <button mat-button routerLink="/portal/grid" routerLinkActive="active" class="menu-btn" [routerLinkActiveOptions]="{exact:
@@ -59,9 +59,8 @@
       <div class="router-wrapper" fxFlex="auto">
         <router-outlet></router-outlet>
       </div>
-
-      <app-footer>
-      </app-footer>
+        <app-footer>
+        </app-footer>
 
     </div>
   </mat-sidenav-container>

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
 import { GridComponent } from './grid/grid.component';
 import { ContainerComponent } from './container/container.component';
+import { Grid2Component } from './grid2/grid2.component';
 
 export const portalRoutes: Routes = [
   {

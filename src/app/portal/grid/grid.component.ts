@@ -10,11 +10,11 @@ import {
   GridsterItemComponent
 } from 'angular-gridster2';
 
-import { SpkLatestInvoicesWidgetComponent } from '../widgets/spk-latest-invoices-widget/spk-latest-invoices-widget.component';
 import { ZakautWidgetComponent } from '../widgets/zakaut-widget/zakaut-widget.component';
 import { Observable } from 'rxjs/Observable';
 import { PageNotFoundComponent } from '../../shared/page-not-found/page-not-found.component';
 import { FalconxInvChartComponent } from '../widgets/falconx-inv-chart/falconx-inv-chart.component';
+import { ILastInvoiceTotalWidgetComponent } from '../widgets/i-last-invoice-total-widget/i-last-invoice-total-widget.component';
 
 @Component({
   selector: 'app-grid',
@@ -72,7 +72,7 @@ export class GridComponent implements OnInit {
       itemResizeCallback: GridComponent.itemResize,
       itemInitCallback: GridComponent.itemInit,
       itemRemovedCallback: GridComponent.itemRemoved,
-      margin: 15,
+      margin: 17,
       outerMargin: true,
       outerMarginTop: null,
       outerMarginRight: 10,
@@ -141,13 +141,19 @@ export class GridComponent implements OnInit {
       scrollToNewItems: true
     };
 
+    const e = new ZakautWidgetComponent();
+    e.obj = 'asdds';
+    console.log(e);
+
     this.dashboard = [
       { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
-      { cols: 4, rows: 2, y: 0, x: 0, hasContent: true, content: FalconxInvChartComponent },
       { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
       { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
-      { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
-      { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent }
+      { cols: 1, rows: 1, y: 0, x: 0, hasContent: true, content: ILastInvoiceTotalWidgetComponent },
+      { cols: 1, rows: 1, y: 0, x: 0, hasContent: true, content: ILastInvoiceTotalWidgetComponent },
+      { cols: 1, rows: 1, y: 0, x: 0, hasContent: true, content: ILastInvoiceTotalWidgetComponent },
+      { cols: 1, rows: 1, y: 0, x: 0, hasContent: true, content: ILastInvoiceTotalWidgetComponent },
+      { cols: 4, rows: 2, y: 1, x: 6, hasContent: true, content: FalconxInvChartComponent }
     ];
   }
 

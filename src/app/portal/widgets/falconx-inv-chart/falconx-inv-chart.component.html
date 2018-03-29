@@ -7,8 +7,11 @@
     </div>
   </div>
 
-  <mat-card-content class="content" fxLayout="row" fxLayoutAlign="start stretch stretch" fxFlex>
-
+  <mat-card-content class="content" fxLayout="row" fxLayoutAlign="space-around center end" fxFlex dir="ltr" ngClass.xs="mobi-content">
+    <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="single" [gradient]="gradient" [xAxis]="showXAxis"
+      [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel" [barPadding]="barPadding" (select)="onSelect($event)">
+    </ngx-charts-bar-vertical>
   </mat-card-content>
 
 

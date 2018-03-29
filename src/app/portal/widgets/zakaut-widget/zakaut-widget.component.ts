@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-zakaut-widget',
@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
   styleUrls: ['./zakaut-widget.component.css']
 })
 export class ZakautWidgetComponent implements OnInit {
+  @Input() obj: string;
   constructor() {}
 
   ngOnInit() {

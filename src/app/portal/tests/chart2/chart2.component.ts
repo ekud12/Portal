@@ -1,13 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { DynamicComponentInterface } from '../../interfaces';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-falconx-inv-chart',
-  templateUrl: './falconx-inv-chart.component.html',
-  styleUrls: ['./falconx-inv-chart.component.css']
+  selector: 'app-chart2',
+  templateUrl: './chart2.component.html',
+  styleUrls: ['./chart2.component.css']
 })
-export class FalconxInvChartComponent implements OnInit, DynamicComponentInterface {
-  @Input() object: any;
+export class Chart2Component implements OnInit {
   single: any[] = [
     {
       name: 'ינואר',
@@ -48,7 +46,7 @@ export class FalconxInvChartComponent implements OnInit, DynamicComponentInterfa
   ];
   multi: any[] = [];
 
-  view: any[] = [600, 200];
+  view: any[];
 
   // options
   showXAxis = true;
@@ -65,10 +63,9 @@ export class FalconxInvChartComponent implements OnInit, DynamicComponentInterfa
     domain: ['#a27ea8', '#7aa3e5', '#a27ea8', '#a95963']
   };
 
-  constructor() {}
+  constructor() { }
 
-  onSelect(event) {
-    console.log(event);
+  ngOnInit() {
   }
-  ngOnInit() {}
+
 }
