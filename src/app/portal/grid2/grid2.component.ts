@@ -16,23 +16,12 @@ export class Grid2Component implements OnInit {
   options: GridStackOptions;
   inputs = { num: 600 };
   widgets = {
-    5: {
-      width: 6,
-      height: 5,
-      x: 6,
-      y: 7,
-      minHeight: 5,
-      noResize: false,
-      noMove: false,
-      componentType: Chart2Component,
-      input: {}
-    },
     1: {
       width: 2,
       height: 2,
-      x: 4,
+      x: 0,
       y: 0,
-      minHeight: 2,
+      // maxHeight: 2,
       noResize: true,
       noMove: false,
       componentType: TestWidgetComponent,
@@ -41,43 +30,60 @@ export class Grid2Component implements OnInit {
     2: {
       width: 2,
       height: 2,
-      minHeight: 2,
       x: 2,
       y: 0,
+      // maxHeight: 2,
       noResize: true,
       noMove: false,
       componentType: TestWidgetComponent,
-      input: { num: 58660, ododesc: 'סה"כ תשלומים' }
+      input: { num: 6140, ododesc: 'חשבונית אחרונה', color: 'red' }
     },
     3: {
       width: 2,
       height: 2,
-      x: 0,
+      x: 4,
       y: 0,
-      minHeight: 2,
+      // maxHeight: 2,
       noResize: true,
       noMove: false,
       componentType: TestWidgetComponent,
-      input: { num: 5180, ododesc: 'לקוחות חדשים' }
+      input: { num: 6140, ododesc: 'חשבונית אחרונה', color: 'red' }
     },
-    4: {
+    8: {
       width: 2,
-      x: 0,
-      y: 2,
       height: 2,
-      minHeight: 2,
+      x: 4,
+      y: 0,
+      // maxHeight: 2,
       noResize: true,
       noMove: false,
       componentType: TestWidgetComponent,
-      input: { num: 34580, ododesc: 'סכימה חודשית' }
+      input: { num: 6140, ododesc: 'חשבונית אחרונה', color: 'red' }
+    },
+    5: {
+      width: 4,
+      height: 5,
+      x: 6,
+      y: 0,
+      minHeight: 5,
+      noResize: false,
+      noMove: false,
+      componentType: Chart2Component,
+      input: {}
     }
   };
-  myWidgets: GridStackItem[] = [];
+
+  myWidgets: GridStackItem[];
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.options = new GridStackOptions();
+    // this.options.width = 1000;
     this.options.rtl = 'true';
+    this.options.animate = true;
+    this.options.auto = false;
+    this.options.alwaysShowResizeHandle = false;
+    this.myWidgets = [];
     Object.keys(this.widgets).forEach(val => {
       const newWidget = new GridStackItem();
       newWidget.width = this.widgets[val].width;
@@ -89,8 +95,8 @@ export class Grid2Component implements OnInit {
       newWidget.inputs = this.widgets[val].input;
       newWidget.x = this.widgets[val].x;
       newWidget.y = this.widgets[val].y;
-      // newWidget.maxHeight = 5;
-      // newWidget.maxWidth = 6;
+      newWidget.maxHeight = 5;
+      newWidget.maxWidth = 6;
       this.myWidgets.push(newWidget);
       this.cd.detectChanges();
       const arr = this.items.toArray();
