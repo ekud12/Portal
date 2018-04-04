@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-chart2',
@@ -57,15 +57,13 @@ export class Chart2Component implements OnInit {
   xAxisLabel = 'חודש';
   showYAxisLabel = false;
   yAxisLabel = 'כמות לקוחות';
-  barPadding = 10;
+  barPadding = 20;
 
   colorScheme = {
     domain: ['#a27ea8', '#7aa3e5', '#a27ea8', '#a95963']
   };
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

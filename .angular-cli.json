@@ -19,9 +19,16 @@
         "styles.css",
         "spk-theme.scss",
         "../node_modules/material-design-icons/iconfont/material-icons.css",
-        "assets/css/hamburgers.css"
+        "assets/css/hamburgers.css",
+        "assets/css/gridstack.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/jquery-3.3.1.min.js",
+        "assets/js/jquery-ui.min.js",
+        "assets/js/lodash.min.js",
+        "assets/js/gridstack.min.js",
+        "assets/js/gridstack.jQueryUI.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.dev.ts",

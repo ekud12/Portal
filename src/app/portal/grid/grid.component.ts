@@ -13,8 +13,6 @@ import {
 import { ZakautWidgetComponent } from '../widgets/zakaut-widget/zakaut-widget.component';
 import { Observable } from 'rxjs/Observable';
 import { PageNotFoundComponent } from '../../shared/page-not-found/page-not-found.component';
-import { FalconxInvChartComponent } from '../widgets/falconx-inv-chart/falconx-inv-chart.component';
-import { ILastInvoiceTotalWidgetComponent } from '../widgets/i-last-invoice-total-widget/i-last-invoice-total-widget.component';
 
 @Component({
   selector: 'app-grid',
@@ -149,11 +147,7 @@ export class GridComponent implements OnInit {
       { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
       { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
       { cols: 2, rows: 1, y: 0, x: 0, hasContent: true, content: ZakautWidgetComponent },
-      { cols: 1, rows: 1, y: 0, x: 0, hasContent: true, content: ILastInvoiceTotalWidgetComponent },
-      { cols: 1, rows: 1, y: 0, x: 0, hasContent: true, content: ILastInvoiceTotalWidgetComponent },
-      { cols: 1, rows: 1, y: 0, x: 0, hasContent: true, content: ILastInvoiceTotalWidgetComponent },
-      { cols: 1, rows: 1, y: 0, x: 0, hasContent: true, content: ILastInvoiceTotalWidgetComponent },
-      { cols: 4, rows: 2, y: 1, x: 6, hasContent: true, content: FalconxInvChartComponent }
+
     ];
   }
 

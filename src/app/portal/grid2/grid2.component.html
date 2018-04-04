@@ -1,11 +1,10 @@
-<div class="container" dir="rtl">
-  <gridStack w="5" animate="true">
-    <div gridStackItem [x]="1" [y]="0" [h]="2" [w]="2" [customid]="0">
-      bcxxbsfasfrwer23r33 aweawegegweawegaegwaeaweaeg sd sd sdg dgggwegwewegewg
-    </div>
-    <div gridStackItem [x]="1" [y]="2" [h]="2" [w]="2" [customid]="2">
-      bzxcbcbcxwgasdgsdfggsdgsdgasdggd sdgsdgaseegf
-    </div>
+<div class="container">
+  <button (click)="AddWidget()">Add Widget</button>
 
-  </gridStack>
+  <grid-stack #gridStackMain id="gridStackMain" class="grid-stack" [options]="options">
+
+    <grid-stack-item [option]="w" class="grid-stack-item" *ngFor="let w of myWidgets" (click)="updateScreen()" data-gs-auto-position="yes">
+      <ndc-dynamic [ndcDynamicComponent]="w.componentType" [ndcDynamicInputs]="w.inputs"></ndc-dynamic>
+    </grid-stack-item>
+  </grid-stack>
 </div>

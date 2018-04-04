@@ -15,17 +15,17 @@ import { FooterComponent } from './footer/footer.component';
 
 /**Widgets */
 import { ZakautWidgetComponent } from './widgets/zakaut-widget/zakaut-widget.component';
-import { FalconxInvChartComponent } from './widgets/falconx-inv-chart/falconx-inv-chart.component';
-import { ILastInvoiceTotalWidgetComponent } from './widgets/i-last-invoice-total-widget/i-last-invoice-total-widget.component';
 import { Chart1Component } from './tests/chart1/chart1.component';
 import { Chart2Component } from './tests/chart2/chart2.component';
 import { GridsterModule } from 'angular-gridster2';
 import { Grid2Component } from './grid2/grid2.component';
-import { GridStackModule } from 'ng2-gridstack';
+import { TestWidgetComponent } from './tests/test-widget/test-widget.component';
+import { Ng2OdometerModule } from 'ng2-odometer'; // <-- import the module
+import { DynamicModule } from 'ng-dynamic-component';
+import { GridStackModule } from 'ng4-gridstack';
 
 const DASH_COMPONENTS = [ContainerComponent, GridComponent, HeaderComponent, FooterComponent];
-
-const GRID_WIDGETS = [ZakautWidgetComponent, FalconxInvChartComponent, ILastInvoiceTotalWidgetComponent];
+const GRID_WIDGETS = [ZakautWidgetComponent];
 
 @NgModule({
   imports: [
@@ -34,6 +34,8 @@ const GRID_WIDGETS = [ZakautWidgetComponent, FalconxInvChartComponent, ILastInvo
     UserModule,
     GridsterModule,
     NgxChartsModule,
+    Ng2OdometerModule.forRoot(),
+    DynamicModule.withComponents([TestWidgetComponent, Chart2Component]),
     GridStackModule,
     RouterModule.forChild(portalRoutes)
   ],
@@ -42,12 +44,11 @@ const GRID_WIDGETS = [ZakautWidgetComponent, FalconxInvChartComponent, ILastInvo
   declarations: [
     ...DASH_COMPONENTS,
     ...GRID_WIDGETS,
-    FalconxInvChartComponent,
-    ILastInvoiceTotalWidgetComponent,
     Chart1Component,
     Chart2Component,
     GridComponent,
-    Grid2Component
+    Grid2Component,
+    TestWidgetComponent
   ],
   exports: [ContainerComponent]
 })

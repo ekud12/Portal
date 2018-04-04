@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FalconxInvChartComponent } from './falconx-inv-chart.component';
+import { TestWidgetComponent } from './test-widget.component';
 
-describe('FalconxInvChartComponent', () => {
-  let component: FalconxInvChartComponent;
-  let fixture: ComponentFixture<FalconxInvChartComponent>;
+describe('TestWidgetComponent', () => {
+  let component: TestWidgetComponent;
+  let fixture: ComponentFixture<TestWidgetComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FalconxInvChartComponent ]
+      declarations: [ TestWidgetComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FalconxInvChartComponent);
+    fixture = TestBed.createComponent(TestWidgetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

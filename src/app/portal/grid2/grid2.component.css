@@ -1,11 +1,7 @@
-.gsi {
-  border: 2px solid black;
-  background-color: red;
-}
-
 .container {
-  height: 800px;
-  width: 800px;
-  border: 2px solid red;
-  float: right;
+  background-color: #ffffff00;
+  padding: 50px 50px;
+}
+.grid-stack .grid-stack-item {
+  position: absolute !important;
 }
