@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-test-widget',
@@ -8,14 +8,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TestWidgetComponent implements OnInit {
   @Input() num: number;
   @Input() ododesc: string;
-  $myColor = 'yellow';
-  element: HTMLElement = document.getElementById('container');
+  @Input() borderColor: string;
 
-  colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C']
-  };
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

@@ -11,25 +11,39 @@ import { Chart2Component } from '../tests/chart2/chart2.component';
 export class Grid2Component implements OnInit {
   @ViewChildren(GridStackItemComponent) items: QueryList<GridStackItemComponent>;
   @ViewChild('gridStackMain') gridStackMain: GridStackComponent;
-  // myWidget: GridStackItem;
-  // myWidget2: GridStackItem;
-  // myWidget3: GridStackItem;
+  colorScheme = ['#5AA454', '#A10A28', '#C7B42C'];
+
   options: GridStackOptions;
   inputs = { num: 600 };
   widgets = {
+    5: {
+      width: 6,
+      height: 5,
+      x: 6,
+      y: 7,
+      minHeight: 5,
+      noResize: false,
+      noMove: false,
+      componentType: Chart2Component,
+      input: {}
+    },
     1: {
       width: 2,
       height: 2,
+      x: 4,
+      y: 0,
       minHeight: 2,
       noResize: true,
       noMove: false,
       componentType: TestWidgetComponent,
-      input: { num: 6140, ododesc: 'חשבונית אחרונה' }
+      input: { num: 6140, ododesc: 'חשבונית אחרונה', color: 'red' }
     },
     2: {
       width: 2,
       height: 2,
       minHeight: 2,
+      x: 2,
+      y: 0,
       noResize: true,
       noMove: false,
       componentType: TestWidgetComponent,
@@ -38,6 +52,8 @@ export class Grid2Component implements OnInit {
     3: {
       width: 2,
       height: 2,
+      x: 0,
+      y: 0,
       minHeight: 2,
       noResize: true,
       noMove: false,
@@ -46,21 +62,14 @@ export class Grid2Component implements OnInit {
     },
     4: {
       width: 2,
+      x: 0,
+      y: 2,
       height: 2,
       minHeight: 2,
       noResize: true,
       noMove: false,
       componentType: TestWidgetComponent,
       input: { num: 34580, ododesc: 'סכימה חודשית' }
-    },
-    5: {
-      width: 6,
-      height: 5,
-      minHeight: 5,
-      noResize: false,
-      noMove: false,
-      componentType: Chart2Component,
-      input: {}
     }
   };
   myWidgets: GridStackItem[] = [];
@@ -78,15 +87,17 @@ export class Grid2Component implements OnInit {
       newWidget.noMove = this.widgets[val].noMove;
       newWidget.componentType = this.widgets[val].componentType;
       newWidget.inputs = this.widgets[val].input;
-      newWidget.autoPosition = true;
-      newWidget.maxHeight = 5;
-      newWidget.maxWidth = 6;
+      newWidget.x = this.widgets[val].x;
+      newWidget.y = this.widgets[val].y;
+      // newWidget.maxHeight = 5;
+      // newWidget.maxWidth = 6;
       this.myWidgets.push(newWidget);
       this.cd.detectChanges();
       const arr = this.items.toArray();
       this.gridStackMain.AddWidget(arr[this.items.length - 1]);
     });
   }
+
   AddWidget(widgetType: any) {}
 
   updateScreen() {

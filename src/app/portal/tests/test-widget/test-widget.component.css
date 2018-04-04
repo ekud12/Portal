@@ -1,14 +1,6 @@
-:root {
-  --primary2: red;
-}
-
 .container {
   font-size: 1.5rem;
   height: 95%;
-  border-bottom: 30px solid var(--primary2);
+  border-bottom: 30px solid rgb(60, 151, 194);
   margin: 3px 3px;
-}
-
-.yay {
-  background-color: var(--primary2);
 }
