@@ -49,6 +49,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     floatLabel: 'never'
   };
 
+  mode = 'MONTH';
   selectedFilter;
   selectedInvoice: Invoice = new Invoice();
   dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
@@ -64,8 +65,10 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
   ngOnInit() {
     this.selectedFilter = { value: 'invoiceId', viewValue: 'מספר חשבונית' };
+    // this.dataSource.filterPredicate = (data: Element, filter: string) =>
+    //   data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
     this.dataSource.filterPredicate = (data: Element, filter: string) =>
-      data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
+      data.invoiceId.toString().includes(filter) || filter === 'all';
   }
 
   openDialog(): void {
@@ -86,5 +89,9 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
 
   activateInvoice(row: any) {
     console.log(row);
+  }
+
+  setDateLowerBoundry(lowerDate) {
+    console.log(lowerDate.value);
   }
 }

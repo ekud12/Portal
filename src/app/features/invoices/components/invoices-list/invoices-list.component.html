@@ -8,26 +8,30 @@
   <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
     <form #filterInvoices fxLayout="row" fxLayoutAlign="space-around  center center" novalidate fxLayoutGap="50px" class="invoices-filter-form">
 
-      <mat-form-field>
+      <!-- <mat-form-field>
         <mat-select placeholder="בחר מסנן.." [(ngModel)]="selectedFilter" [value]="selectedFilter" name="filterCategory">
           <mat-option *ngFor="let searchFilter of displayedColumnsMap" [value]="searchFilter">
             {{ searchFilter.viewValue }}
           </mat-option>
         </mat-select>
-      </mat-form-field>
-
+      </mat-form-field> -->
+      <!-- <mat-form-field>
+          <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="applyFilterInvoiceNumber($event.target.value)">
+        </mat-form-field> -->
+      <app-month-picker [mode]="mode">
+      </app-month-picker>
       <mat-form-field>
-        <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="applyFilterInvoiceNumber($event.target.value)">
+        <input matInput placeholder="סנן לפי חשבונית..." (keyup)="applyFilterInvoiceNumber($event.target.value)">
       </mat-form-field>
 
       <mat-form-field [floatLabel]="vars.floatLabel">
-        <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+        <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך" (dateChange)="setDateLowerBoundry($event)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker #picker startView="year"></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field [floatLabel]="vars.floatLabel">
-        <input matInput readonly [matDatepicker]="picker2" placeholder="עד תאריך" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+        <input matInput readonly [matDatepicker]="picker2" placeholder="עד תאריך" (dateChange)="setDateLowerBoundry($event)">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
@@ -36,7 +40,7 @@
 
     * לחיצה על שורה תפעיל את החשבונית הנבחרת
     <mat-card>
-      <mat-table #table [dataSource]="dataSource" matSort>
+      <mat-table #table [dataSource]="dataSource" matSort matSortActive="invoiceDate" matSortDirection="desc" matSortDisableClear>
 
         <!-- Position Column -->
         <ng-container matColumnDef="invoiceDate">

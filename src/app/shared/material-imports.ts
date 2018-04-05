@@ -33,7 +33,7 @@ import {
   MatStepperModule
 } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
-
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 export const materialImports = [
   CdkTableModule,
@@ -69,4 +69,5 @@ export const materialImports = [
   MatToolbarModule,
   MatTooltipModule,
   OverlayModule,
+  MatMomentDateModule
 ];

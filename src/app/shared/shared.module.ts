@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { MdePopoverModule } from '@material-extended/mde';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MonthPickerComponent } from './utils/month-picker-component/month-picker.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     materialImports,
     NgxChartsModule
   ],
-  declarations: [PageNotFoundComponent],
-  exports: [materialImports, FlexLayoutModule, ReactiveFormsModule, PageNotFoundComponent]
+  declarations: [PageNotFoundComponent, MonthPickerComponent],
+  exports: [materialImports, FlexLayoutModule, ReactiveFormsModule, PageNotFoundComponent, MonthPickerComponent]
 })
 export class SharedModule {}
