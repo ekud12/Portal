@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDatepickerInputEvent } from '@angular/material';
 import { PageNotFoundComponent } from '../../../../shared/page-not-found/page-not-found.component';
-import { invoicesVars } from './table-utils';
 
 export interface Element {
   id: string;

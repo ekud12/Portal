@@ -1,4 +1,4 @@
-export const FXInvoicesVars = {
+export const InvoicesVars = {
   hideRequired: true,
   floatLabel: 'never'
 };

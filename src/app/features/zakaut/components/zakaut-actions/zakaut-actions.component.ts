@@ -44,7 +44,6 @@ export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   selector: 'app-zakaut-actions',
   templateUrl: './zakaut-actions.component.html',
   styleUrls: ['./zakaut-actions.component.css']
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ZakautActionsComponent implements OnInit {
   /**

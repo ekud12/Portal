@@ -7,17 +7,24 @@
 
         <mat-accordion fxLayout="column" fxLayoutAlign="space-around stretch center">
 
-          <button mat-button routerLink="/portal/zakaut" routerLinkActive="active" routerLinkActiveOptions="{exact:
+          <!-- MenuBtn for Zakaut Module -->
+          <button mat-button routerLink="/portal/zakaut" routerLinkActive="active" class="menu-btn" routerLinkActiveOptions="{exact:
             true}" class="menu-btn">זכאות</button>
           <mat-divider></mat-divider>
 
-          <button mat-button routerLink="/portal/grid" routerLinkActive="active" routerLinkActiveOptions="{exact:
-              true}" class="menu-btn">Dashboard</button>
-          <mat-divider></mat-divider>
+          <!-- MenuBtn for Extranet Module -->
           <button mat-button routerLink="/portal/invoices" routerLinkActive="active" routerLinkActiveOptions="{exact:
             true}" class="menu-btn">Extranet</button>
           <mat-divider></mat-divider>
+
+          <!-- MenuBtn for Dashboard -->
+          <button mat-button routerLink="/portal/grid" routerLinkActive="active" routerLinkActiveOptions="{exact:
+            true}" class="menu-btn">
+            דשבורד
+          </button>
           <mat-divider></mat-divider>
+
+          <!-- MenuBtn for FalconX Module -->
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>

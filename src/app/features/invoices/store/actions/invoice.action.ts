@@ -5,7 +5,12 @@ export const GET_INVOICES_SUCCESS = '[Invoice] Get Invoices Success';
 export const GET_INVOICES_FAIL = '[Invoice] Get Invoices Fail';
 export const GET_INVOICES_COMPLETED = '[Invoice] Get Invoices Completed';
 
-// Zakaut Actions
+export const ACTIVATEֹֹֹּ_INVOICE = '[Invoice] Activate Invoice';
+export const ACTIVATEֹֹֹּ_INVOICE_SUCCESS = '[Invoice] Activate Invoice Success';
+export const ACTIVATEֹֹֹּ_INVOICE_FAIL = '[Invoice] Activate Invoice Fail';
+export const ACTIVATEֹֹֹּ_INVOICE_COMPLETED = '[Invoice] Activate Invoice Completed';
+
+/** Actions - Get All Invoices */
 export class GetInvoices implements Action {
   readonly type = GET_INVOICES;
   constructor(public payload: any) {}
@@ -25,4 +30,32 @@ export class GetInvoicesCompleted implements Action {
   readonly type = GET_INVOICES_COMPLETED;
 }
 
-export type userActions = GetInvoices | GetInvoicesSuccess | GetInvoicesFail | GetInvoicesCompleted;
+/** Actions - Activate Chosen Invoice Globally */
+export class ActivateInvoice implements Action {
+  readonly type = ACTIVATEֹֹֹּ_INVOICE;
+  constructor(public payload: any) {}
+}
+
+export class ActivateInvoiceSuccess implements Action {
+  readonly type = ACTIVATEֹֹֹּ_INVOICE_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class ActivateInvoiceFail implements Action {
+  readonly type = ACTIVATEֹֹֹּ_INVOICE_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class ActivateInvoiceCompleted implements Action {
+  readonly type = ACTIVATEֹֹֹּ_INVOICE_COMPLETED;
+}
+
+export type userActions =
+  | GetInvoices
+  | GetInvoicesSuccess
+  | GetInvoicesFail
+  | GetInvoicesCompleted
+  | ActivateInvoice
+  | ActivateInvoiceSuccess
+  | ActivateInvoiceFail
+  | ActivateInvoiceCompleted;

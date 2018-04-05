@@ -37,7 +37,7 @@ export class UserEffects {
   loginUserSuccess$ = this.actions$.ofType(userActions.LOGIN_USER_COMPLETED).pipe(
     map(() => {
       return new fromRoot.Go({
-        path: ['/portal/grid']
+        path: ['/portal/invoices']
       });
     })
   );

@@ -8,21 +8,21 @@ import { NgModule } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
 
+/** Components */
 import { ContainerComponent } from './container/container.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-
-/**Widgets */
-import { ZakautWidgetComponent } from './widgets/zakaut-widget/zakaut-widget.component';
-import { GridsterModule } from 'angular-gridster2';
-import { Ng2OdometerModule } from 'ng2-odometer'; // <-- import the module
-import { DynamicModule } from 'ng-dynamic-component';
-import { GridStackModule } from 'ng4-gridstack';
 import { NumberStatWidgetComponent } from './tests/number-stat-widget/number-stat-widget.component';
 import { VerticalChartWidgetComponent } from './tests/vertical-chart-widget/vertical-chart-widget.component';
 import { GridComponent } from './grid/grid.component';
 import { PieChartWidgetComponent } from './tests/pie-chart-widget/pie-chart-widget.component';
 import { HorizontalChartWidgetComponent } from './tests/horizontal-chart-widget/horizontal-chart-widget.component';
+
+/** Widget Modules */
+import { GridsterModule } from 'angular-gridster2';
+import { Ng2OdometerModule } from 'ng2-odometer'; // <-- import the module
+import { DynamicModule } from 'ng-dynamic-component';
+import { GridStackModule } from 'ng4-gridstack';
 
 const DASH_COMPONENTS = [
   ContainerComponent,

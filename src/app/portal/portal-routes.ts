@@ -8,7 +8,7 @@ export const portalRoutes: Routes = [
     path: '',
     component: ContainerComponent,
     children: [
-      { path: '', redirectTo: 'falconx', pathMatch: 'full' },
+      { path: '', redirectTo: 'invoices', pathMatch: 'full' },
       { path: 'home', component: PageNotFoundComponent },
       { path: 'grid', component: GridComponent },
       {

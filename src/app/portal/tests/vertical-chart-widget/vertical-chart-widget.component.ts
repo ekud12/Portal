@@ -60,7 +60,7 @@ export class VerticalChartWidgetComponent implements OnInit {
   barPadding = 20;
 
   colorScheme = {
-    domain: ['#a27ea8', '#7aa3e5', '#a27ea8', '#a95963']
+    domain: ['#674172', '#F62459', '#59ABE3', '#2C3E50', '#26A65B', '#F89406', '#ABB7B7']
   };
 
   constructor() {}
