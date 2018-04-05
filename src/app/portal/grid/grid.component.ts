@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChildren, QueryList, ViewChild, ChangeDetectorRe
 import { GridStackItem, GridStackOptions, GridStackItemComponent, GridStackComponent } from 'ng4-gridstack';
 import { NumberStatWidgetComponent } from '../tests/number-stat-widget/number-stat-widget.component';
 import { VerticalChartWidgetComponent } from '../tests/vertical-chart-widget/vertical-chart-widget.component';
+import { PieChartWidgetComponent } from '../tests/pie-chart-widget/pie-chart-widget.component';
+import { HorizontalChartWidgetComponent } from '../tests/horizontal-chart-widget/horizontal-chart-widget.component';
 
 @Component({
   selector: 'app-grid',
@@ -111,7 +113,20 @@ export class GridComponent implements OnInit {
       maxWidth: 6,
       noResize: false,
       noMove: false,
-      componentType: VerticalChartWidgetComponent,
+      componentType: PieChartWidgetComponent,
+      input: {}
+    },
+    93: {
+      width: 4,
+      height: 5,
+      x: 8,
+      y: 3,
+      minHeight: 5,
+      maxHeight: 5,
+      maxWidth: 6,
+      noResize: false,
+      noMove: false,
+      componentType: HorizontalChartWidgetComponent,
       input: {}
     }
   };
@@ -121,7 +136,6 @@ export class GridComponent implements OnInit {
 
   ngOnInit() {
     this.options = new GridStackOptions();
-    // this.options.width = 1000;
     this.options.rtl = 'true';
     this.options.animate = true;
     this.options.auto = false;
@@ -145,6 +159,7 @@ export class GridComponent implements OnInit {
       const arr = this.items.toArray();
       this.gridStackMain.AddWidget(arr[this.items.length - 1]);
     });
+    this.updateScreen();
   }
 
   AddWidget(widgetType: any) {}

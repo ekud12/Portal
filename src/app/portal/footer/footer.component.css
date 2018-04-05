@@ -5,6 +5,7 @@
   z-index: 50;
   padding: 10px 20px;
   color: rgb(255, 255, 255);
+  position: relative;
 }
 
 .content {

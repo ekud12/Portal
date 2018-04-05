@@ -1,0 +1,11 @@
+<mat-card class="container" fxLayout="column" fxLayoutAlign="start center center">
+  <div class="header" fxFlex="20">
+    חשבוניות - מבט שנתי אבל נח על הצד
+  </div>
+  <div class="content" fxFlex="80">
+    <ngx-charts-bar-horizontal [view]="view" [scheme]="colorScheme" [results]="single" [gradient]="gradient" [xAxis]="showXAxis"
+      [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel" [barPadding]="barPadding" dir="ltr">
+    </ngx-charts-bar-horizontal>
+  </div>
+</mat-card>

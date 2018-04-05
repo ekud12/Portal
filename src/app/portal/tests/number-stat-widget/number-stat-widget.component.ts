@@ -9,8 +9,11 @@ export class NumberStatWidgetComponent implements OnInit {
   @Input() num: number;
   @Input() ododesc: string;
   @Input() borderColor: string;
+  @Input() formatValue: string;
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.formatValue = '₪';
+  }
 }

@@ -1,5 +1,8 @@
-<mat-card fxLayout="column" class="container" fxLayoutAlign="space-around center center" dir="ltr" [style.border-bottom-color]="borderColor">
-  <ng2-odometer [number]="num" [config]="{ }"></ng2-odometer>
+<mat-card fxLayout="column" class="container" fxLayoutAlign="space-around center center" [style.border-bottom-color]="borderColor">
+  <div fxLayout="row" fxLayoutAlign="start center center" dir="ltr">
+    <div *ngIf="formatValue">{{formatValue}}</div>
+    <ng2-odometer [number]="num" [config]="{ }" [value]="0" [format]="'ddddd'"></ng2-odometer>
+  </div>
   <div>
     {{ ododesc}}
   </div>

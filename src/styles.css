@@ -25,6 +25,9 @@ body {
   font-family: 'OpenSans', 'Varela Round', sans-serif;
   background-color: #fafafa;
   color: #555;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 a:link {
