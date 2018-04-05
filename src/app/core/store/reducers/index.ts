@@ -2,18 +2,19 @@ export * from './router.reducer';
 
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Params } from '@angular/router';
 import { createFeatureSelector, ActionReducerMap, ActionReducer, MetaReducer } from '@ngrx/store';
-
+import { localStorageSync } from 'ngrx-store-localstorage';
 import { RouterState, routerInitialState } from './router.reducer';
-
 import * as fromRouter from '@ngrx/router-store';
+
 import { ZakautState } from '@zakautStore';
 import { UserState } from '@userStore';
-import { localStorageSync } from 'ngrx-store-localstorage';
+import { InvoiceState } from '@invoicesStore';
 
 export interface AppState {
   router: fromRouter.RouterReducerState<RouterState>;
   user: UserState;
   zakaut: ZakautState;
+  invoices: InvoiceState;
 }
 
 export function defaultReducer<T>(state: T) {
@@ -23,7 +24,8 @@ export function defaultReducer<T>(state: T) {
 export const reducers: ActionReducerMap<AppState> = {
   router: fromRouter.routerReducer,
   user: defaultReducer,
-  zakaut: defaultReducer
+  zakaut: defaultReducer,
+  invoices: defaultReducer
 };
 
 export function getInitialState(): AppState {
@@ -33,6 +35,11 @@ export function getInitialState(): AppState {
     zakaut: {
       zakautQuery: null,
       zakautQueryResponse: null,
+      isLoading: false,
+      errors: []
+    },
+    invoices: {
+      activeInvoice: null,
       isLoading: false,
       errors: []
     }

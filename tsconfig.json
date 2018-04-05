@@ -15,6 +15,7 @@
       "@userStore": ["app/features/user/store"],
       "@portalStore": ["app/portal/store"],
       "@zakautStore": ["app/features/zakaut/store"],
+      "@invoicesStore": ["app/features/invoices/store"],
       "@environment": ["environments/environment"],
       "@http-routes": ["app/core/http/http-routes"]
     }
