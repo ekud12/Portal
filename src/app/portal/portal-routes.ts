@@ -1,8 +1,7 @@
 import { Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../shared/page-not-found/page-not-found.component';
-import { GridComponent } from './grid/grid.component';
 import { ContainerComponent } from './container/container.component';
-import { Grid2Component } from './grid2/grid2.component';
+import { GridComponent } from './grid/grid.component';
 
 export const portalRoutes: Routes = [
   {
@@ -11,7 +10,7 @@ export const portalRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'falconx', pathMatch: 'full' },
       { path: 'home', component: PageNotFoundComponent },
-      { path: 'grid', component: Grid2Component },
+      { path: 'grid', component: GridComponent },
       {
         path: 'zakaut',
         loadChildren: 'app/features/zakaut/zakaut.module#ZakautModule'

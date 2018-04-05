@@ -1,11 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-chart2',
-  templateUrl: './chart2.component.html',
-  styleUrls: ['./chart2.component.css']
+  selector: 'app-vertical-chart-widget',
+  templateUrl: './vertical-chart-widget.component.html',
+  styleUrls: ['./vertical-chart-widget.component.css']
 })
-export class Chart2Component implements OnInit {
+export class VerticalChartWidgetComponent implements OnInit {
   single: any[] = [
     {
       name: 'ינואר',

@@ -1,7 +1,13 @@
-<div style="height:83vh">
-  <gridster [options]="options">
-    <gridster-item [item]="item" *ngFor="let item of dashboard">
-      <ng-container *ngComponentOutlet="item.content"></ng-container>
-    </gridster-item>
-  </gridster>
+<button (click)="AddWidget()">Add Widget</button>
+<div class="container">
+
+
+  <grid-stack #gridStackMain id="gridStackMain" class="grid-stack" [options]="options">
+
+    <grid-stack-item [option]="w" class="grid-stack-item" *ngFor="let w of myWidgets" (click)="updateScreen()" data-gs-auto-position="yes">
+
+      <ndc-dynamic [ndcDynamicComponent]="w.componentType" [ndcDynamicInputs]="w.inputs"></ndc-dynamic>
+
+    </grid-stack-item>
+  </grid-stack>
 </div>
