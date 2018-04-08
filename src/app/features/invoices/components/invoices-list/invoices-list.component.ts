@@ -5,6 +5,7 @@ import { InvoicesVars } from './table-utils';
 import { Store } from '@ngrx/store';
 import * as fromInvoiceStore from '@invoicesStore';
 import { Invoice } from '../../models/new-actions.model';
+import { FormControl } from '@angular/forms';
 
 export interface Element {
   invoiceId: number;
@@ -48,6 +49,9 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     hideRequired: true,
     floatLabel: 'never'
   };
+  monthInputCtrl: FormControl = new FormControl(new Date(2020, 0, 1));
+
+  visible = true;
 
   mode = 'MONTH';
   selectedFilter;

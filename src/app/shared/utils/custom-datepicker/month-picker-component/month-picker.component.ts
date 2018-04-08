@@ -1,11 +1,10 @@
 import { Component, Input, forwardRef, ViewChild } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDatepicker } from '@angular/material';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 import * as _moment from 'moment';
-
 import { default as _rollupMoment, Moment } from 'moment';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
 const moment = _rollupMoment || _moment;
 
 export const MONTH_MODE_FORMATS = {
@@ -44,6 +43,7 @@ export class MonthPickerComponent implements ControlValueAccessor {
     return this._max ? this._max.format('MM/YYYY') : undefined;
   }
   set max(max: string | Date) {
+    console.log(max);
     // expect MM to be 1..12 and YYYY > 0
     if (max) {
       const momentDate = typeof max === 'string' ? moment(max, 'MM/YYYY') : moment(max);
@@ -57,6 +57,7 @@ export class MonthPickerComponent implements ControlValueAccessor {
     return this._min ? this._min.format('MM/YYYY') : undefined;
   }
   set min(min: string | Date) {
+    console.log(min);
     // expect MM to be 1..12 and YYYY > 0
     if (min) {
       const momentDate = typeof min === 'string' ? moment(min, 'MM/YYYY') : moment(min);
@@ -70,6 +71,7 @@ export class MonthPickerComponent implements ControlValueAccessor {
     return this._mode;
   }
   set mode(mode: 'SEMESTER' | 'MONTH' | 'MONTHYEAR') {
+    console.log(mode);
     this._mode = mode;
     this._setupFilter();
   }
@@ -85,10 +87,14 @@ export class MonthPickerComponent implements ControlValueAccessor {
   private _finalDate: Date;
 
   // Function to call when the date changes.
-  onChange = (monthAndYear: Date) => {};
+  onChange = (monthAndYear: Date) => {
+    console.log('Changed');
+  };
 
   // Function to call when the input is touched.
-  onTouched = () => {};
+  onTouched = () => {
+    console.log('Touched');
+  };
 
   writeValue(date: Date): void {
     if (date && this._isMonthEnabled(date.getFullYear(), date.getMonth())) {
@@ -109,12 +115,14 @@ export class MonthPickerComponent implements ControlValueAccessor {
 
   // Allows Angular to disable the input.
   setDisabledState(isDisabled: boolean): void {
+    console.log(isDisabled);
     isDisabled ? (this._picker.disabled = true) : (this._picker.disabled = false);
 
     isDisabled ? this._inputCtrl.disable() : this._inputCtrl.enable();
   }
 
   _yearSelectedHandler(chosenMonthDate: Moment, datepicker: MatDatepicker<Moment>) {
+    console.log(chosenMonthDate);
     if (!this._isYearEnabled(chosenMonthDate.year())) {
       datepicker.disabled = true;
       datepicker.close();
@@ -123,6 +131,7 @@ export class MonthPickerComponent implements ControlValueAccessor {
   }
 
   _monthSelectedHandler(chosenMonthDate: Moment, datepicker: MatDatepicker<Moment>) {
+    console.log(chosenMonthDate);
     // as I'm using the focus event to open the calendar, this is necessary
     // so the calendar isn't opened again after a selection.
     datepicker.disabled = true;

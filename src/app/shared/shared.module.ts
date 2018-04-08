@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { MdePopoverModule } from '@material-extended/mde';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { MonthPickerComponent } from './utils/month-picker-component/month-picker.component';
+import { CustomDatepickerModule } from './utils/custom-datepicker/custom-datepicker.module';
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import { MonthPickerComponent } from './utils/month-picker-component/month-picke
     materialImports,
     NgxChartsModule
   ],
-  declarations: [PageNotFoundComponent, MonthPickerComponent],
-  exports: [materialImports, FlexLayoutModule, ReactiveFormsModule, PageNotFoundComponent, MonthPickerComponent]
+  declarations: [PageNotFoundComponent],
+  exports: [materialImports, FlexLayoutModule, ReactiveFormsModule, PageNotFoundComponent, CustomDatepickerModule]
 })
 export class SharedModule {}

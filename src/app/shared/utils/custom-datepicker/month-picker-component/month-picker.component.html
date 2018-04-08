@@ -1,0 +1,13 @@
+<mat-form-field>
+  <mat-label>{{label}}</mat-label>
+  <input matInput [matDatepicker]="datepicker" [max]="_max" [min]="_min" [formControl]="_inputCtrl" [matDatepickerFilter]="_customFilter"
+    (click)="_openDatepickerOnClick(datepicker)" (focus)="_openDatepickerOnFocus(datepicker)" readonly>
+  <div matSuffix>
+    <button *ngIf="_inputCtrl.value" mat-icon-button (click)="_clearInput($event)">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</mat-form-field>
+<mat-datepicker #datepicker [touchUi]="touchUi" startView="year" (yearSelected)="_yearSelectedHandler($event,datepicker)"
+  (monthSelected)="_monthSelectedHandler($event,datepicker)" panelClass="month-picker">
+</mat-datepicker>

@@ -18,8 +18,9 @@
       <!-- <mat-form-field>
           <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="applyFilterInvoiceNumber($event.target.value)">
         </mat-form-field> -->
-      <app-month-picker [mode]="mode">
-      </app-month-picker>
+
+      <app-custom-date-picker *ngIf="true" mode="MONTH" label="Choose a month" touchUi="false" [formControl]="monthInputCtrl" [max]="'3/2020'"></app-custom-date-picker>
+
       <mat-form-field>
         <input matInput placeholder="סנן לפי חשבונית..." (keyup)="applyFilterInvoiceNumber($event.target.value)">
       </mat-form-field>
