@@ -4,6 +4,7 @@ import { InvoicesListComponent } from './components/invoices-list/invoices-list.
 import { NewInvoiceComponent } from './components/new-invoice/new-invoice.component';
 import { InvoiceRowsComponent } from './components/invoice-rows/invoice-rows.component';
 import { InvoiceRowTreatmentsComponent } from './components/invoice-row-treatments/invoice-row-treatments.component';
+import { PrintLayoutComponent } from './components/print-layout/print-layout.component';
 
 export const invoicesRoutes: Routes = [
   {
@@ -14,6 +15,7 @@ export const invoicesRoutes: Routes = [
       { path: 'new', component: NewInvoiceComponent },
       { path: 'rows', component: InvoiceRowsComponent },
       { path: 'treatments', component: InvoiceRowTreatmentsComponent },
+      { path: 'print', component: PrintLayoutComponent },
       { path: '**', redirectTo: '/portal/invoice' }
     ]
   }

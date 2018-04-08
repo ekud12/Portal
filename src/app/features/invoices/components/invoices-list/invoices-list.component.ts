@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import * as fromInvoiceStore from '@invoicesStore';
 import { Invoice } from '../../models/new-actions.model';
 import { FormControl } from '@angular/forms';
+import { PrintLayoutComponent } from '../print-layout/print-layout.component';
 
 export interface Element {
   invoiceId: number;
@@ -76,8 +77,9 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   openDialog(): void {
-    this.dialog.open(PageNotFoundComponent, {
-      width: '250px'
+    this.dialog.open(PrintLayoutComponent, {
+      height: '80%',
+      width: '80%'
     });
   }
 

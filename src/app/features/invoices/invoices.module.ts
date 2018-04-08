@@ -14,8 +14,15 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { invoiceReducer, effects } from './store';
+import { PrintLayoutComponent } from './components/print-layout/print-layout.component';
 
-const COMPONENTS = [InvoiceRowsComponent, NewInvoiceComponent, InvoiceRowTreatmentsComponent, InvoicesListComponent];
+const COMPONENTS = [
+  InvoiceRowsComponent,
+  NewInvoiceComponent,
+  InvoiceRowTreatmentsComponent,
+  InvoicesListComponent,
+  PrintLayoutComponent
+];
 
 @NgModule({
   imports: [

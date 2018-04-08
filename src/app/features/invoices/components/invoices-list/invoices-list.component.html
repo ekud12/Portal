@@ -4,7 +4,7 @@
     <h1>פורטל ספקים</h1>
     <h2>הצגת חשבוניות (ExtraNet)</h2>
   </div>
-
+  <button mat-raised-button (click)="openDialog()"> הדפסה </button>
   <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
     <form #filterInvoices fxLayout="row" fxLayoutAlign="space-around  center center" novalidate fxLayoutGap="50px" class="invoices-filter-form">
 
@@ -19,7 +19,6 @@
           <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="applyFilterInvoiceNumber($event.target.value)">
         </mat-form-field> -->
 
-      <app-custom-date-picker *ngIf="true" mode="MONTH" label="Choose a month" touchUi="false" [formControl]="monthInputCtrl" [max]="'3/2020'"></app-custom-date-picker>
 
       <mat-form-field>
         <input matInput placeholder="סנן לפי חשבונית..." (keyup)="applyFilterInvoiceNumber($event.target.value)">
