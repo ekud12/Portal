@@ -5,8 +5,22 @@ import { of } from 'rxjs/observable/of';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import * as fromRoot from '../../../../core/store';
 import { InvoicesService } from '../../invoices.service';
+import { GetInvoicesRequest } from '../../models/new-actions.model';
 
 @Injectable()
 export class InvoiceEffects {
-  constructor(private actions$: Actions, private zakautService: InvoicesService) {}
+  constructor(private actions$: Actions, private invoicesService: InvoicesService) {}
+
+  @Effect()
+  getInvoices$ = this.actions$.ofType(userActions.GET_INVOICES).pipe(
+    map((action: userActions.GetInvoices) => action.payload),
+    switchMap((allInvoicesRequest: GetInvoicesRequest) => {
+      return this.invoicesService
+        .getAllInvoicesForSapak(allInvoicesRequest)
+        .pipe(
+          switchMap(res => [new userActions.GetInvoicesSuccess(res)]),
+          catchError(error => of(new userActions.GetInvoicesFail(error)))
+        );
+    })
+  );
 }
