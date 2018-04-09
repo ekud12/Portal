@@ -6,9 +6,6 @@ export const CHANGE_SAPAK_DEFAULT = '[Sapak] Change Sapak DEFAULT';
 export const CHANGE_SAPAK_FAILURE = '[Sapak] Change Sapak Fail';
 export const CHANGE_SAPAK_SUCCESS = '[Sapak] Change Sapak Success';
 
-export const GET_SAPAK_TREATMENTS = '[Sapak] Get Treatments for Sapak';
-export const GET_SAPAK_TREATMENTS_FAILURE = '[Sapak] Get Treatments for Sapak Fail';
-export const GET_SAPAK_TREATMENTS_SUCCESS = '[Sapak] Get Treatments for Sapak Success';
 
 // Sapak Actions
 export class ChangeSapak implements Action {

@@ -14,12 +14,14 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { invoiceReducer, effects } from './store';
+import { InvoicesContainerComponent } from './invoices-container/invoices-container.component';
 
 const COMPONENTS = [
   InvoiceRowsComponent,
   NewInvoiceComponent,
   InvoiceRowTreatmentsComponent,
-  InvoicesListComponent
+  InvoicesListComponent,
+  InvoicesContainerComponent
 ];
 
 @NgModule({

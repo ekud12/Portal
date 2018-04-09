@@ -1,0 +1,34 @@
+<div fxLayout="row" fxLayoutAlign="space-between center center" class="top-invoice-menu">
+  <div *ngIf="(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch center">
+    <div class="invoices-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
+      <div class="summary-content-item"> חשבונית מספר : </div>{{(currentInvoice$|async)?.invoiceNum}}
+      <div class="summary-content-item"> חודש : </div> {{(currentInvoice$|async)?.billMonth}}
+      <div class="summary-content-item">סטטוס : </div> {{(currentInvoice$|async)?.status}}
+      <div class="summary-content-item"> סכום לא כולל מע"מ : </div> {{(currentInvoice$|async)?.typedSum}}
+      <div class="summary-content-item">אחוז מע"מ : </div> {{(currentInvoice$|async)?.rate}}
+      <div class="summary-content-item"> סכום כולל מע"מ : </div> {{(currentInvoice$|async)?.invoiceSum}}
+    </div>
+    <div class="invoices-row-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
+      <div class="summary-content-item"> שורה מספר : </div> {{(currentInvoice$|async)?.invoiceNum}}
+      <div class="summary-content-item"> שם המבוטח : </div> {{(currentInvoice$|async)?.billMonth}}
+      <div class="summary-content-item">תאריך : </div> {{(currentInvoice$|async)?.status}}
+      <div class="summary-content-item"> סכום : </div> {{(currentInvoice$|async)?.typedSum}}
+    </div>
+  </div>
+  <div *ngIf="!(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch center">
+      <div class="invoices-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
+        <div class="summary-content-item"> אנא בחר חשבונית על מנת להתחיל. </div>
+
+      </div>
+    </div>
+
+  <div class="invoices-actions" fxLayout="row" fxLayoutAlign="space-around center center">
+    <button *ngIf="(currentInvoice$|async)" mat-button>העברת כרטיס מגנטי</button>
+    <button *ngIf="(currentInvoice$|async)" mat-button>דוח דיווחי כ.מגנטי</button>
+    <button mat-button>חשבוניות</button>
+    <button *ngIf="(currentInvoice$|async)" mat-button>שורות לחשבונית</button>
+    <button *ngIf="(currentInvoice$|async)" mat-button>ש. קיזוזים לחשבונית</button>
+  </div>
+
+</div>
+<router-outlet></router-outlet>

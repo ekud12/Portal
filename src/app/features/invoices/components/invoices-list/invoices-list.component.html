@@ -6,7 +6,8 @@
   </div>
 
   <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
-    <form #filterInvoices fxLayout="row" fxLayoutAlign="space-around  center center" novalidate fxLayoutGap="50px" class="invoices-filter-form">
+
+    <form #filterInvoices fxLayout="row" fxLayoutAlign="space-around center center" novalidate fxLayoutGap="10px" class="invoices-filter-form">
 
       <!-- <mat-form-field>
         <mat-select placeholder="בחר מסנן.." [(ngModel)]="selectedFilter" [value]="selectedFilter" name="filterCategory">
@@ -19,64 +20,65 @@
           <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="applyFilterInvoiceNumber($event.target.value)">
         </mat-form-field> -->
 
-      <button mat-raised-button (click)="print()">הדפס</button>
+
       <mat-form-field>
         <input matInput placeholder="סנן לפי חשבונית..." (keyup)="applyFilterInvoiceNumber($event.target.value)">
       </mat-form-field>
 
       <mat-form-field [floatLabel]="vars.floatLabel">
-        <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך" (dateChange)="setDateLowerBoundry($event)">
+        <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker startView="year"></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field [floatLabel]="vars.floatLabel">
-        <input matInput readonly [matDatepicker]="picker2" placeholder="עד תאריך" (dateChange)="setDateLowerBoundry($event)">
+        <input matInput readonly [matDatepicker]="picker2" placeholder="עד תאריך">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
+      <button mat-raised-button (click)="print()">צור חשבונית</button>
+      <button mat-raised-button (click)="print()"> הדפס חשבוניות</button>
 
     </form>
 
-    * לחיצה על שורה תפעיל את החשבונית הנבחרת
     <mat-card>
-      <mat-table #table [dataSource]="dataSource" matSort  matSortDisableClear>
+      <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear>
 
         <!-- Position Column -->
-        <ng-container matColumnDef="invoiceDate">
+        <ng-container matColumnDef="billMonth">
           <mat-header-cell *matHeaderCellDef mat-sort-header> תאריך חשבונית </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.invoiceDate}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.billMonth}} </mat-cell>
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="invoiceId">
+        <ng-container matColumnDef="invoiceNum">
           <mat-header-cell *matHeaderCellDef mat-sort-header> מספר חשבונית </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.invoiceId}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.invoiceNum}} </mat-cell>
         </ng-container>
 
         <!-- Weight Column -->
-        <ng-container matColumnDef="invoiceTotalRows">
+        <ng-container matColumnDef="totalRowsNum">
           <mat-header-cell *matHeaderCellDef mat-sort-header> סה"כ שורות </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.invoiceTotalRows}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.totalRowsNum}} </mat-cell>
         </ng-container>
 
         <!-- Symbol Column -->
-        <ng-container matColumnDef="invoiceTotalSum">
+        <ng-container matColumnDef="invoiceSum">
           <mat-header-cell *matHeaderCellDef mat-sort-header> סכום חשבונית </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.invoiceTotalSum}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.invoiceSum}} </mat-cell>
         </ng-container>
 
         <!-- Type Column -->
-        <ng-container matColumnDef="invoiceStatus">
+        <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header> סטטוס חשבונית </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.invoiceStatus}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="activateInvoice(row)" class="invoices-list-row"></mat-row>
       </mat-table>
 
-      <mat-paginator #paginator [pageSize]="7" [pageSizeOptions]="[7, 14, 70]" [showFirstLastButtons]="true">
+      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
       </mat-paginator>
 
     </mat-card>

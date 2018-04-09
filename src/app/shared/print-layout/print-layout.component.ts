@@ -56,6 +56,11 @@ export class PrintLayoutComponent implements OnInit {
   print() {
     window.print();
   }
+
+  goBack() {
+    this.sharedStore.dispatch(new fromSharedStore.ResetPrintData());
+    this.router.navigateByUrl(this.returnURL);
+  }
 }
 
 export class MyDataSource extends DataSource<any[]> {

@@ -43,6 +43,8 @@ export function getInitialState(): AppState {
     },
     invoices: {
       activeInvoice: null,
+      activeInvoiceRow: null,
+      listOfInvoicesForSapak: [],
       isLoading: false,
       errors: []
     },

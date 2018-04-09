@@ -4,10 +4,12 @@ import { InvoicesListComponent } from './components/invoices-list/invoices-list.
 import { NewInvoiceComponent } from './components/new-invoice/new-invoice.component';
 import { InvoiceRowsComponent } from './components/invoice-rows/invoice-rows.component';
 import { InvoiceRowTreatmentsComponent } from './components/invoice-row-treatments/invoice-row-treatments.component';
+import { InvoicesContainerComponent } from './invoices-container/invoices-container.component';
 
 export const invoicesRoutes: Routes = [
   {
     path: '',
+    component: InvoicesContainerComponent,
     children: [
       { path: '', redirectTo: 'all', pathMatch: 'full' },
       { path: 'all', component: InvoicesListComponent },

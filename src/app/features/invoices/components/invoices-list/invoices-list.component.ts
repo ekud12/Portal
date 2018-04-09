@@ -17,27 +17,21 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import { Sapak } from '../../../user/models/sapak.model';
 
-const ELEMENT_DATA: ElementInvoice[] = [
-  { invoiceId: 1, invoiceDate: '12/2018', invoiceTotalRows: 1, invoiceTotalSum: 1579, invoiceStatus: 0 },
-
-  { invoiceId: 999, invoiceDate: '11/2018', invoiceTotalRows: 3, invoiceTotalSum: 1909, invoiceStatus: 1 },
-  { invoiceId: 1116, invoiceDate: '12/2018', invoiceTotalRows: 2, invoiceTotalSum: 1579, invoiceStatus: 0 }
-];
 @Component({
   selector: 'app-invoices-list',
   templateUrl: './invoices-list.component.html',
   styleUrls: ['./invoices-list.component.css']
 })
 export class InvoicesListComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['invoiceDate', 'invoiceId', 'invoiceTotalRows', 'invoiceTotalSum', 'invoiceStatus'];
+  displayedColumns = ['billMonth', 'invoiceNum', 'totalRowsNum', 'invoiceSum', 'status'];
   displayedColumnsMap = [
-    { value: 'invoiceDate', viewValue: 'תאריך חשבונית' },
-    { value: 'invoiceId', viewValue: 'מספר חשבונית' },
-    { value: 'invoiceTotalRows', viewValue: 'סה"כ שורות' },
-    { value: 'invoiceTotalSum', viewValue: 'סכום חשבונית' },
-    { value: 'invoiceStatus', viewValue: 'סטטוס חשבונית' }
+    { value: 'billMonth', viewValue: 'תאריך חשבונית' },
+    { value: 'invoiceNum', viewValue: 'מספר חשבונית' },
+    { value: 'totalRowsNum', viewValue: 'סה"כ שורות' },
+    { value: 'invoiceSum', viewValue: 'סכום חשבונית' },
+    { value: 'status', viewValue: 'סטטוס חשבונית' }
   ];
-
+  ELEMENT_DATA: Invoice[] = [];
   vars = {
     hideRequired: true,
     floatLabel: 'never'
@@ -47,11 +41,13 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   userName: string;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
+
   listOfInvoices$: Observable<Invoice[]>;
   selectedFilter;
   selectedInvoice: Invoice = new Invoice();
+
   dataSourceTest: MatTableDataSource<Invoice>;
-  dataSource = new MatTableDataSource<ElementInvoice>(ELEMENT_DATA);
+  dataSource;
   dataObject: PrintObject = new PrintObject();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -65,10 +61,14 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoices$ = this.invoiceStore.select(fromInvoiceStore.allInvoicesSelector);
+    this.listOfInvoices$.subscribe(val => {
+      this.ELEMENT_DATA = val;
+      this.dataSource = new MatTableDataSource<Invoice>(val);
+    });
   }
 
   ngAfterViewInit() {
-    /** TO allow content to load while building the view */
+    /** TO allow content to load while building the view  */
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -76,29 +76,25 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.loggedUserName$.subscribe(username => {
-      this.userName = username;
-    });
-    this.currentSapak$.subscribe(spkCode => {
-      this.getAllInvoicesRequest.username = this.userName;
-      this.getAllInvoicesRequest.sapakCode = spkCode.kodSapak;
-      const a = this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoices(this.getAllInvoicesRequest));
-    });
-    this.listOfInvoices$.subscribe(val => {
-      
-      this.dataSourceTest = new MatTableDataSource<Invoice>(val);
-    });
+    // this.loggedUserName$.subscribe(username => {
+    //   this.userName = username;
+    //   this.getAllInvoicesRequest.username = this.userName;
+    // });
 
-    console.log(this.dataSourceTest);
+    // this.currentSapak$.subscribe(spkCode => {
+    //   this.getAllInvoicesRequest.sapakCode = spkCode.kodSapak;
+    //   this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoices(this.getAllInvoicesRequest));
+    // });
 
     // this.selectedFilter = { value: 'invoiceId', viewValue: 'מספר חשבונית' };
     // this.dataSource.filterPredicate = (data: Element, filter: string) =>
     //   data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
-    this.dataSource.filterPredicate = (data: ElementInvoice, filter: string) =>
-      data.invoiceId.toString().includes(filter) || filter === 'all';
+    console.log(this.dataSource);
+    this.dataSource.filterPredicate = (data: Invoice, filter: string) =>
+      data.invoiceNum.toString().includes(filter) || filter === 'all';
     /** initial sort by 2 date > id */
     this.dataSource.connect().value.sort((a, b) => {
-      return moment(b.invoiceDate, 'MM/YYYY').valueOf() - moment(a.invoiceDate, 'MM/YYYY').valueOf() || b.invoiceId - a.invoiceId;
+      return moment(b.billMonth, 'MM/YYYY').valueOf() - moment(a.billMonth, 'MM/YYYY').valueOf() || b.invoiceNum - a.invoiceNum;
     });
   }
 
@@ -131,7 +127,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     ];
     this.dataObject.recipient = { greeting: 'לכבוד מאוחדת', address: 'אבן גבירול 124', city: 'תל אביב' };
     this.dataObject.dialogHeader = 'הדפסת דרישת תשלום וסגירת חשבונית';
-    this.dataObject.displayedColumns = ['invoiceDate', 'invoiceId', 'invoiceTotalRows', 'invoiceTotalSum', 'invoiceStatus'];
+    this.dataObject.displayedColumns = this.displayedColumns;
     this.dataObject.dismap = this.displayedColumnsMap;
     this.dataObject.data = this.dataSource.connect().value;
   }
@@ -145,18 +141,4 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   activateInvoice(inv: any) {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(inv));
   }
-
-  setDateLowerBoundry(lowerDate) {
-    console.log(lowerDate.value);
-  }
-}
-
-export class MyDataSource extends DataSource<any[]> {
-  constructor(private subject: BehaviorSubject<any[]>) {
-    super();
-  }
-  connect(): Observable<any[]> {
-    return this.subject.asObservable();
-  }
-  disconnect(): void {}
 }

@@ -17,6 +17,12 @@ export function sharedReducer(state = sharedInitialState, action: any): SharedSt
         printObject: action.payload
       };
     }
+    case userActions.RESET_PRINT_DATA: {
+      return {
+        ...state,
+        printObject: null
+      };
+    }
   }
   return state;
 }

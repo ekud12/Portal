@@ -7,21 +7,22 @@ export class ElementInvoice {
 }
 
 export class Invoice {
-  billMonth: number;
-  invoiceType: number;
-  invoiceSum: string;
-  typedSum: number;
+  billMonth: string;
+  invoiceNum: number;
+  invoiceType?: number;
+  invoiceSum: number;
+  typedSum?: number;
   totalRowsNum: number;
-  exeCode: string;
-  totalOffset: number;
-  totalKZZApprl: number;
-  rate: number;
-  isVat: string;
-  currency: string;
-  vatPer: number;
-  remark1: string;
-  remark2: string;
-  status: string;
+  exeCode?: string;
+  totalOffset?: number;
+  totalKZZApprl?: number;
+  rate?: number;
+  isVat?: string;
+  currency?: string;
+  vatPer?: number;
+  remark1?: string;
+  remark2?: string;
+  status: number;
 }
 
 export class GetInvoicesRequest {
@@ -29,7 +30,7 @@ export class GetInvoicesRequest {
   sapakCode: string;
 }
 
-export class NewInvoiceRow {
+export class InvoiceRow {
   constructor() {}
 }
 

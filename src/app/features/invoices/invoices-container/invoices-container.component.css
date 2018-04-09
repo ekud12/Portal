@@ -1,0 +1,18 @@
+.top-invoice-menu {
+  background-color: rgb(255, 136, 0);
+  border: 1px solid rgb(172, 172, 172);
+  color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -webkit-box-shadow: 0px 2px 16px -1px rgba(0, 0, 0, 0.534);
+  -moz-box-shadow: 0px 2px 16px -1px rgba(0, 0, 0, 0.493);
+  box-shadow: 0px 2px 16px -1px rgba(0, 0, 0, 0.425);
+  padding: 5px 15px;
+}
+
+.summary-content-item {
+  padding-left: 1em;
+  padding-right: 2em;
+  text-decoration: underline;
+  font-weight: bold;
+}

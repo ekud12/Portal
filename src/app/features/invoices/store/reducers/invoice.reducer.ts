@@ -1,9 +1,10 @@
 import * as userActions from '../actions';
 import 'mdn-polyfills/String.prototype.padStart';
-import { Invoice } from '../../models/new-actions.model';
+import { Invoice, InvoiceRow } from '../../models/new-actions.model';
 
 export interface InvoiceState {
   activeInvoice: any;
+  activeInvoiceRow: InvoiceRow;
   listOfInvoicesForSapak: Invoice[];
   errors: string[];
   isLoading: boolean;
@@ -11,6 +12,7 @@ export interface InvoiceState {
 
 export const invoiceInitialState: InvoiceState = {
   activeInvoice: null,
+  activeInvoiceRow: null,
   listOfInvoicesForSapak: [],
   isLoading: false,
   errors: []
