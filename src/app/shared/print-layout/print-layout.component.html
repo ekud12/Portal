@@ -1,0 +1,88 @@
+<div fxLayout="row" fxLayoutAlign="space-around center center" id="section-to-not-print">
+  <h1 class="print-dialog-header"> {{object.dialogHeader}}</h1>
+
+  <div fxLayout="row" *ngIf="ieBtn" fxLayoutAlign="start center center" class="actions">
+    <button mat-raised-button color="primary" (click)="print('printMe')">
+      {{ object.btn1Action }}
+    </button>
+    <button mat-raised-button color="primary" routerLink={{returnURL}}>
+      חזור
+    </button>
+  </div>
+
+</div>
+
+<mat-dialog-content>
+  <div class="print-wrapper" dir="rtl" id="section-to-print">
+    <div fxLayout="row" fxLayoutAlign="space-around center center">
+      נוצר בתאריך : {{date}}
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end center center" class="logo">
+      <img src="assets/images/meuhedet-logo.png" />
+    </div>
+
+    <div *ngIf="object.recipient" fxLayout="row" fxLayoutAlign="start center center" class="sub-header-details" class="recipient">
+      <div fxLayout="column" fxLayoutAlign="start start center">
+        <div>
+          {{ object.recipient.greeting }}
+        </div>
+        <div>
+          {{ object.recipient.address }}
+        </div>
+        <div>
+          {{ object.recipient.city }}
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center center">
+      <div fxLayout="column" fxLayoutAlign="start start center" class="header-details">
+        <div> {{object.headerDetailsText1}} {{object.headerDetailsValue1}}</div>
+        <div> {{object.headerDetailsText2}} {{object.headerDetailsValue2}}</div>
+      </div>
+    </div>
+
+    <div *ngIf="object.subHeader" fxLayout="row" fxLayoutAlign="start center center" class="sub-header-details">
+      {{ object.subHeader }}
+    </div>
+
+
+
+    <div fxLayout="column" fxLayoutAlign="space-around center center" class="main" fxLayoutGap="20px">
+      <div fxLayout="row" fxLayoutAlign="space-around center center" class="main-header">
+        {{object.mainHeader}}
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-around stretch stretch" class="main-content">
+        <div *ngIf="object.isTableContent">
+          <div class="table-content">
+            <mat-table #table [dataSource]="dataSource">
+              <ng-container *ngFor="let col of object.displayedColumns" [cdkColumnDef]="col">
+                <mat-header-cell *cdkHeaderCellDef> {{getViewValue(col)}} </mat-header-cell>
+                <mat-cell *cdkCellDef="let row"> {{row[col]}} </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="object.displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: object.displayedColumns;" class="pgbreak"></mat-row>
+            </mat-table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="object.lowerContent" fxLayout="row" fxLayoutAlign="end center center" class="lower-content">
+      <div fxLayout="column" fxLayoutAlign="start start center">
+        <div *ngFor="let i of object.lowerContent">
+          {{ i.desc }} {{ i.value}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</mat-dialog-content>
+
+
+<mat-dialog-actions *ngIf="!ieBtn" fxLayout="row" fxLayoutAlign="space-evenly center stretch" id="section-to-not-print" fxLayoutGap="25px">
+  <button mat-raised-button [mat-dialog-close]="true" class="action-btn" fxFlex color>סגור</button>
+  <button mat-raised-button mat-dialog-close (click)="print()" class="action-btn" fxFlex>הדפס</button>
+</mat-dialog-actions>

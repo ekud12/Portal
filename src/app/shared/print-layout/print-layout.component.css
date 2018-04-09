@@ -1,0 +1,101 @@
+.print-dialog-header {
+  color: rgb(0, 162, 255);
+  text-decoration: underline;
+  font-weight: bolder;
+  padding: 0px 30px;
+}
+
+.print-wrapper {
+  background-color: white;
+  display: block;
+  font-size: 15px;
+  /* border: 1px solid black; */
+}
+
+.logo {
+  padding: 0px 25px;
+  /* border: 1px solid blue; */
+}
+
+.header-details {
+  padding: 0px 35px;
+  /* border: 1px solid red; */
+}
+
+.sub-header-details {
+  padding: 5px 35px;
+  /* border: 1px solid rgb(240, 211, 86); */
+}
+
+.recipient {
+  padding: 0px 35px;
+  padding-bottom: 20px;
+  font-style: italic;
+  /* border: 1px solid rgb(0, 139, 53); */
+}
+
+.actions {
+  padding: 5px 60px;
+  /* border: 1px solid rgb(255, 208, 0); */
+}
+
+.action-btn {
+  background-color: rgb(0, 162, 255);
+  color: white;
+  font-weight: bold;
+}
+
+.main {
+  padding: 10px 10px;
+  overflow: visible;
+  /* border: 1px solid rgb(153, 0, 255); */
+}
+
+.main-header {
+  font-size: 15px;
+  /* border: 1px solid rgb(0, 110, 255); */
+}
+
+.table-content {
+  min-width: 75vw;
+  display: block;
+  /* border: 1px solid orange; */
+}
+
+.lower-content {
+  /* border: 1px solid orange; */
+  padding: 15px 65px;
+}
+
+@media print {
+  body * {
+    counter-reset: chapter;
+    visibility: hidden !important;
+  }
+
+  #section-to-print,
+  #section-to-print * {
+    visibility: visible;
+  }
+
+  #section-to-print {
+    position: absolute;
+    font-size: 12px !important;
+    display: block;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    overflow: visible !important;
+  }
+
+  #section-to-not-print,
+  #section-to-not-print * {
+    visibility: hidden;
+  }
+  
+  ::ng-deep mat-row {
+    min-height: 18px !important;
+  }
+
+}

@@ -10,6 +10,8 @@ import { StoreModule } from '@ngrx/store';
 import { MdePopoverModule } from '@material-extended/mde';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CustomDatepickerModule } from './utils/custom-datepicker/custom-datepicker.module';
+import { PrintLayoutComponent } from './print-layout/print-layout.component';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -21,7 +23,15 @@ import { CustomDatepickerModule } from './utils/custom-datepicker/custom-datepic
     materialImports,
     NgxChartsModule
   ],
-  declarations: [PageNotFoundComponent],
-  exports: [materialImports, FlexLayoutModule, ReactiveFormsModule, PageNotFoundComponent, CustomDatepickerModule]
+  declarations: [PageNotFoundComponent, PrintLayoutComponent],
+  providers: [{ provide: MAT_DIALOG_DATA, useValue: [] }],
+  exports: [
+    materialImports,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    PageNotFoundComponent,
+    CustomDatepickerModule,
+    PrintLayoutComponent
+  ]
 })
 export class SharedModule {}
