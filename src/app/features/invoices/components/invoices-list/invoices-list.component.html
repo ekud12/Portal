@@ -76,7 +76,7 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="activateInvoice(row)" class="invoices-list-row"></mat-row>
       </mat-table>
 
-      <mat-paginator #paginator [pageSize]="7" [pageSizeOptions]="[7, 14, 21]" [showFirstLastButtons]="true">
+      <mat-paginator #paginator [pageSize]="7" [pageSizeOptions]="[7, 14, 70]" [showFirstLastButtons]="true">
       </mat-paginator>
 
     </mat-card>

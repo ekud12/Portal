@@ -15,11 +15,16 @@ export const invoiceInitialState: InvoiceState = {
 
 export function invoiceReducer(state = invoiceInitialState, action: any): InvoiceState {
   switch (action.type) {
+    case userActions.ACTIVATEֹֹֹּ_INVOICE: {
+      return {
+        ...state,
+        activeInvoice: action.payload
+      };
+    }
   }
 
   return state;
 }
-
 
 /**
  * Utility functions for Invoice States

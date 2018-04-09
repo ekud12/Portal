@@ -69,8 +69,7 @@
 
 @media print {
   body * {
-    counter-reset: chapter;
-    visibility: hidden !important;
+    display: none !important;
   }
 
   #section-to-print,
@@ -85,17 +84,17 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: auto;
+    height: 95%;
     overflow: visible !important;
+    border: 2px solid black;
   }
 
   #section-to-not-print,
   #section-to-not-print * {
     visibility: hidden;
   }
-  
+
   ::ng-deep mat-row {
     min-height: 18px !important;
   }
-
 }

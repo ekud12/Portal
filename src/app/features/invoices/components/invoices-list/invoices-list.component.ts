@@ -9,6 +9,9 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layout.component';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
+import { DataSource } from '@angular/cdk/collections';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 export interface Element {
   invoiceId: number;
@@ -109,11 +112,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     hideRequired: true,
     floatLabel: 'never'
   };
-  monthInputCtrl: FormControl = new FormControl(new Date(2020, 0, 1));
 
-  visible = true;
-
-  mode = 'MONTH';
   selectedFilter;
   selectedInvoice: Invoice = new Invoice();
   dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
@@ -174,7 +173,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.testObject.dialogHeader = 'הדפסת דרישת תשלום וסגירת חשבונית';
     this.testObject.displayedColumns = ['invoiceDate', 'invoiceId', 'invoiceTotalRows', 'invoiceTotalSum', 'invoiceStatus'];
     this.testObject.dismap = this.displayedColumnsMap;
-    this.testObject.data = ELEMENT_DATA;
+    this.testObject.data = this.dataSource.connect().value;
   }
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
@@ -186,11 +185,21 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
-  activateInvoice(row: any) {
-    console.log(row);
+  activateInvoice(inv: any) {
+    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(inv));
   }
 
   setDateLowerBoundry(lowerDate) {
     console.log(lowerDate.value);
   }
+}
+
+export class MyDataSource extends DataSource<any[]> {
+  constructor(private subject: BehaviorSubject<any[]>) {
+    super();
+  }
+  connect(): Observable<any[]> {
+    return this.subject.asObservable();
+  }
+  disconnect(): void {}
 }

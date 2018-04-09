@@ -27,8 +27,8 @@ export class PrintLayoutComponent implements OnInit {
   returnURL = '';
 
   ngOnInit() {
+    /** if ie get from state */
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       if (params.isIE) {
         this.ieBtn = true;
         this.returnURL = params.returnUrl;
