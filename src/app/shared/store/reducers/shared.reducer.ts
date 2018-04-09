@@ -1,7 +1,8 @@
 import * as userActions from '../actions';
+import { PrintObject } from '../../global-models/print-object.interface';
 
 export interface SharedState {
-  printObject: any;
+  printObject: PrintObject;
 }
 
 export const sharedInitialState: SharedState = {
