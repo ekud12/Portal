@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from '../../../../shared/page-not-found/page-no
 import { InvoicesVars } from './table-utils';
 import { Store } from '@ngrx/store';
 import * as fromInvoiceStore from '@invoicesStore';
+import * as fromSharedStore from '@sharedStore';
 import { Invoice } from '../../models/new-actions.model';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -120,12 +121,20 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog, private invoiceStore: Store<fromInvoiceStore.InvoiceState>, private router: Router) {}
+  constructor(
+    private invoiceStore: Store<fromInvoiceStore.InvoiceState>,
+    private router: Router,
+    private sharedStore: Store<fromSharedStore.SharedState>
+  ) {}
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    /** TO allow content to load while building the view */
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }, 1);
   }
+
   ngOnInit() {
     this.selectedFilter = { value: 'invoiceId', viewValue: 'מספר חשבונית' };
     // this.dataSource.filterPredicate = (data: Element, filter: string) =>
@@ -134,21 +143,25 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
       data.invoiceId.toString().includes(filter) || filter === 'all';
   }
 
-  openDialog(): void {
+  buildData() {}
+
+  print(): void {
     this.buildObjectForPrint();
-    if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
-      const evt = document.createEvent('UIEvents');
-      evt.initUIEvent('resize', true, false, window, 0);
-      this.router.navigate(['print'], {
-        queryParams: { isIE: true, returnUrl: this.router.url, valObject: JSON.stringify(this.testObject) }
-      });
-    } else {
-      this.dialog.open(PrintLayoutComponent, {
-        data: this.testObject,
-        height: '83%',
-        width: '90%'
-      });
-    }
+    this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.testObject));
+    this.router.navigate(['print'], {
+      queryParams: { isIE: true, returnUrl: this.router.url}
+    });
+    // if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
+    //   const evt = document.createEvent('UIEvents');
+    //   evt.initUIEvent('resize', true, false, window, 0);
+
+    // } else {
+    //   this.dialog.open(PrintLayoutComponent, {
+    //     data: this.testObject,
+    //     height: '83%',
+    //     width: '90%'
+    //   });
+    // }
   }
 
   buildObjectForPrint() {

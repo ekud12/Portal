@@ -9,12 +9,14 @@ import * as fromRouter from '@ngrx/router-store';
 import { ZakautState } from '@zakautStore';
 import { UserState } from '@userStore';
 import { InvoiceState } from '@invoicesStore';
+import { SharedState } from '@sharedStore';
 
 export interface AppState {
   router: fromRouter.RouterReducerState<RouterState>;
   user: UserState;
   zakaut: ZakautState;
   invoices: InvoiceState;
+  shared: SharedState;
 }
 
 export function defaultReducer<T>(state: T) {
@@ -25,7 +27,8 @@ export const reducers: ActionReducerMap<AppState> = {
   router: fromRouter.routerReducer,
   user: defaultReducer,
   zakaut: defaultReducer,
-  invoices: defaultReducer
+  invoices: defaultReducer,
+  shared: defaultReducer
 };
 
 export function getInitialState(): AppState {
@@ -42,6 +45,9 @@ export function getInitialState(): AppState {
       activeInvoice: null,
       isLoading: false,
       errors: []
+    },
+    shared: {
+      printObject: null
     }
   };
 }

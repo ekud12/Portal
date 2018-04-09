@@ -12,7 +12,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CustomDatepickerModule } from './utils/custom-datepicker/custom-datepicker.module';
 import { PrintLayoutComponent } from './print-layout/print-layout.component';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { EffectsModule } from '@ngrx/effects';
 
+import { effects } from './store';
+import { sharedReducer } from './store';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +24,9 @@ import { MAT_DIALOG_DATA } from '@angular/material';
     MdePopoverModule,
     RouterModule,
     materialImports,
-    NgxChartsModule
+    NgxChartsModule,
+    StoreModule.forFeature('shared', sharedReducer),
+    EffectsModule.forFeature(effects)
   ],
   declarations: [PageNotFoundComponent, PrintLayoutComponent],
   providers: [{ provide: MAT_DIALOG_DATA, useValue: [] }],

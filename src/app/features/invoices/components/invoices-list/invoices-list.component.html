@@ -19,7 +19,7 @@
           <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="applyFilterInvoiceNumber($event.target.value)">
         </mat-form-field> -->
 
-      <button mat-raised-button (click)="openDialog()">הדפס</button>
+      <button mat-raised-button (click)="print()">הדפס</button>
       <mat-form-field>
         <input matInput placeholder="סנן לפי חשבונית..." (keyup)="applyFilterInvoiceNumber($event.target.value)">
       </mat-form-field>
