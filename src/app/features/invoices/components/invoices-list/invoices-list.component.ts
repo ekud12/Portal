@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import * as fromInvoiceStore from '@invoicesStore';
 import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
-import { Invoice, ElementInvoice, GetInvoicesRequest } from '../../models/new-actions.model';
+import { Invoice, ElementInvoice } from '../../models/new-actions.model';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layout.component';
@@ -37,7 +37,6 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     floatLabel: 'never'
   };
 
-  getAllInvoicesRequest = new GetInvoicesRequest();
   userName: string;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
@@ -76,16 +75,6 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // this.loggedUserName$.subscribe(username => {
-    //   this.userName = username;
-    //   this.getAllInvoicesRequest.username = this.userName;
-    // });
-
-    // this.currentSapak$.subscribe(spkCode => {
-    //   this.getAllInvoicesRequest.sapakCode = spkCode.kodSapak;
-    //   this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoices(this.getAllInvoicesRequest));
-    // });
-
     // this.selectedFilter = { value: 'invoiceId', viewValue: 'מספר חשבונית' };
     // this.dataSource.filterPredicate = (data: Element, filter: string) =>
     //   data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';

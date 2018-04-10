@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { GetInvoicesRequest } from '../../models/new-actions.model';
+import { SapakDataRequest } from '../../../user/models/sapak.model';
 
 export const GET_INVOICES = '[Invoice] Get Invoices';
 export const GET_INVOICES_SUCCESS = '[Invoice] Get Invoices Success';
@@ -14,7 +14,7 @@ export const ACTIVATEֹֹֹּ_INVOICE_COMPLETED = '[Invoice] Activate Invoice Co
 /** Actions - Get All Invoices */
 export class GetInvoices implements Action {
   readonly type = GET_INVOICES;
-  constructor(public payload: GetInvoicesRequest) {}
+  constructor(public payload: SapakDataRequest) {}
 }
 
 export class GetInvoicesSuccess implements Action {

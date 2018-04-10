@@ -25,10 +25,6 @@ export class Invoice {
   status: number;
 }
 
-export class GetInvoicesRequest {
-  username: string;
-  sapakCode: string;
-}
 
 export class InvoiceRow {
   constructor() {}

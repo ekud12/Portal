@@ -8,6 +8,7 @@ import { SapakDataRequest, Sapak } from '../../models/sapak.model';
 import { MatSnackBar } from '@angular/material';
 import { ToastService } from 'app/core/services/toast-service.service';
 import * as userStore from '@userStore';
+import * as invoiceStore from '@invoicesStore';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -32,13 +33,16 @@ export class SapakEffects {
     })
   );
 
-  @Effect({ dispatch: false })
-  changeSapakFinished$ = this.actions$
-    .ofType(userActions.CHANGE_SAPAK_SUCCESS)
-    .pipe(
-      map((action: userActions.ChangeSapakSuccess) => action.data),
-      tap(val => this.toaster.openSnackBar(`ספק פעיל שונה ל : ${val.kodSapak}.`, null))
-    );
+  @Effect()
+  changeSapakFinished$ = this.actions$.ofType(userActions.CHANGE_SAPAK_SUCCESS).pipe(
+    map((action: userActions.ChangeSapakSuccess) => action.data),
+    tap(val => {
+      console.log(val);
+      this.toaster.openSnackBar(`ספק פעיל שונה ל : ${val.kodSapak}.`, null);
+      return val;
+    }),
+    switchMap(dataModel => [new invoiceStore.GetInvoices(dataModel)])
+  );
 
   @Effect({ dispatch: false })
   changeSapakFailed$ = this.actions$

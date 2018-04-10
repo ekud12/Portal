@@ -5,7 +5,7 @@ import { of } from 'rxjs/observable/of';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import * as fromRoot from '../../../../core/store';
 import { InvoicesService } from '../../invoices.service';
-import { GetInvoicesRequest } from '../../models/new-actions.model';
+import { SapakDataRequest } from '../../../user/models/sapak.model';
 
 @Injectable()
 export class InvoiceEffects {
@@ -14,7 +14,8 @@ export class InvoiceEffects {
   @Effect()
   getInvoices$ = this.actions$.ofType(userActions.GET_INVOICES).pipe(
     map((action: userActions.GetInvoices) => action.payload),
-    switchMap((allInvoicesRequest: GetInvoicesRequest) => {
+    switchMap((allInvoicesRequest: SapakDataRequest) => {
+      console.log(allInvoicesRequest);
       return this.invoicesService
         .getAllInvoicesForSapak(allInvoicesRequest)
         .pipe(
