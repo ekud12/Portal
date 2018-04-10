@@ -119,14 +119,13 @@ export function userReducer(state = userInitialState, action: any): UserState {
     }
 
     case userActions.CHANGE_SAPAK_SUCCESS: {
-      // const treatments: SapakTreatment[] = [];
-      // action.payload.map(value => {
-      //   const treat = getNewTreatObject(value);
-      //   treatments.push(treat);
-      // });
+      const treatments: SapakTreatment[] = [];
+      action.payload.map(value => {
+        const treat = getNewTreatObject(value);
+        treatments.push(treat);
+      });
       const newSapakIdentity = state.user.availableSapakim.find(toFind => toFind.kodSapak === action.data.kodSapak);
-      // newSapakIdentity.treatments = treatments;
-
+      newSapakIdentity.treatments = treatments;
       return {
         ...state,
         activeSapak: newSapakIdentity,

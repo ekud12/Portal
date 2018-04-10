@@ -37,7 +37,6 @@ export class SapakEffects {
   changeSapakFinished$ = this.actions$.ofType(userActions.CHANGE_SAPAK_SUCCESS).pipe(
     map((action: userActions.ChangeSapakSuccess) => action.data),
     tap(val => {
-      console.log(val);
       this.toaster.openSnackBar(`ספק פעיל שונה ל : ${val.kodSapak}.`, null);
       return val;
     }),

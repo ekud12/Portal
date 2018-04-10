@@ -6,7 +6,6 @@ export const CHANGE_SAPAK_DEFAULT = '[Sapak] Change Sapak DEFAULT';
 export const CHANGE_SAPAK_FAILURE = '[Sapak] Change Sapak Fail';
 export const CHANGE_SAPAK_SUCCESS = '[Sapak] Change Sapak Success';
 
-
 // Sapak Actions
 export class ChangeSapak implements Action {
   readonly type = CHANGE_SAPAK;
@@ -25,7 +24,9 @@ export class ChangeSapakFail implements Action {
 
 export class ChangeSapakSuccess implements Action {
   readonly type = CHANGE_SAPAK_SUCCESS;
-  constructor(public payload: any, public data: SapakDataRequest) {}
+  constructor(public payload: any, public data: SapakDataRequest) {
+    console.log(payload);
+  }
 }
 
 export type sapakActions = ChangeSapak | ChangeSapakFail | ChangeSapakSuccess;
