@@ -30,5 +30,10 @@ export class InvoicesContainerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentInvoice$.subscribe(val => {
+      if (!val) {
+        this.router.navigate(['/portal/invoices/all']);
+      }
+    });
   }
 }

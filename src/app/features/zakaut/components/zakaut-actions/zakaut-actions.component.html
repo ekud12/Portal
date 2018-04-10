@@ -8,8 +8,10 @@
   <mat-card fxLayout="column" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
     class="actions-card" ngClass.xs="actions-card-mobile" fxFlexOrder="2">
 
-    <div *ngIf="(currentSapakTreatments$ | async).length === 0" fxLayout="column" fxLayoutAlign="space-around center center">
-      חלה תקלה בעת טעינת טיפולים לספק. אנא פנה לתמיכה או בחר ספק אחר.
+    <div *ngIf="(currentSapakTreatments$ | async).length === 0" fxLayout="column" fxLayoutAlign="space-around center center"
+      class="no-work-error">
+      <span> לקוח יקר, </span>
+      <span>חלה תקלה בעת טעינת טיפולים לספק. אנא פנה לתמיכה או בחר ספק אחר.</span>
     </div>
 
     <mat-tab-group dir="rtl" [@.disabled]="true" class="tab-group" *ngIf="(currentSapakTreatments$ | async).length > 0">

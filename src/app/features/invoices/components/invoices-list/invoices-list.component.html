@@ -36,8 +36,7 @@
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
-      <button mat-raised-button rounterLink="portal/invoices/rows" routerLinkActiveOptions="{exact:
-        true}">צור חשבונית</button>
+      <button mat-button (click)="newInvoice()">Extranet</button>
       <button mat-raised-button (click)="print()"> הדפס חשבוניות</button>
 
     </form>

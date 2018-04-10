@@ -8,7 +8,7 @@ import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
 import { Invoice, ElementInvoice } from '../../models/new-actions.model';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layout.component';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { DataSource } from '@angular/cdk/collections';
@@ -85,8 +85,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     // this.dataSource.filterPredicate = (data: Element, filter: string) =>
     //   data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
 
-    this.dataSource.filterPredicate = (data: Invoice, filter: string) =>
-      data.invoiceNum.toString().includes(filter);
+    this.dataSource.filterPredicate = (data: Invoice, filter: string) => data.invoiceNum.toString().includes(filter);
   }
 
   print(): void {
@@ -95,6 +94,10 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.router.navigate(['print'], {
       queryParams: { isIE: true, returnUrl: this.router.url }
     });
+  }
+
+  newInvoice() {
+    this.router.navigate(['portal/invoices/new']);
   }
 
   applyFilterInvoiceNumber(filterValue: string) {
