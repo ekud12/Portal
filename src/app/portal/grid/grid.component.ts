@@ -162,7 +162,7 @@ export class GridComponent implements OnInit {
     this.updateScreen();
   }
 
-  AddWidget(widgetType: any) {}
+  AddWidget() {}
 
   updateScreen() {
     if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {

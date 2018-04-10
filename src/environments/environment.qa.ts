@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   http: {
-    baseUrl: 'http://10.0.2.92/suppliersAPI'
+    baseUrl: 'http://172.30.1.27/suppliersAPI'
   },
-  version: '0.1_QA'
+  version: '0.2_QA'
 };
