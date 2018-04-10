@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { effects } from './store';
 import { sharedReducer } from './store';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +29,8 @@ import { sharedReducer } from './store';
     StoreModule.forFeature('shared', sharedReducer),
     EffectsModule.forFeature(effects)
   ],
-  declarations: [PageNotFoundComponent, PrintLayoutComponent],
+  declarations: [PageNotFoundComponent, PrintLayoutComponent, AlertDialogComponent],
+  entryComponents: [AlertDialogComponent],
   providers: [{ provide: MAT_DIALOG_DATA, useValue: [] }],
   exports: [
     materialImports,
@@ -36,7 +38,8 @@ import { sharedReducer } from './store';
     ReactiveFormsModule,
     PageNotFoundComponent,
     CustomDatepickerModule,
-    PrintLayoutComponent
+    PrintLayoutComponent,
+    AlertDialogComponent
   ]
 })
 export class SharedModule {}

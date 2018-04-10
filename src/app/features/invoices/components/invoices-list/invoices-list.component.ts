@@ -1,5 +1,13 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDatepickerInputEvent } from '@angular/material';
+import { Component, OnInit, ViewChild, AfterViewInit, Inject } from '@angular/core';
+import {
+  MatTableDataSource,
+  MatPaginator,
+  MatSort,
+  MatDialog,
+  MatDatepickerInputEvent,
+  MatDialogRef,
+  MAT_DIALOG_DATA
+} from '@angular/material';
 import { PageNotFoundComponent } from '../../../../shared/page-not-found/page-not-found.component';
 import { InvoicesVars } from './table-utils';
 import { Store } from '@ngrx/store';
@@ -16,6 +24,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import { Sapak } from '../../../user/models/sapak.model';
+import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-invoices-list',
@@ -31,31 +40,27 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     { value: 'invoiceSum', viewValue: 'סכום חשבונית' },
     { value: 'status', viewValue: 'סטטוס חשבונית' }
   ];
-  ELEMENT_DATA: Invoice[] = [];
   vars = {
     hideRequired: true,
     floatLabel: 'never'
   };
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   userName: string;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
-
   listOfInvoices$: Observable<Invoice[]>;
-  selectedFilter;
-  selectedInvoice: Invoice = new Invoice();
-
-  dataSourceTest: MatTableDataSource<Invoice>;
-  dataSource;
+  currentInvoice$: Observable<Invoice>;
   dataObject: PrintObject = new PrintObject();
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  selectedFilter;
+  dataSource;
 
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoiceState>,
     private router: Router,
     private sharedStore: Store<fromSharedStore.SharedState>,
-    private userStore: Store<fromUserStore.UserState>
+    private userStore: Store<fromUserStore.UserState>,
+    public dialog: MatDialog
   ) {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
@@ -66,6 +71,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
         return moment(b.billMonth, 'MM/YYYY').valueOf() - moment(a.billMonth, 'MM/YYYY').valueOf() || b.invoiceNum - a.invoiceNum;
       });
     });
+    this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
   }
 
   ngAfterViewInit() {
@@ -98,6 +104,18 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
 
   newInvoice() {
     this.router.navigate(['portal/invoices/new']);
+    /** test for dialog it works */
+    // this.currentInvoice$.take(1).subscribe(val => {
+    //   if (val) {
+    //     this.router.navigate(['portal/invoices/new']);
+    //   } else {
+    //     this.dialog.open(AlertDialogComponent, {
+    //       height: '100px',
+    //       width: '50%',
+    //       data: { data: 'טרם נבחרה חשבונית. לאחר בחירת חשבונית יתאפשר.' }
+    //     });
+    //   }
+    // });
   }
 
   applyFilterInvoiceNumber(filterValue: string) {
