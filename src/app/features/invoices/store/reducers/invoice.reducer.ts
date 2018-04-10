@@ -22,13 +22,24 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
   switch (action.type) {
     case userActions.GET_INVOICES: {
       return {
-        ...state
+        ...state,
+        isLoading: true
       };
     }
     case userActions.GET_INVOICES_SUCCESS: {
       return {
         ...state,
-        listOfInvoicesForSapak: action.payload
+        listOfInvoicesForSapak: action.payload,
+        activeInvoice: null,
+        activeInvoiceRow: null,
+        isLoading: false
+      };
+    }
+    case userActions.GET_INVOICES_FAIL: {
+      return {
+        ...state,
+        errors: action.payload,
+        isLoading: false
       };
     }
 

@@ -56,7 +56,10 @@ export function getInitialState(): AppState {
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: [{ user: ['user', 'activeSapak', 'isLoading'] }],
+    keys: [
+      { user: ['user', 'activeSapak', 'isLoading'] },
+      { invoices: ['listOfInvoicesForSapak', 'activeInvoiceRow', 'activeInvoice'] }
+    ],
     rehydrate: true
   })(reducer);
 }
