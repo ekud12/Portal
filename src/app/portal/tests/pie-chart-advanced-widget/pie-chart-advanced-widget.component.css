@@ -1,0 +1,9 @@
+.container {
+  background-color: rgb(255, 255, 255);
+  height: 90%;
+  margin: 3px 3px;
+}
+
+.content {
+  width: 95%;
+}

@@ -72,6 +72,9 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }, 1);
+    this.dataSource.connect().value.sort((a, b) => {
+      return moment(b.billMonth, 'MM/YYYY').valueOf() - moment(a.billMonth, 'MM/YYYY').valueOf() || b.invoiceNum - a.invoiceNum;
+    });
   }
 
   ngOnInit() {
@@ -82,9 +85,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.dataSource.filterPredicate = (data: Invoice, filter: string) =>
       data.invoiceNum.toString().includes(filter) || filter === 'all';
     /** initial sort by 2 date > id */
-    this.dataSource.connect().value.sort((a, b) => {
-      return moment(b.billMonth, 'MM/YYYY').valueOf() - moment(a.billMonth, 'MM/YYYY').valueOf() || b.invoiceNum - a.invoiceNum;
-    });
+
   }
 
   buildData() {}

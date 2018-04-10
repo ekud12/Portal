@@ -23,6 +23,8 @@ import { GridsterModule } from 'angular-gridster2';
 import { Ng2OdometerModule } from 'ng2-odometer'; // <-- import the module
 import { DynamicModule } from 'ng-dynamic-component';
 import { GridStackModule } from 'ng4-gridstack';
+import { PieChartAdvancedWidgetComponent } from './tests/pie-chart-advanced-widget/pie-chart-advanced-widget.component';
+import { LineChartWidgetComponent } from './tests/line-chart-widget/line-chart-widget.component';
 
 const DASH_COMPONENTS = [
   ContainerComponent,
@@ -32,7 +34,9 @@ const DASH_COMPONENTS = [
   NumberStatWidgetComponent,
   VerticalChartWidgetComponent,
   PieChartWidgetComponent,
-  HorizontalChartWidgetComponent
+  HorizontalChartWidgetComponent,
+  PieChartAdvancedWidgetComponent,
+  LineChartWidgetComponent
 ];
 
 @NgModule({
@@ -47,7 +51,9 @@ const DASH_COMPONENTS = [
       NumberStatWidgetComponent,
       VerticalChartWidgetComponent,
       PieChartWidgetComponent,
-      HorizontalChartWidgetComponent
+      HorizontalChartWidgetComponent,
+      PieChartAdvancedWidgetComponent,
+      LineChartWidgetComponent
     ]),
     GridStackModule,
     RouterModule.forChild(portalRoutes)

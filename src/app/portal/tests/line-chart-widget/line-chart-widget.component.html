@@ -1,0 +1,11 @@
+<mat-card class="container" fxLayout="column" fxLayoutAlign="start center center">
+  <div class="header" fxFlex="20">
+    קווים קווים קווים
+  </div>
+  <div class="content" fxFlex="80">
+    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+      [autoScale]="autoScale" (select)="onSelect($event)">
+    </ngx-charts-line-chart>
+  </div>
+</mat-card>
