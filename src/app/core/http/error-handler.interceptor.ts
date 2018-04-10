@@ -24,7 +24,6 @@ export class ErrorHandler implements HttpInterceptor {
    * @returns Error Message as ErrorObservable
    */
   handleError(error): ErrorObservable {
-    console.log(error);
     let errorMessage = '';
     if (error instanceof HttpErrorResponse) {
       if (error.url.endsWith(httpRoutes.LOGIN)) {

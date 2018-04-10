@@ -268,7 +268,6 @@ export class ZakautActionsComponent implements OnInit {
   //#endregion
 
   CheckAutoActivate() {
-    console.log(this.zakautWithCardForm.get('_zakautWithCardControl'));
   }
 
   //#region ZakautWithCard

@@ -6,7 +6,7 @@ import * as fromInvoiceStore from '@invoicesStore';
 import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
 import { Router } from '@angular/router';
-import { GetInvoicesRequest, Invoice } from '../models/new-actions.model';
+import { Invoice, GetDataForSapakRequest } from '../models/new-actions.model';
 
 @Component({
   selector: 'app-invoices-container',
@@ -17,7 +17,7 @@ export class InvoicesContainerComponent implements OnInit {
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
   currentInvoice$: Observable<Invoice>;
-  getAllInvoicesRequest = new GetInvoicesRequest();
+  getAllInvoicesRequest = new GetDataForSapakRequest();
   userName: string;
 
   constructor(
@@ -31,14 +31,5 @@ export class InvoicesContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loggedUserName$.subscribe(username => {
-      this.userName = username;
-      this.getAllInvoicesRequest.username = this.userName;
-    });
-
-    this.currentSapak$.subscribe(spkCode => {
-      this.getAllInvoicesRequest.sapakCode = spkCode.kodSapak;
-      this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoices(this.getAllInvoicesRequest));
-    });
   }
 }

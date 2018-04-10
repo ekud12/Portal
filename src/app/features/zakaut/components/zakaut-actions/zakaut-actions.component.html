@@ -8,7 +8,11 @@
   <mat-card fxLayout="column" fxLayoutAlign="space-around center center" fxLayout.xs="column" fxLayoutAlign.xs="space-between stretch center"
     class="actions-card" ngClass.xs="actions-card-mobile" fxFlexOrder="2">
 
-    <mat-tab-group dir="rtl" [@.disabled]="true" class="tab-group">
+    <div *ngIf="(currentSapakTreatments$ | async).length === 0" fxLayout="column" fxLayoutAlign="space-around center center">
+      חלה תקלה בעת טעינת טיפולים לספק. אנא פנה לתמיכה או בחר ספק אחר.
+    </div>
+
+    <mat-tab-group dir="rtl" [@.disabled]="true" class="tab-group" *ngIf="(currentSapakTreatments$ | async).length > 0">
 
       <!-- MagneticCard Form -->
       <mat-tab fxFlex.xs="10">
