@@ -10,10 +10,9 @@ export class InvoicesService {
 
   getAllInvoicesForSapak(request: SapakDataRequest): Observable<any> {
     return Observable.of([
-      { invoiceNum: 1, billMonth: '12/2018', totalRowsNum: 1, invoiceSum: 1579, status: 0 },
-      { invoiceNum: 2, billMonth: '12/2018', totalRowsNum: 1, invoiceSum: 1579, status: 0 },
-      { invoiceNum: 3, billMonth: '11/2018', totalRowsNum: 1, invoiceSum: 1579, status: 0 }
-
+      { invoiceNum: 4015, billMonth: '12/2018', totalRowsNum: 1, invoiceSum: 581, status: 0 },
+      { invoiceNum: 999, billMonth: '12/2018', totalRowsNum: 1, invoiceSum: 157, status: 1 },
+      { invoiceNum: 4866, billMonth: '11/2018', totalRowsNum: 1, invoiceSum: 1874, status: 0 }
     ]);
   }
 }

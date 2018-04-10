@@ -43,7 +43,7 @@
     </form>
 
     <mat-card>
-      <mat-table #table [dataSource]="dataSource" matSort >
+      <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear>
 
         <!-- Position Column -->
         <ng-container matColumnDef="billMonth">

@@ -25,7 +25,6 @@ export class ChangeSapakFail implements Action {
 export class ChangeSapakSuccess implements Action {
   readonly type = CHANGE_SAPAK_SUCCESS;
   constructor(public payload: any, public data: SapakDataRequest) {
-    console.log(payload);
   }
 }
 

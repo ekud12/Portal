@@ -61,8 +61,10 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoices$ = this.invoiceStore.select(fromInvoiceStore.allInvoicesSelector);
     this.listOfInvoices$.subscribe(val => {
-      this.ELEMENT_DATA = val;
       this.dataSource = new MatTableDataSource<Invoice>(val);
+      this.dataSource.connect().value.sort((a, b) => {
+        return moment(b.billMonth, 'MM/YYYY').valueOf() - moment(a.billMonth, 'MM/YYYY').valueOf() || b.invoiceNum - a.invoiceNum;
+      });
     });
   }
 
@@ -72,23 +74,20 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }, 1);
-    this.dataSource.connect().value.sort((a, b) => {
-      return moment(b.billMonth, 'MM/YYYY').valueOf() - moment(a.billMonth, 'MM/YYYY').valueOf() || b.invoiceNum - a.invoiceNum;
-    });
   }
 
   ngOnInit() {
+    this.currentSapak$.subscribe(spk => {
+      this.dataObject.headerDetailsValue1 = spk.kodSapak;
+      this.dataObject.headerDetailsValue2 = spk.description;
+    });
     // this.selectedFilter = { value: 'invoiceId', viewValue: 'מספר חשבונית' };
     // this.dataSource.filterPredicate = (data: Element, filter: string) =>
     //   data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
-    console.log(this.dataSource);
+
     this.dataSource.filterPredicate = (data: Invoice, filter: string) =>
-      data.invoiceNum.toString().includes(filter) || filter === 'all';
-    /** initial sort by 2 date > id */
-
+      data.invoiceNum.toString().includes(filter);
   }
-
-  buildData() {}
 
   print(): void {
     this.buildObjectForPrint();
@@ -98,11 +97,19 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     });
   }
 
+  applyFilterInvoiceNumber(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
+  activateInvoice(inv: any) {
+    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(inv));
+  }
+
   buildObjectForPrint() {
     this.dataObject.headerDetailsText1 = 'קוד ספק:';
     this.dataObject.headerDetailsText2 = 'שם ספק:';
-    this.dataObject.headerDetailsValue1 = '999999';
-    this.dataObject.headerDetailsValue2 = 'test';
     this.dataObject.subHeader = 'ריכוז חשבוניות';
     this.dataObject.btn1Action = 'הדפס';
     this.dataObject.isInvoiceAction = true;
@@ -120,15 +127,5 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.dataObject.displayedColumns = this.displayedColumns;
     this.dataObject.dismap = this.displayedColumnsMap;
     this.dataObject.data = this.dataSource.connect().value;
-  }
-
-  applyFilterInvoiceNumber(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
-  }
-
-  activateInvoice(inv: any) {
-    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(inv));
   }
 }

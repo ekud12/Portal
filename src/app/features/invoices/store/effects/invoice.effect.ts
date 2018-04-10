@@ -15,7 +15,6 @@ export class InvoiceEffects {
   getInvoices$ = this.actions$.ofType(userActions.GET_INVOICES).pipe(
     map((action: userActions.GetInvoices) => action.payload),
     switchMap((allInvoicesRequest: SapakDataRequest) => {
-      console.log(allInvoicesRequest);
       return this.invoicesService
         .getAllInvoicesForSapak(allInvoicesRequest)
         .pipe(
