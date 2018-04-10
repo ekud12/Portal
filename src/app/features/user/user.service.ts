@@ -9,7 +9,7 @@ import { catchError, map } from 'rxjs/operators';
 import { BackendService } from '../../core/services/backend.service';
 
 import { httpRoutes } from '@http-routes';
-import { SapakTreatmentsRequest, SapakTreatmentsListResponse } from './models/sapak.model';
+import { SapakDataRequest, SapakTreatmentsListResponse } from './models/sapak.model';
 
 @Injectable()
 export class UserService {
@@ -19,7 +19,7 @@ export class UserService {
     return this.backendService.post<LoginResponse>(httpRoutes.LOGIN, loginDetails);
   }
 
-  getTreatmentsForSapak(model: SapakTreatmentsRequest): Observable<any> {
+  getTreatmentsForSapak(model: SapakDataRequest): Observable<any> {
     return this.backendService.post<SapakTreatmentsListResponse>(httpRoutes.TREATMENTS_FOR_SAPAK_EP, model);
   }
 }

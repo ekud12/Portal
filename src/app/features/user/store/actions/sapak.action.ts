@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Sapak } from '../../models/sapak.model';
+import { Sapak, SapakDataRequest } from '../../models/sapak.model';
 
 export const CHANGE_SAPAK = '[Sapak] Change Sapak';
 export const CHANGE_SAPAK_DEFAULT = '[Sapak] Change Sapak DEFAULT';
@@ -25,7 +25,7 @@ export class ChangeSapakFail implements Action {
 
 export class ChangeSapakSuccess implements Action {
   readonly type = CHANGE_SAPAK_SUCCESS;
-  constructor(public payload: any, public newSapak: string) {}
+  constructor(public payload: any, public data: SapakDataRequest) {}
 }
 
 export type sapakActions = ChangeSapak | ChangeSapakFail | ChangeSapakSuccess;

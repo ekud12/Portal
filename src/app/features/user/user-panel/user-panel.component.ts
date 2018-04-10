@@ -5,7 +5,7 @@ import { UserState, ChangeSapak } from '../store';
 
 import * as fromUserStore from '../store';
 import { User } from '../models/user.model';
-import { Sapak, SapakTreatmentsRequest } from '../models/sapak.model';
+import { Sapak, SapakDataRequest } from '../models/sapak.model';
 import { Go } from '../../../core/store';
 import { MatSnackBar } from '@angular/material';
 
@@ -20,7 +20,7 @@ export class UserPanelComponent implements OnInit {
   user$: Observable<User>;
   activeSapak$: Observable<Sapak>;
   userLoader$: Observable<boolean>;
-  SapakTreatmentsRequest: SapakTreatmentsRequest;
+  SapakTreatmentsRequest: SapakDataRequest;
   selectedSapakKod = '';
 
   constructor(private store: Store<UserState>) {
@@ -30,7 +30,7 @@ export class UserPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.SapakTreatmentsRequest = new SapakTreatmentsRequest('', '');
+    this.SapakTreatmentsRequest = new SapakDataRequest('', '');
     this.user$.subscribe(val => {
       this.SapakTreatmentsRequest.userName = val.username;
     });

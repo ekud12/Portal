@@ -12,7 +12,7 @@ export class SapakTreatment {
   treatDesc: string;
 }
 
-export class SapakTreatmentsRequest {
+export class SapakDataRequest {
   userName: string;
   kodSapak: string;
   constructor(userName: string, kodSapak: string) {

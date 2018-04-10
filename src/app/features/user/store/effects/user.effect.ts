@@ -9,7 +9,7 @@ import { switchMap, map, catchError, tap, withLatestFrom } from 'rxjs/operators'
 import { UserService } from '../../user.service';
 import { LoginModel } from '../../models/login.model';
 import * as fromRoot from '../../../../core/store';
-import { SapakTreatmentsRequest } from 'app/features/user/models/sapak.model';
+import { SapakDataRequest } from 'app/features/user/models/sapak.model';
 import { UserState } from '@userStore';
 import { Store } from '@ngrx/store';
 @Injectable()

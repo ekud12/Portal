@@ -1,6 +1,6 @@
 import * as userActions from '../actions';
 import { User } from '../../models/user.model';
-import { Sapak, SapakTreatment, SapakTreatmentsRequest } from '../../models/sapak.model';
+import { Sapak, SapakTreatment, SapakDataRequest } from '../../models/sapak.model';
 import { sapakActions } from '../actions';
 import { Zakaut, ZakautDesc } from '../../models/permission.model';
 import { activeSapakSelector } from '@userStore';
@@ -110,7 +110,7 @@ export function userReducer(state = userInitialState, action: any): UserState {
     }
 
     case userActions.CHANGE_SAPAK_DEFAULT: {
-      const a = new SapakTreatmentsRequest(state.user.username, state.user.availableSapakim[0].kodSapak);
+      const a = new SapakDataRequest(state.user.username, state.user.availableSapakim[0].kodSapak);
       action.payload = a;
       return {
         ...state,
@@ -119,13 +119,13 @@ export function userReducer(state = userInitialState, action: any): UserState {
     }
 
     case userActions.CHANGE_SAPAK_SUCCESS: {
-      const treatments: SapakTreatment[] = [];
-      action.payload.map(value => {
-        const treat = getNewTreatObject(value);
-        treatments.push(treat);
-      });
-      const newSapakIdentity = state.user.availableSapakim.find(toFind => toFind.kodSapak === action.newSapak);
-      newSapakIdentity.treatments = treatments;
+      // const treatments: SapakTreatment[] = [];
+      // action.payload.map(value => {
+      //   const treat = getNewTreatObject(value);
+      //   treatments.push(treat);
+      // });
+      const newSapakIdentity = state.user.availableSapakim.find(toFind => toFind.kodSapak === action.data.kodSapak);
+      // newSapakIdentity.treatments = treatments;
 
       return {
         ...state,
