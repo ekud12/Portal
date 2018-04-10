@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-invoice-rows',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./invoice-rows.component.css']
 })
 export class InvoiceRowsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private route: ActivatedRoute) {
+    this.route.params.subscribe(params => console.log(params));
   }
 
+  ngOnInit() {}
 }

@@ -8,7 +8,7 @@
       <div class="summary-content-item">אחוז מע"מ : </div> {{(currentInvoice$|async)?.rate}}
       <div class="summary-content-item"> סכום כולל מע"מ : </div> {{(currentInvoice$|async)?.invoiceSum}}
     </div>
-    <div class="invoices-row-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
+    <div *ngIf=(currentInvoiceRow$|async) class="invoices-row-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
       <div class="summary-content-item"> שורה מספר : </div>
       <div class="summary-content-item"> שם המבוטח : </div>
       <div class="summary-content-item">תאריך : </div>

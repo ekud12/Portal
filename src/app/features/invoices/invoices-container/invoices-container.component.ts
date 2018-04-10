@@ -6,7 +6,7 @@ import * as fromInvoiceStore from '@invoicesStore';
 import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
 import { Router } from '@angular/router';
-import { Invoice } from '../models/new-actions.model';
+import { Invoice, InvoiceRow } from '../models/new-actions.model';
 
 @Component({
   selector: 'app-invoices-container',
@@ -17,6 +17,7 @@ export class InvoicesContainerComponent implements OnInit {
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
   currentInvoice$: Observable<Invoice>;
+  currentInvoiceRow$: Observable<InvoiceRow>;
   userName: string;
 
   constructor(
@@ -27,6 +28,7 @@ export class InvoicesContainerComponent implements OnInit {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
+    this.currentInvoiceRow$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceRowSelector);
   }
 
   ngOnInit() {
