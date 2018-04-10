@@ -38,6 +38,17 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
         activeInvoice: action.payload
       };
     }
+
+    case userActions.RESET_INVOICES: {
+      return {
+        ...state,
+        activeInvoice: null,
+        activeInvoiceRow: null,
+        listOfInvoicesForSapak: [],
+        isLoading: false,
+        errors: []
+      };
+    }
   }
 
   return state;

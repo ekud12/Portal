@@ -3,12 +3,14 @@ import { Actions, Effect } from '@ngrx/effects';
 import * as userActions from '../actions';
 import * as zakautStore from '@zakautStore';
 import * as userStore from '@userStore';
+import * as invoicesStore from '@invoicesStore';
+import * as fromRoot from '../../../../core/store';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/take';
 import { switchMap, map, catchError, tap, withLatestFrom } from 'rxjs/operators';
 import { UserService } from '../../user.service';
 import { LoginModel } from '../../models/login.model';
-import * as fromRoot from '../../../../core/store';
+
 import { SapakDataRequest } from 'app/features/user/models/sapak.model';
 import { UserState } from '@userStore';
 import { Store } from '@ngrx/store';
@@ -46,7 +48,7 @@ export class UserEffects {
   logoutUser$ = this.actions$
     .ofType(userActions.LOGOUT_USER)
     .pipe(
-      switchMap(val => [new zakautStore.ResetZakaut(), new userActions.UserLogoutCompleted()]),
+      switchMap(val => [new zakautStore.ResetZakaut(), new invoicesStore.ResetInvoices(), new userActions.UserLogoutCompleted()]),
       catchError(error => of(new userActions.UserLoginFail(error)))
     );
 

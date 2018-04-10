@@ -11,6 +11,8 @@ export const ACTIVATEֹֹֹּ_INVOICE_SUCCESS = '[Invoice] Activate Invoice Succ
 export const ACTIVATEֹֹֹּ_INVOICE_FAIL = '[Invoice] Activate Invoice Fail';
 export const ACTIVATEֹֹֹּ_INVOICE_COMPLETED = '[Invoice] Activate Invoice Completed';
 
+export const RESET_INVOICES = '[Invoice] Reset Invoices';
+
 /** Actions - Get All Invoices */
 export class GetInvoices implements Action {
   readonly type = GET_INVOICES;
@@ -49,6 +51,10 @@ export class ActivateInvoiceFail implements Action {
 
 export class ActivateInvoiceCompleted implements Action {
   readonly type = ACTIVATEֹֹֹּ_INVOICE_COMPLETED;
+}
+
+export class ResetInvoices implements Action {
+  readonly type = RESET_INVOICES;
 }
 
 export type userActions =
