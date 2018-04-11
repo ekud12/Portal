@@ -4,7 +4,6 @@ import { Invoice, InvoiceRow } from '../../models/new-actions.model';
 
 export interface InvoiceState {
   activeInvoice: any;
-  activeInvoiceRow: Invoice;
   listOfInvoicesForSapak: Invoice[];
   errors: string[];
   isLoading: boolean;
@@ -12,7 +11,6 @@ export interface InvoiceState {
 
 export const invoiceInitialState: InvoiceState = {
   activeInvoice: null,
-  activeInvoiceRow: null,
   listOfInvoicesForSapak: [],
   isLoading: false,
   errors: []
@@ -31,7 +29,6 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
         ...state,
         listOfInvoicesForSapak: action.payload,
         activeInvoice: null,
-        activeInvoiceRow: null,
         isLoading: false
       };
     }
@@ -54,7 +51,6 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
       return {
         ...state,
         activeInvoice: null,
-        activeInvoiceRow: null,
         listOfInvoicesForSapak: [],
         isLoading: false,
         errors: []

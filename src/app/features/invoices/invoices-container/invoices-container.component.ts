@@ -21,7 +21,7 @@ export class InvoicesContainerComponent implements OnInit {
   userName: string;
 
   constructor(
-    private invoiceStore: Store<fromInvoiceStore.InvoiceState>,
+    private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
     private router: Router,
     private userStore: Store<fromUserStore.UserState>
   ) {

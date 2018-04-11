@@ -57,7 +57,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   dataSource;
 
   constructor(
-    private invoiceStore: Store<fromInvoiceStore.InvoiceState>,
+    private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
     private router: Router,
     private sharedStore: Store<fromSharedStore.SharedState>,
     private userStore: Store<fromUserStore.UserState>,

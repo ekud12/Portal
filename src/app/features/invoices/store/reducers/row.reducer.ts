@@ -3,7 +3,19 @@ import 'mdn-polyfills/String.prototype.padStart';
 import { Invoice, InvoiceRow } from '../../models/new-actions.model';
 import { invoiceInitialState, InvoiceState } from 'app/features/invoices/store/reducers/invoice.reducer';
 
-export function rowReducer(state = invoiceInitialState, action: any): InvoiceState {
+export interface InvoiceRowState {
+  activeInvoiceRow: any;
+  errors: string[];
+  isLoading: boolean;
+}
+
+export const invoiceRowInitialState: InvoiceRowState = {
+  activeInvoiceRow: null,
+  isLoading: false,
+  errors: []
+};
+
+export function rowReducer(state = invoiceRowInitialState, action: any): InvoiceRowState {
   switch (action.type) {
     case userActions.ACTIVATE_INVOICE_ROW: {
       return {

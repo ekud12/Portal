@@ -1,14 +1,14 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { InvoiceState } from '../reducers';
+import { InvoicesState } from '../reducers';
 
-export const getInvoiceState = createFeatureSelector<InvoiceState>('invoices');
+export const getInvoiceState = createFeatureSelector<InvoicesState>('invoices');
 
-export const currentInvoiceSelector = createSelector(getInvoiceState, (state: InvoiceState) => state.activeInvoice);
+export const currentInvoiceSelector = createSelector(getInvoiceState, (state: InvoicesState) => state.invoices.activeInvoice);
 
-export const currentInvoiceRowSelector = createSelector(getInvoiceState, (state: InvoiceState) => state.activeInvoiceRow);
+export const currentInvoiceRowSelector = createSelector(getInvoiceState, (state: InvoicesState) => state.rows.activeInvoiceRow);
 
-export const allInvoicesSelector = createSelector(getInvoiceState, (state: InvoiceState) => state.listOfInvoicesForSapak);
+export const allInvoicesSelector = createSelector(getInvoiceState, (state: InvoicesState) => state.invoices.listOfInvoicesForSapak);
 
-export const invoiceErrorsSelector = createSelector(getInvoiceState, (state: InvoiceState) => state.errors);
+export const invoiceErrorsSelector = createSelector(getInvoiceState, (state: InvoicesState) => state.invoices.errors);
 
-export const invoiceLoadingSelector = createSelector(getInvoiceState, (state: InvoiceState) => state.isLoading);
+export const invoiceLoadingSelector = createSelector(getInvoiceState, (state: InvoicesState) => state.invoices.isLoading);

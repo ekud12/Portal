@@ -8,14 +8,14 @@ import * as fromRouter from '@ngrx/router-store';
 
 import { ZakautState } from '@zakautStore';
 import { UserState } from '@userStore';
-import { InvoiceState } from '@invoicesStore';
+import { InvoicesState } from '@invoicesStore';
 import { SharedState } from '@sharedStore';
 
 export interface AppState {
   router: fromRouter.RouterReducerState<RouterState>;
   user: UserState;
   zakaut: ZakautState;
-  invoices: InvoiceState;
+  invoices: InvoicesState;
   shared: SharedState;
 }
 
@@ -42,11 +42,18 @@ export function getInitialState(): AppState {
       errors: []
     },
     invoices: {
-      activeInvoice: null,
-      activeInvoiceRow: null,
-      listOfInvoicesForSapak: [],
-      isLoading: false,
-      errors: []
+      invoices: {
+        activeInvoice: null,
+
+        listOfInvoicesForSapak: [],
+        isLoading: false,
+        errors: []
+      },
+      rows: {
+        activeInvoiceRow: null,
+        isLoading: false,
+        errors: []
+      }
     },
     shared: {
       printObject: null

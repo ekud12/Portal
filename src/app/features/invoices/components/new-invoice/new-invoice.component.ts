@@ -45,7 +45,7 @@ export class NewInvoiceComponent implements OnInit {
   @ViewChild('formTag') myForm;
   constructor(
     private fb: FormBuilder,
-    private invoiceStore: Store<fromInvoiceStore.InvoiceState>,
+    private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
     private userStore: Store<fromUserStore.UserState>
   ) {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
