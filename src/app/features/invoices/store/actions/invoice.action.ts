@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
+import { NewInvoiceRequest } from '../../models/new-actions.model';
 
 export const GET_INVOICES = '[Invoice] Get Invoices';
 export const GET_INVOICES_SUCCESS = '[Invoice] Get Invoices Success';
@@ -10,6 +11,11 @@ export const ACTIVATEֹֹֹּ_INVOICE = '[Invoice] Activate Invoice';
 export const ACTIVATEֹֹֹּ_INVOICE_SUCCESS = '[Invoice] Activate Invoice Success';
 export const ACTIVATEֹֹֹּ_INVOICE_FAIL = '[Invoice] Activate Invoice Fail';
 export const ACTIVATEֹֹֹּ_INVOICE_COMPLETED = '[Invoice] Activate Invoice Completed';
+
+export const CREATEֹֹֹּ_INVOICE = '[Invoice] Create Invoice';
+export const CREATEֹֹֹּ_INVOICE_SUCCESS = '[Invoice] Create Invoice Success';
+export const CREATEֹֹֹּ_INVOICE_FAIL = '[Invoice] Create Invoice Fail';
+export const CREATEֹֹֹּ_INVOICE_COMPLETED = '[Invoice] Create Invoice Completed';
 
 export const RESET_INVOICES = '[Invoice] Reset Invoices';
 
@@ -53,6 +59,27 @@ export class ActivateInvoiceCompleted implements Action {
   readonly type = ACTIVATEֹֹֹּ_INVOICE_COMPLETED;
 }
 
+/** Actions - Create new Invoice */
+export class CreateInvoice implements Action {
+  readonly type = CREATEֹֹֹּ_INVOICE;
+  constructor(public payload: NewInvoiceRequest) {}
+}
+
+export class CreateInvoiceSuccess implements Action {
+  readonly type = CREATEֹֹֹּ_INVOICE_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class CreateInvoiceFail implements Action {
+  readonly type = CREATEֹֹֹּ_INVOICE_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class CreateInvoiceCompleted implements Action {
+  readonly type = CREATEֹֹֹּ_INVOICE_COMPLETED;
+}
+
+/** Reset Invoices Module  */
 export class ResetInvoices implements Action {
   readonly type = RESET_INVOICES;
 }
@@ -65,4 +92,8 @@ export type userActions =
   | ActivateInvoice
   | ActivateInvoiceSuccess
   | ActivateInvoiceFail
-  | ActivateInvoiceCompleted;
+  | ActivateInvoiceCompleted
+  | CreateInvoice
+  | CreateInvoiceSuccess
+  | CreateInvoiceFail
+  | CreateInvoiceCompleted;

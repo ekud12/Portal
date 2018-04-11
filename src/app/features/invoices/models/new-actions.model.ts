@@ -27,22 +27,24 @@ export class InvoiceTreatment {
 
 export class NewInvoiceRequest {
   invoiceDate: string;
-  _invoiceNum: string;
+  invoiceNum: string;
   invoiceRemarks: string;
+  userName: string;
+  kodSapak: string;
   constructor(date: string, id: string, remark: string) {
     this.invoiceDate = date;
-    this._invoiceNum = id;
+    this.invoiceNum = id;
     this.invoiceRemarks = remark;
   }
 
-  get invoiceNum() {
-    return this._invoiceNum;
-  }
-  set invoiceNum(num) {
-    if (num === '') {
-      this._invoiceNum = null;
-    } else {
-      this._invoiceNum = num;
-    }
-  }
+  // get invoiceNum() {
+  //   return this._invoiceNum;
+  // }
+  // set invoiceNum(num) {
+  //   if (num === '') {
+  //     this._invoiceNum = null;
+  //   } else {
+  //     this._invoiceNum = num;
+  //   }
+  // }
 }

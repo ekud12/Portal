@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import * as moment from 'moment';
+import { Store } from '@ngrx/store';
+import * as fromInvoiceStore from '@invoicesStore';
+import * as fromUserStore from '@userStore';
 import { NewInvoiceRequest } from '../../models/new-actions.model';
-import { DatePipe } from '@angular/common';
+import { Observable } from 'rxjs/Observable';
+import { Sapak } from '../../../user/models/sapak.model';
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -32,33 +37,39 @@ export class NewInvoiceComponent implements OnInit {
     comment: 'ניתן ליצור חשבונית עד חודשיים לאחור***',
     availableMonths: getDatesForInvoiceCreation(3)
   };
-
+  loggedUserName$: Observable<string>;
+  currentSapak$: Observable<Sapak>;
   matcher = new ErrorStateMatcher();
   newInvoiceRequest = new NewInvoiceRequest(this.vars.availableMonths[0], null, null);
   newInvoiceForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {}
+  @ViewChild('formTag') myForm;
+  constructor(
+    private fb: FormBuilder,
+    private invoiceStore: Store<fromInvoiceStore.InvoiceState>,
+    private userStore: Store<fromUserStore.UserState>
+  ) {
+    this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
+    this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
+  }
 
   ngOnInit() {
     this.newInvoiceForm = this.fb.group({
       invoiceDateControl: new FormControl({ value: '' }, [Validators.required]),
-      invoiceIdControl: new FormControl({ value: '' }, [Validators.required, Validators.minLength(4)]),
-      invoiceRemarksControl: new FormControl({ value: '' })
+      invoiceIdControl: new FormControl(null, [Validators.required, Validators.minLength(4)]),
+      invoiceRemarksControl: new FormControl(null)
     });
+    this.loggedUserName$.subscribe(username => (this.newInvoiceRequest.userName = username));
+    this.currentSapak$.subscribe(spk => (this.newInvoiceRequest.kodSapak = spk.kodSapak));
   }
 
   createNewInvoice() {
-    console.log(this.newInvoiceRequest);
+    this.invoiceStore.dispatch(new fromInvoiceStore.CreateInvoice(this.newInvoiceRequest));
   }
 
   reset() {
-    this.newInvoiceForm.reset();
+    this.myForm.resetForm();
     this.newInvoiceForm.get('invoiceDateControl').setValue(this.vars.availableMonths[0]);
     console.log(this.newInvoiceForm);
-  }
-
-  test() {
-    console.log(this.newInvoiceRequest);
   }
 }
 
