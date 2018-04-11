@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { InvoiceRowsComponent } from './components/invoice-rows/invoice-rows.component';
 import { NewInvoiceComponent } from './components/new-invoice/new-invoice.component';
@@ -34,7 +34,7 @@ const COMPONENTS = [
     StoreModule.forFeature('invoices', invoiceReducer),
     EffectsModule.forFeature(effects)
   ],
-  providers: [InvoicesService],
+  providers: [InvoicesService, DatePipe],
   entryComponents: COMPONENTS,
   declarations: COMPONENTS,
   exports: COMPONENTS

@@ -1,11 +1,3 @@
-export class ElementInvoice {
-  invoiceId: number;
-  invoiceDate: string;
-  invoiceTotalRows: number;
-  invoiceTotalSum: number;
-  invoiceStatus: number;
-}
-
 export class Invoice {
   billMonth: string;
   invoiceNum: number;
@@ -25,11 +17,32 @@ export class Invoice {
   status: number;
 }
 
-
 export class InvoiceRow {
   constructor() {}
 }
 
-export class NewInvoiceTreatment {
+export class InvoiceTreatment {
   constructor() {}
+}
+
+export class NewInvoiceRequest {
+  invoiceDate: string;
+  _invoiceNum: string;
+  invoiceRemarks: string;
+  constructor(date: string, id: string, remark: string) {
+    this.invoiceDate = date;
+    this._invoiceNum = id;
+    this.invoiceRemarks = remark;
+  }
+
+  get invoiceNum() {
+    return this._invoiceNum;
+  }
+  set invoiceNum(num) {
+    if (num === '') {
+      this._invoiceNum = null;
+    } else {
+      this._invoiceNum = num;
+    }
+  }
 }

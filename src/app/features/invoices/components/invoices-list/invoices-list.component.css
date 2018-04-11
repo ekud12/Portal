@@ -47,7 +47,6 @@ h2 {
   background-color: rgb(255, 255, 255);
   transition: all 0.3s ease;
 }
-
 .invoices-list-row:hover {
   background-color: rgb(204, 220, 240);
 }

@@ -5,9 +5,44 @@
     <h2>יצירת חשבונית חדשה (ExtraNet)</h2>
   </div>
 
-  <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
+  <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="start stretch center">
+    <!-- <div fxLayout="row" fxLayoutAlign="start center center" class="comment">
+      {{vars.comment}}
+    </div> -->
 
-    כאן תוסיפו חשבונית חדשה
+    <form #newInvoiceFormTag fxLayout="column" fxLayoutAlign="start stretch center" fxLayoutGap="10px" class="new-invoice-form"
+      [formGroup]="newInvoiceForm" novalidate>
+
+      <div fxLayout="row" fxLayoutAlign="space-evenly center stretch">
+        <mat-form-field class="mat-form-field-custom">
+          <mat-select formControlName="invoiceDateControl" placeholder="תאריך חשבונית חדשה" [(ngModel)]="this.newInvoiceRequest.invoiceDate">
+            <mat-option *ngFor="let month of vars.availableMonths" [value]="month">
+              {{month}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field hintLabel="(באורך 4 ספרות)" class="mat-form-field-custom">
+          <input matInput type="text" [errorStateMatcher]="matcher" pattern="\d*" placeholder="מספר חשבונית חדשה" maxLength="4" [(ngModel)]="newInvoiceRequest.invoiceNum"
+            formControlName="invoiceIdControl">
+          <mat-error *ngIf="newInvoiceForm.get('invoiceIdControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
+          <mat-error *ngIf="newInvoiceForm.get('invoiceIdControl').hasError('required')">שדה נדרש</mat-error>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field-custom">
+          <textarea matInput placeholder="הערות לחשבונית" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="2" formControlName="invoiceRemarksControl"
+            [errorStateMatcher]="matcher" [(ngModel)]="newInvoiceRequest.invoiceRemarks"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="end center center">
+        <button mat-raised-button (click)="reset()" color="primary" type="button" class="btn">נקה</button>
+        <button mat-raised-button (click)="test()" color="primary" type="button" class="btn">tx</button>
+        <button mat-raised-button (click)="createNewInvoice()" disabled="{{!newInvoiceForm.valid}}" color="primary" class="btn">צור חשבונית</button>
+      </div>
+      <!-- <section class="loader-section">
+        <mat-progress-bar mode="indeterminate" *ngIf="(isValidating$|async)">
+        </mat-progress-bar>
+      </section> -->
+    </form>
 
   </mat-card>
 </div>

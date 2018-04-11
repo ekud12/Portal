@@ -39,7 +39,7 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
     PageNotFoundComponent,
     CustomDatepickerModule,
     PrintLayoutComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
   ]
 })
 export class SharedModule {}

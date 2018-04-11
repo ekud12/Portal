@@ -36,8 +36,8 @@
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
-      <button mat-button (click)="newInvoice()">Extranet</button>
-      <button mat-raised-button (click)="print()"> הדפס חשבוניות</button>
+      <button mat-raised-button color="primary" (click)="newInvoice()">צור חשבונית</button>
+      <button mat-raised-button color="primary" (click)="print()"> הדפס חשבוניות</button>
 
     </form>
 
@@ -78,7 +78,7 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="activateInvoice(row)" class="invoices-list-row"></mat-row>
       </mat-table>
 
-      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true">
       </mat-paginator>
 
     </mat-card>

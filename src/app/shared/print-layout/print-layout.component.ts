@@ -20,12 +20,7 @@ export class PrintLayoutComponent implements OnInit {
   object$: Observable<any>;
   data: any[];
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public incomingData: any,
-    private router: Router,
-    private route: ActivatedRoute,
-    private sharedStore: Store<fromSharedStore.SharedState>
-  ) {
+  constructor(private router: Router, private route: ActivatedRoute, private sharedStore: Store<fromSharedStore.SharedState>) {
     this.object$ = this.sharedStore.select(fromSharedStore.currentPrintObjectSelector);
     this.object$.subscribe(val => {
       this.object = val;

@@ -8,22 +8,22 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from '@angular/material';
-import { PageNotFoundComponent } from '../../../../shared/page-not-found/page-not-found.component';
-import { InvoicesVars } from './table-utils';
-import { Store } from '@ngrx/store';
-import * as fromInvoiceStore from '@invoicesStore';
-import * as fromSharedStore from '@sharedStore';
-import * as fromUserStore from '@userStore';
-import { Invoice, ElementInvoice } from '../../models/new-actions.model';
-import { FormControl } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layout.component';
-import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { FormControl } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+
 import * as moment from 'moment';
+import * as fromInvoiceStore from '@invoicesStore';
+import * as fromSharedStore from '@sharedStore';
+import * as fromUserStore from '@userStore';
+import { Invoice } from '../../models/new-actions.model';
 import { Sapak } from '../../../user/models/sapak.model';
+import { PrintObject } from '../../../../shared/global-models/print-object.interface';
+
+import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layout.component';
 import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.component';
 
 @Component({
@@ -44,6 +44,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     hideRequired: true,
     floatLabel: 'never'
   };
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   userName: string;
