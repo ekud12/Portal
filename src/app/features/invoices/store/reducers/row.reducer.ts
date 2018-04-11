@@ -23,6 +23,14 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
         activeInvoiceRow: action.payload
       };
     }
+    case userActions.RESET_INVOICE_ROWS: {
+      return {
+        ...state,
+        activeInvoiceRow: null,
+        isLoading: false,
+        errors: []
+      };
+    }
     // case userActions.GET_INVOICES: {
     //   return {
     //     ...state,

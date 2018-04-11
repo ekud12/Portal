@@ -48,7 +48,12 @@ export class UserEffects {
   logoutUser$ = this.actions$
     .ofType(userActions.LOGOUT_USER)
     .pipe(
-      switchMap(val => [new zakautStore.ResetZakaut(), new invoicesStore.ResetInvoices(), new userActions.UserLogoutCompleted()]),
+      switchMap(val => [
+        new zakautStore.ResetZakaut(),
+        new invoicesStore.ResetInvoices(),
+        new invoicesStore.ResetInvoiceRows(),
+        new userActions.UserLogoutCompleted()
+      ]),
       catchError(error => of(new userActions.UserLoginFail(error)))
     );
 

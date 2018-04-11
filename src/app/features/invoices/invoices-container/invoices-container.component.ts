@@ -35,6 +35,12 @@ export class InvoicesContainerComponent implements OnInit {
     this.currentInvoice$.subscribe(val => {
       if (!val) {
         this.router.navigate(['/portal/invoices/all']);
+      } else {
+        this.currentInvoiceRow$.take(1).subscribe(val2 => {
+          if (!val2) {
+            this.router.navigate(['/portal/invoices/rows']);
+          }
+        });
       }
     });
   }
