@@ -65,7 +65,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
   return localStorageSync({
     keys: [
       { user: ['user', 'activeSapak', 'isLoading'] },
-      { invoices: ['listOfInvoicesForSapak', 'activeInvoiceRow', 'activeInvoice'] }
+      { invoices: { invoices: ['listOfInvoicesForSapak', 'activeInvoice'], rows: ['activeInvoiceRow'] } }
     ],
     rehydrate: true
   })(reducer);
