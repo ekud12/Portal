@@ -84,7 +84,7 @@ export class ResetInvoices implements Action {
   readonly type = RESET_INVOICES;
 }
 
-export type userActions =
+export type userInvoiceActions =
   | GetInvoices
   | GetInvoicesSuccess
   | GetInvoicesFail

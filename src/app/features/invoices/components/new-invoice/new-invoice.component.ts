@@ -55,7 +55,10 @@ export class NewInvoiceComponent implements OnInit {
   ngOnInit() {
     this.newInvoiceForm = this.fb.group({
       invoiceDateControl: new FormControl({ value: '' }, [Validators.required]),
-      invoiceIdControl: new FormControl(null, [Validators.required, Validators.minLength(4)]),
+      invoiceIdControl: new FormControl(null, [
+        Validators.required
+        // Validators.minLength(4)
+      ]),
       invoiceRemarksControl: new FormControl(null)
     });
     this.loggedUserName$.subscribe(username => (this.newInvoiceRequest.userName = username));

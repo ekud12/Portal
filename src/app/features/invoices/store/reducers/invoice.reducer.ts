@@ -4,7 +4,7 @@ import { Invoice, InvoiceRow } from '../../models/new-actions.model';
 
 export interface InvoiceState {
   activeInvoice: any;
-  activeInvoiceRow: InvoiceRow;
+  activeInvoiceRow: Invoice;
   listOfInvoicesForSapak: Invoice[];
   errors: string[];
   isLoading: boolean;

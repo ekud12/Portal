@@ -116,7 +116,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
 
   activateInvoice(inv: any) {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(inv));
-    this.router.navigate(['/portal/invoices/rows']);
+    // this.router.navigate(['/portal/invoices/rows']);
   }
 
   buildObjectForPrint() {

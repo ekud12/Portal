@@ -10,7 +10,9 @@ export const ACTIVATE_INVOICE_ROW_COMPLETED = '[Invoice] Activate Invoice Row Co
 /** Actions - Activate Invoice Row */
 export class ActivateInvoiceRow implements Action {
   readonly type = ACTIVATE_INVOICE_ROW;
-  constructor(public payload: SapakDataRequest) {}
+  constructor(public payload: any) {
+    console.log(payload);
+  }
 }
 
 export class ActivateInvoiceRowSuccess implements Action {
@@ -27,4 +29,8 @@ export class ActivateInvoiceRowCompleted implements Action {
   readonly type = ACTIVATE_INVOICE_ROW_COMPLETED;
 }
 
-export type userActions = ActivateInvoiceRow | ActivateInvoiceRowSuccess | ActivateInvoiceRowFail | ActivateInvoiceRowCompleted;
+export type userRowActions =
+  | ActivateInvoiceRow
+  | ActivateInvoiceRowSuccess
+  | ActivateInvoiceRowFail
+  | ActivateInvoiceRowCompleted;

@@ -13,7 +13,7 @@ import { InvoicesService } from './invoices.service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { invoiceReducer, effects } from './store';
+import { invoiceReducer, rowReducer, effects } from './store';
 import { InvoicesContainerComponent } from './invoices-container/invoices-container.component';
 
 const COMPONENTS = [
@@ -31,7 +31,7 @@ const COMPONENTS = [
     UserModule,
     FormsModule,
     RouterModule.forChild(invoicesRoutes),
-    StoreModule.forFeature('invoices', invoiceReducer),
+    StoreModule.forFeature('invoices', { invoiceReducer, rowReducer }),
     EffectsModule.forFeature(effects)
   ],
   providers: [InvoicesService, DatePipe],

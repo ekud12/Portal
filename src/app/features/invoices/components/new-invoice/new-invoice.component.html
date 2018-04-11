@@ -6,9 +6,9 @@
   </div>
 
   <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="start stretch center">
-    <!-- <div fxLayout="row" fxLayoutAlign="start center center" class="comment">
+    <div fxLayout="row" fxLayoutAlign="start center center" class="comment">
       {{vars.comment}}
-    </div> -->
+    </div>
 
     <form fxLayout="column" #formTag="ngForm" fxLayoutAlign="start stretch center" fxLayoutGap="10px" class="new-invoice-form"
       [formGroup]="newInvoiceForm" (ngSubmit)="createNewInvoice()">
@@ -21,10 +21,10 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field hintLabel="(באורך 4 ספרות)" class="mat-form-field-custom">
+        <mat-form-field hintLabel="(עד 4 ספרות)" class="mat-form-field-custom">
           <input matInput type="text" pattern="\d*" placeholder="מספר חשבונית חדשה" maxLength="4" [(ngModel)]="newInvoiceRequest.invoiceNum"
             formControlName="invoiceIdControl">
-          <mat-error *ngIf="newInvoiceForm.get('invoiceIdControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error>
+          <!-- <mat-error *ngIf="newInvoiceForm.get('invoiceIdControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error> -->
           <mat-error *ngIf="newInvoiceForm.get('invoiceIdControl').hasError('required')">שדה נדרש</mat-error>
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">

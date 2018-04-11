@@ -138,4 +138,8 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  activateInvoiceRow(row: any) {
+    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
+  }
 }

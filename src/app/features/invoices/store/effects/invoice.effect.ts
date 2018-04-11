@@ -40,6 +40,19 @@ export class InvoiceEffects {
   );
 
   @Effect()
+  activateInvoice$ = this.actions$.ofType(userActions.ACTIVATEֹֹֹּ_INVOICE).pipe(
+    map((action: userActions.ActivateInvoice) => action.payload),
+    tap(val => {
+      this.toaster.openSnackBar(`חשבונית מס' ${val.invoiceNum} נבחרה כפעילה.`, null);
+    }),
+    map(() => {
+      return new fromRoot.Go({
+        path: ['/portal/invoices/rows']
+      });
+    })
+  );
+
+  @Effect()
   createInvoiceSuccess$ = this.actions$.ofType(userActions.CREATEֹֹֹּ_INVOICE_SUCCESS).pipe(
     map((action: userActions.CreateInvoiceSuccess) => action.payload),
     tap(val => {
