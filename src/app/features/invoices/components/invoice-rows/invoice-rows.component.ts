@@ -53,7 +53,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   listOfInvoices$: Observable<Invoice[]>;
   currentInvoice$: Observable<Invoice>;
   dataObject: PrintObject = new PrintObject();
-  selectedFilter;
+  selectedFilter = this.displayedColumnsMap[1];
   dataSource;
 
   constructor(
@@ -85,7 +85,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
     });
-    this.selectedFilter = { value: 'invoiceId', viewValue: 'מספר חשבונית' };
+
     this.dataSource.filterPredicate = (data: Element, filter: string) =>
       data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
   }

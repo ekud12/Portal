@@ -16,7 +16,7 @@
     <form fxLayout="column" fxLayoutAlign="space-around stretch center" novalidate fxLayoutGap="10px" class="invoices-rows-filter-form">
       <div fxLayout="row" fxLayoutAlign="space-around center center">
         <mat-form-field>
-          <mat-select placeholder="בחר מסנן.." [(ngModel)]="selectedFilter" [value]="selectedFilter" name="filterCategory">
+          <mat-select placeholder="בחר מסנן.." [(ngModel)]="selectedFilter" name="filterCategory">
             <mat-option *ngFor="let searchFilter of displayedColumnsMap" [value]="searchFilter">
               {{ searchFilter.viewValue }}
             </mat-option>
@@ -26,7 +26,6 @@
         <mat-form-field>
           <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="applyFilter($event.target.value)">
         </mat-form-field>
-
 
         <mat-form-field [floatLabel]="vars.floatLabel">
           <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך">
