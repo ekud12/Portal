@@ -3,18 +3,71 @@ import { BackendService } from '../../core/services/backend.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { SapakDataRequest } from '../user/models/sapak.model';
-import { NewInvoiceRequest } from './models/new-actions.model';
+import { NewInvoiceRequest, Invoice } from './models/new-actions.model';
 
 @Injectable()
 export class InvoicesService {
   constructor(private backendService: BackendService) {}
 
-  getAllInvoicesForSapak(request: SapakDataRequest): Observable<any> {
-    return Observable.of([
-      { invoiceNum: 4015, billMonth: '12/2018', totalRowsNum: 1, invoiceSum: 581, status: 0 },
-      { invoiceNum: 999, billMonth: '12/2018', totalRowsNum: 1, invoiceSum: 157, status: 1 },
-      { invoiceNum: 4866, billMonth: '11/2018', totalRowsNum: 1, invoiceSum: 1874, status: 0 }
-    ]);
+  getAllInvoicesForSapak(request: SapakDataRequest): Observable<Invoice[]> {
+    const ret = [
+      {
+        billMonth: '12/2018',
+        invoiceNum: 4015,
+        totalRowsNum: 1,
+        invoiceSum: 581,
+        status: 0,
+        invoiceType: 0,
+        typedSum: 450,
+        exeCode: 'do',
+        totalOffset: 5,
+        totalKZZApprl: 6,
+        rate: 17,
+        isVat: 'yes',
+        currency: '$',
+        vatPer: 0.6,
+        remark1: 'fml',
+        remark2: 'fml2'
+      },
+      {
+        billMonth: '12/2018',
+        invoiceNum: 335,
+        totalRowsNum: 1,
+        invoiceSum: 581,
+        status: 0,
+        invoiceType: 0,
+        typedSum: 450,
+        exeCode: 'do',
+        totalOffset: 5,
+        totalKZZApprl: 6,
+        rate: 17,
+        isVat: 'yes',
+        currency: '$',
+        vatPer: 0.6,
+        remark1: 'fml',
+        remark2: 'fml2'
+      },
+      {
+        billMonth: '07/2018',
+        invoiceNum: 9335,
+        totalRowsNum: 1,
+        invoiceSum: 581,
+        status: 0,
+        invoiceType: 0,
+        typedSum: 450,
+        exeCode: 'do',
+        totalOffset: 5,
+        totalKZZApprl: 6,
+        rate: 17,
+        isVat: 'yes',
+        currency: '$',
+        vatPer: 0.6,
+        remark1: 'fml',
+        remark2: 'fml2'
+      }
+    ];
+
+    return Observable.of(ret);
   }
 
   createInvoice(request: NewInvoiceRequest): Observable<boolean> {

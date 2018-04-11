@@ -7,20 +7,7 @@
 
   <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
 
-    <form #filterInvoices fxLayout="row" fxLayoutAlign="space-around center center" novalidate fxLayoutGap="10px" class="invoices-filter-form">
-
-      <!-- <mat-form-field>
-        <mat-select placeholder="בחר מסנן.." [(ngModel)]="selectedFilter" [value]="selectedFilter" name="filterCategory">
-          <mat-option *ngFor="let searchFilter of displayedColumnsMap" [value]="searchFilter">
-            {{ searchFilter.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> -->
-      <!-- <mat-form-field>
-          <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="applyFilterInvoiceNumber($event.target.value)">
-        </mat-form-field> -->
-
-
+    <form fxLayout="row" fxLayoutAlign="space-around center center" novalidate fxLayoutGap="10px" class="invoices-filter-form">
       <mat-form-field>
         <input matInput placeholder="סנן לפי חשבונית..." (keyup)="applyFilterInvoiceNumber($event.target.value)">
       </mat-form-field>
@@ -75,7 +62,7 @@
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="activateInvoice(row)" class="invoices-list-row"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="activateInvoice(row)" class="invoices-list-item"></mat-row>
       </mat-table>
 
       <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true">

@@ -1,3 +1,87 @@
-<p>
-  invoice-rows works!
-</p>
+<div fxLayout="column" fxLayoutAlign="space-around center stretch">
+
+  <div class="title" fxHide.lt-md fxFlexOrder="1">
+    <h1>פורטל ספקים</h1>
+    <h2>שורות (ExtraNet)</h2>
+  </div>
+
+  <mat-card fxFlexOrder="2" class="invoices-rows-container" fxLayout="column" fxLayoutAlign="space-between  center center"
+    fxLayoutGap="10px">
+    <div fxLayout="row" fxLayoutAlign="end center center">
+      <button mat-raised-button color="primary" class="btn" (click)="print()">הדפס דרישת תשלום</button>
+      <button mat-raised-button color="primary" class="btn"> הדפס שורות לחשבונית</button>
+      <button mat-raised-button color="primary" class="btn"> הדפס טיפולים לחשבונית</button>
+      <button mat-raised-button color="primary" class="btn">הדפס סיכום חשבונית</button>
+    </div>
+    <form fxLayout="column" fxLayoutAlign="space-around stretch center" novalidate fxLayoutGap="10px" class="invoices-rows-filter-form">
+      <div fxLayout="row" fxLayoutAlign="space-around center center">
+        <mat-form-field>
+          <mat-select placeholder="בחר מסנן.." [(ngModel)]="selectedFilter" [value]="selectedFilter" name="filterCategory">
+            <mat-option *ngFor="let searchFilter of displayedColumnsMap" [value]="searchFilter">
+              {{ searchFilter.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="applyFilter($event.target.value)">
+        </mat-form-field>
+
+
+        <mat-form-field [floatLabel]="vars.floatLabel">
+          <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="year"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field [floatLabel]="vars.floatLabel">
+          <input matInput readonly [matDatepicker]="picker2" placeholder="עד תאריך">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </form>
+
+    <mat-card>
+      <mat-table #table [dataSource]="dataSource" matSort matSortActive="invoiceNum" matSortDirection="desc" matSortDisableClear>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="billMonth">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> תאריך חשבונית </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.billMonth}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="invoiceNum">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> מספר חשבונית </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.invoiceNum}} </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="totalRowsNum">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> סה"כ שורות </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.totalRowsNum}} </mat-cell>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="invoiceSum">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> סכום חשבונית </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.invoiceSum}} </mat-cell>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> סטטוס חשבונית </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" class="invoices-list-row"></mat-row>
+      </mat-table>
+
+      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true">
+      </mat-paginator>
+
+    </mat-card>
+  </mat-card>
+</div>

@@ -42,11 +42,11 @@ h2 {
   padding: 5px;
 }
 
-.invoices-list-row {
+.invoices-list-item {
   cursor: pointer;
   background-color: rgb(255, 255, 255);
   transition: all 0.3s ease;
 }
-.invoices-list-row:hover {
+.invoices-list-item:hover {
   background-color: rgb(204, 220, 240);
 }
