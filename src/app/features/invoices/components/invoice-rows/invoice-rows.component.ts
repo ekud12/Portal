@@ -125,4 +125,17 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       queryParams: { isIE: true, returnUrl: this.router.url }
     });
   }
+
+  closeInvoice() {
+    /** test for dialog it works */
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: { data: 'לאחר הפקת דרישת התשלום, לא ניתן יהיה לעדכן את החשבונית.' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        /** add logic to close invoice and only than go to print */
+        this.print();
+      }
+    });
+  }
 }

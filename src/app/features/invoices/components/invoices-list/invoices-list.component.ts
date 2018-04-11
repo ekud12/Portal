@@ -105,18 +105,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
 
   newInvoice() {
     this.router.navigate(['portal/invoices/new']);
-    /** test for dialog it works */
-    // this.currentInvoice$.take(1).subscribe(val => {
-    //   if (val) {
-    //     this.router.navigate(['portal/invoices/new']);
-    //   } else {
-    //     this.dialog.open(AlertDialogComponent, {
-    //       height: '100px',
-    //       width: '50%',
-    //       data: { data: 'טרם נבחרה חשבונית. לאחר בחירת חשבונית יתאפשר.' }
-    //     });
-    //   }
-    // });
+
   }
 
   applyFilterInvoiceNumber(filterValue: string) {
