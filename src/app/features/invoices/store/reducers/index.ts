@@ -3,12 +3,14 @@
 
 import * as fromInvoice from './invoice.reducer';
 import * as fromInvoiceRow from './row.reducer';
-import { ActionReducerMap } from '@ngrx/store';
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 export interface InvoicesState {
-  invoices: fromInvoice.InvoiceState;
+  invoice: fromInvoice.InvoiceState;
   rows: fromInvoiceRow.InvoiceRowState;
 }
 export const reducers: ActionReducerMap<InvoicesState> = {
-  invoices: fromInvoice.invoiceReducer,
+  invoice: fromInvoice.invoiceReducer,
   rows: fromInvoiceRow.rowReducer
 };
+
+export const getInvoicesState = createFeatureSelector<InvoicesState>('invoices');

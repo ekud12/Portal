@@ -42,9 +42,8 @@ export function getInitialState(): AppState {
       errors: []
     },
     invoices: {
-      invoices: {
+      invoice: {
         activeInvoice: null,
-
         listOfInvoicesForSapak: [],
         isLoading: false,
         errors: []
