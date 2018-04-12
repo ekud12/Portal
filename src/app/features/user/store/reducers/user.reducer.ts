@@ -33,6 +33,7 @@ export function userReducer(state = userInitialState, action: any): UserState {
     case userActions.LOGIN_USER_SUCCESS: {
       const suppliersList: Sapak[] = [];
       const rawSuppliersData = JSON.parse(action.payload.suppliersHebrew);
+      console.log(rawSuppliersData);
       Object.keys(rawSuppliersData).map(key => {
         suppliersList.push({
           kodSapak: rawSuppliersData[key].SupplierCode,
@@ -43,7 +44,8 @@ export function userReducer(state = userInitialState, action: any): UserState {
               desc: ZakautDesc[+rawSuppliersData[key].SupplierType]
             }
           },
-          treatments: []
+          treatments: [],
+          exeCode: null
         });
       });
       suppliersList.push({
@@ -55,7 +57,8 @@ export function userReducer(state = userInitialState, action: any): UserState {
             desc: 'יכול לבדוק רק בלי לבחור טיפול'
           }
         },
-        treatments: []
+        treatments: [],
+        exeCode: null
       });
       suppliersList.push({
         kodSapak: '249998888',
@@ -66,7 +69,8 @@ export function userReducer(state = userInitialState, action: any): UserState {
             desc: 'מנתח!!!!!'
           }
         },
-        treatments: []
+        treatments: [],
+        exeCode: null
       });
       return {
         ...state,
@@ -94,7 +98,7 @@ export function userReducer(state = userInitialState, action: any): UserState {
       return {
         ...state,
         user: { username: null, availableSapakim: [] },
-        activeSapak: { kodSapak: '', treatments: [] },
+        activeSapak: { kodSapak: '', treatments: [], exeCode: null },
         errors: [],
         isLoading: false
       };
@@ -124,6 +128,8 @@ export function userReducer(state = userInitialState, action: any): UserState {
       });
       const newSapakIdentity = state.user.availableSapakim.find(toFind => toFind.kodSapak === action.data.kodSapak);
       newSapakIdentity.treatments = treatments;
+      console.log(action.payload[0].executeCodeField);
+      newSapakIdentity.exeCode = action.payload[0]['executeCodeField'];
       return {
         ...state,
         activeSapak: newSapakIdentity,

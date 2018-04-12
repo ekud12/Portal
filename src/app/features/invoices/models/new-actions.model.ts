@@ -43,7 +43,7 @@ export class NewInvoiceRequest {
 export class NewInvoiceRowRequest {
   commitment: string;
   custId: string;
-  custIdType: string;
+  custIdType = '1';
   visitNum: string;
   treat: SapakTreatment;
   treatCount: string;
@@ -55,7 +55,6 @@ export class NewInvoiceRowRequest {
   constructor(
     commitment: string,
     custId: string,
-    custIdType: string,
     visitNum: string,
     treat: SapakTreatment,
     treatCount: string,
@@ -64,7 +63,6 @@ export class NewInvoiceRowRequest {
   ) {
     this.commitment = commitment;
     this.custId = custId;
-    this.custIdType = custIdType;
     this.visitNum = visitNum;
     this.treat = treat;
     this.treatCount = treatCount;

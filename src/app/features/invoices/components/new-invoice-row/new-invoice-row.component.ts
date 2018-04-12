@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -26,7 +26,7 @@ export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './new-invoice-row.component.html',
   styleUrls: ['./new-invoice-row.component.css']
 })
-export class NewInvoiceRowComponent implements OnInit {
+export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
   vars = {
     hideRequired: true,
     floatLabel: 'never',
@@ -34,7 +34,7 @@ export class NewInvoiceRowComponent implements OnInit {
       required: 'שדה חובה',
       minlength: 'נתון קצר מדי'
     },
-    idTypes: [{ value: '1', viewValue: 'ת"ז' }, { value: '9', viewValue: 'דרכון' }],
+    idTypes: [{ value: '1', viewValue: 'תז' }, { value: '9', viewValue: 'דרכון' }],
     comment: '',
     availableMonths: getDatesForInvoiceCreation(3)
   };
@@ -43,7 +43,7 @@ export class NewInvoiceRowComponent implements OnInit {
   currentInvoice$: Observable<Invoice>;
   matcher = new ErrorStateMatcher();
 
-  newInvoiceRowRequest = new NewInvoiceRowRequest('', '', this.vars.idTypes[0].value, '', null, '', null, '');
+  newInvoiceRowRequest = new NewInvoiceRowRequest('', '', '', null, '', null, '');
   @ViewChild('formTag') myForm;
   @ViewChild('treatChoices') treatChoices;
 
@@ -53,6 +53,7 @@ export class NewInvoiceRowComponent implements OnInit {
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
   }
 
+  ngAfterViewInit() {}
   ngOnInit() {
     this.loggedUserName$.subscribe(username => (this.newInvoiceRowRequest.userName = username));
     this.currentSapak$.subscribe(spk => {
@@ -66,8 +67,7 @@ export class NewInvoiceRowComponent implements OnInit {
   }
 
   reset() {
-    this.myForm.resetForm();
-    this.newInvoiceRowRequest = new NewInvoiceRowRequest('', '', this.vars.idTypes[0].value, '', null, '', null, '');
+    this.myForm.resetForm({ custIdType: this.vars.idTypes[0].value });
   }
 
   updateTreatValue(e) {

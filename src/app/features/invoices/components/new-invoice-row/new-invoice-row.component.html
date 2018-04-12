@@ -34,7 +34,8 @@
 
       <div fxLayout="row" fxLayoutAlign="start stretch center">
         <mat-form-field class="mat-form-field-custom">
-          <mat-select placeholder="בחר טיפול" [(ngModel)]="newInvoiceRowRequest.treat" name="treat" #treatChoices required>
+          <mat-select placeholder="נא לבחור טיפול או להזין קוד טיפול." [(ngModel)]="newInvoiceRowRequest.treat" name="treat" #treatChoices
+            required>
             <mat-option *ngFor="let treat of (currentSapak$ |async).treatments" [value]="treat">
               {{treat.treatDesc}} | ({{treat.treatCode}})
             </mat-option>
@@ -48,15 +49,26 @@
             (input)="updateTreatValue($event.target.value)" required>
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="treatCount" pattern="\d*" placeholder="כמות" maxLength="5" [ngModel]="newInvoiceRowRequest.treatCount"
+          <input matInput type="text" name="treatCount" pattern="\d*" placeholder="כמות" maxLength="5" [(ngModel)]="newInvoiceRowRequest.treatCount"
             required>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="בחר תאריך ביקור" [(ngModel)]="newInvoiceRowRequest.date" name="date"
-            required disabled>
+          <input matInput [matDatepicker]="picker" placeholder="תאריך ביקור" [(ngModel)]="newInvoiceRowRequest.date" name="date" required
+            readonly>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker disabled="false" touchUi="true"></mat-datepicker>
+          <mat-datepicker readonly #picker></mat-datepicker>
         </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center stretch">
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="מחיר" maxLength="10" required disabled>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center stretch">
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="סהכ" maxLength="10" required disabled>
+        </mat-form-field>
+
       </div>
 
       <div fxLayout="row" fxLayoutAlign="end center center">
