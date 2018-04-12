@@ -88,7 +88,7 @@ export class InvoicesService {
     return Observable.of(ret);
   }
 
-  getAllInvoiceRows(request: SapakDataRequest): Observable<InvoiceRow[]> {
+  getAllInvoiceRows(request: SapakDataRequest): Observable<Invoice[]> {
     const ret = [
       {
         billMonth: '12/2018',

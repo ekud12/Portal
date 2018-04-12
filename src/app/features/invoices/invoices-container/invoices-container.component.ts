@@ -7,11 +7,13 @@ import { Observable } from 'rxjs/Observable';
 
 import { Sapak } from '../../user/models/sapak.model';
 import { Invoice, InvoiceRow } from '../models/new-actions.model';
+import { fadeAnimation, moveAnimation } from 'app/core/animations/animations';
 
 @Component({
   selector: 'app-invoices-container',
   templateUrl: './invoices-container.component.html',
-  styleUrls: ['./invoices-container.component.css']
+  styleUrls: ['./invoices-container.component.css'],
+  animations: [moveAnimation]
 })
 export class InvoicesContainerComponent implements OnInit {
   currentSapak$: Observable<Sapak>;

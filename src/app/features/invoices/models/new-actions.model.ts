@@ -20,7 +20,31 @@ export class Invoice {
 }
 
 export class InvoiceRow {
-  constructor() {}
+  lineNum: number;
+  custIDtype: string;
+  custID: number;
+  custIDBikoret: number;
+  custSecName: string;
+  custFirstName: string;
+  commitmentId: number;
+  visitNum: number;
+  amount: number;
+  typedAmount: number;
+  treatmentLine: number;
+  date: Date;
+  treatmentCode: string;
+  kzzType: string;
+  KzzCode: string;
+  kzzDesc: string;
+  kzzLiterally1: string;
+  kzzLiterally2: string;
+  kzzLiterally3: string;
+  kzzLiterally4: string;
+  kzzLiterally5: string;
+  kzzLiterally6: string;
+  KzzStatus: string;
+  kzzStatusDesc: string;
+  treatmentDesc: string;
 }
 
 export class InvoiceTreatment {

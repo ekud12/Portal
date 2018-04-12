@@ -27,7 +27,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="visitNum" pattern="\d*" placeholder="מספר ביקור" maxLength="5" [(ngModel)]="newInvoiceRowRequest.visitNum"
+          <input matInput type="text" name="visitNum" pattern="\d*" placeholder="מספר ביקור" maxLength="11" [(ngModel)]="newInvoiceRowRequest.visitNum"
             required>
         </mat-form-field>
       </div>
@@ -49,7 +49,7 @@
             (input)="updateTreatValue($event.target.value)" required>
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="treatCount" pattern="\d*" placeholder="כמות" #num1 maxLength="5" [(ngModel)]="newInvoiceRowRequest.treatCount"
+          <input matInput type="text" name="treatCount" pattern="\d*" placeholder="כמות" #num1 maxLength="10" [(ngModel)]="newInvoiceRowRequest.treatCount"
             required>
         </mat-form-field>
         <mat-form-field>
@@ -67,7 +67,7 @@
       </div>
       <div fxLayout="row" fxLayoutAlign="start stretch center">
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="סהכ" maxLength="10" required disabled
+          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="סהכ" maxLength="15" required disabled
             value=" {{num1.value * num2.value}} ₪">
         </mat-form-field>
 

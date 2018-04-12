@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="space-between center center" class="top-invoice-menu">
+<div fxLayout="row" fxLayoutAlign="space-between center center" class="top-invoice-menu" [@itemAnim]>
   <div *ngIf="(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch center">
     <div class="invoices-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
       <div class="summary-content-item"> חשבונית מספר : </div>{{(currentInvoice$|async)?.invoiceNum}}
@@ -7,6 +7,7 @@
       <div class="summary-content-item"> סכום לא כולל מע"מ : </div> {{(currentInvoice$|async)?.typedSum}}
       <div class="summary-content-item">אחוז מע"מ : </div> {{(currentInvoice$|async)?.rate}}
       <div class="summary-content-item"> סכום כולל מע"מ : </div> {{(currentInvoice$|async)?.invoiceSum}}
+      <div class="summary-content-item"> הערות : </div> {{(currentInvoice$|async)?.remark1}},{{(currentInvoice$|async)?.remark2}}
     </div>
     <div *ngIf=(currentInvoiceRow$|async) class="invoices-row-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
       <div class="summary-content-item"> שורה מספר : </div>

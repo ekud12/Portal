@@ -191,7 +191,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   }
 
   buildPrintObjectSummary() {
-    this.dataObject.mainHeader = 'סיכום חשבונית';
+    this.dataObject.mainHeader = '';
     this.currentInvoice$.take(1).subscribe(inv => {
       this.dataObject.parentContent = [
         { view: `חשבונית מס:`, value: inv.invoiceNum },
