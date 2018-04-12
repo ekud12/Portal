@@ -10,6 +10,8 @@ export const userNameSelector = createSelector(getUserState, (state: UserState) 
 
 export const activeSapakSelector = createSelector(getUserState, (state: UserState) => state.activeSapak);
 
+export const activeSapakCanEnterPriceSelector = createSelector(getUserState, (state: UserState) => state.activeSapak.exeCode);
+
 export const activeSapakTreatmentsSelector = createSelector(getUserState, (state: UserState) => state.activeSapak.treatments);
 
 export const userErrorsSelector = createSelector(getUserState, (state: UserState) => state.errors);

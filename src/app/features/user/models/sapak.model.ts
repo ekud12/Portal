@@ -5,7 +5,7 @@ export class Sapak {
   description?: string;
   permissions?: { [key: string]: Permission };
   treatments?: SapakTreatment[];
-  exeCode?: string;
+  exeCode?: boolean;
 }
 
 export class SapakTreatment {

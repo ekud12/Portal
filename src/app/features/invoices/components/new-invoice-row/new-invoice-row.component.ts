@@ -42,6 +42,7 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
   currentSapak$: Observable<Sapak>;
   currentInvoice$: Observable<Invoice>;
   matcher = new ErrorStateMatcher();
+  canEnterPrice$: Observable<boolean>;
 
   newInvoiceRowRequest = new NewInvoiceRowRequest('', '', '', null, '', null, '');
   @ViewChild('formTag') myForm;
@@ -51,6 +52,7 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
+    this.canEnterPrice$ = this.userStore.select(fromUserStore.activeSapakCanEnterPriceSelector);
   }
 
   ngAfterViewInit() {}

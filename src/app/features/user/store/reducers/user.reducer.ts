@@ -128,8 +128,8 @@ export function userReducer(state = userInitialState, action: any): UserState {
       });
       const newSapakIdentity = state.user.availableSapakim.find(toFind => toFind.kodSapak === action.data.kodSapak);
       newSapakIdentity.treatments = treatments;
-      console.log(action.payload[0].executeCodeField);
-      newSapakIdentity.exeCode = action.payload[0]['executeCodeField'];
+      action.payload[0].executeCodeField === 'N' ? (newSapakIdentity.exeCode = false) : (newSapakIdentity.exeCode = true);
+
       return {
         ...state,
         activeSapak: newSapakIdentity,
