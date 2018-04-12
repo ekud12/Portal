@@ -33,7 +33,6 @@ export function userReducer(state = userInitialState, action: any): UserState {
     case userActions.LOGIN_USER_SUCCESS: {
       const suppliersList: Sapak[] = [];
       const rawSuppliersData = JSON.parse(action.payload.suppliersHebrew);
-      console.log(rawSuppliersData);
       Object.keys(rawSuppliersData).map(key => {
         suppliersList.push({
           kodSapak: rawSuppliersData[key].SupplierCode,

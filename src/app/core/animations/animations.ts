@@ -1,8 +1,8 @@
 import { trigger, state, animate, transition, style } from '@angular/animations';
 
 export const moveAnimation = trigger('itemAnim', [
-  transition(':enter', [style({ transform: 'translateY(-100%)', opacity: 1 }), animate(1600)]),
-  transition(':leave', [style({ transform: 'translateY(-100%)', opacity: 1 }), animate(600)])
+  transition(':enter', [style({ transform: 'translateY(-100%)', opacity: 0.5 }), animate('0.5s 0.5s')]),
+  transition(':leave', [style({ transform: 'translateY(-100%)', opacity: 0.5 }), animate('0.5s 0.5s')])
 ]);
 
 export const fadeAnimation = trigger('itemFade', [

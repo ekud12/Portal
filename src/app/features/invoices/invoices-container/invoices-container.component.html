@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <div class="invoices-actions" fxLayout="row" fxLayoutAlign="space-around center center">
+  <div class="invoices-actions" fxLayout="row" fxLayoutAlign="space-around center stretch">
     <button *ngIf="(currentInvoice$|async)" mat-button>העברת כרטיס מגנטי</button>
     <button *ngIf="(currentInvoice$|async)" mat-button>דוח דיווחי כ.מגנטי</button>
     <button mat-button routerLink="/portal/invoices">חשבוניות</button>
