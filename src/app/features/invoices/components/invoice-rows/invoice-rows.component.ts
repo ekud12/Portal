@@ -25,6 +25,7 @@ import { PrintObject } from '../../../../shared/global-models/print-object.inter
 
 import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layout.component';
 import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.component';
+import { ToastService } from 'app/core/services/toast-service.service';
 
 @Component({
   selector: 'app-invoice-rows',
@@ -61,7 +62,8 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     private router: Router,
     private sharedStore: Store<fromSharedStore.SharedState>,
     private userStore: Store<fromUserStore.UserState>,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toaster: ToastService
   ) {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
@@ -121,6 +123,16 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
   }
 
+  newInvoiceRow() {
+    this.currentInvoice$.take(1).subscribe(val => {
+      if (val.status === 0 || val.status === 1) {
+        this.router.navigate(['portal/invoices/newRow']);
+      } else {
+        this.toaster.openSnackBar('סטטוס חשבונית פעילה לא מאפשר הוספת שורה חדשה.');
+      }
+    });
+  }
+
   closeInvoice() {
     const dialogRef = this.dialog.open(AlertDialogComponent, {
       data: { data: 'לאחר הפקת דרישת התשלום, לא ניתן יהיה לעדכן את החשבונית.' }
@@ -132,7 +144,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
+  /************************************************  BUILD OBJECTS FOR PRINTING ****************************************************/
   buildPrintObjectCloseInvoice() {
     this.currentInvoice$.take(1).subscribe(inv => {
       this.dataObject.mainHeader = `דרישת תשלום מספר ${inv.invoiceNum} לחודש ${inv.billMonth}.`;
@@ -198,4 +210,6 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.dataObject.dismap = this.displayedColumnsMap;
     this.dataObject.data = this.dataSource.connect().value;
   }
+
+  /*********************************************************  END ************************************************************/
 }

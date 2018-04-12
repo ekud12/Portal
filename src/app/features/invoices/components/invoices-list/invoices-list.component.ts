@@ -102,7 +102,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   newInvoice() {
-    this.router.navigate(['portal/invoices/new']);
+    this.router.navigate(['portal/invoices/newInvoice']);
   }
 
   applyFilterInvoiceNumber(filterValue: string) {

@@ -57,7 +57,6 @@ export class NewInvoiceComponent implements OnInit {
       invoiceDateControl: new FormControl({ value: '' }, [Validators.required]),
       invoiceIdControl: new FormControl(null, [
         Validators.required
-        // Validators.minLength(4)
       ]),
       invoiceRemarksControl: new FormControl(null)
     });
@@ -72,7 +71,6 @@ export class NewInvoiceComponent implements OnInit {
   reset() {
     this.myForm.resetForm();
     this.newInvoiceForm.get('invoiceDateControl').setValue(this.vars.availableMonths[0]);
-    console.log(this.newInvoiceForm);
   }
 }
 

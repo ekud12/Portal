@@ -1,0 +1,73 @@
+<div fxLayout="column" fxLayoutAlign="space-around center stretch">
+
+  <div class="title" fxHide.lt-md fxFlexOrder="1">
+    <h1>פורטל ספקים</h1>
+    <h2>הוספת שורה לחשבונית (ExtraNet)</h2>
+  </div>
+
+  <mat-card fxFlexOrder="2" class="invoices-row-container" fxLayout="column" fxLayoutAlign="start stretch center">
+
+    <form fxLayout="column" #formTag="ngForm" fxLayoutAlign="start stretch center" fxLayoutGap="10px" class="new-invoice-row-form"
+      (ngSubmit)="addInvoiceRow()" novalidate>
+
+      <div fxLayout="row" fxLayoutAlign="start center stretch">
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="commitment" pattern="\d*" placeholder="מספר התחייבות" maxLength="9" [(ngModel)]="newInvoiceRowRequest.commitment"
+            required>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="custId" pattern="\d*" placeholder="תעודת זהות" maxLength="9" [(ngModel)]="newInvoiceRowRequest.custId"
+            required>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field-custom">
+          <mat-select [(ngModel)]="newInvoiceRowRequest.custIdType" name="custIdType" required>
+            <mat-option *ngFor="let idType of vars.idTypes" [value]="idType.value">
+              {{idType.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="visitNum" pattern="\d*" placeholder="מספר ביקור" maxLength="5" [(ngModel)]="newInvoiceRowRequest.visitNum"
+            required>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start stretch center">
+        <mat-form-field class="mat-form-field-custom">
+          <mat-select placeholder="בחר טיפול" [(ngModel)]="newInvoiceRowRequest.treat" name="treat" #treatChoices required>
+            <mat-option *ngFor="let treat of (currentSapak$ |async).treatments" [value]="treat">
+              {{treat.treatDesc}} | ({{treat.treatCode}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center stretch">
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="קוד טיפול" maxLength="10" [ngModel]="treatChoices.value ? treatChoices.value.treatCode : treatChoices.value "
+            (input)="updateTreatValue($event.target.value)" required>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="treatCount" pattern="\d*" placeholder="כמות" maxLength="5" [ngModel]="newInvoiceRowRequest.treatCount"
+            required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="בחר תאריך ביקור" [(ngModel)]="newInvoiceRowRequest.date" name="date"
+            required disabled>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker disabled="false" touchUi="true"></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="end center center">
+        <button mat-raised-button type="button" (click)="reset()" color="primary" class="btn">נקה</button>
+        <button mat-raised-button type="submit" color="primary" class="btn" [disabled]="!formTag.form.valid">שלח</button>
+      </div>
+      <!-- <section class="loader-section ">
+        <mat-progress-bar mode="indeterminate " *ngIf="(isValidating$|async) ">
+        </mat-progress-bar>
+      </section> -->
+    </form>
+
+  </mat-card>
+</div>

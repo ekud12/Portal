@@ -15,13 +15,15 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { reducers, effects } from './store';
 import { InvoicesContainerComponent } from './invoices-container/invoices-container.component';
+import { NewInvoiceRowComponent } from './components/new-invoice-row/new-invoice-row.component';
 
 const COMPONENTS = [
   InvoiceRowsComponent,
   NewInvoiceComponent,
   InvoiceRowTreatmentsComponent,
   InvoicesListComponent,
-  InvoicesContainerComponent
+  InvoicesContainerComponent,
+  NewInvoiceRowComponent
 ];
 
 @NgModule({

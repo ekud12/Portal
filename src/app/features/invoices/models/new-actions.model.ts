@@ -1,3 +1,5 @@
+import { SapakTreatment } from '../../user/models/sapak.model';
+
 export class Invoice {
   billMonth: string;
   invoiceNum: number;
@@ -35,6 +37,39 @@ export class NewInvoiceRequest {
     this.invoiceDate = date;
     this.invoiceNum = id;
     this.invoiceRemarks = remark;
+  }
+}
+
+export class NewInvoiceRowRequest {
+  commitment: string;
+  custId: string;
+  custIdType: string;
+  visitNum: string;
+  treat: SapakTreatment;
+  treatCount: string;
+  date: Date;
+  price: string;
+  userName: string;
+  kodSapak: string;
+
+  constructor(
+    commitment: string,
+    custId: string,
+    custIdType: string,
+    visitNum: string,
+    treat: SapakTreatment,
+    treatCount: string,
+    date: Date,
+    price: string
+  ) {
+    this.commitment = commitment;
+    this.custId = custId;
+    this.custIdType = custIdType;
+    this.visitNum = visitNum;
+    this.treat = treat;
+    this.treatCount = treatCount;
+    this.date = date;
+    this.price = price;
   }
 }
 

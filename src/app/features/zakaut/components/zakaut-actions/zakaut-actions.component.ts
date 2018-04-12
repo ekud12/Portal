@@ -267,8 +267,7 @@ export class ZakautActionsComponent implements OnInit {
 
   //#endregion
 
-  CheckAutoActivate() {
-  }
+  CheckAutoActivate() {}
 
   //#region ZakautWithCard
   createFormZakautWithCard() {
@@ -297,7 +296,9 @@ export class ZakautActionsComponent implements OnInit {
   //#region ZakautWithTempCard
   createFormZakautWithTempCard() {
     this.zakautWithTempCardForm = this.fb.group({
-      _zakautWithTempCardIdTypeControl: new FormControl({ value: '1', disabled: true }, [Validators.required]),
+      _zakautWithTempCardIdTypeControl: new FormControl({ value: this.vars.idTypes[0], disabled: true }, [
+        Validators.required
+      ]),
       _zakautWithTempCardIdControl: new FormControl({ value: '', disabled: true }, [
         Validators.required,
         Validators.minLength(9),
@@ -320,6 +321,7 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').enable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').enable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardTreatCodeControl').enable();
+    console.log(this.zakautWithTempCardForm);
   }
 
   disableTempForm() {

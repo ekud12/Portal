@@ -70,7 +70,7 @@
             </mat-form-field>
 
             <mat-form-field hintLabel="(תעודת זהות/דרכון)" class="mat-form-field-custom">
-              <mat-select formControlName="_zakautWithTempCardIdTypeControl" [errorStateMatcher]="matcher">
+              <mat-select formControlName="_zakautWithTempCardIdTypeControl" [errorStateMatcher]="matcher" [ngModel]="vars.idTypes[0].value">
                 <mat-option *ngFor="let type of vars.idTypes" [value]="type.value">
                   {{type.viewValue}}
                 </mat-option>
@@ -135,7 +135,7 @@
               <mat-error *ngIf="zakautManualForm.get('_zakautManualIdControl').hasError('pattern')">{{vars.errors.pattern}}</mat-error>
             </mat-form-field>
             <mat-form-field hintLabel="(תעודת זהות/דרכון)" class="mat-form-field-custom">
-              <mat-select formControlName="_zakautManualIdTypeControl" [errorStateMatcher]="matcher">
+              <mat-select formControlName="_zakautManualIdTypeControl" [errorStateMatcher]="matcher" [ngModel]="vars.idTypes[0].value">
                 <mat-option *ngFor="let type of vars.idTypes" [value]="type.value">
                   {{type.viewValue}}
                 </mat-option>
