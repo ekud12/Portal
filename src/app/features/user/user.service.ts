@@ -1,14 +1,9 @@
 import { Injectable } from '@angular/core';
-import { LoginModel, LoginResponse } from './models/login.model';
-import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs/observable/of';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { User } from './models/user.model';
-import { catchError, map } from 'rxjs/operators';
-import { BackendService } from '../../core/services/backend.service';
-
 import { httpRoutes } from '@http-routes';
+import { Observable } from 'rxjs/Observable';
+
+import { BackendService } from '../../core/services/backend.service';
+import { LoginModel, LoginResponse } from './models/login.model';
 import { SapakDataRequest, SapakTreatmentsListResponse } from './models/sapak.model';
 
 @Injectable()

@@ -1,9 +1,7 @@
-import * as userActions from '../actions';
+import { ZakautDesc } from '../../models/permission.model';
+import { Sapak, SapakDataRequest, SapakTreatment } from '../../models/sapak.model';
 import { User } from '../../models/user.model';
-import { Sapak, SapakTreatment, SapakDataRequest } from '../../models/sapak.model';
-import { sapakActions } from '../actions';
-import { Zakaut, ZakautDesc } from '../../models/permission.model';
-import { activeSapakSelector } from '@userStore';
+import * as userActions from '../actions';
 
 export interface UserState {
   user: User;

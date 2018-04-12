@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
-import * as userActions from '../actions';
-import { of } from 'rxjs/observable/of';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
-import { UserService } from 'app/features/user/user.service';
-import { SapakDataRequest, Sapak } from '../../models/sapak.model';
-import { MatSnackBar } from '@angular/material';
-import { ToastService } from 'app/core/services/toast-service.service';
-import * as userStore from '@userStore';
 import * as invoiceStore from '@invoicesStore';
+import { Actions, Effect } from '@ngrx/effects';
+import { ToastService } from 'app/core/services/toast-service.service';
+import { UserService } from 'app/features/user/user.service';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+
+import { Sapak, SapakDataRequest } from '../../models/sapak.model';
+import * as userActions from '../actions';
 
 @Injectable()
 export class SapakEffects {

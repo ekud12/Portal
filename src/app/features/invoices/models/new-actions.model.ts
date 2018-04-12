@@ -37,14 +37,4 @@ export class NewInvoiceRequest {
     this.invoiceRemarks = remark;
   }
 
-  // get invoiceNum() {
-  //   return this._invoiceNum;
-  // }
-  // set invoiceNum(num) {
-  //   if (num === '') {
-  //     this._invoiceNum = null;
-  //   } else {
-  //     this._invoiceNum = num;
-  //   }
-  // }
 }

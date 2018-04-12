@@ -1,7 +1,6 @@
-import * as userActions from '../actions';
 import 'mdn-polyfills/String.prototype.padStart';
-import { Invoice, InvoiceRow } from '../../models/new-actions.model';
-import { invoiceInitialState, InvoiceState } from 'app/features/invoices/store/reducers/invoice.reducer';
+
+import * as userActions from '../actions';
 
 export interface InvoiceRowState {
   activeInvoiceRow: any;

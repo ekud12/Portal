@@ -1,13 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { UserState, ChangeSapak } from '../store';
 
-import * as fromUserStore from '../store';
-import { User } from '../models/user.model';
 import { Sapak, SapakDataRequest } from '../models/sapak.model';
-import { Go } from '../../../core/store';
-import { MatSnackBar } from '@angular/material';
+import { User } from '../models/user.model';
+import { ChangeSapak, UserState } from '../store';
+import * as fromUserStore from '../store';
 
 @Component({
   selector: 'app-user-panel',
@@ -46,21 +44,3 @@ export class UserPanelComponent implements OnInit {
     this.store.dispatch(new fromUserStore.UserLogout());
   }
 }
-
-// this.userLoaderStatus$.subscribe(show => {
-//   if (show) {
-//     if (this.timer) {
-//       return;
-//     }
-//     this.timer = setTimeout(() => {
-//       this.timer = null;
-//       this.isLoading = true;
-//     }, 2000);
-//   } else {
-//     if (this.timer) {
-//       clearTimeout(this.timer);
-//       this.timer = null;
-//     }
-//     this.isLoading = false;
-//   }
-// });
