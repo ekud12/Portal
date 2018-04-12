@@ -88,10 +88,6 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
     });
-    // this.selectedFilter = { value: 'invoiceId', viewValue: 'מספר חשבונית' };
-    // this.dataSource.filterPredicate = (data: Element, filter: string) =>
-    //   data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
-
     this.dataSource.filterPredicate = (data: Invoice, filter: string) => data.invoiceNum.toString().includes(filter);
   }
 
@@ -105,7 +101,6 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
 
   newInvoice() {
     this.router.navigate(['portal/invoices/new']);
-
   }
 
   applyFilterInvoiceNumber(filterValue: string) {
@@ -116,26 +111,12 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
 
   activateInvoice(inv: any) {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(inv));
-    // this.router.navigate(['/portal/invoices/rows']);
   }
 
   buildObjectForPrint() {
-    this.dataObject.headerDetailsText1 = 'קוד ספק:';
-    this.dataObject.headerDetailsText2 = 'שם ספק:';
-    this.dataObject.subHeader = 'ריכוז חשבוניות';
-    this.dataObject.btn1Action = 'הדפס';
-    this.dataObject.isInvoiceAction = true;
-    this.dataObject.mainHeader = 'ריכוז חשבוניות עבור חודש בלה בלה';
+    this.dataObject.mainHeader = 'ריכוז חשבוניות';
     this.dataObject.isTableContent = true;
-    this.dataObject.lowerContent = [
-      { desc: 'פרטי ספק ב SAP', value: '' },
-      { desc: 'מספר ח.פ: ', value: 'TBD' },
-      { desc: 'שם ספק: ', value: 'TBD' },
-      { desc: 'קוד ספק: ', value: 'TBD' },
-      { desc: 'חשבון בנק: ', value: 'TBD' }
-    ];
-    this.dataObject.recipient = { greeting: 'לכבוד מאוחדת', address: 'אבן גבירול 124', city: 'תל אביב' };
-    this.dataObject.dialogHeader = 'הדפסת דרישת תשלום וסגירת חשבונית';
+    this.dataObject.dialogHeader = 'הדפסת רשימת חשבוניות';
     this.dataObject.displayedColumns = this.displayedColumns;
     this.dataObject.dismap = this.displayedColumnsMap;
     this.dataObject.data = this.dataSource.connect().value;

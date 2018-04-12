@@ -13,6 +13,7 @@ import { rxjs_imports } from './rxjs-imports';
 import { ErrorHandler } from './http/error-handler.interceptor';
 import { HttpParamsInterceptor } from './http/httpParamsInterceptor';
 import { ToastService } from './services/toast-service.service';
+import { AuthenticationService } from './services/auth.service';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { ToastService } from './services/toast-service.service';
   providers: [
     BackendService,
     ToastService,
+    AuthenticationService,
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     {
       provide: HTTP_INTERCEPTORS,

@@ -9,7 +9,7 @@
     fxLayoutGap="10px">
     <div fxLayout="row" fxLayoutAlign="end center center">
       <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">הדפס דרישת תשלום</button>
-      <button mat-raised-button color="primary" class="btn"> הדפס שורות לחשבונית</button>
+      <button mat-raised-button color="primary" class="btn" (click)="printData(2);"> הדפס שורות לחשבונית</button>
       <button mat-raised-button color="primary" class="btn"> הדפס טיפולים לחשבונית</button>
       <button mat-raised-button color="primary" class="btn">הדפס סיכום חשבונית</button>
     </div>
@@ -77,7 +77,9 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;" class="invoices-row-list-item" (click)="activateInvoiceRow(row)"></mat-row>
       </mat-table>
-
+      <div *ngIf="(listOfInvoices$|async).length === 0" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
+        אין שורות לחשבונית
+      </div>
       <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true">
       </mat-paginator>
 

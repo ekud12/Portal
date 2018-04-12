@@ -15,6 +15,9 @@ export class SapakTreatment {
 export class SapakDataRequest {
   userName: string;
   kodSapak: string;
+  invoiceNum: string;
+  invoiceRowNum: string;
+  invoiceTreatNum: string;
   constructor(userName: string, kodSapak: string) {
     this.userName = userName;
     this.kodSapak = kodSapak;

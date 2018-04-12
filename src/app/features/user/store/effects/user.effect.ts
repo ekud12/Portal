@@ -14,14 +14,16 @@ import { LoginModel } from '../../models/login.model';
 import { SapakDataRequest } from 'app/features/user/models/sapak.model';
 import { UserState } from '@userStore';
 import { Store } from '@ngrx/store';
+import { AuthenticationService } from 'app/core/services/auth.service';
 @Injectable()
 export class UserEffects {
-  constructor(private actions$: Actions, private userService: UserService) {}
+  constructor(private actions$: Actions, private userService: UserService, private authService: AuthenticationService) {}
 
   @Effect()
   loginUser$ = this.actions$.ofType(userActions.LOGIN_USER).pipe(
     map((action: userActions.UserLogin) => action.payload),
     switchMap((loginDetails: LoginModel) => {
+      /**  ADD AUTH LOGIC HERE */
       return this.userService
         .login(loginDetails)
         .pipe(

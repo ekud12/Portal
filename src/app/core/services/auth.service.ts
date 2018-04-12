@@ -6,15 +6,10 @@ export interface Credentials {
   // Customize received credentials here
   username: string;
   token: string;
+  expireyDate: string;
 }
 
-export interface LoginContext {
-  username: string;
-  password: string;
-  remember?: boolean;
-}
-
-const credentialsKey = 'credentials';
+const credentialsKey = 'spk_usr';
 
 /**
  * Provides a base for authentication workflow.
@@ -26,7 +21,7 @@ export class AuthenticationService {
 
   constructor() {
     const savedCredentials =
-      sessionStorage.getItem(credentialsKey) ||
+      // sessionStorage.getItem(credentialsKey) ||
       localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
@@ -38,13 +33,15 @@ export class AuthenticationService {
    * @param {LoginContext} context The login parameters.
    * @return {Observable<Credentials>} The user credentials.
    */
-  login(context: LoginContext): Observable<Credentials> {
+  authenticate(context: Credentials): Observable<Credentials> {
     // Replace by proper authentication call
     const data = {
       username: context.username,
-      token: '123456'
+      token: context.token,
+      expireyDate: context.expireyDate
     };
-    this.setCredentials(data, context.remember);
+
+    this.setCredentials(data);
     return of(data);
   }
 
@@ -81,14 +78,13 @@ export class AuthenticationService {
    * @param {Credentials=} credentials The user credentials.
    * @param {boolean=} remember True to remember credentials across sessions.
    */
-  private setCredentials(credentials?: Credentials, remember?: boolean) {
+  private setCredentials(credentials?: Credentials) {
     this._credentials = credentials || null;
 
     if (credentials) {
-      const storage = remember ? localStorage : sessionStorage;
+      const storage = localStorage;
       storage.setItem(credentialsKey, JSON.stringify(credentials));
     } else {
-      sessionStorage.removeItem(credentialsKey);
       localStorage.removeItem(credentialsKey);
     }
   }

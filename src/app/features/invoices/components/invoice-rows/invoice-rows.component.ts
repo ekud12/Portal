@@ -19,7 +19,7 @@ import * as moment from 'moment';
 import * as fromInvoiceStore from '@invoicesStore';
 import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
-import { Invoice } from '../../models/new-actions.model';
+import { Invoice, PrintingOption } from '../../models/new-actions.model';
 import { Sapak } from '../../../user/models/sapak.model';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 
@@ -96,14 +96,50 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
-  buildObjectForPrint() {
-    this.dataObject.headerDetailsText1 = 'קוד ספק:';
-    this.dataObject.headerDetailsText2 = 'שם ספק:';
-    this.dataObject.subHeader = 'ריכוז חשבוניות';
-    this.dataObject.btn1Action = 'הדפס';
-    this.dataObject.isInvoiceAction = true;
-    this.dataObject.mainHeader = 'ריכוז חשבוניות עבור חודש בלה בלה';
-    this.dataObject.isTableContent = true;
+  printData(type: PrintingOption): void {
+    switch (type) {
+      case PrintingOption.ROWS: {
+        this.buildPrintObjectRows();
+        break;
+      }
+      case PrintingOption.CLOSE_INVOICE: {
+        this.buildPrintObjectCloseInvoice();
+        break;
+      }
+    }
+    this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.dataObject));
+    this.router.navigate(['print'], {
+      queryParams: { isIE: true, returnUrl: this.router.url }
+    });
+  }
+
+  activateInvoiceRow(row: any) {
+    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
+  }
+
+  closeInvoice() {
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: { data: 'לאחר הפקת דרישת התשלום, לא ניתן יהיה לעדכן את החשבונית.' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        /** add logic to close invoice and only than go to print */
+        this.printData(5);
+      }
+    });
+  }
+
+  buildPrintObjectCloseInvoice() {
+    this.currentInvoice$.take(1).subscribe(inv => {
+      this.dataObject.mainHeader = `דרישת תשלום מספר ${inv.invoiceNum} לחודש ${inv.billMonth}.`;
+      this.dataObject.specialData = [
+        `הננו מתכבדים להגיש דרישת תשלום מספר: ${inv.invoiceNum} בגין השירותים שסיפקנו ללקוחות מאוחדת בחודש ${inv.billMonth}.`,
+        `סכום חשבון לפני מע"מ: ${inv.typedSum},  מע"מ: ${inv.vatPer},    סכום חשבון כולל מע"מ: ${inv.invoiceSum}.`,
+        `יחד עם דרישת התשלום אנו מצרפים את התיעוד הרפואי של הטיפולים והשירותים הכלולים בדרישה זו.`,
+        `לפרטים נוספים : איש קשר במערך הבקרה עטרה אלהרר atara@meuhedet.co.il.`
+      ];
+    });
+    this.dataObject.isTableContent = false;
     this.dataObject.lowerContent = [
       { desc: 'פרטי ספק ב SAP', value: '' },
       { desc: 'מספר ח.פ: ', value: 'TBD' },
@@ -111,35 +147,30 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       { desc: 'קוד ספק: ', value: 'TBD' },
       { desc: 'חשבון בנק: ', value: 'TBD' }
     ];
-    this.dataObject.recipient = { greeting: 'לכבוד מאוחדת', address: 'אבן גבירול 124', city: 'תל אביב' };
-    this.dataObject.dialogHeader = 'הדפסת דרישת תשלום וסגירת חשבונית';
+    this.dataObject.dialogHeader = 'הדפסת דרישת תשלום';
     this.dataObject.displayedColumns = this.displayedColumns;
     this.dataObject.dismap = this.displayedColumnsMap;
     this.dataObject.data = this.dataSource.connect().value;
   }
 
-  print(): void {
-    this.buildObjectForPrint();
-    this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.dataObject));
-    this.router.navigate(['print'], {
-      queryParams: { isIE: true, returnUrl: this.router.url }
+  buildPrintObjectRows() {
+    this.dataObject.mainHeader = 'ריכוז שורות לחשבונית';
+    this.currentInvoice$.take(1).subscribe(inv => {
+      this.dataObject.parentContent = [
+        { view: `חשבונית מס:`, value: inv.invoiceNum },
+        { view: `חודש:`, value: inv.billMonth },
+        { view: `סטטוס:`, value: inv.status },
+        { view: `סכום לא כולל מע"מ:`, value: inv.typedSum },
+        { view: `אחוז מע"מ:`, value: inv.vatPer },
+        { view: `סכום כולל מע"מ:`, value: inv.invoiceSum },
+        { view: `הערות: `, value: inv.remark1 }
+      ];
     });
-  }
 
-  closeInvoice() {
-    /** test for dialog it works */
-    const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: { data: 'לאחר הפקת דרישת התשלום, לא ניתן יהיה לעדכן את החשבונית.' }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        /** add logic to close invoice and only than go to print */
-        this.print();
-      }
-    });
-  }
-
-  activateInvoiceRow(row: any) {
-    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
+    this.dataObject.isTableContent = true;
+    this.dataObject.dialogHeader = 'הדפסת שורות לחשבוניות';
+    this.dataObject.displayedColumns = this.displayedColumns;
+    this.dataObject.dismap = this.displayedColumnsMap;
+    this.dataObject.data = this.dataSource.connect().value;
   }
 }

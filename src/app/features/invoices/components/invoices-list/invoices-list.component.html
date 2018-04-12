@@ -31,31 +31,26 @@
     <mat-card>
       <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear>
 
-        <!-- Position Column -->
         <ng-container matColumnDef="billMonth">
           <mat-header-cell *matHeaderCellDef mat-sort-header> תאריך חשבונית </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.billMonth}} </mat-cell>
         </ng-container>
 
-        <!-- Name Column -->
         <ng-container matColumnDef="invoiceNum">
           <mat-header-cell *matHeaderCellDef mat-sort-header> מספר חשבונית </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.invoiceNum}} </mat-cell>
         </ng-container>
 
-        <!-- Weight Column -->
         <ng-container matColumnDef="totalRowsNum">
           <mat-header-cell *matHeaderCellDef mat-sort-header> סה"כ שורות </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.totalRowsNum}} </mat-cell>
         </ng-container>
 
-        <!-- Symbol Column -->
         <ng-container matColumnDef="invoiceSum">
           <mat-header-cell *matHeaderCellDef mat-sort-header> סכום חשבונית </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.invoiceSum}} </mat-cell>
         </ng-container>
 
-        <!-- Type Column -->
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header> סטטוס חשבונית </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
@@ -63,8 +58,11 @@
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="activateInvoice(row)" class="invoices-list-item"></mat-row>
-      </mat-table>
 
+      </mat-table>
+      <div *ngIf="(listOfInvoices$|async).length === 0" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn" >
+        אין חשבוניות
+      </div>
       <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true">
       </mat-paginator>
 

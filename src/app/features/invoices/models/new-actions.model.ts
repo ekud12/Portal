@@ -36,5 +36,12 @@ export class NewInvoiceRequest {
     this.invoiceNum = id;
     this.invoiceRemarks = remark;
   }
+}
 
+export enum PrintingOption {
+  INVOICE = 1,
+  ROWS = 2,
+  TREATMENTS = 3,
+  SUMMARY = 4,
+  CLOSE_INVOICE = 5
 }

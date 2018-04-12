@@ -20,28 +20,29 @@ export class PrintLayoutComponent implements OnInit {
   object$: Observable<any>;
   data: any[];
 
-  constructor(private router: Router, private route: ActivatedRoute, private sharedStore: Store<fromSharedStore.SharedState>) {
-    this.object$ = this.sharedStore.select(fromSharedStore.currentPrintObjectSelector);
-    this.object$.subscribe(val => {
-      this.object = val;
-    });
-    // this.object = incomingData;
-    this.data = this.object.data;
-  }
+  constructor(private router: Router, private route: ActivatedRoute, private sharedStore: Store<fromSharedStore.SharedState>) {}
 
   ieBtn = false;
   returnURL = '';
 
   ngOnInit() {
+    this.object$ = this.sharedStore.select(fromSharedStore.currentPrintObjectSelector);
+    this.object$.subscribe(val => {
+      this.object = val;
+    });
+
+    if (this.object.isTableContent) {
+      this.data = this.object.data;
+      this.dataSource = new MyDataSource(this.dataSubject);
+      this.dataSubject.next(this.data);
+    }
+
     /** if ie get from state */
     this.route.queryParams.subscribe(params => {
       // this.ieBtn = true;
       this.returnURL = params.returnUrl;
       // this.object = params.valObject;
     });
-
-    this.dataSource = new MyDataSource(this.dataSubject);
-    this.dataSubject.next(this.data);
   }
 
   getViewValue(v) {
