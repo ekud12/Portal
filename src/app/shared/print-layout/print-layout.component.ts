@@ -31,7 +31,7 @@ export class PrintLayoutComponent implements OnInit {
       this.object = val;
     });
 
-    if (this.object.isTableContent) {
+    if (this.object.printOption) {
       this.data = this.object.data;
       this.dataSource = new MyDataSource(this.dataSubject);
       this.dataSubject.next(this.data);

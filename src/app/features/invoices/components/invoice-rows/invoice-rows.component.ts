@@ -102,6 +102,10 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
         this.buildPrintObjectRows();
         break;
       }
+      case PrintingOption.SUMMARY: {
+        this.buildPrintObjectSummary();
+        break;
+      }
       case PrintingOption.CLOSE_INVOICE: {
         this.buildPrintObjectCloseInvoice();
         break;
@@ -139,7 +143,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
         `לפרטים נוספים : איש קשר במערך הבקרה עטרה אלהרר atara@meuhedet.co.il.`
       ];
     });
-    this.dataObject.isTableContent = false;
+    this.dataObject.printOption = PrintingOption.CLOSE_INVOICE;
     this.dataObject.lowerContent = [
       { desc: 'פרטי ספק ב SAP', value: '' },
       { desc: 'מספר ח.פ: ', value: 'TBD' },
@@ -167,8 +171,29 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       ];
     });
 
-    this.dataObject.isTableContent = true;
+    this.dataObject.printOption = PrintingOption.ROWS;
     this.dataObject.dialogHeader = 'הדפסת שורות לחשבוניות';
+    this.dataObject.displayedColumns = this.displayedColumns;
+    this.dataObject.dismap = this.displayedColumnsMap;
+    this.dataObject.data = this.dataSource.connect().value;
+  }
+
+  buildPrintObjectSummary() {
+    this.dataObject.mainHeader = 'סיכום חשבונית';
+    this.currentInvoice$.take(1).subscribe(inv => {
+      this.dataObject.parentContent = [
+        { view: `חשבונית מס:`, value: inv.invoiceNum },
+        { view: `חודש:`, value: inv.billMonth },
+        { view: `סטטוס:`, value: inv.status },
+        { view: `סכום לא כולל מע"מ:`, value: inv.typedSum },
+        { view: `אחוז מע"מ:`, value: inv.vatPer },
+        { view: `סכום כולל מע"מ:`, value: inv.invoiceSum },
+        { view: `הערות: `, value: inv.remark1 }
+      ];
+    });
+
+    this.dataObject.printOption = PrintingOption.SUMMARY;
+    this.dataObject.dialogHeader = 'הדפסת סיכום חשבוניות';
     this.dataObject.displayedColumns = this.displayedColumns;
     this.dataObject.dismap = this.displayedColumnsMap;
     this.dataObject.data = this.dataSource.connect().value;

@@ -9,9 +9,9 @@
     fxLayoutGap="10px">
     <div fxLayout="row" fxLayoutAlign="end center center">
       <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">הדפס דרישת תשלום</button>
-      <button mat-raised-button color="primary" class="btn" (click)="printData(2);"> הדפס שורות לחשבונית</button>
+      <button mat-raised-button color="primary" class="btn" (click)="printData(2)"> הדפס שורות לחשבונית</button>
       <button mat-raised-button color="primary" class="btn"> הדפס טיפולים לחשבונית</button>
-      <button mat-raised-button color="primary" class="btn">הדפס סיכום חשבונית</button>
+      <button mat-raised-button color="primary" class="btn"  (click)="printData(4)">הדפס סיכום חשבונית</button>
     </div>
     <form fxLayout="column" fxLayoutAlign="space-around stretch center" novalidate fxLayoutGap="10px" class="invoices-rows-filter-form">
       <div fxLayout="row" fxLayoutAlign="space-around center center">

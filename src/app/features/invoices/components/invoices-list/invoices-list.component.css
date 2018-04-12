@@ -48,7 +48,7 @@ h2 {
   transition: all 0.3s ease;
 }
 .invoices-list-item:hover {
-  background-color: rgb(204, 220, 240);
+  background-color: rgb(228, 228, 228);
 }
 
 .no-data-warn {
@@ -56,4 +56,9 @@ h2 {
   font-weight: bold;
   padding: 10px 10px;
   color: red;
+}
+
+.status-color {
+  color: red;
+  background-color: red;
 }

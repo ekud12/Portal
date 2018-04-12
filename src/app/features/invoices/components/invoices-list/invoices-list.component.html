@@ -53,17 +53,17 @@
 
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header> סטטוס חשבונית </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+          <mat-cell *matCellDef="let element" [style.color]="(element.status | invoiceStatusColor)"> {{(element.status | invoiceStatus)}} </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="activateInvoice(row)" class="invoices-list-item"></mat-row>
+        <mat-header-row *matHeaderRowDef=" displayedColumns "></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns; " (click)="activateInvoice(row) " class="invoices-list-item "></mat-row>
 
       </mat-table>
-      <div *ngIf="(listOfInvoices$|async).length === 0" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn" >
+      <div *ngIf="(listOfInvoices$|async).length === 0" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
         אין חשבוניות
       </div>
-      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true">
+      <mat-paginator #paginator [pageSize]="10 " [pageSizeOptions]="[5, 10, 25] " [showFirstLastButtons]="true ">
       </mat-paginator>
 
     </mat-card>

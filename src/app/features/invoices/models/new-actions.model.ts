@@ -39,7 +39,7 @@ export class NewInvoiceRequest {
 }
 
 export enum PrintingOption {
-  INVOICE = 1,
+  INVOICES = 1,
   ROWS = 2,
   TREATMENTS = 3,
   SUMMARY = 4,

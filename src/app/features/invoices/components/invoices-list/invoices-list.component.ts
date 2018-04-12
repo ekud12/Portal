@@ -19,12 +19,13 @@ import * as moment from 'moment';
 import * as fromInvoiceStore from '@invoicesStore';
 import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
-import { Invoice } from '../../models/new-actions.model';
+import { Invoice, PrintingOption } from '../../models/new-actions.model';
 import { Sapak } from '../../../user/models/sapak.model';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 
 import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layout.component';
 import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.component';
+import { InvoiceStatusPipe } from 'app/shared/utils/invoice-status.pipe';
 
 @Component({
   selector: 'app-invoices-list',
@@ -55,7 +56,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   dataObject: PrintObject = new PrintObject();
   selectedFilter;
   dataSource;
-
+  color = 'red';
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
     private router: Router,
@@ -68,6 +69,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.listOfInvoices$ = this.invoiceStore.select(fromInvoiceStore.allInvoicesSelector);
     this.listOfInvoices$.subscribe(val => {
       this.dataSource = new MatTableDataSource<Invoice>(val);
+      /** initial sorting by date -> id */
       this.dataSource.connect().value.sort((a, b) => {
         return moment(b.billMonth, 'MM/YYYY').valueOf() - moment(a.billMonth, 'MM/YYYY').valueOf() || b.invoiceNum - a.invoiceNum;
       });
@@ -115,7 +117,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
 
   buildObjectForPrint() {
     this.dataObject.mainHeader = 'ריכוז חשבוניות';
-    this.dataObject.isTableContent = true;
+    this.dataObject.printOption = PrintingOption.INVOICES;
     this.dataObject.dialogHeader = 'הדפסת רשימת חשבוניות';
     this.dataObject.displayedColumns = this.displayedColumns;
     this.dataObject.dismap = this.displayedColumnsMap;

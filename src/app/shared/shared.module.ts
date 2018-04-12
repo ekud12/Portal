@@ -17,6 +17,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { effects } from './store';
 import { sharedReducer } from './store';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { InvoiceStatusPipe } from './utils/invoice-status.pipe';
+import { InvoiceStatusColorPipe } from './utils/invoice-status-color.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +31,7 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
     StoreModule.forFeature('shared', sharedReducer),
     EffectsModule.forFeature(effects)
   ],
-  declarations: [PageNotFoundComponent, PrintLayoutComponent, AlertDialogComponent],
+  declarations: [PageNotFoundComponent, PrintLayoutComponent, AlertDialogComponent, InvoiceStatusPipe, InvoiceStatusColorPipe],
   entryComponents: [AlertDialogComponent],
   providers: [{ provide: MAT_DIALOG_DATA, useValue: [] }],
   exports: [
@@ -39,7 +41,9 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
     PageNotFoundComponent,
     CustomDatepickerModule,
     PrintLayoutComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    InvoiceStatusPipe,
+    InvoiceStatusColorPipe
   ]
 })
 export class SharedModule {}
