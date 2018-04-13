@@ -9,7 +9,7 @@
     fxLayoutGap="10px">
     <div fxLayout="row" fxLayoutAlign="space-between center center">
       <div>
-        <button mat-raised-button color="primary" class="btn" (click)="newInvoiceRow()">הוסף שורה</button>
+        <button mat-raised-button color="primary" class="btn" (click)="newInvoiceRow()" *ngIf="(currentInvoice$|async).status < 2">הוסף שורה</button>
       </div>
       <div>
         <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">הדפס דרישת תשלום</button>

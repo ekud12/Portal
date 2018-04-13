@@ -60,8 +60,11 @@
         <mat-row *matRowDef="let row; columns: displayedColumns; " (click)="activateInvoice(row) " class="invoices-list-item "></mat-row>
 
       </mat-table>
+      <!-- <div *ngIf="(listOfInvoices$|async)" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
+        <mat-spinner></mat-spinner>
+      </div> -->
       <div *ngIf="(listOfInvoices$|async).length === 0" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
-        אין חשבוניות
+        אין חשבוניות להצגה
       </div>
       <mat-paginator #paginator [pageSize]="10 " [pageSizeOptions]="[5, 10, 25] " [showFirstLastButtons]="true ">
       </mat-paginator>

@@ -23,12 +23,17 @@
     </div>
   </div>
 
-  <div class="invoices-actions" fxLayout="row" fxLayoutAlign="space-around center stretch">
-    <button *ngIf="(currentInvoice$|async)" mat-button>העברת כרטיס מגנטי</button>
-    <button *ngIf="(currentInvoice$|async)" mat-button>דוח דיווחי כ.מגנטי</button>
-    <button mat-button routerLink="/portal/invoices">חשבוניות</button>
-    <button *ngIf="(currentInvoice$|async)" routerLink="/portal/invoices/rows" mat-button>שורות לחשבונית</button>
-    <button *ngIf="(currentInvoice$|async)" mat-button>ש. קיזוזים לחשבונית</button>
+  <div class="invoices-actions" fxLayout="row" fxLayoutAlign="space-around stretch">
+    <button *ngIf="(currentInvoice$|async)" routerLinkActive="active" mat-button routerLinkActiveOptions="{exact:
+      true}">העברת כרטיס מגנטי</button>
+    <button *ngIf="(currentInvoice$|async)" routerLinkActive="active" mat-button routerLinkActiveOptions="{exact:
+      true}">דוח דיווחי כ.מגנטי</button>
+    <button mat-button routerLink="/portal/invoices/all" routerLinkActive="active" routerLinkActiveOptions="{exact:
+      true}">חשבוניות</button>
+    <button *ngIf="(currentInvoice$|async)" routerLink="/portal/invoices/rows" routerLinkActive="active" routerLinkActiveOptions="{exact:
+      true}" mat-button>שורות לחשבונית</button>
+    <button *ngIf="(currentInvoice$|async)" routerLinkActive="active" routerLinkActiveOptions="{exact:
+      true}" mat-button>ש. קיזוזים לחשבונית</button>
   </div>
 
 </div>
