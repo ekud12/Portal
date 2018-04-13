@@ -27,7 +27,7 @@ export class InvoiceEffects {
   );
 
   @Effect()
-  createInvoice$ = this.actions$.ofType(userActions.CREATEֹֹֹּ_INVOICE).pipe(
+  createInvoice$ = this.actions$.ofType(userActions.CREATE_INVOICE).pipe(
     map((action: userActions.CreateInvoice) => action.payload),
     switchMap((newInvoicesRequest: NewInvoiceRequest) => {
       return this.invoicesService
@@ -40,7 +40,8 @@ export class InvoiceEffects {
   );
 
   @Effect()
-  activateInvoice$ = this.actions$.ofType(userActions.ACTIVATEֹֹֹּ_INVOICE).pipe(
+  /** add call to action: get rows for invoice */
+  activateInvoice$ = this.actions$.ofType(userActions.ACTIVATE_INVOICE).pipe(
     map((action: userActions.ActivateInvoice) => action.payload),
     tap(val => {
       this.toaster.openSnackBar(`חשבונית מס' ${val.invoiceNum} נבחרה כפעילה.`, null);
@@ -53,7 +54,7 @@ export class InvoiceEffects {
   );
 
   @Effect()
-  createInvoiceSuccess$ = this.actions$.ofType(userActions.CREATEֹֹֹּ_INVOICE_SUCCESS).pipe(
+  createInvoiceSuccess$ = this.actions$.ofType(userActions.CREATE_INVOICE_SUCCESS).pipe(
     map((action: userActions.CreateInvoiceSuccess) => action.payload),
     tap(val => {
       this.toaster.openSnackBar(`חשבונית מס' ${val} נוצרה בהצלחה.`, null);
@@ -66,7 +67,7 @@ export class InvoiceEffects {
   );
 
   @Effect({ dispatch: false })
-  createInvoiceFailure$ = this.actions$.ofType(userActions.CREATEֹֹֹּ_INVOICE_FAIL).pipe(
+  createInvoiceFailure$ = this.actions$.ofType(userActions.CREATE_INVOICE_FAIL).pipe(
     map((action: userActions.CreateInvoiceFail) => action.payload),
     tap(error => {
       this.toaster.openSnackBar(`${error}`, null);

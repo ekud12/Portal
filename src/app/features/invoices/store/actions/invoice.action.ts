@@ -7,15 +7,15 @@ export const GET_INVOICES_SUCCESS = '[Invoice] Get Invoices Success';
 export const GET_INVOICES_FAIL = '[Invoice] Get Invoices Fail';
 export const GET_INVOICES_COMPLETED = '[Invoice] Get Invoices Completed';
 
-export const ACTIVATEֹֹֹּ_INVOICE = '[Invoice] Activate Invoice';
-export const ACTIVATEֹֹֹּ_INVOICE_SUCCESS = '[Invoice] Activate Invoice Success';
-export const ACTIVATEֹֹֹּ_INVOICE_FAIL = '[Invoice] Activate Invoice Fail';
-export const ACTIVATEֹֹֹּ_INVOICE_COMPLETED = '[Invoice] Activate Invoice Completed';
+export const ACTIVATE_INVOICE = '[Invoice] Activate Invoice';
+export const ACTIVATE_INVOICE_SUCCESS = '[Invoice] Activate Invoice Success';
+export const ACTIVATE_INVOICE_FAIL = '[Invoice] Activate Invoice Fail';
+export const ACTIVATE_INVOICE_COMPLETED = '[Invoice] Activate Invoice Completed';
 
-export const CREATEֹֹֹּ_INVOICE = '[Invoice] Create Invoice';
-export const CREATEֹֹֹּ_INVOICE_SUCCESS = '[Invoice] Create Invoice Success';
-export const CREATEֹֹֹּ_INVOICE_FAIL = '[Invoice] Create Invoice Fail';
-export const CREATEֹֹֹּ_INVOICE_COMPLETED = '[Invoice] Create Invoice Completed';
+export const CREATE_INVOICE = '[Invoice] Create Invoice';
+export const CREATE_INVOICE_SUCCESS = '[Invoice] Create Invoice Success';
+export const CREATE_INVOICE_FAIL = '[Invoice] Create Invoice Fail';
+export const CREATE_INVOICE_COMPLETED = '[Invoice] Create Invoice Completed';
 
 export const RESET_INVOICES = '[Invoice] Reset Invoices';
 
@@ -41,42 +41,42 @@ export class GetInvoicesCompleted implements Action {
 
 /** Actions - Activate Chosen Invoice Globally */
 export class ActivateInvoice implements Action {
-  readonly type = ACTIVATEֹֹֹּ_INVOICE;
+  readonly type = ACTIVATE_INVOICE;
   constructor(public payload: any) {}
 }
 
 export class ActivateInvoiceSuccess implements Action {
-  readonly type = ACTIVATEֹֹֹּ_INVOICE_SUCCESS;
+  readonly type = ACTIVATE_INVOICE_SUCCESS;
   constructor(public payload: any) {}
 }
 
 export class ActivateInvoiceFail implements Action {
-  readonly type = ACTIVATEֹֹֹּ_INVOICE_FAIL;
+  readonly type = ACTIVATE_INVOICE_FAIL;
   constructor(public payload: any) {}
 }
 
 export class ActivateInvoiceCompleted implements Action {
-  readonly type = ACTIVATEֹֹֹּ_INVOICE_COMPLETED;
+  readonly type = ACTIVATE_INVOICE_COMPLETED;
 }
 
 /** Actions - Create new Invoice */
 export class CreateInvoice implements Action {
-  readonly type = CREATEֹֹֹּ_INVOICE;
+  readonly type = CREATE_INVOICE;
   constructor(public payload: NewInvoiceRequest) {}
 }
 
 export class CreateInvoiceSuccess implements Action {
-  readonly type = CREATEֹֹֹּ_INVOICE_SUCCESS;
+  readonly type = CREATE_INVOICE_SUCCESS;
   constructor(public payload: any) {}
 }
 
 export class CreateInvoiceFail implements Action {
-  readonly type = CREATEֹֹֹּ_INVOICE_FAIL;
+  readonly type = CREATE_INVOICE_FAIL;
   constructor(public payload: any) {}
 }
 
 export class CreateInvoiceCompleted implements Action {
-  readonly type = CREATEֹֹֹּ_INVOICE_COMPLETED;
+  readonly type = CREATE_INVOICE_COMPLETED;
 }
 
 /** Reset Invoices Module  */
