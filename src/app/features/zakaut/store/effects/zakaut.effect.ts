@@ -26,6 +26,7 @@ export class ZakautEffects {
 
   @Effect()
   checkZakautCompleted$ = this.actions$
+    /** ADD check on result set size, and redirect to invoice action accordingly, check module src as well - only for invoices*/
     .ofType(userActions.CHECK_ZAKAUT_SUCCESS, userActions.CHECK_ZAKAUT_FAIL)
     .pipe(map(() => new userActions.CheckZakautCompleted()));
 }

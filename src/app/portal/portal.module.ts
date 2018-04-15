@@ -25,6 +25,11 @@ import { DynamicModule } from 'ng-dynamic-component';
 import { GridStackModule } from 'ng4-gridstack';
 import { PieChartAdvancedWidgetComponent } from './tests/pie-chart-advanced-widget/pie-chart-advanced-widget.component';
 import { LineChartWidgetComponent } from './tests/line-chart-widget/line-chart-widget.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { effects } from './store';
+import { widgetReducer } from './store';
+import { GridService } from './grid/grid.service';
 
 const DASH_COMPONENTS = [
   ContainerComponent,
@@ -56,9 +61,11 @@ const DASH_COMPONENTS = [
       LineChartWidgetComponent
     ]),
     GridStackModule,
-    RouterModule.forChild(portalRoutes)
+    RouterModule.forChild(portalRoutes),
+    StoreModule.forFeature('dashboard', widgetReducer),
+    EffectsModule.forFeature(effects)
   ],
-  providers: [{ provide: 'GridsterItem', useClass: FooterComponent }],
+  providers: [{ provide: 'GridsterItem', useClass: FooterComponent }, GridService],
   declarations: DASH_COMPONENTS,
   exports: [ContainerComponent]
 })

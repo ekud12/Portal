@@ -10,12 +10,14 @@ import { ZakautState } from '@zakautStore';
 import { UserState } from '@userStore';
 import { InvoicesState } from '@invoicesStore';
 import { SharedState } from '@sharedStore';
+import { DashboardState } from '@portalStore';
 
 export interface AppState {
   router: fromRouter.RouterReducerState<RouterState>;
   user: UserState;
   zakaut: ZakautState;
   invoices: InvoicesState;
+  dashboard: DashboardState;
   shared: SharedState;
 }
 
@@ -28,6 +30,7 @@ export const reducers: ActionReducerMap<AppState> = {
   user: defaultReducer,
   zakaut: defaultReducer,
   invoices: defaultReducer,
+  dashboard: defaultReducer,
   shared: defaultReducer
 };
 
@@ -60,6 +63,9 @@ export function getInitialState(): AppState {
         isLoading: false,
         errors: []
       }
+    },
+    dashboard: {
+      activeWidgets: null
     },
     shared: {
       printObject: null
