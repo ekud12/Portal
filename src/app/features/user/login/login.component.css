@@ -22,14 +22,14 @@
 
 /* Style For Form */
 .form {
-  font-size: 0.95rem;
+  font-size: 1rem;
   position: relative;
   max-width: 100%;
 }
 
 .form-container {
   background: rgba(255, 255, 255, 0.959);
-  width: 37vw;
+  width: 20vw;
 }
 
 .mob-form-container {
@@ -72,7 +72,7 @@
 
 .title {
   margin: 0 auto;
-  width: 40%;
+  width: 23%;
 }
 
 h1 {
@@ -80,7 +80,7 @@ h1 {
   padding-right: 15px;
   margin: 0;
   color: #f36f21;
-  width: 400px;
+  width: 250px;
   text-align: right;
   border-radius: 30px 0 0 30px;
   font-size: 28px;
@@ -154,15 +154,10 @@ h2 {
   border: 2px solid rgb(252, 81, 81);
 }
 
-/* .mat-form-field-custom {
-  background-color: rgb(255, 255, 255);
-  padding-right: 5px;
-  padding-left: 5px;
+.mat-form-field-custom {
   padding-bottom: 15px;
-  border: 2px solid rgb(192, 192, 192);
-  border-radius: 2px;
-  border-right: 5px solid rgb(0, 140, 255);
-} */
+
+}
 
 .icon2 {
   color: red;

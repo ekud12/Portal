@@ -25,7 +25,7 @@
 
       <form #loginFormTag fxLayout="column" fxLayoutAlign="space-between stretch center" [formGroup]="loginForm" novalidate *ngIf="!isValid">
 
-        <mat-form-field color='primary' [hideRequiredMarker]="options.hideRequired" [floatLabel]="options.floatLabel" *ngFor="let formItem of forms;  index as i"
+        <mat-form-field color='primary' [hideRequiredMarker]="options.hideRequired"  *ngFor="let formItem of forms;  index as i"
           class="mat-form-field-custom">
 
           <input matInput type={{formItem.type}} formControlName="{{formItem.controller}}" [errorStateMatcher]="matcher">

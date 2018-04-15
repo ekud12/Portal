@@ -21,17 +21,17 @@
     <img src="assets/images/meuhedet-logo.png" />
   </div>
 
-  <div *ngIf="(object.recipient && !(object.printOption === 1 || object.printOption === 2 || object.printOption === 3))" fxLayout="row"
+  <div *ngIf="(object?.recipient && !(object?.printOption === 1 || object?.printOption === 2 || object?.printOption === 3))" fxLayout="row"
     fxLayoutAlign="start center center" class="sub-header-details" class="recipient">
     <div fxLayout="column" fxLayoutAlign="start start center">
       <div>
-        {{ object.recipient.greeting }}
+        {{ object?.recipient.greeting }}
       </div>
       <div>
-        {{ object.recipient.address }}
+        {{ object?.recipient.address }}
       </div>
       <div>
-        {{ object.recipient.city }}
+        {{ object?.recipient.city }}
       </div>
     </div>
   </div>
@@ -60,15 +60,15 @@
         <div class="table-content">
           <mat-table #table [dataSource]="dataSource">
             <ng-container *ngFor="let col of object.displayedColumns" [cdkColumnDef]="col">
-              <mat-header-cell *cdkHeaderCellDef> {{getViewValue(col)}} </mat-header-cell>
-              <mat-cell *cdkCellDef="let row"> {{(row[col] | invoiceRowDate | invoiceStatus:col)}} </mat-cell>
+              <mat-header-cell *cdkHeaderCellDef class="cell-print"> {{getViewValue(col)}} </mat-header-cell>
+              <mat-cell *cdkCellDef="let row" class="cell-print"> {{(row[col] | invoiceRowDate | invoiceStatus:col)}} </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="object.displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: object.displayedColumns;" class="pgbreak"></mat-row>
           </mat-table>
         </div>
       </div>
-      <div *ngIf="!(object.printOption === 4 || object.printOption === 5)" fxLayout="column" fxLayoutAlign="start stretch center"
+      <div *ngIf="(object.printOption === 4 || object.printOption === 5)" fxLayout="column" fxLayoutAlign="start stretch center"
         fxLayoutGap="25px">
         <div *ngFor="let sd of object.specialData" class="special-data">
           {{sd}}

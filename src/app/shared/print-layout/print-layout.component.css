@@ -68,7 +68,7 @@
 }
 
 .table-content {
-  min-width: 75vw;
+  min-width: 85vw;
   display: block;
 }
 
@@ -105,6 +105,11 @@
   #section-to-not-print * {
     visibility: hidden;
   }
+  .table-content {
+    min-width: 100vw;
+    display: block;
+  }
+
   .special-data {
     font-size: 15px;
   }
@@ -125,4 +130,5 @@
   ::ng-deep mat-row {
     min-height: 18px !important;
   }
+
 }
