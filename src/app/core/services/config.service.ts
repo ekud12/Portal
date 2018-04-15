@@ -27,13 +27,13 @@ export class ConfigService {
     return new Promise((resolve, reject) => {
       // this.log.info('loading config from server..');
 
-      const propertiesResource$ = this.backendService
-        .get(httpRoutes.CONFIG_API)
-        .take(1)
-        .subscribe(data => {
-          this.buildObject(data);
-          resolve();
-        });
+      // const propertiesResource$ = this.backendService
+      //   .get(httpRoutes.CONFIG_API)
+      //   .take(1)
+      //   .subscribe(data => {
+      //     this.buildObject(data);
+      resolve();
+      //   });
 
       // const labelsResource$ = this.backendService
       //   .get(httpRoutes.CONFIG_API, { params: { propertiesType: 'labels' } })

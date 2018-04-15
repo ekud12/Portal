@@ -7,7 +7,7 @@
   -webkit-box-shadow: 0px 2px 16px -1px rgba(0, 0, 0, 0.534);
   -moz-box-shadow: 0px 2px 16px -1px rgba(0, 0, 0, 0.493);
   box-shadow: 0px 2px 16px -1px rgba(0, 0, 0, 0.425);
-  padding: 3px 15px;
+  padding: 0px 15px;
 }
 
 .summary-content-item {
