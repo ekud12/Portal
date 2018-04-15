@@ -9,13 +9,13 @@ export class InvoiceStatusColorPipe implements PipeTransform {
       case 0:
         return 'black';
       case 1:
-        return 'blue';
+        return 'red';
       case 2:
-        return '#ff5151';
+        return 'purple';
       case 3:
         return 'green';
       default:
-        return 'purple';
+        return 'pink';
     }
   }
 }

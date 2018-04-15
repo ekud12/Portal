@@ -18,6 +18,7 @@ export const invoicesRoutes: Routes = [
       { path: 'rows', component: InvoiceRowsComponent },
       { path: 'newRow', component: NewInvoiceRowComponent },
       { path: 'treatments', component: InvoiceRowTreatmentsComponent },
+      { path: 'card', loadChildren: 'app/features/zakaut/zakaut.module#ZakautModule' },
       { path: '**', redirectTo: '/portal/invoice' }
     ]
   }

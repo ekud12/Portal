@@ -70,6 +70,7 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
 
   addInvoiceRow() {
     console.log(this.newInvoiceRowRequest);
+    // if error returned stay here and display error if success go back to rows
     // this.invoiceStore.dispatch(new fromInvoiceStore.CreateInvoice(this.newInvoiceRowRequest));
   }
 
@@ -79,15 +80,12 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
 
   updateTreatValue(e) {
     this.currentSapak$.take(1).subscribe(spk => {
-      console.log(e);
       if (spk.treatments.find(v => v.treatCode === e)) {
         this.myForm['controls']['treat'].setValue(spk.treatments.find(v => v.treatCode === e));
       }
-
       if (e === '' || !spk.treatments.find(v => v.treatCode === e)) {
         this.myForm['controls']['treat'].setValue(null);
       }
-      console.log(this.myForm);
     });
   }
 }

@@ -3,7 +3,7 @@
     <div class="invoices-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
       <div class="summary-content-item"> חשבונית מספר : </div>{{(currentInvoice$|async)?.invoiceNum}}
       <div class="summary-content-item"> חודש : </div> {{(currentInvoice$|async)?.billMonth}}
-      <div class="summary-content-item">סטטוס : </div> {{(currentInvoice$|async)?.status | invoiceStatus}}
+      <div class="summary-content-item">סטטוס : </div> {{(currentInvoice$|async)?.status | invoiceStatus:'status'}}
       <div class="summary-content-item"> סכום לא כולל מע"מ : </div> {{(currentInvoice$|async)?.typedSum}}
       <div class="summary-content-item">אחוז מע"מ : </div> {{(currentInvoice$|async)?.rate}}
       <div class="summary-content-item"> סכום כולל מע"מ : </div> {{(currentInvoice$|async)?.invoiceSum}}
@@ -24,8 +24,8 @@
   </div>
 
   <div class="invoices-actions" fxLayout="row" fxLayoutAlign="space-around stretch">
-    <button *ngIf="(currentInvoice$|async)" routerLinkActive="active" mat-button routerLinkActiveOptions="{exact:
-      true}">העברת כרטיס מגנטי</button>
+    <button *ngIf="(currentInvoice$|async)" routerLink="/portal/invoices/card" (click)="$event.preventDefault();$event.stopPropagation();goToCard($event)" routerLinkActive="active"
+      mat-button>העברת כרטיס מגנטי</button>
     <button *ngIf="(currentInvoice$|async)" routerLinkActive="active" mat-button routerLinkActiveOptions="{exact:
       true}">דוח דיווחי כ.מגנטי</button>
     <button mat-button routerLink="/portal/invoices/all" routerLinkActive="active" routerLinkActiveOptions="{exact:

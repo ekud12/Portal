@@ -9,6 +9,7 @@ export class ZakautQueryModel {
   noCardReason?: ZakautNoCardReason;
   isSurgeon?: boolean;
   treatmentCode?: string;
+  moduleSrc?: string;
 }
 
 export class ZakautResponseModel {

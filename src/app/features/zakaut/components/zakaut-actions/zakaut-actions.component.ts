@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
   FormControl,
   Validators,
@@ -56,7 +56,7 @@ export class ZakautActionsComponent implements OnInit {
    */
   //#region
   vars = {
-    hideRequired: true,
+    subHeader: ['בדיקת זכאות', 'העברת כרטיס מגנטי(ExtraNet)'],
     floatLabel: 'never',
     BtnName: 'בדוק זכאות',
     BtnValidating: 'בודק זכאות, אנא המתן...',
@@ -111,7 +111,7 @@ export class ZakautActionsComponent implements OnInit {
   isSurgeon = false;
   hideCardInput = true;
   hideTreatInput = false;
-
+  header = this.vars.subHeader[0];
   //#endregion
 
   @ViewChild('cardFocusFirstTag') cardInputFocus;
@@ -131,8 +131,15 @@ export class ZakautActionsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userStore: Store<fromUserStore.UserState>,
-    private zakautStore: Store<fromZakautStore.ZakautState>
+    private zakautStore: Store<fromZakautStore.ZakautState>,
+    private route: ActivatedRoute
   ) {
+    this.route.queryParams.subscribe(params => {
+      if (params['src'] === '2') {
+        this.header = this.vars.subHeader[1];
+        this.zakautRequest.moduleSrc = '2';
+      }
+    });
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.isValidating$ = this.zakautStore.select(fromZakautStore.zakautLoadingSelector);
     this.zakautResponse$ = this.zakautStore.select(fromZakautStore.zakautResponseSelector);
@@ -296,9 +303,7 @@ export class ZakautActionsComponent implements OnInit {
   //#region ZakautWithTempCard
   createFormZakautWithTempCard() {
     this.zakautWithTempCardForm = this.fb.group({
-      _zakautWithTempCardIdTypeControl: new FormControl({ value: this.vars.idTypes[0], disabled: true }, [
-        Validators.required
-      ]),
+      _zakautWithTempCardIdTypeControl: new FormControl({ value: this.vars.idTypes[0], disabled: true }, [Validators.required]),
       _zakautWithTempCardIdControl: new FormControl({ value: '', disabled: true }, [
         Validators.required,
         Validators.minLength(9),

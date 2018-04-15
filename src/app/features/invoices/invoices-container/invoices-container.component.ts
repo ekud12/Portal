@@ -48,4 +48,10 @@ export class InvoicesContainerComponent implements OnInit {
       }
     });
   }
+
+  goToCard(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.routerStore.dispatch(new fromRoot.Go({ path: ['/portal/invoices/card'], query: { returnURL: '', src: 2 } }));
+  }
 }

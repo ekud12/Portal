@@ -7,22 +7,12 @@
 
   <mat-card fxFlexOrder="2" class="invoices-rows-container" fxLayout="column" fxLayoutAlign="space-between  center center"
     fxLayoutGap="10px">
-    <div fxLayout="row" fxLayoutAlign="space-between center center">
-      <div>
-        <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).status < 2">הוסף שורה</button>
-      </div>
-      <div>
-        <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">הדפס דרישת תשלום</button>
-        <button mat-raised-button color="primary" class="btn" (click)="printData(2)"> הדפס שורות לחשבונית</button>
-        <button mat-raised-button color="primary" class="btn"> הדפס טיפולים לחשבונית</button>
-        <button mat-raised-button color="primary" class="btn" (click)="printData(4)">הדפס סיכום חשבונית</button>
-      </div>
-    </div>
+
     <form fxLayout="column" fxLayoutAlign="space-around stretch center" novalidate fxLayoutGap="10px" class="invoices-rows-filter-form">
       <div fxLayout="row" fxLayoutAlign="space-around center center">
         <mat-form-field>
           <mat-select placeholder="בחר מסנן.." [(ngModel)]="selectedFilter" name="filterCategory">
-            <mat-option *ngFor="let searchFilter of displayedColumnsMap" [value]="searchFilter">
+            <mat-option *ngFor="let searchFilter of displayedColumnsMap | slice: 0:displayedColumnsMap.length-1" [value]="searchFilter">
               {{ searchFilter.viewValue }}
             </mat-option>
           </mat-select>
@@ -31,24 +21,23 @@
         <mat-form-field>
           <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="filterData($event.target.value)">
         </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-between center center">
+          <div>
+            <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).status < 2">הוסף שורה</button>
+          </div>
+          <div>
+            <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">הדפס דרישת תשלום</button>
+            <button mat-raised-button color="primary" class="btn" (click)="printData(2)"> הדפס שורות לחשבונית</button>
+            <button mat-raised-button color="primary" class="btn"> הדפס טיפולים לחשבונית</button>
+            <button mat-raised-button color="primary" class="btn" (click)="printData(4)">הדפס סיכום חשבונית</button>
+          </div>
+        </div>
 
-        <mat-form-field [floatLabel]="vars.floatLabel">
-          <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker startView="year"></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field [floatLabel]="vars.floatLabel">
-          <input matInput readonly [matDatepicker]="picker2" placeholder="עד תאריך">
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
-        </mat-form-field>
       </div>
     </form>
 
     <mat-card>
       <mat-table #table [dataSource]="dataSource" matSort matSortActive="lineNum" matSortDirection="asc" matSortDisableClear>
-
 
         <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
 
