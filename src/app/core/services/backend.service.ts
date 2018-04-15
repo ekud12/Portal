@@ -22,7 +22,7 @@ export class BackendService {
     this.timeoutError.name = 'שגיאה';
   }
 
-  get<T>(url: string, params?: any): any {
+  get<T>(url: string, params?: any) {
     return this.http.get(this._generateUrl(url), { params: params }).timeoutWith(5000, Observable.throw(this.timeoutError));
   }
 

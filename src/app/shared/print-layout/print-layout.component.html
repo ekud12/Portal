@@ -21,8 +21,8 @@
     <img src="assets/images/meuhedet-logo.png" />
   </div>
 
-  <div *ngIf="(object.recipient && !(object.isTableContent))" fxLayout="row" fxLayoutAlign="start center center" class="sub-header-details"
-    class="recipient">
+  <div *ngIf="(object.recipient && !(object.printOption === 1 || object.printOption === 2 || object.printOption === 3))" fxLayout="row"
+    fxLayoutAlign="start center center" class="sub-header-details" class="recipient">
     <div fxLayout="column" fxLayoutAlign="start start center">
       <div>
         {{ object.recipient.greeting }}
@@ -68,7 +68,8 @@
           </mat-table>
         </div>
       </div>
-      <div *ngIf="!object.isTableContent" fxLayout="column" fxLayoutAlign="start stretch center" fxLayoutGap="25px">
+      <div *ngIf="!(object.printOption === 4 || object.printOption === 5)" fxLayout="column" fxLayoutAlign="start stretch center"
+        fxLayoutGap="25px">
         <div *ngFor="let sd of object.specialData" class="special-data">
           {{sd}}
         </div>

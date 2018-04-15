@@ -171,6 +171,14 @@ export class GridService {
     return Observable.of(this.myWidgets);
   }
 
+  addWidget(type: string, args?: any) {
+    switch (type) {
+      case 'StatsCard': {
+        const newWidget = new GridStackItem();
+        /** use args  from user */
+      }
+    }
+  }
   updateScreen() {
     if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
       const evt = document.createEvent('UIEvents');

@@ -1,9 +1,10 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule, Optional, SkipSelf, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { reducers, effects, CustomSerializer, getInitialState, metaReducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
@@ -14,11 +15,16 @@ import { ErrorHandler } from './http/error-handler.interceptor';
 import { HttpParamsInterceptor } from './http/httpParamsInterceptor';
 import { ToastService } from './services/toast-service.service';
 import { AuthenticationService } from './services/auth.service';
+import { ConfigService } from './services/config.service';
 
+export function configServiceFactory(config: ConfigService) {
+  return () => config.load();
+}
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
+    TranslateModule.forRoot(),
     StoreModule.forRoot(reducers, {
       initialState: getInitialState(),
       metaReducers
@@ -34,6 +40,12 @@ import { AuthenticationService } from './services/auth.service';
     BackendService,
     ToastService,
     AuthenticationService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: configServiceFactory,
+      deps: [ConfigService],
+      multi: true
+    },
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     {
       provide: HTTP_INTERCEPTORS,
@@ -44,8 +56,10 @@ import { AuthenticationService } from './services/auth.service';
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandler,
       multi: true
-    }
-  ]
+    },
+    ConfigService
+  ],
+  exports: [TranslateModule]
 })
 export class CoreModule {
   constructor(

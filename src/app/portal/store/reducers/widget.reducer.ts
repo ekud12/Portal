@@ -14,7 +14,7 @@ export function widgetReducer(state = widgetsInitialState, action: any): Dashboa
     case userActions.ADD_WIDGET: {
       return {
         ...state,
-        activeWidgets: action.payload
+        activeWidgets: [...state.activeWidgets, action.payload]
       };
     }
     case userActions.INIT_WIDGETS_SUCCESS: {

@@ -2,6 +2,10 @@ export enum httpRoutes {
   /** Login Endpoints */
   LOGIN = 'token',
 
+  /** Config/Core Module Server Endpoints */
+  CONFIG_API = 'api/config',
+
+
   /** Zakaut Module Server Endpoints */
   ZAKAUT_API = 'api/zakaut',
 

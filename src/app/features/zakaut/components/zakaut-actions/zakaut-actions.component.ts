@@ -326,7 +326,6 @@ export class ZakautActionsComponent implements OnInit {
     this.zakautWithTempCardForm.get('_zakautWithTempCardDOBControl').enable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardNumberControl').enable();
     this.zakautWithTempCardForm.get('_zakautWithTempCardTreatCodeControl').enable();
-    console.log(this.zakautWithTempCardForm);
   }
 
   disableTempForm() {

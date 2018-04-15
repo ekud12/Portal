@@ -28,6 +28,8 @@ export class GridComponent implements OnInit {
     this.activeWidgets$ = this.widgetStore.select(fromWidgetStore.activeWidgetsSelector);
   }
 
+  /** fix pushing to be correct only for new items not all */
+
   ngOnInit() {
     this.options = new GridStackOptions();
     this.options.rtl = 'true';
@@ -35,7 +37,7 @@ export class GridComponent implements OnInit {
     this.options.auto = false;
     this.options.alwaysShowResizeHandle = false;
     this.myWidgets = [];
-    this.activeWidgets$.subscribe(val => {
+    this.activeWidgets$.take(1).subscribe(val => {
       val.map(wi => {
         this.myWidgets.push(wi);
         this.cd.detectChanges();
@@ -46,7 +48,7 @@ export class GridComponent implements OnInit {
     this.updateScreen();
   }
 
-  AddWidget(widget) {}
+  AddWidget() {}
 
   updateScreen() {
     if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
