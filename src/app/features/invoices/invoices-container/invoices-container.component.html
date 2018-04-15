@@ -24,7 +24,7 @@
   </div>
 
   <div class="invoices-actions" fxLayout="row" fxLayoutAlign="space-around stretch">
-    <button *ngIf="(currentInvoice$|async)" routerLink="/portal/invoices/card" (click)="$event.preventDefault();$event.stopPropagation();goToCard($event)" routerLinkActive="active"
+    <button *ngIf="(currentInvoice$|async)" routerLink="/portal/invoices/card" (click)="goToCard($event)" routerLinkActive="active"
       mat-button>העברת כרטיס מגנטי</button>
     <button *ngIf="(currentInvoice$|async)" routerLinkActive="active" mat-button routerLinkActiveOptions="{exact:
       true}">דוח דיווחי כ.מגנטי</button>

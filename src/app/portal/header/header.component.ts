@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import * as fromUserStore from '@userStore';
+import { environment } from '@environment';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,7 +11,7 @@ import * as fromUserStore from '@userStore';
 })
 export class HeaderComponent implements OnInit {
   version$: Observable<string>;
-
+  env = environment.version;
   links = [
     {
       link: '/portal/grid',
