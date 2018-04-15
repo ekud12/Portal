@@ -10,10 +10,10 @@
       <div class="summary-content-item"> הערות : </div> {{(currentInvoice$|async)?.remark1}},{{(currentInvoice$|async)?.remark2}}
     </div>
     <div *ngIf=(currentInvoiceRow$|async) class="invoices-row-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
-      <div class="summary-content-item"> שורה מספר : </div>
-      <div class="summary-content-item"> שם המבוטח : </div>
-      <div class="summary-content-item">תאריך : </div>
-      <div class="summary-content-item"> סכום : </div>
+      <div class="summary-content-item"> שורה מספר : </div> {{ (currentInvoiceRow$|async)?.lineNum }}
+      <div class="summary-content-item"> שם המבוטח : </div> {{ (currentInvoiceRow$|async)?.custFirstName}} {{ (currentInvoiceRow$|async)?.custSecName}}
+      <div class="summary-content-item">תאריך : </div> {{ (currentInvoiceRow$|async)?.date | date:'dd/MM/yyyy'}}
+      <div class="summary-content-item"> סכום : </div> {{ (currentInvoiceRow$|async)?.amount }}
     </div>
   </div>
   <div *ngIf="!(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch center">

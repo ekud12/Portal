@@ -17,7 +17,7 @@ export class RowEffects {
   activateInvoiceRow$ = this.actions$.ofType(userActions.ACTIVATE_INVOICE_ROW).pipe(
     map((action: userActions.ActivateInvoiceRow) => action.payload),
     tap(val => {
-      this.toaster.openSnackBar(`שורה מס' ${val.invoiceNum} נבחרה כפעילה.`, null);
+      this.toaster.openSnackBar(`שורה מס' ${val.lineNum} נבחרה כפעילה.`, null);
     }),
     map(() => {
       return new fromRoot.Go({

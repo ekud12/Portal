@@ -53,6 +53,12 @@ export function getInitialState(): AppState {
         listOfRowsForInvoice: null,
         isLoading: false,
         errors: []
+      },
+      treats: {
+        activeTreatment: null,
+        listOfTreatmentsForRow: null,
+        isLoading: false,
+        errors: []
       }
     },
     shared: {

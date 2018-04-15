@@ -128,4 +128,8 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.dataObject.dismap = this.displayedColumnsMap;
     this.dataObject.data = this.dataSource.connect().value;
   }
+
+  getViewValue(v) {
+    return this.displayedColumnsMap.find(a => a.value === v).viewValue;
+  }
 }

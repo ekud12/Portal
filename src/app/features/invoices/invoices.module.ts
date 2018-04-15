@@ -17,6 +17,7 @@ import { reducers, effects } from './store';
 import { InvoicesContainerComponent } from './invoices-container/invoices-container.component';
 import { NewInvoiceRowComponent } from './components/new-invoice-row/new-invoice-row.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import { ZakautModule } from 'app/features/zakaut/zakaut.module';
 
 const COMPONENTS = [
   InvoiceRowsComponent,

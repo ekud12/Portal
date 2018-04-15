@@ -30,30 +30,10 @@
 
     <mat-card>
       <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear>
+        <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col)}}</mat-header-cell>
 
-        <ng-container matColumnDef="billMonth">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> תאריך חשבונית </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.billMonth}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="invoiceNum">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> מספר חשבונית </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.invoiceNum}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="totalRowsNum">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> סה"כ שורות </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.totalRowsNum}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="invoiceSum">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> סכום חשבונית </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.invoiceSum}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> סטטוס חשבונית </mat-header-cell>
-          <mat-cell *matCellDef="let element" [style.color]="(element.status | invoiceStatusColor)"> {{(element.status | invoiceStatus)}} </mat-cell>
+          <mat-cell *matCellDef=" let element "> {{(element[col] | invoiceRowDate | invoiceStatus:col)}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef=" displayedColumns "></mat-header-row>

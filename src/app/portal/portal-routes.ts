@@ -11,13 +11,14 @@ export const portalRoutes: Routes = [
       { path: '', redirectTo: 'invoices', pathMatch: 'full' },
       { path: 'home', component: PageNotFoundComponent },
       { path: 'grid', component: GridComponent },
-      {
-        path: 'zakaut',
-        loadChildren: 'app/features/zakaut/zakaut.module#ZakautModule'
-      },
+
       {
         path: 'invoices',
         loadChildren: 'app/features/invoices/invoices.module#InvoicesModule'
+      },
+      {
+        path: 'zakaut',
+        loadChildren: 'app/features/zakaut/zakaut.module#ZakautModule'
       },
       {
         path: 'falconx',
