@@ -44,7 +44,8 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     'typedAmount',
     'date',
     'amount',
-    'visitNum'
+    'visitNum',
+    'actions'
   ];
   displayedColumnsMap = [
     { value: 'lineNum', viewValue: 'מספר שורה' },
@@ -55,7 +56,8 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     { value: 'typedAmount', viewValue: 'סכום' },
     { value: 'date', viewValue: 'תאריך' },
     { value: 'amount', viewValue: 'מספר טיפולים' },
-    { value: 'visitNum', viewValue: 'מספר ביקור' }
+    { value: 'visitNum', viewValue: 'מספר ביקור' },
+    { value: 'actions', viewValue: '' }
   ];
   vars = {
     hideRequired: true,
@@ -109,7 +111,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
   }
 
-  applyFilter(filterValue: string) {
+  filterData(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
@@ -138,7 +140,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
   }
 
-  newInvoiceRow() {
+  createNewInvoiceRow() {
     this.currentInvoice$.take(1).subscribe(val => {
       if (val.status === 0 || val.status === 1) {
         this.routerStore.dispatch(new Go({ path: ['portal/invoices/newRow'] }));
@@ -160,9 +162,21 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  deleteRow(a: any) {
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: { data: 'האם למחוק את השורה הנוכחית?' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        /** delete invoice row and call op 03 to get all invoice rows again */
+      }
+    });
+  }
+
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;
   }
+
   /************************************************  BUILD OBJECTS FOR PRINTING ****************************************************/
   buildPrintObjectCloseInvoice() {
     this.currentInvoice$.take(1).subscribe(inv => {

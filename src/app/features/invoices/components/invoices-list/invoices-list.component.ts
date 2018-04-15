@@ -116,11 +116,8 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   activateInvoice(inv: any) {
-    this.listOfInvoices$.take(1).subscribe(inv2 => {
-      const toPass = inv2.find(p => (p.invoiceNum = inv.invoiceNum));
-      this.req.invoice = toPass;
-      this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(this.req));
-    });
+    this.req.invoice = inv;
+    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(this.req));
   }
 
   buildObjectForPrint() {

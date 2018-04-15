@@ -53,8 +53,8 @@
             required>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="תאריך ביקור" [(ngModel)]="newInvoiceRowRequest.date" name="date" required
-            readonly>
+          <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" placeholder="תאריך ביקור" [(ngModel)]="newInvoiceRowRequest.date"
+            name="date" required readonly>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker readonly #picker></mat-datepicker>
         </mat-form-field>
@@ -62,7 +62,8 @@
 
       <div fxLayout="row" fxLayoutAlign="start center stretch">
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="מחיר" pattern="\d*" maxLength="10" #num2 required [disabled]="!(canEnterPrice$|async)">
+          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="מחיר" pattern="\d*" maxLength="10" #num2
+            required [disabled]="!(canEnterPrice$|async)">
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayoutAlign="start stretch center">

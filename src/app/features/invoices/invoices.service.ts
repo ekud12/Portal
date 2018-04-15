@@ -117,6 +117,34 @@ export class InvoicesService {
         kzzStatusDesc: 'תקיןןןן',
         treatmentDesc: 'טיפול של הביוקר',
         cstFormattedId: '1-00000040-6'
+      },
+      {
+        lineNum: 2,
+        custIDtype: '1',
+        custID: 40223123,
+        custIDBikoret: 4,
+        custSecName: 'מישהו',
+        custFirstName: 'ומשהו',
+        commitmentId: 99949999,
+        visitNum: 54,
+        amount: 1,
+        typedAmount: 550,
+        treatmentLine: 3,
+        date: new Date(),
+        treatmentCode: '01',
+        kzzType: '33',
+        KzzCode: '44',
+        kzzDesc: 'קיזוז התחשבנות',
+        kzzLiterally1: '',
+        kzzLiterally2: '',
+        kzzLiterally3: '',
+        kzzLiterally4: '',
+        kzzLiterally5: '',
+        kzzLiterally6: '',
+        KzzStatus: 'תקין',
+        kzzStatusDesc: 'תקיןןןן',
+        treatmentDesc: '2טיפול של הביוקר',
+        cstFormattedId: '1-40223123-4'
       }
     ];
     const retEmpty = [];

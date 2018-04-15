@@ -75,3 +75,7 @@ h2 {
   padding: 10px 10px;
   color: red;
 }
+
+.action-icon:hover {
+  color: red;
+}
