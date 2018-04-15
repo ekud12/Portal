@@ -7,7 +7,6 @@ export const getInvoiceState = createSelector(fromFeature.getInvoicesState, (sta
 
 export const currentInvoiceSelector = createSelector(getInvoiceState, (state: fromInvoice.InvoiceState) => state.activeInvoice);
 
-// export const currentInvoiceRowSelector = createSelector(getInvoiceState, (state: fromInvoice.InvoiceState) => state.activeInvoiceRow);
 
 export const allInvoicesSelector = createSelector(
   getInvoiceState,

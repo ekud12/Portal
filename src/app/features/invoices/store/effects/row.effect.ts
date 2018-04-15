@@ -25,18 +25,19 @@ export class RowEffects {
       });
     })
   );
-  // @Effect()
-  // getInvoices$ = this.actions$.ofType(userActions.GET_INVOICES).pipe(
-  //   map((action: userActions.GetInvoices) => action.payload),
-  //   switchMap((allInvoicesRequest: SapakDataRequest) => {
-  //     return this.invoicesService
-  //       .getAllInvoicesForSapak(allInvoicesRequest)
-  //       .pipe(
-  //         switchMap(res => [new userActions.GetInvoicesSuccess(res)]),
-  //         catchError(error => of(new userActions.GetInvoicesFail(error)))
-  //       );
-  //   })
-  // );
+
+  @Effect()
+  getInvoiceRows$ = this.actions$.ofType(userActions.GET_INVOICE_ROWS).pipe(
+    map((action: userActions.GetInvoiceRows) => action.payload),
+    switchMap((allInvoicesRequest: SapakDataRequest) => {
+      return this.invoicesService
+        .getAllInvoicesForSapak(allInvoicesRequest)
+        .pipe(
+          switchMap(res => [new userActions.GetInvoicesSuccess(res)]),
+          catchError(error => of(new userActions.GetInvoicesFail(error)))
+        );
+    })
+  );
 
   // @Effect()
   // createInvoice$ = this.actions$.ofType(userActions.CREATEֹֹֹּ_INVOICE).pipe(

@@ -42,7 +42,7 @@ export class GetInvoicesCompleted implements Action {
 /** Actions - Activate Chosen Invoice Globally */
 export class ActivateInvoice implements Action {
   readonly type = ACTIVATE_INVOICE;
-  constructor(public payload: any) {}
+  constructor(public payload: SapakDataRequest) {}
 }
 
 export class ActivateInvoiceSuccess implements Action {

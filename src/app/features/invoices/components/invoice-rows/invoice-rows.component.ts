@@ -15,6 +15,7 @@ import { FormControl } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
+import * as fromRoot from '@coreStore';
 import * as moment from 'moment';
 import * as fromInvoiceStore from '@invoicesStore';
 import * as fromSharedStore from '@sharedStore';
@@ -26,6 +27,7 @@ import { PrintObject } from '../../../../shared/global-models/print-object.inter
 import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layout.component';
 import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.component';
 import { ToastService } from 'app/core/services/toast-service.service';
+import { Go } from 'app/core/store/actions';
 
 @Component({
   selector: 'app-invoice-rows',
@@ -62,6 +64,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     private router: Router,
     private sharedStore: Store<fromSharedStore.SharedState>,
     private userStore: Store<fromUserStore.UserState>,
+    private routerStore: Store<fromRoot.AppState>,
     public dialog: MatDialog,
     private toaster: ToastService
   ) {
@@ -114,9 +117,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       }
     }
     this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.dataObject));
-    this.router.navigate(['print'], {
-      queryParams: { isIE: true, returnUrl: this.router.url }
-    });
+    this.routerStore.dispatch(new Go({ path: ['print'], query: { isIE: true, returnUrl: this.router.url } }));
   }
 
   activateInvoiceRow(row: any) {
@@ -126,7 +127,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   newInvoiceRow() {
     this.currentInvoice$.take(1).subscribe(val => {
       if (val.status === 0 || val.status === 1) {
-        this.router.navigate(['portal/invoices/newRow']);
+        this.routerStore.dispatch(new Go({ path: ['portal/invoices/newRow']}));
       } else {
         this.toaster.openSnackBar('סטטוס חשבונית פעילה לא מאפשר הוספת שורה חדשה.');
       }
@@ -144,6 +145,8 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+
   /************************************************  BUILD OBJECTS FOR PRINTING ****************************************************/
   buildPrintObjectCloseInvoice() {
     this.currentInvoice$.take(1).subscribe(inv => {

@@ -8,7 +8,7 @@
   <mat-card fxFlexOrder="2" class="invoices-row-container" fxLayout="column" fxLayoutAlign="stretch center">
 
     <form fxLayout="column" #formTag="ngForm" fxLayoutAlign="start stretch start" fxLayoutGap="10px" class="new-invoice-row-form"
-      (ngSubmit)="addInvoiceRow()" novalidate>
+      (ngSubmit)="addInvoiceRow()" novalidate *ngIf="(currentSapak$ | async).treatments.length > 0">
 
       <div fxLayout="row" fxLayoutAlign="start center stretch">
         <mat-form-field class="mat-form-field-custom">
@@ -82,6 +82,11 @@
         </mat-progress-bar>
       </section> -->
     </form>
+    <div *ngIf="(currentSapak$ | async).treatments.length === 0" fxLayout="column" fxLayoutAlign="space-around center center"
+      class="no-work-error">
+      <span> לקוח יקר, </span>
+      <span>חלה תקלה בעת טעינת טיפולים לספק. אנא פנה לתמיכה או בחר ספק אחר.</span>
+    </div>
 
   </mat-card>
 </div>

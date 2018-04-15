@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as fromInvoiceStore from '@invoicesStore';
 import { Store } from '@ngrx/store';
 import * as fromUserStore from '@userStore';
+import * as fromRoot from '@coreStore';
 import { Observable } from 'rxjs/Observable';
 
 import { Sapak } from '../../user/models/sapak.model';
@@ -24,6 +25,7 @@ export class InvoicesContainerComponent implements OnInit {
 
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
+    private routerStore: Store<fromRoot.AppState>,
     private router: Router,
     private userStore: Store<fromUserStore.UserState>
   ) {
@@ -34,13 +36,13 @@ export class InvoicesContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentInvoice$.subscribe(val => {
-      if (!val) {
-        this.router.navigate(['/portal/invoices/all']);
+    this.currentInvoice$.subscribe(invVal => {
+      if (!invVal) {
+        this.routerStore.dispatch(new fromRoot.Go({ path: ['/portal/invoices/all'] }));
       } else {
-        this.currentInvoiceRow$.take(1).subscribe(val2 => {
-          if (!val2) {
-            this.router.navigate(['/portal/invoices/rows']);
+        this.currentInvoiceRow$.take(1).subscribe(rowVal => {
+          if (!rowVal) {
+            this.routerStore.dispatch(new fromRoot.Go({ path: ['/portal/invoices/rows'] }));
           }
         });
       }

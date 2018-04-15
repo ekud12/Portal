@@ -45,12 +45,9 @@ export class InvoiceEffects {
     map((action: userActions.ActivateInvoice) => action.payload),
     tap(val => {
       this.toaster.openSnackBar(`חשבונית מס' ${val.invoiceNum} נבחרה כפעילה.`, null);
+      return val;
     }),
-    map(() => {
-      return new fromRoot.Go({
-        path: ['/portal/invoices/rows']
-      });
-    })
+    switchMap(val => [new userActions.GetInvoiceRows(), new fromRoot.Go({ path: ['/portal/invoices/rows'] })])
   );
 
   @Effect()

@@ -15,6 +15,7 @@ import { FormControl } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 
+import * as fromRoot from '@coreStore';
 import * as moment from 'moment';
 import * as fromInvoiceStore from '@invoicesStore';
 import * as fromSharedStore from '@sharedStore';
@@ -59,6 +60,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   color = 'red';
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
+    private routerStore: Store<fromRoot.AppState>,
     private router: Router,
     private sharedStore: Store<fromSharedStore.SharedState>,
     private userStore: Store<fromUserStore.UserState>,
@@ -96,13 +98,11 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   print(): void {
     this.buildObjectForPrint();
     this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.dataObject));
-    this.router.navigate(['print'], {
-      queryParams: { isIE: true, returnUrl: this.router.url }
-    });
+    this.routerStore.dispatch(new fromRoot.Go({ path: ['print'], query: { isIE: true, returnUrl: this.router.url } }));
   }
 
   newInvoice() {
-    this.router.navigate(['portal/invoices/newInvoice']);
+    this.routerStore.dispatch(new fromRoot.Go({ path: ['portal/invoices/newInvoice']}));
   }
 
   applyFilterInvoiceNumber(filterValue: string) {

@@ -50,6 +50,7 @@ export function getInitialState(): AppState {
       },
       rows: {
         activeInvoiceRow: null,
+        listOfRowsForInvoice: null,
         isLoading: false,
         errors: []
       }

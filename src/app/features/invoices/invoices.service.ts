@@ -88,61 +88,34 @@ export class InvoicesService {
     return Observable.of(ret);
   }
 
-  getAllInvoiceRows(request: SapakDataRequest): Observable<Invoice[]> {
+  getAllInvoiceRows(request: SapakDataRequest): Observable<InvoiceRow[]> {
     const ret = [
       {
-        billMonth: '12/2018',
-        invoiceNum: 4015,
-        totalRowsNum: 1,
-        invoiceSum: 581,
-        status: 2,
-        invoiceType: 0,
-        typedSum: 450,
-        exeCode: 'do',
-        totalOffset: 5,
-        totalKZZApprl: 6,
-        rate: 17,
-        isVat: 'yes',
-        currency: '$',
-        vatPer: 0.6,
-        remark1: 'fml',
-        remark2: 'fml2'
-      },
-      {
-        billMonth: '12/2018',
-        invoiceNum: 335,
-        totalRowsNum: 1,
-        invoiceSum: 581,
-        status: 0,
-        invoiceType: 0,
-        typedSum: 450,
-        exeCode: 'do',
-        totalOffset: 5,
-        totalKZZApprl: 6,
-        rate: 17,
-        isVat: 'yes',
-        currency: '$',
-        vatPer: 0.6,
-        remark1: 'fml',
-        remark2: 'fml2'
-      },
-      {
-        billMonth: '07/2018',
-        invoiceNum: 9335,
-        totalRowsNum: 1,
-        invoiceSum: 581,
-        status: 0,
-        invoiceType: 0,
-        typedSum: 450,
-        exeCode: 'do',
-        totalOffset: 5,
-        totalKZZApprl: 6,
-        rate: 17,
-        isVat: 'yes',
-        currency: '$',
-        vatPer: 0.6,
-        remark1: 'fml',
-        remark2: 'fml2'
+        lineNum: 1,
+        custIDtype: '1',
+        custID: 40,
+        custIDBikoret: 6,
+        custSecName: 'מישהו',
+        custFirstName: 'ומשהו',
+        commitmentId: 99999999,
+        visitNum: 54,
+        amount: 1,
+        typedAmount: 550,
+        treatmentLine: 3,
+        date: new Date(),
+        treatmentCode: '01',
+        kzzType: '33',
+        KzzCode: '44',
+        kzzDesc: 'קיזוז התחשבנות',
+        kzzLiterally1: '',
+        kzzLiterally2: '',
+        kzzLiterally3: '',
+        kzzLiterally4: '',
+        kzzLiterally5: '',
+        kzzLiterally6: '',
+        KzzStatus: 'תקין',
+        kzzStatusDesc: 'תקיןןןן',
+        treatmentDesc: 'טיפול של הביוקר'
       }
     ];
     const retEmpty = [];

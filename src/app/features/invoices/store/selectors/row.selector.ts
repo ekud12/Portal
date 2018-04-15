@@ -9,3 +9,8 @@ export const currentInvoiceRowSelector = createSelector(
   getInvoiceRowState,
   (state: fromInvoiceRow.InvoiceRowState) => state.activeInvoiceRow
 );
+
+export const allInvoiceRowsSelector = createSelector(
+  getInvoiceRowState,
+  (state: fromInvoiceRow.InvoiceRowState) => state.listOfRowsForInvoice
+);

@@ -56,3 +56,10 @@ h2 {
 .btn {
   margin: 0px 10px;
 }
+
+.no-work-error {
+  padding: 30px 30px;
+  font-size: 25px;
+  font-weight: bold;
+  color: rgb(0, 81, 134);
+}
