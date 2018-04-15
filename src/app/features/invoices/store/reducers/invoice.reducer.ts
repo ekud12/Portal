@@ -25,6 +25,7 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
       };
     }
     case userActions.GET_INVOICES_SUCCESS: {
+      console.log(action.payload);
       return {
         ...state,
         listOfInvoicesForSapak: action.payload,

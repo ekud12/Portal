@@ -15,7 +15,6 @@ export class SapakEffects {
   activeSapak$: Observable<Sapak>;
 
   constructor(private actions$: Actions, private userService: UserService, private toaster: ToastService) {
-    // this.activeSapak$ = userStore.select(userStore.activeSapakSelector);
   }
 
   @Effect()
