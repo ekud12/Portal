@@ -21,7 +21,7 @@ import * as fromInvoiceStore from '@invoicesStore';
 import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
 import { Invoice, PrintingOption } from '../../models/new-actions.model';
-import { Sapak } from '../../../user/models/sapak.model';
+import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 
 import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layout.component';
@@ -49,6 +49,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
   userName: string;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
@@ -57,7 +58,8 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   dataObject: PrintObject = new PrintObject();
   selectedFilter;
   dataSource;
-  color = 'red';
+  req = new SapakDataRequest();
+
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
     private routerStore: Store<fromRoot.AppState>,
@@ -88,9 +90,11 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.loggedUserName$.subscribe(val => (this.req.userName = val));
     this.currentSapak$.subscribe(spk => {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
+      this.req.kodSapak = spk.kodSapak;
     });
     this.dataSource.filterPredicate = (data: Invoice, filter: string) => data.invoiceNum.toString().includes(filter);
   }
@@ -102,7 +106,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   newInvoice() {
-    this.routerStore.dispatch(new fromRoot.Go({ path: ['portal/invoices/newInvoice']}));
+    this.routerStore.dispatch(new fromRoot.Go({ path: ['portal/invoices/newInvoice'] }));
   }
 
   applyFilterInvoiceNumber(filterValue: string) {
@@ -112,7 +116,11 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   activateInvoice(inv: any) {
-    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(inv));
+    this.listOfInvoices$.take(1).subscribe(inv2 => {
+      const toPass = inv2.find(p => (p.invoiceNum = inv.invoiceNum));
+      this.req.invoice = toPass;
+      this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(this.req));
+    });
   }
 
   buildObjectForPrint() {

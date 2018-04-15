@@ -24,7 +24,6 @@
         <mat-form-field hintLabel="(עד 4 ספרות)" class="mat-form-field-custom">
           <input matInput type="text" pattern="(?!0000)+\d{4,4}" placeholder="מספר חשבונית חדשה" maxLength="4" [(ngModel)]="newInvoiceRequest.invoiceNum"
             formControlName="invoiceIdControl">
-          <!-- <mat-error *ngIf="newInvoiceForm.get('invoiceIdControl').hasError('minlength')">{{vars.errors.minlength}}</mat-error> -->
           <mat-error *ngIf="newInvoiceForm.get('invoiceIdControl').hasError('required')">שדה נדרש</mat-error>
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">

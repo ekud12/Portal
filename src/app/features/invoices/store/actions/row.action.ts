@@ -17,7 +17,7 @@ export const RESET_INVOICE_ROWS = '[Invoice] Reset Invoice Rows';
 /** Actions - Get all rows for  Invoice*/
 export class GetInvoiceRows implements Action {
   readonly type = GET_INVOICE_ROWS;
-  constructor(public payload: any) {}
+  constructor(public payload: SapakDataRequest) {}
 }
 
 export class GetInvoiceRowsSuccess implements Action {
@@ -37,8 +37,7 @@ export class GetInvoiceRowsCompleted implements Action {
 /** Actions - Activate Invoice Row */
 export class ActivateInvoiceRow implements Action {
   readonly type = ACTIVATE_INVOICE_ROW;
-  constructor(public payload: any) {
-  }
+  constructor(public payload: any) {}
 }
 
 export class ActivateInvoiceRowSuccess implements Action {

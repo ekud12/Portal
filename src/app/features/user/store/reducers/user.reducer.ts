@@ -111,7 +111,9 @@ export function userReducer(state = userInitialState, action: any): UserState {
     }
 
     case userActions.CHANGE_SAPAK_DEFAULT: {
-      const a = new SapakDataRequest(state.user.username, state.user.availableSapakim[0].kodSapak);
+      const a = new SapakDataRequest();
+      a.userName = state.user.username;
+      a.kodSapak = state.user.availableSapakim[0].kodSapak;
       action.payload = a;
       return {
         ...state,

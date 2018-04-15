@@ -1,4 +1,5 @@
 import { Permission } from './permission.model';
+import { InvoiceRow, Invoice } from '../../invoices/models/new-actions.model';
 
 export class Sapak {
   kodSapak: string;
@@ -16,13 +17,13 @@ export class SapakTreatment {
 export class SapakDataRequest {
   userName: string;
   kodSapak: string;
-  invoiceNum: string;
-  invoiceRowNum: string;
+  invoice: Invoice;
+  invoiceRow: InvoiceRow;
   invoiceTreatNum: string;
-  constructor(userName: string, kodSapak: string) {
-    this.userName = userName;
-    this.kodSapak = kodSapak;
-  }
+  // constructor(userName: string, kodSapak: string) {
+  //   this.userName = userName;
+  //   this.kodSapak = kodSapak;
+  // }
 }
 
 export class SapakTreatmentsListResponse {

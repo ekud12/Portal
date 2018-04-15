@@ -28,7 +28,7 @@ export class UserPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.SapakTreatmentsRequest = new SapakDataRequest('', '');
+    this.SapakTreatmentsRequest = new SapakDataRequest();
     this.user$.subscribe(val => {
       this.SapakTreatmentsRequest.userName = val.username;
     });

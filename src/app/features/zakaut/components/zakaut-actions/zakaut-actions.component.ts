@@ -17,7 +17,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import * as fromUserStore from '@userStore';
 import * as fromZakautStore from '@zakautStore';
-import { Sapak, SapakTreatment, SapakDataRequest } from 'app/features/user/models/sapak.model';
+import { Sapak, SapakTreatment } from 'app/features/user/models/sapak.model';
 import { Zakaut } from 'app/features/user/models/permission.model';
 import { ZakautQueryModel, ZakautNoCardReason, ZakautResponseModel } from 'app/features/zakaut/models/zakaut-query.model';
 import { timer } from 'rxjs/observable/timer';

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +19,7 @@ import { sharedReducer } from './store';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { InvoiceStatusPipe } from './utils/invoice-status.pipe';
 import { InvoiceStatusColorPipe } from './utils/invoice-status-color.pipe';
+import { InvoiceRowDatePipe } from './utils/invoice-row-date.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -31,9 +32,16 @@ import { InvoiceStatusColorPipe } from './utils/invoice-status-color.pipe';
     StoreModule.forFeature('shared', sharedReducer),
     EffectsModule.forFeature(effects)
   ],
-  declarations: [PageNotFoundComponent, PrintLayoutComponent, AlertDialogComponent, InvoiceStatusPipe, InvoiceStatusColorPipe],
+  declarations: [
+    PageNotFoundComponent,
+    PrintLayoutComponent,
+    AlertDialogComponent,
+    InvoiceStatusPipe,
+    InvoiceStatusColorPipe,
+    InvoiceRowDatePipe
+  ],
   entryComponents: [AlertDialogComponent],
-  providers: [{ provide: MAT_DIALOG_DATA, useValue: [] }],
+  providers: [{ provide: MAT_DIALOG_DATA, useValue: [] }, DatePipe],
   exports: [
     materialImports,
     FlexLayoutModule,
@@ -43,7 +51,8 @@ import { InvoiceStatusColorPipe } from './utils/invoice-status-color.pipe';
     PrintLayoutComponent,
     AlertDialogComponent,
     InvoiceStatusPipe,
-    InvoiceStatusColorPipe
+    InvoiceStatusColorPipe,
+    InvoiceRowDatePipe
   ]
 })
 export class SharedModule {}

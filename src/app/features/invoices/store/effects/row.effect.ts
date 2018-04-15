@@ -29,12 +29,12 @@ export class RowEffects {
   @Effect()
   getInvoiceRows$ = this.actions$.ofType(userActions.GET_INVOICE_ROWS).pipe(
     map((action: userActions.GetInvoiceRows) => action.payload),
-    switchMap((allInvoicesRequest: SapakDataRequest) => {
+    switchMap((allInvoiceRowsRequest: SapakDataRequest) => {
       return this.invoicesService
-        .getAllInvoicesForSapak(allInvoicesRequest)
+        .getAllInvoiceRows(allInvoiceRowsRequest)
         .pipe(
-          switchMap(res => [new userActions.GetInvoicesSuccess(res)]),
-          catchError(error => of(new userActions.GetInvoicesFail(error)))
+          switchMap(res => [new userActions.GetInvoiceRowsSuccess(res)]),
+          catchError(error => of(new userActions.GetInvoiceRowsFail(error)))
         );
     })
   );

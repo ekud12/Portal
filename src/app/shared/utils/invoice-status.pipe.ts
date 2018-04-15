@@ -15,7 +15,7 @@ export class InvoiceStatusPipe implements PipeTransform {
       case 3:
         return 'סגורה';
       default:
-        return 'סוג לא ידוע';
+        return value;
     }
   }
 }

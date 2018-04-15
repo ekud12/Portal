@@ -44,10 +44,10 @@ export class InvoiceEffects {
   activateInvoice$ = this.actions$.ofType(userActions.ACTIVATE_INVOICE).pipe(
     map((action: userActions.ActivateInvoice) => action.payload),
     tap(val => {
-      this.toaster.openSnackBar(`חשבונית מס' ${val.invoiceNum} נבחרה כפעילה.`, null);
+      this.toaster.openSnackBar(`חשבונית מס' ${val.invoice.invoiceNum} נבחרה כפעילה.`, null);
       return val;
     }),
-    switchMap(val => [new userActions.GetInvoiceRows(), new fromRoot.Go({ path: ['/portal/invoices/rows'] })])
+    switchMap(val => [new userActions.GetInvoiceRows(val), new fromRoot.Go({ path: ['/portal/invoices/rows'] })])
   );
 
   @Effect()

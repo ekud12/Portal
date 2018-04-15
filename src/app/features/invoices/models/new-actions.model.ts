@@ -45,6 +45,7 @@ export class InvoiceRow {
   KzzStatus: string;
   kzzStatusDesc: string;
   treatmentDesc: string;
+  cstFormattedId: string;
 }
 
 export class InvoiceTreatment {

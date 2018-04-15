@@ -12,11 +12,11 @@
 
       <div fxLayout="row" fxLayoutAlign="start center stretch">
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="commitment" pattern="\d{9,9}*" placeholder="מספר התחייבות" maxLength="9" [(ngModel)]="newInvoiceRowRequest.commitment"
+          <input matInput type="text" name="commitment" pattern="\d{9,9}" placeholder="מספר התחייבות" maxLength="9" [(ngModel)]="newInvoiceRowRequest.commitment"
             required>
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="custId" pattern="\d{9,9}*" placeholder="תעודת זהות" maxLength="9" [(ngModel)]="newInvoiceRowRequest.custId"
+          <input matInput type="text" name="custId" pattern="\d{9,9}" placeholder="תעודת זהות" maxLength="9" [(ngModel)]="newInvoiceRowRequest.custId"
             required>
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">
@@ -62,7 +62,7 @@
 
       <div fxLayout="row" fxLayoutAlign="start center stretch">
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="מחיר" maxLength="10" #num2 required [disabled]="!(canEnterPrice$|async)">
+          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="מחיר" pattern="\d*" maxLength="10" #num2 required [disabled]="!(canEnterPrice$|async)">
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayoutAlign="start stretch center">

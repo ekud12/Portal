@@ -115,7 +115,8 @@ export class InvoicesService {
         kzzLiterally6: '',
         KzzStatus: 'תקין',
         kzzStatusDesc: 'תקיןןןן',
-        treatmentDesc: 'טיפול של הביוקר'
+        treatmentDesc: 'טיפול של הביוקר',
+        cstFormattedId: '1-00000040-6'
       }
     ];
     const retEmpty = [];

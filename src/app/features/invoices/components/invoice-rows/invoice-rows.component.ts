@@ -35,13 +35,27 @@ import { Go } from 'app/core/store/actions';
   styleUrls: ['./invoice-rows.component.css']
 })
 export class InvoiceRowsComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['billMonth', 'invoiceNum', 'totalRowsNum', 'invoiceSum', 'status'];
+  displayedColumns = [
+    'lineNum',
+    'commitmentId',
+    'cstFormattedId',
+    'custFirstName',
+    'custSecName',
+    'typedAmount',
+    'date',
+    'amount',
+    'visitNum'
+  ];
   displayedColumnsMap = [
-    { value: 'billMonth', viewValue: 'תאריך חשבונית' },
-    { value: 'invoiceNum', viewValue: 'מספר חשבונית' },
-    { value: 'totalRowsNum', viewValue: 'סה"כ שורות' },
-    { value: 'invoiceSum', viewValue: 'סכום חשבונית' },
-    { value: 'status', viewValue: 'סטטוס חשבונית' }
+    { value: 'lineNum', viewValue: 'מספר שורה' },
+    { value: 'commitmentId', viewValue: 'מספר התחייבות' },
+    { value: 'cstFormattedId', viewValue: 'מספר זיהוי' },
+    { value: 'custFirstName', viewValue: 'שם פרטי' },
+    { value: 'custSecName', viewValue: 'שם משפחה' },
+    { value: 'typedAmount', viewValue: 'סכום' },
+    { value: 'date', viewValue: 'תאריך' },
+    { value: 'amount', viewValue: 'מספר טיפולים' },
+    { value: 'visitNum', viewValue: 'מספר ביקור' }
   ];
   vars = {
     hideRequired: true,
@@ -53,7 +67,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   userName: string;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
-  listOfInvoices$: Observable<Invoice[]>;
+  listOfInvoiceRows$: Observable<Invoice[]>;
   currentInvoice$: Observable<Invoice>;
   dataObject: PrintObject = new PrintObject();
   selectedFilter = this.displayedColumnsMap[1];
@@ -70,8 +84,8 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   ) {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
-    this.listOfInvoices$ = this.invoiceStore.select(fromInvoiceStore.allInvoicesSelector);
-    this.listOfInvoices$.subscribe(val => {
+    this.listOfInvoiceRows$ = this.invoiceStore.select(fromInvoiceStore.allInvoiceRowsSelector);
+    this.listOfInvoiceRows$.subscribe(val => {
       this.dataSource = new MatTableDataSource<Invoice>(val);
     });
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
@@ -127,7 +141,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   newInvoiceRow() {
     this.currentInvoice$.take(1).subscribe(val => {
       if (val.status === 0 || val.status === 1) {
-        this.routerStore.dispatch(new Go({ path: ['portal/invoices/newRow']}));
+        this.routerStore.dispatch(new Go({ path: ['portal/invoices/newRow'] }));
       } else {
         this.toaster.openSnackBar('סטטוס חשבונית פעילה לא מאפשר הוספת שורה חדשה.');
       }
@@ -146,7 +160,9 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     });
   }
 
-
+  getViewValue(v) {
+    return this.displayedColumnsMap.find(a => a.value === v).viewValue;
+  }
   /************************************************  BUILD OBJECTS FOR PRINTING ****************************************************/
   buildPrintObjectCloseInvoice() {
     this.currentInvoice$.take(1).subscribe(inv => {

@@ -43,7 +43,7 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
     case userActions.ACTIVATE_INVOICE: {
       return {
         ...state,
-        activeInvoice: action.payload
+        activeInvoice: action.payload.invoice
       };
     }
 
