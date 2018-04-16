@@ -5,6 +5,7 @@ export const CHANGE_SAPAK = '[Sapak] Change Sapak';
 export const CHANGE_SAPAK_DEFAULT = '[Sapak] Change Sapak DEFAULT';
 export const CHANGE_SAPAK_FAILURE = '[Sapak] Change Sapak Fail';
 export const CHANGE_SAPAK_SUCCESS = '[Sapak] Change Sapak Success';
+export const CHANGE_SAPAK_COMPLETED = '[Sapak] Change Sapak Completed';
 
 // Sapak Actions
 export class ChangeSapak implements Action {
@@ -28,4 +29,10 @@ export class ChangeSapakSuccess implements Action {
   }
 }
 
-export type sapakActions = ChangeSapak | ChangeSapakFail | ChangeSapakSuccess;
+export class ChangeSapakCompleted implements Action {
+  readonly type = CHANGE_SAPAK_COMPLETED;
+  // constructor(public payload: any) {
+  // }
+}
+
+export type sapakActions = ChangeSapak | ChangeSapakFail | ChangeSapakSuccess | ChangeSapakCompleted;

@@ -7,7 +7,7 @@ import * as invoicesStore from '@invoicesStore';
 import * as fromRoot from '../../../../core/store';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/take';
-import { switchMap, map, catchError, tap, withLatestFrom } from 'rxjs/operators';
+import { switchMap, map, catchError, tap, withLatestFrom, concatMap, mergeMap } from 'rxjs/operators';
 import { UserService } from '../../user.service';
 import { LoginModel } from '../../models/login.model';
 
@@ -27,24 +27,17 @@ export class UserEffects {
       return this.userService
         .login(loginDetails)
         .pipe(
-          switchMap(res => [
-            new userActions.UserLoginSuccess(res),
-            new userActions.ChangeSapakDefault(null),
-            new userActions.UserLoginCompleted('redirect')
-          ]),
+          switchMap(res => [new userActions.UserLoginSuccess(res), new userActions.UserLoginCompleted('redirect')]),
           catchError(error => of(new userActions.UserLoginFail(error)))
         );
     })
   );
 
   @Effect()
-  loginUserSuccess$ = this.actions$.ofType(userActions.LOGIN_USER_COMPLETED).pipe(
-    map(() => {
-      return new fromRoot.Go({
-        path: ['/portal/invoices']
-      });
-    })
-  );
+  loginUserSuccess$ = this.actions$
+    .ofType(userActions.LOGIN_USER_COMPLETED)
+    .pipe(mergeMap(val => [new fromRoot.Go({ path: ['/portal/invoices'] }), new userActions.ChangeSapakDefault(null)]));
+
 
   @Effect()
   logoutUser$ = this.actions$

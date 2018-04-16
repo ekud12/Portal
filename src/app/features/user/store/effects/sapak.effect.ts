@@ -5,7 +5,7 @@ import { ToastService } from 'app/core/services/toast-service.service';
 import { UserService } from 'app/features/user/user.service';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap, concatMap } from 'rxjs/operators';
 
 import { Sapak, SapakDataRequest } from '../../models/sapak.model';
 import * as userActions from '../actions';
@@ -14,8 +14,7 @@ import * as userActions from '../actions';
 export class SapakEffects {
   activeSapak$: Observable<Sapak>;
 
-  constructor(private actions$: Actions, private userService: UserService, private toaster: ToastService) {
-  }
+  constructor(private actions$: Actions, private userService: UserService, private toaster: ToastService) {}
 
   @Effect()
   changeSapak$ = this.actions$.ofType(userActions.CHANGE_SAPAK, userActions.CHANGE_SAPAK_DEFAULT).pipe(
@@ -32,13 +31,13 @@ export class SapakEffects {
   );
 
   @Effect()
-  changeSapakFinished$ = this.actions$.ofType(userActions.CHANGE_SAPAK_SUCCESS).pipe(
+  changeSapakSuccess$ = this.actions$.ofType(userActions.CHANGE_SAPAK_SUCCESS).pipe(
     map((action: userActions.ChangeSapakSuccess) => action.data),
     tap(val => {
       this.toaster.openSnackBar(`ספק פעיל שונה ל : ${val.kodSapak}.`, null);
       return val;
     }),
-    switchMap(dataModel => [new invoiceStore.GetInvoices(dataModel)])
+    switchMap(dataModel => [new invoiceStore.GetInvoices(dataModel), new userActions.ChangeSapakCompleted()])
   );
 
   @Effect({ dispatch: false })

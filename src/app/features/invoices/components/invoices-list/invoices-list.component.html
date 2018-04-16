@@ -43,6 +43,12 @@
       <!-- <div *ngIf="(listOfInvoices$|async)" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
         <mat-spinner></mat-spinner>
       </div> -->
+      <mat-card *ngIf="displayNoRecords" style="padding:100px;">
+        <h3 style="text-align:center"> לא נמצאו תוצאות
+          <span style="color:red">"{{dataSource.filter}}"</span>
+          <br>
+        </h3>
+      </mat-card>
       <div *ngIf="(listOfInvoices$|async).length === 0" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
         אין חשבוניות להצגה
       </div>

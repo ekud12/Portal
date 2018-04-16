@@ -96,6 +96,12 @@ export class NewInvoiceRowRequest {
   }
 }
 
+export class RowUpdateRequest {
+  commitment: string;
+  custId: string;
+  custIdType: string;
+  visitNum: string;
+}
 export enum PrintingOption {
   INVOICES = 1,
   ROWS = 2,

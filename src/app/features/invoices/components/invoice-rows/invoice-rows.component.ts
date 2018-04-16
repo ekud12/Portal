@@ -74,6 +74,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   dataObject: PrintObject = new PrintObject();
   selectedFilter = this.displayedColumnsMap[1];
   dataSource;
+  displayNoRecords = false;
 
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
@@ -115,6 +116,11 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
+    if (this.dataSource.filteredData.length === 0) {
+      this.displayNoRecords = true;
+    } else {
+      this.displayNoRecords = false;
+    }
   }
 
   printData(type: PrintingOption): void {

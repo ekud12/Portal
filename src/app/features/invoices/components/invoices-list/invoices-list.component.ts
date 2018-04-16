@@ -59,7 +59,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   selectedFilter;
   dataSource;
   req = new SapakDataRequest();
-
+  displayNoRecords = false;
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
     private routerStore: Store<fromRoot.AppState>,
@@ -113,6 +113,11 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
+    if (this.dataSource.filteredData.length === 0) {
+      this.displayNoRecords = true;
+    } else {
+      this.displayNoRecords = false;
+    }
   }
 
   activateInvoice(inv: any) {

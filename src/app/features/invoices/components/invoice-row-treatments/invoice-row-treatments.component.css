@@ -45,11 +45,11 @@ h2 {
   top: 10px;
   height: 60%;
 }
-.invoices-rows-container {
+.treatments-container {
   width: 70%;
 }
 
-.invoices-rows-filter-form {
+.row-update-form {
   background-color: rgb(245, 245, 245);
   border: 1px solid rgb(219, 219, 219);
   border-radius: 5px;

@@ -5,30 +5,41 @@
     <h2>רשימת טיפולים לשורה (ExtraNet)</h2>
   </div>
 
-  <mat-card fxFlexOrder="2" class="invoices-rows-container" fxLayout="column" fxLayoutAlign="space-between  center center"
-    fxLayoutGap="10px">
+  <mat-card fxFlexOrder="2" class="treatments-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="10px">
 
-    <form fxLayout="column" fxLayoutAlign="space-around stretch center" novalidate fxLayoutGap="10px" class="invoices-rows-filter-form">
+    <form #updateRowFormTag="ngForm" fxLayout="column" fxLayoutAlign="space-around stretch center" novalidate fxLayoutGap="10px"
+      class="row-update-form">
       <div fxLayout="row" fxLayoutAlign="space-around center center">
         <mat-form-field>
-          <mat-select placeholder="בחר מסנן.." [(ngModel)]="selectedFilter" name="filterCategory">
-            <mat-option *ngFor="let searchFilter of displayedColumnsMap | slice: 0:displayedColumnsMap.length-1" [value]="searchFilter">
-              {{ searchFilter.viewValue }}
-            </mat-option>
-          </mat-select>
+          <input matInput placeholder="התחייבות" [readonly]="(currentInvoice$|async).status> 1" [ngModel]="(currentInvoiceRow$|async).commitmentId"
+            name="date" (ngModelChange)="rowUpdateRequest.commitment
+          = $event">
         </mat-form-field>
-
         <mat-form-field>
-          <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="filterData($event.target.value)">
+          <input matInput placeholder="תעודת זהות" [readonly]="(currentInvoice$|async).status > 1" [ngModel]="(currentInvoiceRow$|async).custID"
+            name="id" (ngModelChange)="rowUpdateRequest.custId = $event">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="סוג זיהוי" [readonly]="(currentInvoice$|async).status > 1" [ngModel]="(currentInvoiceRow$|async).custIDtype"
+            name="idtype" (ngModelChange)="rowUpdateRequest.custIdType = $event">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="מספר ביקור" [readonly]="(currentInvoice$|async).status > 1" [ngModel]="(currentInvoiceRow$|async).visitNum"
+            name="visit" (ngModelChange)="rowUpdateRequest.visitNum = $event">
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center center">
           <div>
-            <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).status < 2">הוסף טיפול</button>
+            <button mat-raised-button color="primary" *ngIf="(currentInvoice$|async).status < 2" class="btn" (click)="createNewInvoiceRow()">עדכן</button>
           </div>
         </div>
-
       </div>
     </form>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center center">
+      <div>
+        <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).status < 2">הוספת טיפול</button>
+      </div>
+    </div>
 
     <mat-card>
       <mat-table #table [dataSource]="dataSource" matSort matSortActive="lineNum" matSortDirection="asc" matSortDisableClear>

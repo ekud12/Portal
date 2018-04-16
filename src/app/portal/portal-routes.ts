@@ -8,17 +8,16 @@ export const portalRoutes: Routes = [
     path: '',
     component: ContainerComponent,
     children: [
-      { path: '', redirectTo: 'invoices', pathMatch: 'full' },
+      { path: '', redirectTo: 'zakaut', pathMatch: 'full' },
       { path: 'home', component: PageNotFoundComponent },
       { path: 'grid', component: GridComponent },
-
-      {
-        path: 'invoices',
-        loadChildren: 'app/features/invoices/invoices.module#InvoicesModule'
-      },
       {
         path: 'zakaut',
         loadChildren: 'app/features/zakaut/zakaut.module#ZakautModule'
+      },
+      {
+        path: 'invoices',
+        loadChildren: 'app/features/invoices/invoices.module#InvoicesModule'
       },
       {
         path: 'falconx',

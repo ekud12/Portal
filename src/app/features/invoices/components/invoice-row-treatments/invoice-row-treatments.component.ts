@@ -11,7 +11,7 @@ import {
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { FormControl } from '@angular/forms';
+import { FormControl, Form } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -20,7 +20,7 @@ import * as moment from 'moment';
 import * as fromInvoiceStore from '@invoicesStore';
 import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
-import { Invoice, PrintingOption } from '../../models/new-actions.model';
+import { Invoice, PrintingOption, RowUpdateRequest, InvoiceRow } from '../../models/new-actions.model';
 import { Sapak } from '../../../user/models/sapak.model';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 
@@ -65,14 +65,19 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('updateRowFormTag') myForm;
+
   userName: string;
+
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
   listOfInvoiceRows$: Observable<Invoice[]>;
   currentInvoice$: Observable<Invoice>;
+  currentInvoiceRow$: Observable<InvoiceRow>;
   dataObject: PrintObject = new PrintObject();
   selectedFilter = this.displayedColumnsMap[1];
   dataSource;
+  rowUpdateRequest = new RowUpdateRequest();
 
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
@@ -89,6 +94,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     this.listOfInvoiceRows$.subscribe(val => {
       this.dataSource = new MatTableDataSource<Invoice>(val);
     });
+    this.currentInvoiceRow$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceRowSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
   }
 
@@ -105,6 +111,9 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
     });
+    this.currentInvoice$.subscribe(val => {
+
+    });
 
     this.dataSource.filterPredicate = (data: Element, filter: string) =>
       data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
@@ -116,61 +125,65 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
-  printData(type: PrintingOption): void {
-    switch (type) {
-      case PrintingOption.ROWS: {
-        this.buildPrintObjectRows();
-        break;
-      }
-      case PrintingOption.SUMMARY: {
-        this.buildPrintObjectSummary();
-        break;
-      }
-      case PrintingOption.CLOSE_INVOICE: {
-        this.buildPrintObjectCloseInvoice();
-        break;
-      }
-    }
-    this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.dataObject));
-    this.routerStore.dispatch(new Go({ path: ['print'], query: { isIE: true, returnUrl: this.router.url } }));
-  }
+  // printData(type: PrintingOption): void {
+  //   switch (type) {
+  //     case PrintingOption.ROWS: {
+  //       this.buildPrintObjectRows();
+  //       break;
+  //     }
+  //     case PrintingOption.SUMMARY: {
+  //       this.buildPrintObjectSummary();
+  //       break;
+  //     }
+  //     case PrintingOption.CLOSE_INVOICE: {
+  //       this.buildPrintObjectCloseInvoice();
+  //       break;
+  //     }
+  //   }
+  //   this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.dataObject));
+  //   this.routerStore.dispatch(new Go({ path: ['print'], query: { isIE: true, returnUrl: this.router.url } }));
+  // }
 
-  activateInvoiceRow(row: any) {
-    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
-  }
+  // activateInvoiceRow(row: any) {
+  //   this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
+  // }
 
   createNewInvoiceRow() {
-    this.currentInvoice$.take(1).subscribe(val => {
-      if (val.status === 0 || val.status === 1) {
-        this.routerStore.dispatch(new Go({ path: ['portal/invoices/newRow'] }));
-      } else {
-        this.toaster.openSnackBar('סטטוס חשבונית פעילה לא מאפשר הוספת שורה חדשה.');
-      }
+    // this.currentInvoice$.take(1).subscribe(val => {
+    //   if (val.status === 0 || val.status === 1) {
+    //     this.routerStore.dispatch(new Go({ path: ['portal/invoices/newRow'] }));
+    //   } else {
+    //     this.toaster.openSnackBar('סטטוס חשבונית פעילה לא מאפשר הוספת שורה חדשה.');
+    //   }
+    // });
+    this.currentInvoiceRow$.take(1).subscribe(val => {
+      console.log(val);
+      console.log(this.rowUpdateRequest);
     });
   }
 
-  closeInvoice() {
-    const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: { data: 'לאחר הפקת דרישת התשלום, לא ניתן יהיה לעדכן את החשבונית.' }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        /** add logic to close invoice and only than go to print */
-        this.printData(5);
-      }
-    });
-  }
+  // closeInvoice() {
+  //   const dialogRef = this.dialog.open(AlertDialogComponent, {
+  //     data: { data: 'לאחר הפקת דרישת התשלום, לא ניתן יהיה לעדכן את החשבונית.' }
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       /** add logic to close invoice and only than go to print */
+  //       this.printData(5);
+  //     }
+  //   });
+  // }
 
-  deleteRow(a: any) {
-    const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: { data: 'האם למחוק את השורה הנוכחית?' }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        /** delete invoice row and call op 03 to get all invoice rows again */
-      }
-    });
-  }
+  // deleteRow(a: any) {
+  //   const dialogRef = this.dialog.open(AlertDialogComponent, {
+  //     data: { data: 'האם למחוק את השורה הנוכחית?' }
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       /** delete invoice row and call op 03 to get all invoice rows again */
+  //     }
+  //   });
+  // }
 
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;
