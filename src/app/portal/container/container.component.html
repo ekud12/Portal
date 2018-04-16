@@ -1,4 +1,4 @@
-<div class="outer-div-container" >
+<div class="outer-div-container">
   <mat-sidenav-container #sidenav style="height:100%;width:100%;">
 
     <mat-sidenav mode="push" #sidenav class="sidenav" style="width:250px;" [fixedInViewport]="true">
@@ -6,42 +6,44 @@
       <div fxLayout="column" fxLayoutAlign="space-around stretch center">
 
         <mat-accordion fxLayout="column" fxLayoutAlign="space-around stretch center">
-
-          <!-- MenuBtn for Zakaut Module -->
-          <button mat-button routerLink="/portal/zakaut" routerLinkActive="active" class="menu-btn" routerLinkActiveOptions="{exact:
-            true}" class="menu-btn">זכאות</button>
-          <mat-divider></mat-divider>
-
-          <!-- MenuBtn for Extranet Module -->
-          <button mat-button routerLink="/portal/invoices" routerLinkActive="active" routerLinkActiveOptions="{exact:
-            true}" class="menu-btn">Extranet</button>
-          <mat-divider></mat-divider>
-
           <!-- MenuBtn for Dashboard -->
           <button mat-button routerLink="/portal/grid" routerLinkActive="active" routerLinkActiveOptions="{exact:
             true}" class="menu-btn">
+            <mat-icon class="menu-icon">dashboard</mat-icon>
             דשבורד
           </button>
           <mat-divider></mat-divider>
 
-          <!-- MenuBtn for FalconX Module -->
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                FalconX
-              </mat-panel-title>
-              <mat-panel-description>
-                הזנת חשבוניות אוטומטית
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <button mat-button routerLink="/portal/falconx" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-              true}" class="menu-btn">צפיה בחשבוניות שהועלו</button>
-            <button mat-button routerLink="/portal/falconx/newInvoice" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-              true}" class="menu-btn">העלאת קובץ חשבונית חדשה</button>
-          </mat-expansion-panel>
+          <!-- MenuBtn for Zakaut Module -->
+          <button mat-button routerLink="/portal/zakaut" routerLinkActive="active" class="menu-btn" routerLinkActiveOptions="{exact:
+            true}" class="menu-btn">
+            <mat-icon class="menu-icon">polymer</mat-icon>
+            זכאות</button>
+          <mat-divider></mat-divider>
 
+          <!-- MenuBtn for Extranet Module -->
+          <button mat-button routerLink="/portal/invoices" routerLinkActive="active" routerLinkActiveOptions="{exact:
+            true}" class="menu-btn">
+            <mat-icon class="menu-icon">edit</mat-icon>
+
+            Extranet</button>
+          <mat-divider></mat-divider>
+
+          <!-- MenuBtn for FalconX Module -->
+          <button mat-button routerLink="/portal/falconx" routerLinkActive="active" routerLinkActiveOptions="{exact:
+            true}" class="menu-btn">
+            <mat-icon class="menu-icon">receipt</mat-icon>FalconX
+          </button>
+          <mat-divider></mat-divider>
+
+          <!-- MenuBtn for Pharmacy -->
+          <button mat-button routerLink="/portal/pharm" routerLinkActive="active" routerLinkActiveOptions="{exact:
+                      true}" class="menu-btn">
+            <mat-icon class="menu-icon">healing</mat-icon>
+            בתי מרקחת
+          </button>
+          <mat-divider></mat-divider>
         </mat-accordion>
-        <mat-divider></mat-divider>
       </div>
 
     </mat-sidenav>

@@ -56,7 +56,7 @@
 
               <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
               <mat-menu #menu="matMenu">
-                <button *ngIf="(currentInvoice$|async).status < 2" mat-menu-item (click)="deleteRow(element)">מחק שורה</button>
+                <button *ngIf="(currentInvoice$|async).status < 2" mat-menu-item>מחק שורה</button>
                 <button mat-menu-item>טיפולים מדווחים למטופל</button>
                 <button mat-menu-item>טיפולים מדווחים להתחייבות</button>
               </mat-menu>
@@ -66,7 +66,7 @@
 
 
         <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns; " class="invoices-row-list-item " (click)="activateInvoiceRow(row) "></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns; " class="invoices-row-list-item"></mat-row>
       </mat-table>
       <div *ngIf="(listOfInvoiceRows$|async).length===0 " fxLayout="row " fxLayoutAlign="space-around center center
               " class="no-data-warn ">

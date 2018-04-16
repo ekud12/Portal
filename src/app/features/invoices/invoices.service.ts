@@ -84,7 +84,6 @@ export class InvoicesService {
         remark2: 'fml2'
       }
     ];
-    console.log(ret);
     const retEmpty = [];
     return Observable.of(ret);
   }

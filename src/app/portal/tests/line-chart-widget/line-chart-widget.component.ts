@@ -85,7 +85,6 @@ export class LineChartWidgetComponent implements OnInit {
 
   constructor() {}
   onSelect(event) {
-    console.log(event);
   }
   ngOnInit() {}
 }
