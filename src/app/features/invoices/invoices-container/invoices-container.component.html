@@ -1,19 +1,30 @@
 <div fxLayout="row" fxLayoutAlign="space-between center center" class="top-invoice-menu" [@itemAnim]>
   <div *ngIf="(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch center">
     <div class="invoices-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
-      <div class="summary-content-item"> חשבונית מספר : </div>{{(currentInvoice$|async)?.invoiceNum}}
-      <div class="summary-content-item"> חודש : </div> {{(currentInvoice$|async)?.billMonth}}
-      <div class="summary-content-item">סטטוס : </div> {{(currentInvoice$|async)?.status | invoiceStatus:'status'}}
-      <div class="summary-content-item"> סכום לא כולל מע"מ : </div> {{(currentInvoice$|async)?.typedSum}}
-      <div class="summary-content-item">אחוז מע"מ : </div> {{(currentInvoice$|async)?.rate}}
-      <div class="summary-content-item"> סכום כולל מע"מ : </div> {{(currentInvoice$|async)?.invoiceSum}}
-      <div class="summary-content-item"> הערות : </div> {{(currentInvoice$|async)?.remark1}},{{(currentInvoice$|async)?.remark2}}
+      חשבונית מספר:
+      <div class="summary-content-item">{{(currentInvoice$|async)?.invoiceNum}}</div>
+      חודש:
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.billMonth}} </div>
+      סטטוס:
+      <div class="summary-content-item">{{(currentInvoice$|async)?.status | invoiceStatus:'status'}}</div>
+      סכום לא כולל מע"מ:
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.typedSum}}</div>
+      אחוז מע"מ:
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.rate}}</div>
+      סכום כולל מע"מ:
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.invoiceSum}}</div>
+      הערות:
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.remark1}},{{(currentInvoice$|async)?.remark2}}</div>
     </div>
     <div *ngIf=(currentInvoiceRow$|async) class="invoices-row-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
-      <div class="summary-content-item"> שורה מספר : </div> {{ (currentInvoiceRow$|async)?.lineNum }}
-      <div class="summary-content-item"> שם המבוטח : </div> {{ (currentInvoiceRow$|async)?.custFirstName}} {{ (currentInvoiceRow$|async)?.custSecName}}
-      <div class="summary-content-item">תאריך : </div> {{ (currentInvoiceRow$|async)?.date | date:'dd/MM/yyyy'}}
-      <div class="summary-content-item"> סכום : </div> {{ (currentInvoiceRow$|async)?.amount }}
+      שורה מספר :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.lineNum }}</div>
+      שם המבוטח :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.custFirstName}} {{ (currentInvoiceRow$|async)?.custSecName}} </div>
+      תאריך :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.date | date:'dd/MM/yyyy'}} </div>
+      סכום :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.amount }} </div>
     </div>
   </div>
   <div *ngIf="!(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch center">

@@ -11,11 +11,10 @@
 }
 
 .summary-content-item {
-  padding-left: 0.2em;
-  padding-right: 0.9em;
-  text-decoration: underline;
+  padding-left: 1.2em;
+  padding-right: 0.4em;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .invoices-actions {
