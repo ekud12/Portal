@@ -12,7 +12,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PrintLayoutComponent } from './print-layout/print-layout.component';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { EffectsModule } from '@ngrx/effects';
-
 import { effects } from './store';
 import { sharedReducer } from './store';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
@@ -20,6 +19,8 @@ import { InvoiceStatusPipe } from './utils/invoice-status.pipe';
 import { InvoiceStatusColorPipe } from './utils/invoice-status-color.pipe';
 import { InvoiceRowDatePipe } from './utils/invoice-row-date.pipe';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { NgUploaderModule } from 'ngx-uploader';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +30,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     RouterModule,
     materialImports,
     NgxChartsModule,
-       StoreModule.forFeature('shared', sharedReducer),
+    NgUploaderModule,
+    StoreModule.forFeature('shared', sharedReducer),
     EffectsModule.forFeature(effects)
   ],
   declarations: [

@@ -1,7 +1,20 @@
 <div fxLayout="column" fxLayoutAlign="space-around center stretch" dir="rtl" class="dialog">
-  <h2 mat-dialog-title>טעינת סיכום ביקור</h2>
+  <h1 mat-dialog-title>טעינת סיכום ביקור</h1>
   <mat-dialog-content class="dcontent">
 
+    <div [ngClass]="uploadClass" fxLayout="column" fxLayoutAlign="space-around center center" ngFileDrop [options]="options"
+      (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+      <div fxLayout="column" fxLayoutAlign="space-around center center">
+        <div>
+          {{ fileName }}
+        </div>
+        <div>
+          <label class="upload-button">
+            <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple> טען קובץ.
+          </label>
+        </div>
+      </div>
+    </div>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-raised-button [mat-dialog-close]="false" color="warn">נקה</button>

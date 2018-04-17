@@ -126,7 +126,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
 
   uploadSummary() {
     const dialogRef = this.dialog.open(FileUploadComponent, {
-      width: '500px',
+      width: '50%',
       height: '500px'
     });
   }
