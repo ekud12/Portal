@@ -28,6 +28,7 @@ import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layo
 import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.component';
 import { ToastService } from 'app/core/services/toast-service.service';
 import { Go } from 'app/core/store/actions';
+import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.component';
 @Component({
   selector: 'app-invoice-row-treatments',
   templateUrl: './invoice-row-treatments.component.html',
@@ -111,9 +112,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
     });
-    this.currentInvoice$.subscribe(val => {
-
-    });
+    this.currentInvoice$.subscribe(val => {});
 
     this.dataSource.filterPredicate = (data: Element, filter: string) =>
       data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
@@ -125,56 +124,16 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
-  // printData(type: PrintingOption): void {
-  //   switch (type) {
-  //     case PrintingOption.ROWS: {
-  //       this.buildPrintObjectRows();
-  //       break;
-  //     }
-  //     case PrintingOption.SUMMARY: {
-  //       this.buildPrintObjectSummary();
-  //       break;
-  //     }
-  //     case PrintingOption.CLOSE_INVOICE: {
-  //       this.buildPrintObjectCloseInvoice();
-  //       break;
-  //     }
-  //   }
-  //   this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.dataObject));
-  //   this.routerStore.dispatch(new Go({ path: ['print'], query: { isIE: true, returnUrl: this.router.url } }));
-  // }
-
-  // activateInvoiceRow(row: any) {
-  //   this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
-  // }
-
-  createNewInvoiceRow() {
-    // this.currentInvoice$.take(1).subscribe(val => {
-    //   if (val.status === 0 || val.status === 1) {
-    //     this.routerStore.dispatch(new Go({ path: ['portal/invoices/newRow'] }));
-    //   } else {
-    //     this.toaster.openSnackBar('סטטוס חשבונית פעילה לא מאפשר הוספת שורה חדשה.');
-    //   }
-    // });
-    this.currentInvoiceRow$.take(1).subscribe(val => {
-      console.log(val);
-      console.log(this.rowUpdateRequest);
+  uploadSummary() {
+    const dialogRef = this.dialog.open(FileUploadComponent, {
+      width: '500px',
+      height: '500px'
     });
   }
 
-  // closeInvoice() {
-  //   const dialogRef = this.dialog.open(AlertDialogComponent, {
-  //     data: { data: 'לאחר הפקת דרישת התשלום, לא ניתן יהיה לעדכן את החשבונית.' }
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       /** add logic to close invoice and only than go to print */
-  //       this.printData(5);
-  //     }
-  //   });
-  // }
+  addNewTreatments() {}
 
-  // deleteRow(a: any) {
+  // deleteTreatments(a: any) {
   //   const dialogRef = this.dialog.open(AlertDialogComponent, {
   //     data: { data: 'האם למחוק את השורה הנוכחית?' }
   //   });
@@ -188,73 +147,4 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;
   }
-
-  /************************************************  BUILD OBJECTS FOR PRINTING ****************************************************/
-  buildPrintObjectCloseInvoice() {
-    this.currentInvoice$.take(1).subscribe(inv => {
-      this.dataObject.mainHeader = `דרישת תשלום מספר ${inv.invoiceNum} לחודש ${inv.billMonth}.`;
-      this.dataObject.specialData = [
-        `הננו מתכבדים להגיש דרישת תשלום מספר: ${inv.invoiceNum} בגין השירותים שסיפקנו ללקוחות מאוחדת בחודש ${inv.billMonth}.`,
-        `סכום חשבון לפני מע"מ: ${inv.typedSum},  מע"מ: ${inv.vatPer},    סכום חשבון כולל מע"מ: ${inv.invoiceSum}.`,
-        `יחד עם דרישת התשלום אנו מצרפים את התיעוד הרפואי של הטיפולים והשירותים הכלולים בדרישה זו.`,
-        `לפרטים נוספים : איש קשר במערך הבקרה עטרה אלהרר atara@meuhedet.co.il.`
-      ];
-    });
-    this.dataObject.printOption = PrintingOption.CLOSE_INVOICE;
-    this.dataObject.lowerContent = [
-      { desc: 'פרטי ספק ב SAP', value: '' },
-      { desc: 'מספר ח.פ: ', value: 'TBD' },
-      { desc: 'שם ספק: ', value: 'TBD' },
-      { desc: 'קוד ספק: ', value: 'TBD' },
-      { desc: 'חשבון בנק: ', value: 'TBD' }
-    ];
-    this.dataObject.dialogHeader = 'הדפסת דרישת תשלום';
-    this.dataObject.displayedColumns = this.displayedColumns;
-    this.dataObject.dismap = this.displayedColumnsMap;
-    this.dataObject.data = this.dataSource.connect().value;
-  }
-
-  buildPrintObjectRows() {
-    this.dataObject.mainHeader = 'ריכוז שורות לחשבונית';
-    this.currentInvoice$.take(1).subscribe(inv => {
-      this.dataObject.parentContent = [
-        { view: `חשבונית מס:`, value: inv.invoiceNum },
-        { view: `חודש:`, value: inv.billMonth },
-        { view: `סטטוס:`, value: inv.status },
-        { view: `סכום לא כולל מע"מ:`, value: inv.typedSum },
-        { view: `אחוז מע"מ:`, value: inv.vatPer },
-        { view: `סכום כולל מע"מ:`, value: inv.invoiceSum },
-        { view: `הערות: `, value: inv.remark1 }
-      ];
-    });
-
-    this.dataObject.printOption = PrintingOption.ROWS;
-    this.dataObject.dialogHeader = 'הדפסת שורות לחשבוניות';
-    this.dataObject.displayedColumns = this.displayedColumns;
-    this.dataObject.dismap = this.displayedColumnsMap;
-    this.dataObject.data = this.dataSource.connect().value;
-  }
-
-  buildPrintObjectSummary() {
-    this.dataObject.mainHeader = '';
-    this.currentInvoice$.take(1).subscribe(inv => {
-      this.dataObject.parentContent = [
-        { view: `חשבונית מס:`, value: inv.invoiceNum },
-        { view: `חודש:`, value: inv.billMonth },
-        { view: `סטטוס:`, value: inv.status },
-        { view: `סכום לא כולל מע"מ:`, value: inv.typedSum },
-        { view: `אחוז מע"מ:`, value: inv.vatPer },
-        { view: `סכום כולל מע"מ:`, value: inv.invoiceSum },
-        { view: `הערות: `, value: inv.remark1 }
-      ];
-    });
-
-    this.dataObject.printOption = PrintingOption.SUMMARY;
-    this.dataObject.dialogHeader = 'הדפסת סיכום חשבוניות';
-    this.dataObject.displayedColumns = this.displayedColumns;
-    this.dataObject.dismap = this.displayedColumnsMap;
-    this.dataObject.data = this.dataSource.connect().value;
-  }
-
-  /*********************************************************  END ************************************************************/
 }

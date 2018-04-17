@@ -19,6 +19,7 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { InvoiceStatusPipe } from './utils/invoice-status.pipe';
 import { InvoiceStatusColorPipe } from './utils/invoice-status-color.pipe';
 import { InvoiceRowDatePipe } from './utils/invoice-row-date.pipe';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +29,7 @@ import { InvoiceRowDatePipe } from './utils/invoice-row-date.pipe';
     RouterModule,
     materialImports,
     NgxChartsModule,
-    StoreModule.forFeature('shared', sharedReducer),
+       StoreModule.forFeature('shared', sharedReducer),
     EffectsModule.forFeature(effects)
   ],
   declarations: [
@@ -37,20 +38,22 @@ import { InvoiceRowDatePipe } from './utils/invoice-row-date.pipe';
     AlertDialogComponent,
     InvoiceStatusPipe,
     InvoiceStatusColorPipe,
-    InvoiceRowDatePipe
+    InvoiceRowDatePipe,
+    FileUploadComponent
   ],
-  entryComponents: [AlertDialogComponent],
+  entryComponents: [AlertDialogComponent, FileUploadComponent],
   providers: [{ provide: MAT_DIALOG_DATA, useValue: [] }, DatePipe],
   exports: [
     materialImports,
     FlexLayoutModule,
     ReactiveFormsModule,
-    PageNotFoundComponent, 
+    PageNotFoundComponent,
     PrintLayoutComponent,
     AlertDialogComponent,
     InvoiceStatusPipe,
     InvoiceStatusColorPipe,
-    InvoiceRowDatePipe
+    InvoiceRowDatePipe,
+    FileUploadComponent
   ]
 })
 export class SharedModule {}

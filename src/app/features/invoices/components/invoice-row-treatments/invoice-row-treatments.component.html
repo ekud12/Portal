@@ -56,9 +56,10 @@
 
               <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
               <mat-menu #menu="matMenu">
-                <button *ngIf="(currentInvoice$|async).status < 2" mat-menu-item>מחק שורה</button>
-                <button mat-menu-item>טיפולים מדווחים למטופל</button>
-                <button mat-menu-item>טיפולים מדווחים להתחייבות</button>
+                <button *ngIf="(currentInvoice$|async).status < 2" mat-menu-item>מחיקת שורה</button>
+                <button mat-menu-item>שכפול טיפול</button>
+                <button mat-menu-item>עדכון טיפול</button>
+                <button (click)="uploadSummary()" mat-menu-item>טעינת סיכום ביקור</button>
               </mat-menu>
             </mat-cell>
           </ng-template>
