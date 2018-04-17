@@ -16,6 +16,7 @@ import { HttpParamsInterceptor } from './http/httpParamsInterceptor';
 import { ToastService } from './services/toast-service.service';
 import { AuthenticationService } from './services/auth.service';
 import { ConfigService } from './services/config.service';
+import { environment } from '@environment';
 
 export function configServiceFactory(config: ConfigService) {
   return () => config.load();
@@ -29,9 +30,11 @@ export function configServiceFactory(config: ConfigService) {
       initialState: getInitialState(),
       metaReducers
     }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 10
-    }),
+    !environment.production
+      ? StoreDevtoolsModule.instrument({
+          maxAge: 10
+        })
+      : [],
     EffectsModule.forRoot(effects),
     StoreRouterConnectingModule
   ],

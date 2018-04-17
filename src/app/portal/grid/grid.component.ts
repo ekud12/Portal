@@ -31,6 +31,7 @@ export class GridComponent implements OnInit {
   /** fix pushing to be correct only for new items not all */
 
   ngOnInit() {
+    /** check what happens with store copy of objects - error in chrome */
     this.options = new GridStackOptions();
     this.options.rtl = 'true';
     this.options.animate = true;

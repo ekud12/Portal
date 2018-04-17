@@ -1,5 +1,8 @@
-
 .dialog {
   font-size: 30px;
   color: rgb(0, 83, 179);
+}
+
+.dcontent {
+  padding-bottom: 1em;
 }

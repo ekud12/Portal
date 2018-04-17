@@ -19,7 +19,7 @@
           <input matInput type="text" name="custId" pattern="\d{9,9}" placeholder="תעודת זהות" maxLength="9" [(ngModel)]="newInvoiceRowRequest.custId"
             required>
         </mat-form-field>
-        <mat-form-field class="mat-form-field-custom">
+        <mat-form-field class="mat-form-field-custom ">
           <mat-select [(ngModel)]="newInvoiceRowRequest.custIdType" name="custIdType" required>
             <mat-option *ngFor="let idType of vars.idTypes" [value]="idType.value">
               {{idType.viewValue}}
@@ -33,7 +33,7 @@
       </div>
 
       <div fxLayout="row" fxLayoutAlign="start stretch stretch">
-        <mat-form-field class="mat-form-field-custom" [floatLabel]="vars.floatLabel">
+        <mat-form-field class="mat-form-field-custom treat-field" [floatLabel]="vars.floatLabel">
           <mat-select placeholder="נא לבחור טיפול או להזין קוד טיפול." [(ngModel)]="newInvoiceRowRequest.treat" name="treat" #treatChoices
             required>
             <mat-option *ngFor="let treat of (currentSapak$ |async).treatments" [value]="treat">

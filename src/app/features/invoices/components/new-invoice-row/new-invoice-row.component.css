@@ -45,6 +45,9 @@ h2 {
   top: 10px;
   height: 60%;
 }
+.treat-field {
+  width: 30em;
+}
 .invoices-row-container {
   width: 70%;
   padding: 30px;
