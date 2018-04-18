@@ -5,7 +5,7 @@ import { ToastService } from 'app/core/services/toast-service.service';
 import { UserService } from 'app/features/user/user.service';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { catchError, map, switchMap, tap, concatMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { Sapak, SapakDataRequest } from '../../models/sapak.model';
 import * as userActions from '../actions';

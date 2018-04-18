@@ -1,27 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import {
-  FormControl,
-  Validators,
-  FormGroup,
-  AbstractControl,
-  ValidatorFn,
-  FormBuilder,
-  FormGroupDirective,
-  NgForm
-} from '@angular/forms';
-import { trigger, state, animate, transition, style, group } from '@angular/animations';
-
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { LoginModel } from '../models/login.model';
-import * as localConfigVars from './login.const';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { UserState } from '../store';
-import { Observable } from 'rxjs/Observable';
-import { User } from '../models/user.model';
-import * as fromUserStore from '../store';
-import { moveAnimation } from '../../../core/animations';
 import { fadeAnimation } from 'app/core/animations/animations';
+import { Observable } from 'rxjs/Observable';
+
+import { LoginModel } from '../models/login.model';
+import { User } from '../models/user.model';
+import { UserState } from '../store';
+import * as fromUserStore from '../store';
+import * as localConfigVars from './login.const';
+
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;

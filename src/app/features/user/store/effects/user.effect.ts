@@ -1,20 +1,18 @@
-import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
-import * as userActions from '../actions';
-import * as zakautStore from '@zakautStore';
-import * as userStore from '@userStore';
-import * as invoicesStore from '@invoicesStore';
-import * as fromRoot from '../../../../core/store';
-import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/take';
-import { switchMap, map, catchError, tap, withLatestFrom, concatMap, mergeMap } from 'rxjs/operators';
-import { UserService } from '../../user.service';
-import { LoginModel } from '../../models/login.model';
 
-import { SapakDataRequest } from 'app/features/user/models/sapak.model';
-import { UserState } from '@userStore';
-import { Store } from '@ngrx/store';
+import { Injectable } from '@angular/core';
+import * as invoicesStore from '@invoicesStore';
+import { Actions, Effect } from '@ngrx/effects';
+import * as zakautStore from '@zakautStore';
 import { AuthenticationService } from 'app/core/services/auth.service';
+import { of } from 'rxjs/observable/of';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
+
+import * as fromRoot from '../../../../core/store';
+import { LoginModel } from '../../models/login.model';
+import { UserService } from '../../user.service';
+import * as userActions from '../actions';
+
 @Injectable()
 export class UserEffects {
   constructor(private actions$: Actions, private userService: UserService, private authService: AuthenticationService) {}
@@ -37,7 +35,6 @@ export class UserEffects {
   loginUserSuccess$ = this.actions$
     .ofType(userActions.LOGIN_USER_COMPLETED)
     .pipe(mergeMap(val => [new fromRoot.Go({ path: ['/portal/invoices'] }), new userActions.ChangeSapakDefault(null)]));
-
 
   @Effect()
   logoutUser$ = this.actions$

@@ -1,17 +1,6 @@
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpParams
-} from '@angular/common/http';
-
 import { Observable } from 'rxjs/Observable';
-import { catchError } from 'rxjs/operators';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 @Injectable()
 export class HttpParamsInterceptor implements HttpInterceptor {

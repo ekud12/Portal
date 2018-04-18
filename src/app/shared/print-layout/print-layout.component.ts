@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PrintObject } from '../global-models/print-object.interface';
-import { MAT_DIALOG_DATA } from '@angular/material';
 import { Store } from '@ngrx/store';
 import * as fromSharedStore from '@sharedStore';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+
+import { PrintObject } from '../global-models/print-object.interface';
+
 @Component({
   selector: 'app-print-layout',
   templateUrl: './print-layout.component.html',

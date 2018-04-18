@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Router } from '@angular/router';
 import { fadeAnimation } from 'app/core/animations';
+
 import { spinnerTemplate } from './core/utils';
 
 @Component({

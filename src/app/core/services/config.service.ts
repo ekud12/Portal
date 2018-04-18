@@ -1,12 +1,10 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Injectable, forwardRef, Inject } from '@angular/core';
-import { environment } from 'environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'environments/environment';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+
 import { BackendService } from './backend.service';
-import { PropertyModel } from 'app/shared/global-models/propModel';
-import { httpRoutes } from '@http-routes';
 
 const propertiesId = 'properties';
 const labelsId = 'labels';

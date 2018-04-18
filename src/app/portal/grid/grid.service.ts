@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { NumberStatWidgetComponent } from '../tests/number-stat-widget/number-stat-widget.component';
-import { VerticalChartWidgetComponent } from '../tests/vertical-chart-widget/vertical-chart-widget.component';
-import { PieChartWidgetComponent } from '../tests/pie-chart-widget/pie-chart-widget.component';
-import { HorizontalChartWidgetComponent } from '../tests/horizontal-chart-widget/horizontal-chart-widget.component';
-import { PieChartAdvancedWidgetComponent } from '../tests/pie-chart-advanced-widget/pie-chart-advanced-widget.component';
-import { LineChartWidgetComponent } from '../tests/line-chart-widget/line-chart-widget.component';
 import { GridStackItem } from 'ng4-gridstack';
+import { Observable } from 'rxjs/Observable';
+
+import { HorizontalChartWidgetComponent } from '../tests/horizontal-chart-widget/horizontal-chart-widget.component';
+import { LineChartWidgetComponent } from '../tests/line-chart-widget/line-chart-widget.component';
+import { NumberStatWidgetComponent } from '../tests/number-stat-widget/number-stat-widget.component';
+import { PieChartAdvancedWidgetComponent } from '../tests/pie-chart-advanced-widget/pie-chart-advanced-widget.component';
+import { PieChartWidgetComponent } from '../tests/pie-chart-widget/pie-chart-widget.component';
+import { VerticalChartWidgetComponent } from '../tests/vertical-chart-widget/vertical-chart-widget.component';
 
 @Injectable()
 export class GridService {

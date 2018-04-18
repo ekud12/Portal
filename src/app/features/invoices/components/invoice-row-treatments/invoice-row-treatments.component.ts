@@ -1,34 +1,19 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Inject } from '@angular/core';
-import {
-  MatTableDataSource,
-  MatPaginator,
-  MatSort,
-  MatDialog,
-  MatDatepickerInputEvent,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material';
-import { DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { FormControl, Form } from '@angular/forms';
-import { Router, RouterLink, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
 import * as fromRoot from '@coreStore';
-import * as moment from 'moment';
 import * as fromInvoiceStore from '@invoicesStore';
+import { Store } from '@ngrx/store';
 import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
-import { Invoice, PrintingOption, RowUpdateRequest, InvoiceRow } from '../../models/new-actions.model';
-import { Sapak } from '../../../user/models/sapak.model';
-import { PrintObject } from '../../../../shared/global-models/print-object.interface';
-
-import { PrintLayoutComponent } from '../../../../shared/print-layout/print-layout.component';
-import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.component';
 import { ToastService } from 'app/core/services/toast-service.service';
-import { Go } from 'app/core/store/actions';
+import { Observable } from 'rxjs/Observable';
+
 import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.component';
+import { PrintObject } from '../../../../shared/global-models/print-object.interface';
+import { Sapak } from '../../../user/models/sapak.model';
+import { Invoice, InvoiceRow, RowUpdateRequest } from '../../models/new-actions.model';
+
 @Component({
   selector: 'app-invoice-row-treatments',
   templateUrl: './invoice-row-treatments.component.html',

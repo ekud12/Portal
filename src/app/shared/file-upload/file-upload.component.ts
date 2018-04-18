@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
-import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions } from 'ngx-uploader';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uploader';
 
 @Component({
   selector: 'app-file-upload',

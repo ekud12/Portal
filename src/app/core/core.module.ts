@@ -1,23 +1,21 @@
-import { NgModule, Optional, SkipSelf, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, NgModule, Optional, SkipSelf } from '@angular/core';
+import { environment } from '@environment';
+import { EffectsModule } from '@ngrx/effects';
+import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
-import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { reducers, effects, CustomSerializer, getInitialState, metaReducers } from './store';
-import { EffectsModule } from '@ngrx/effects';
-import { BackendService } from './services/backend.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { rxjs_imports } from './rxjs-imports';
 import { ErrorHandler } from './http/error-handler.interceptor';
 import { HttpParamsInterceptor } from './http/httpParamsInterceptor';
-import { ToastService } from './services/toast-service.service';
 import { AuthenticationService } from './services/auth.service';
+import { BackendService } from './services/backend.service';
 import { ConfigService } from './services/config.service';
-import { environment } from '@environment';
 import { LoggerService } from './services/logger.service';
+import { ToastService } from './services/toast-service.service';
+import { CustomSerializer, effects, getInitialState, metaReducers, reducers } from './store';
 
 export function configServiceFactory(config: ConfigService) {
   return () => config.load();

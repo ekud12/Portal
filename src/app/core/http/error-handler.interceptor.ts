@@ -1,10 +1,10 @@
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
-
-import { Observable } from 'rxjs/Observable';
-import { catchError } from 'rxjs/operators';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { httpRoutes } from '@http-routes';
+import { Observable } from 'rxjs/Observable';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { catchError } from 'rxjs/operators';
+
 /**
  *  Error Interceptor
  *  Returns any request but if error caught

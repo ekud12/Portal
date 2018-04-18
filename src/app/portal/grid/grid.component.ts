@@ -1,13 +1,7 @@
-import { Component, OnInit, ViewChildren, QueryList, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { GridStackItem, GridStackOptions, GridStackItemComponent, GridStackComponent } from 'ng4-gridstack';
-import { NumberStatWidgetComponent } from '../tests/number-stat-widget/number-stat-widget.component';
-import { VerticalChartWidgetComponent } from '../tests/vertical-chart-widget/vertical-chart-widget.component';
-import { PieChartWidgetComponent } from '../tests/pie-chart-widget/pie-chart-widget.component';
-import { HorizontalChartWidgetComponent } from '../tests/horizontal-chart-widget/horizontal-chart-widget.component';
-import { PieChartAdvancedWidgetComponent } from '../tests/pie-chart-advanced-widget/pie-chart-advanced-widget.component';
-import { LineChartWidgetComponent } from '../tests/line-chart-widget/line-chart-widget.component';
+import { ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromWidgetStore from '@portalStore';
+import { GridStackComponent, GridStackItem, GridStackItemComponent, GridStackOptions } from 'ng4-gridstack';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

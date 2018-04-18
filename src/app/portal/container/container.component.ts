@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 import { fadeAnimation } from 'app/core/animations';
 
 @Component({
@@ -9,7 +8,6 @@ import { fadeAnimation } from 'app/core/animations';
   animations: [fadeAnimation]
 })
 export class ContainerComponent implements OnInit {
-
   constructor() {}
 
   ngOnInit() {}

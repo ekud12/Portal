@@ -1,9 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import * as fromUserStore from '@userStore';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from '@environment';
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

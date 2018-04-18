@@ -131,7 +131,9 @@ export function userReducer(state = userInitialState, action: any): UserState {
       newSapakIdentity.treatments = treatments;
 
       action.payload.length > 0
-        ? action.payload[0].executeCodeField === 'N' ? (newSapakIdentity.exeCode = false) : (newSapakIdentity.exeCode = true)
+        ? action.payload[0].executeCodeField === 'N'
+          ? (newSapakIdentity.exeCode = false)
+          : (newSapakIdentity.exeCode = true)
         : (newSapakIdentity.exeCode = false);
 
       return {
