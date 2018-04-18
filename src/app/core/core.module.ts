@@ -17,6 +17,7 @@ import { ToastService } from './services/toast-service.service';
 import { AuthenticationService } from './services/auth.service';
 import { ConfigService } from './services/config.service';
 import { environment } from '@environment';
+import { LoggerService } from './services/logger.service';
 
 export function configServiceFactory(config: ConfigService) {
   return () => config.load();
@@ -42,6 +43,7 @@ export function configServiceFactory(config: ConfigService) {
   providers: [
     BackendService,
     ToastService,
+    LoggerService,
     AuthenticationService,
     {
       provide: APP_INITIALIZER,
