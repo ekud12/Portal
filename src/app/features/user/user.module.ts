@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { effects, userReducer } from './store';
 import { UserPanelComponent } from './user-panel/user-panel.component';
 import { UserService } from './user.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 const comps = [LoginComponent, ChangePassComponent, UserPanelComponent];
 
@@ -19,7 +20,8 @@ const comps = [LoginComponent, ChangePassComponent, UserPanelComponent];
     SharedModule,
     MdePopoverModule,
     StoreModule.forFeature('user', userReducer),
-    EffectsModule.forFeature(effects)
+    EffectsModule.forFeature(effects),
+    TranslateModule.forChild()
   ],
   providers: [UserService],
   declarations: comps,

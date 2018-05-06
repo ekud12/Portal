@@ -19,6 +19,7 @@ import { effects, sharedReducer } from './store';
 import { InvoiceRowDatePipe } from './utils/invoice-row-date.pipe';
 import { InvoiceStatusColorPipe } from './utils/invoice-status-color.pipe';
 import { InvoiceStatusPipe } from './utils/invoice-status.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -30,6 +31,8 @@ import { InvoiceStatusPipe } from './utils/invoice-status.pipe';
     materialImports,
     NgxChartsModule,
     NgUploaderModule,
+    TranslateModule.forChild(),
+
     StoreModule.forFeature('shared', sharedReducer),
     EffectsModule.forFeature(effects)
   ],

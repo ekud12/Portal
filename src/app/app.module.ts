@@ -10,6 +10,7 @@ import { UserModule } from './features/user/user.module';
 import { GlobalErrorHandler } from './GlobalErrorHandler';
 import { rootRoutes } from './routes';
 import { SharedModule } from './shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [AppComponent],

@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 import { BackendService } from './backend.service';
+import { httpRoutes } from '@http-routes';
 
 const propertiesId = 'properties';
 const labelsId = 'labels';
@@ -23,42 +24,17 @@ export class ConfigService {
 
   load() {
     return new Promise((resolve, reject) => {
-      // this.log.info('loading config from server..');
+      // const propertiesResource$ = this.backendService.get(httpRoutes.CONFIG_API_PROPERTIES).subscribe(data => {
+      //   this.properties = this.buildObject(data);
+      //   this.saveResourceToCache(propertiesId, this.properties);
+      // });
 
-      // const propertiesResource$ = this.backendService
-      //   .get(httpRoutes.CONFIG_API)
-      //   .take(1)
-      //   .subscribe(data => {
-      //     this.buildObject(data);
+      // const labelsResource$ = this.backendService.get(httpRoutes.CONFIG_API_LABELS).subscribe(data => {
+      //   this.labels = this.buildObject(data);
+      //   this.saveResourceToCache(labelsId, this.labels);
+      //   this.configureTranslator(this.labels);
       resolve();
-      //   });
-
-      // const labelsResource$ = this.backendService
-      //   .get(httpRoutes.CONFIG_API, { params: { propertiesType: 'labels' } })
-      //   .map(data => this.buildObject(data));
-
-      // propertiesResource$.subscribe(
-      //   props => {
-      //     this.properties = props;
-      //     this.saveResourceToCache(propertiesId, props);
-      //   }
-      //   // errors => {
-      //   //   this.log.error('error loading the properties from the server => ' + errors, 'configService');
-      //   // }
-      // );
-
-      // labelsResource$.subscribe(
-      //   labels => {
-      //     this.labels = labels;
-      //     this.propertiesSubject.next(labels);
-      //     this.saveResourceToCache(labelsId, labels);
-      //     this.configureTranslator(labels);
-      //     resolve();
-      //   }
-      //   // errors => {
-      //   //   this.log.error('error loading the labels from the server => ' + errors, 'configService');
-      //   // }
-      // );
+      // });
     });
   }
 
@@ -104,8 +80,7 @@ export class ConfigService {
 
   private buildObject(data): any {
     const object: any = {};
-
-    for (const i of data) {
+    for (const i of data.data) {
       if (!object[i.category]) {
         object[i.category] = {};
       }

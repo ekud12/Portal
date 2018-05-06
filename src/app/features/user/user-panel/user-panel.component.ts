@@ -6,6 +6,7 @@ import { Sapak, SapakDataRequest } from '../models/sapak.model';
 import { User } from '../models/user.model';
 import { ChangeSapak, UserState } from '../store';
 import * as fromUserStore from '../store';
+import { ConfigService } from '../../../core/services/config.service';
 
 @Component({
   selector: 'app-user-panel',
@@ -21,7 +22,7 @@ export class UserPanelComponent implements OnInit {
   SapakTreatmentsRequest: SapakDataRequest;
   selectedSapakKod = '';
 
-  constructor(private store: Store<UserState>) {
+  constructor(private store: Store<UserState>, private configService: ConfigService) {
     this.user$ = store.select(fromUserStore.userSelector);
     this.activeSapak$ = store.select(fromUserStore.activeSapakSelector);
     this.userLoader$ = store.select(fromUserStore.userLoadingSelector);

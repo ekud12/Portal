@@ -2,7 +2,7 @@
   <mat-icon>account_circle</mat-icon>
   <mat-spinner *ngIf="(userLoader$ | async)" [diameter]="22" class="usr-spn"></mat-spinner>
   <span class="spk">
-    {{(activeSapak$ | async)?.description}}
+    {{(activeSapak$ | async)?.description}} 
   </span>
   <mat-icon>keyboard_arrow_down</mat-icon>
 </button>

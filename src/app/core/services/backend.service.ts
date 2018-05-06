@@ -23,7 +23,9 @@ export class BackendService {
   }
 
   get<T>(url: string, params?: any) {
-    return this.http.get(this._generateUrl(url), { params: params }).timeoutWith(5000, Observable.throw(this.timeoutError));
+    return this.http
+      .get(this._generateUrl(url), { params: params })
+      .timeoutWith(5000, Observable.throw(this.timeoutError));
   }
 
   post<T>(url: string, body: any, multipartData?: FormData) {
