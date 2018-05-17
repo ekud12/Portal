@@ -27,6 +27,11 @@ export class InvoiceEffects {
   );
 
   @Effect()
+  resetInvoicesStore$ = this.actions$
+    .ofType(userActions.GET_INVOICES_FAIL)
+    .pipe(switchMap(val => [new userActions.ResetInvoices()]));
+
+  @Effect()
   createInvoice$ = this.actions$.ofType(userActions.CREATE_INVOICE).pipe(
     map((action: userActions.CreateInvoice) => action.payload),
     switchMap((newInvoicesRequest: NewInvoiceRequest) => {

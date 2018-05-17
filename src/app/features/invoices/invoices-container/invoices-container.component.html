@@ -2,19 +2,19 @@
   <div *ngIf="(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch center">
     <div class="invoices-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
       חשבונית מספר:
-      <div class="summary-content-item">{{(currentInvoice$|async)?.invoiceNum}}</div>
+      <div class="summary-content-item">{{(currentInvoice$|async)?.invoiceNumField}}</div>
       חודש:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.billMonth}} </div>
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.billMonthField}} </div>
       סטטוס:
-      <div class="summary-content-item">{{(currentInvoice$|async)?.status | invoiceStatus:'status'}}</div>
+      <div class="summary-content-item">{{(currentInvoice$|async)?.statusField | invoiceStatus:'status'}}</div>
       סכום לא כולל מע"מ:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.typedSum}}</div>
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.typedSumField}}</div>
       אחוז מע"מ:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.rate}}</div>
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.rateField}}</div>
       סכום כולל מע"מ:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.invoiceSum}}</div>
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.invoiceSumField}}</div>
       הערות:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.remark1}},{{(currentInvoice$|async)?.remark2}}</div>
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.remark1Field}},{{(currentInvoice$|async)?.remark2Field}}</div>
     </div>
     <div *ngIf=(currentInvoiceRow$|async) class="invoices-row-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
       שורה מספר :

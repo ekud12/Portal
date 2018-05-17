@@ -5,15 +5,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class InvoiceStatusPipe implements PipeTransform {
   transform(value: any, args?: any): any {
-    if (args === 'status') {
+    if (args === 'statusField') {
       switch (value) {
-        case 0:
+        case '1':
           return 'בהקלדה';
-        case 1:
+        case '8':
           return 'בהקלדה זמן רב';
-        case 2:
+        case '2':
           return 'ממתין';
-        case 3:
+        case '9':
           return 'סגורה';
         default:
           return value;

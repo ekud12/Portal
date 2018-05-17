@@ -1,22 +1,27 @@
 import { SapakTreatment } from '../../user/models/sapak.model';
 
 export class Invoice {
-  billMonth: string;
-  invoiceNum: number;
-  invoiceType?: number;
-  invoiceSum: number;
-  typedSum?: number;
-  totalRowsNum: number;
-  exeCode?: string;
-  totalOffset?: number;
-  totalKZZApprl?: number;
-  rate?: number;
-  isVat?: string;
-  currency?: string;
-  vatPer?: number;
-  remark1?: string;
-  remark2?: string;
-  status: number;
+  requestTypeField: string;
+  userIdField: string;
+  supplierCodeField: string;
+  supplierDescField: string;
+  PropertyChanged?: string;
+  billMonthField: string;
+  invoiceNumField: string;
+  invoiceTypeField?: string;
+  invoiceSumField: string;
+  typedSumField?: string;
+  totalRowsNumField: string;
+  execodeField?: string;
+  totalOffsetField?: string;
+  totalKzzapprlField?: string;
+  rateField?: string;
+  isVatField?: string;
+  currencyField?: string;
+  vatPerField?: string;
+  remark1Field?: string;
+  remark2Field?: string;
+  statusField: string;
 }
 
 export class InvoiceRow {

@@ -6,16 +6,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class InvoiceStatusColorPipe implements PipeTransform {
   transform(value: any, args?: any): any {
     switch (value) {
-      case 0:
+      case '1':
         return 'black';
-      case 1:
+      case '8':
         return 'red';
-      case 2:
+      case '2':
         return 'purple';
-      case 3:
+      case '9':
         return 'green';
       default:
-        return 'pink';
+        return 'black';
     }
   }
 }

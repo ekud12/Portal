@@ -134,7 +134,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
 
   createNewInvoiceRow() {
     this.currentInvoice$.take(1).subscribe(val => {
-      if (val.status === 0 || val.status === 1) {
+      if (val.statusField === '0' || val.statusField === '1') {
         this.routerStore.dispatch(new Go({ path: ['portal/invoices/newRow'] }));
       } else {
         this.toaster.openSnackBar('סטטוס חשבונית פעילה לא מאפשר הוספת שורה חדשה.');
@@ -172,10 +172,12 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   /************************************************  BUILD OBJECTS FOR PRINTING ****************************************************/
   buildPrintObjectCloseInvoice() {
     this.currentInvoice$.take(1).subscribe(inv => {
-      this.dataObject.mainHeader = `דרישת תשלום מספר ${inv.invoiceNum} לחודש ${inv.billMonth}.`;
+      this.dataObject.mainHeader = `דרישת תשלום מספר ${inv.invoiceNumField} לחודש ${inv.billMonthField}.`;
       this.dataObject.specialData = [
-        `הננו מתכבדים להגיש דרישת תשלום מספר: ${inv.invoiceNum} בגין השירותים שסיפקנו ללקוחות מאוחדת בחודש ${inv.billMonth}.`,
-        `סכום חשבון לפני מע"מ: ${inv.typedSum},  מע"מ: ${inv.vatPer},    סכום חשבון כולל מע"מ: ${inv.invoiceSum}.`,
+        `הננו מתכבדים להגיש דרישת תשלום מספר: ${inv.invoiceNumField} בגין השירותים שסיפקנו ללקוחות מאוחדת בחודש ${
+          inv.billMonthField
+        }.`,
+        `סכום חשבון לפני מע"מ: ${inv.typedSumField},  מע"מ: ${inv.vatPerField},    סכום חשבון כולל מע"מ: ${inv.invoiceSumField}.`,
         `יחד עם דרישת התשלום אנו מצרפים את התיעוד הרפואי של הטיפולים והשירותים הכלולים בדרישה זו.`,
         `לפרטים נוספים : איש קשר במערך הבקרה עטרה אלהרר atara@meuhedet.co.il.`
       ];
@@ -198,13 +200,13 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.dataObject.mainHeader = 'ריכוז שורות לחשבונית';
     this.currentInvoice$.take(1).subscribe(inv => {
       this.dataObject.parentContent = [
-        { view: `חשבונית מס:`, value: inv.invoiceNum },
-        { view: `חודש:`, value: inv.billMonth },
-        { view: `סטטוס:`, value: inv.status },
-        { view: `סכום לא כולל מע"מ:`, value: inv.typedSum },
-        { view: `אחוז מע"מ:`, value: inv.vatPer },
-        { view: `סכום כולל מע"מ:`, value: inv.invoiceSum },
-        { view: `הערות: `, value: inv.remark1 }
+        { view: `חשבונית מס:`, value: inv.invoiceNumField },
+        { view: `חודש:`, value: inv.billMonthField },
+        { view: `סטטוס:`, value: inv.statusField },
+        { view: `סכום לא כולל מע"מ:`, value: inv.typedSumField },
+        { view: `אחוז מע"מ:`, value: inv.vatPerField },
+        { view: `סכום כולל מע"מ:`, value: inv.invoiceSumField },
+        { view: `הערות: `, value: inv.remark1Field }
       ];
     });
 
@@ -219,13 +221,13 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.dataObject.mainHeader = '';
     this.currentInvoice$.take(1).subscribe(inv => {
       this.dataObject.parentContent = [
-        { view: `חשבונית מס:`, value: inv.invoiceNum },
-        { view: `חודש:`, value: inv.billMonth },
-        { view: `סטטוס:`, value: inv.status },
-        { view: `סכום לא כולל מע"מ:`, value: inv.typedSum },
-        { view: `אחוז מע"מ:`, value: inv.vatPer },
-        { view: `סכום כולל מע"מ:`, value: inv.invoiceSum },
-        { view: `הערות: `, value: inv.remark1 }
+        { view: `חשבונית מס:`, value: inv.invoiceNumField },
+        { view: `חודש:`, value: inv.billMonthField },
+        { view: `סטטוס:`, value: inv.statusField },
+        { view: `סכום לא כולל מע"מ:`, value: inv.typedSumField },
+        { view: `אחוז מע"מ:`, value: inv.vatPerField },
+        { view: `סכום כולל מע"מ:`, value: inv.invoiceSumField },
+        { view: `הערות: `, value: inv.remark1Field }
       ];
     });
 

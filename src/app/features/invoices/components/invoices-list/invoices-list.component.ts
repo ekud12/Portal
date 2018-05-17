@@ -19,13 +19,13 @@ import { Invoice, PrintingOption } from '../../models/new-actions.model';
   styleUrls: ['./invoices-list.component.css']
 })
 export class InvoicesListComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['billMonth', 'invoiceNum', 'totalRowsNum', 'invoiceSum', 'status'];
+  displayedColumns = ['billMonthField', 'invoiceNumField', 'totalRowsNumField', 'invoiceSumField', 'statusField'];
   displayedColumnsMap = [
-    { value: 'billMonth', viewValue: 'תאריך חשבונית' },
-    { value: 'invoiceNum', viewValue: 'מספר חשבונית' },
-    { value: 'totalRowsNum', viewValue: 'סה"כ שורות' },
-    { value: 'invoiceSum', viewValue: 'סכום חשבונית' },
-    { value: 'status', viewValue: 'סטטוס חשבונית' }
+    { value: 'billMonthField', viewValue: 'תאריך חשבונית' },
+    { value: 'invoiceNumField', viewValue: 'מספר חשבונית' },
+    { value: 'totalRowsNumField', viewValue: 'סה"כ שורות' },
+    { value: 'invoiceSumField', viewValue: 'סכום חשבונית' },
+    { value: 'statusField', viewValue: 'סטטוס חשבונית' }
   ];
   vars = {
     hideRequired: true,
@@ -56,13 +56,6 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoices$ = this.invoiceStore.select(fromInvoiceStore.allInvoicesSelector);
-    this.listOfInvoices$.subscribe(val => {
-      this.dataSource = new MatTableDataSource<Invoice>(val);
-      /** initial sorting by date -> id */
-      this.dataSource.connect().value.sort((a, b) => {
-        return moment(b.billMonth, 'MM/YYYY').valueOf() - moment(a.billMonth, 'MM/YYYY').valueOf() || b.invoiceNum - a.invoiceNum;
-      });
-    });
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
   }
 
@@ -71,7 +64,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    }, 1);
+    }, 1000);
   }
 
   ngOnInit() {
@@ -81,7 +74,21 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
       this.dataObject.headerDetailsValue2 = spk.description;
       this.req.kodSapak = spk.kodSapak;
     });
-    this.dataSource.filterPredicate = (data: Invoice, filter: string) => data.invoiceNum.toString().includes(filter);
+
+    this.listOfInvoices$.subscribe(val => {
+      console.log(val);
+      this.dataSource = new MatTableDataSource<Invoice>(val);
+      /** initial sorting by date -> id */
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.dataSource.filterPredicate = (data: Invoice, filter: string) => data.invoiceNumField.toString().includes(filter);
+      this.dataSource.connect().value.sort((a, b) => {
+        return (
+          moment(b.billMonthField, 'MM/YYYY').valueOf() - moment(a.billMonthField, 'MM/YYYY').valueOf() ||
+          b.invoiceNumField - a.invoiceNumField
+        );
+      });
+    });
   }
 
   print(): void {
