@@ -27,11 +27,6 @@ export class InvoiceEffects {
   );
 
   @Effect()
-  resetInvoicesStore$ = this.actions$
-    .ofType(userActions.GET_INVOICES_FAIL)
-    .pipe(switchMap(val => [new userActions.ResetInvoices()]));
-
-  @Effect()
   createInvoice$ = this.actions$.ofType(userActions.CREATE_INVOICE).pipe(
     map((action: userActions.CreateInvoice) => action.payload),
     switchMap((newInvoicesRequest: NewInvoiceRequest) => {
@@ -49,7 +44,7 @@ export class InvoiceEffects {
   activateInvoice$ = this.actions$.ofType(userActions.ACTIVATE_INVOICE).pipe(
     map((action: userActions.ActivateInvoice) => action.payload),
     tap(val => {
-      this.toaster.openSnackBar(`חשבונית מס' ${val.invoice.invoiceNum} נבחרה כפעילה.`, null);
+      this.toaster.openSnackBar(`חשבונית מס' ${val.invoice.invoiceNumField} נבחרה כפעילה.`, null);
       return val;
     }),
     switchMap(val => [new userActions.GetInvoiceRows(val), new fromRoot.Go({ path: ['/portal/invoices/rows'] })])
@@ -75,4 +70,9 @@ export class InvoiceEffects {
       this.toaster.openSnackBar(`${error}`, null);
     })
   );
+
+  @Effect()
+  resetInvoicesStore$ = this.actions$
+    .ofType(userActions.GET_INVOICES_FAIL)
+    .pipe(switchMap(val => [new userActions.ResetInvoices()]));
 }

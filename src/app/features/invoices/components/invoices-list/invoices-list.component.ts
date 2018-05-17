@@ -40,6 +40,8 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   loggedUserName$: Observable<string>;
   listOfInvoices$: Observable<Invoice[]>;
   currentInvoice$: Observable<Invoice>;
+  isLoading$: Observable<boolean>;
+  isLoadingBigData;
   dataObject: PrintObject = new PrintObject();
   selectedFilter;
   dataSource;
@@ -53,10 +55,12 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     private userStore: Store<fromUserStore.UserState>,
     public dialog: MatDialog
   ) {
+    this.isLoadingBigData = true;
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoices$ = this.invoiceStore.select(fromInvoiceStore.allInvoicesSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
+    this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.invoiceLoadingSelector);
   }
 
   ngAfterViewInit() {
@@ -64,7 +68,8 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    }, 1000);
+      this.isLoadingBigData = false;
+    }, 50);
   }
 
   ngOnInit() {
@@ -76,7 +81,6 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     });
 
     this.listOfInvoices$.subscribe(val => {
-      console.log(val);
       this.dataSource = new MatTableDataSource<Invoice>(val);
       /** initial sorting by date -> id */
       this.dataSource.paginator = this.paginator;

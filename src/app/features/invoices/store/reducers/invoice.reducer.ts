@@ -18,6 +18,9 @@ export const invoiceInitialState: InvoiceState = {
 
 export function invoiceReducer(state = invoiceInitialState, action: any): InvoiceState {
   switch (action.type) {
+    /**
+     * Get Invoices for Sapak
+     */
     case userActions.GET_INVOICES: {
       return {
         ...state,
@@ -25,81 +28,6 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
       };
     }
     case userActions.GET_INVOICES_SUCCESS: {
-      // const ret = [
-      //   {
-      //     billMonth: '12/2018',
-      //     invoiceNum: '4015',
-      //     totalRowsNum: '1',
-      //     invoiceSum: '581',
-      //     status: '0',
-      //     invoiceType: '0',
-      //     typedSum: '450',
-      //     exeCode: 'do',
-      //     totalOffset: '5',
-      //     totalKZZApprl: '6',
-      //     rate: '17',
-      //     isVat: 'yes',
-      //     currency: '$',
-      //     vatPer: '0.6',
-      //     remark1: 'fml',
-      //     remark2: 'fml2'
-      //   },
-      //   {
-      //     billMonth: '12/2018',
-      //     invoiceNum: '335',
-      //     totalRowsNum: '1',
-      //     invoiceSum: '581',
-      //     status: '2',
-      //     invoiceType: '0',
-      //     typedSum: '450',
-      //     exeCode: 'do',
-      //     totalOffset: '5',
-      //     totalKZZApprl: '6',
-      //     rate: '17',
-      //     isVat: 'yes',
-      //     currency: '$',
-      //     vatPer: '0.6',
-      //     remark1: 'fml',
-      //     remark2: 'fml2'
-      //   }
-      // ,
-      // {
-      //   billMonth: '07/2018',
-      //   invoiceNum: 9335,
-      //   totalRowsNum: 1,
-      //   invoiceSum: 581,
-      //   status: 1,
-      //   invoiceType: 0,
-      //   typedSum: 450,
-      //   exeCode: 'do',
-      //   totalOffset: 5,
-      //   totalKZZApprl: 6,
-      //   rate: 17,
-      //   isVat: 'yes',
-      //   currency: '$',
-      //   vatPer: 0.6,
-      //   remark1: 'fml',
-      //   remark2: 'fml2'
-      // },
-      // {
-      //   billMonth: '06/2018',
-      //   invoiceNum: 95,
-      //   totalRowsNum: 12,
-      //   invoiceSum: 51,
-      //   status: 3,
-      //   invoiceType: 0,
-      //   typedSum: 4540,
-      //   exeCode: 'do',
-      //   totalOffset: 5,
-      //   totalKZZApprl: 6,
-      //   rate: 17,
-      //   isVat: 'yes',
-      //   currency: 'eu',
-      //   vatPer: 0.6,
-      //   remark1: 'fml',
-      //   remark2: 'fml2'
-      // }
-      // ];
       return {
         ...state,
         listOfInvoicesForSapak: action.payload.data.resultSetData,
@@ -115,6 +43,11 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
       };
     }
 
+    /**
+     * Activate Invoice for Current Work
+     * Simply chooses the relevant and assign to store
+     * variable
+     */
     case userActions.ACTIVATE_INVOICE: {
       return {
         ...state,
@@ -122,6 +55,20 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
       };
     }
 
+    /**
+     * Create new INVOICE for sapak.
+     */
+    case userActions.CREATE_INVOICE: {
+      return {
+        ...state,
+        activeInvoice: action.payload.invoice
+      };
+    }
+
+    /**
+     * Reset the Entire Invoices Store In
+     * case of failure etc..
+     */
     case userActions.RESET_INVOICES: {
       return {
         ...state,
