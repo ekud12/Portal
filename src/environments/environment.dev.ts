@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   http: {
-    baseUrl: 'http://172.30.1.27/PortalSapakimAPI'
+    baseUrl: 'http://localhost/PortalSapakimAPI'
   },
   version: '0.1_Dev'
 };

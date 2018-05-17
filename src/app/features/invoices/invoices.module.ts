@@ -38,7 +38,7 @@ const COMPONENTS = [
     StoreModule.forFeature('invoices', reducers),
     EffectsModule.forFeature(effects)
   ],
-  providers: [InvoicesService, DatePipe, { provide: MAT_DATE_LOCALE, useValue: 'he' }],
+  providers: [InvoicesService, DatePipe],
   entryComponents: COMPONENTS,
   declarations: COMPONENTS,
   exports: COMPONENTS

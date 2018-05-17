@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { BackendService } from '../../core/services/backend.service';
+import { httpRoutes } from '@http-routes';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { BackendService } from '../../core/services/backend.service';
 import { SapakDataRequest } from '../user/models/sapak.model';
-import { NewInvoiceRequest, Invoice, InvoiceRow } from './models/new-actions.model';
+import { Invoice, InvoiceRow, NewInvoiceRequest } from './models/new-actions.model';
 
 @Injectable()
 export class InvoicesService {
   constructor(private backendService: BackendService) {}
 
   getAllInvoicesForSapak(request: SapakDataRequest): Observable<Invoice[]> {
+    console.log('ZXC');
     const ret = [
       {
         billMonth: '12/2018',
@@ -85,7 +87,8 @@ export class InvoicesService {
       }
     ];
     const retEmpty = [];
-    return Observable.of(ret);
+    // return Observable.of(ret);
+    return this.backendService.post<any>(httpRoutes.INVOICES_GET_ALL_INVOICES, request);
   }
 
   getAllInvoiceRows(request: SapakDataRequest): Observable<InvoiceRow[]> {

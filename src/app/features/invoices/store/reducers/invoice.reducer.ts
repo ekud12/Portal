@@ -1,6 +1,6 @@
-import * as userActions from '../actions';
 import 'mdn-polyfills/String.prototype.padStart';
-import { Invoice, InvoiceRow } from '../../models/new-actions.model';
+import { Invoice } from '../../models/new-actions.model';
+import * as userActions from '../actions';
 
 export interface InvoiceState {
   activeInvoice: any;
@@ -25,9 +25,84 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
       };
     }
     case userActions.GET_INVOICES_SUCCESS: {
+      getFormattedInvoices(action.payload.data.resultSetData);
+      const ret = [
+        {
+          billMonth: '12/2018',
+          invoiceNum: 4015,
+          totalRowsNum: 1,
+          invoiceSum: 581,
+          status: 0,
+          invoiceType: 0,
+          typedSum: 450,
+          exeCode: 'do',
+          totalOffset: 5,
+          totalKZZApprl: 6,
+          rate: 17,
+          isVat: 'yes',
+          currency: '$',
+          vatPer: 0.6,
+          remark1: 'fml',
+          remark2: 'fml2'
+        },
+        {
+          billMonth: '12/2018',
+          invoiceNum: 335,
+          totalRowsNum: 1,
+          invoiceSum: 581,
+          status: 2,
+          invoiceType: 0,
+          typedSum: 450,
+          exeCode: 'do',
+          totalOffset: 5,
+          totalKZZApprl: 6,
+          rate: 17,
+          isVat: 'yes',
+          currency: '$',
+          vatPer: 0.6,
+          remark1: 'fml',
+          remark2: 'fml2'
+        },
+        {
+          billMonth: '07/2018',
+          invoiceNum: 9335,
+          totalRowsNum: 1,
+          invoiceSum: 581,
+          status: 1,
+          invoiceType: 0,
+          typedSum: 450,
+          exeCode: 'do',
+          totalOffset: 5,
+          totalKZZApprl: 6,
+          rate: 17,
+          isVat: 'yes',
+          currency: '$',
+          vatPer: 0.6,
+          remark1: 'fml',
+          remark2: 'fml2'
+        },
+        {
+          billMonth: '06/2018',
+          invoiceNum: 95,
+          totalRowsNum: 12,
+          invoiceSum: 51,
+          status: 3,
+          invoiceType: 0,
+          typedSum: 4540,
+          exeCode: 'do',
+          totalOffset: 5,
+          totalKZZApprl: 6,
+          rate: 17,
+          isVat: 'yes',
+          currency: 'eu',
+          vatPer: 0.6,
+          remark1: 'fml',
+          remark2: 'fml2'
+        }
+      ];
       return {
         ...state,
-        listOfInvoicesForSapak: action.payload,
+        listOfInvoicesForSapak: ret,
         activeInvoice: null,
         isLoading: false
       };
@@ -86,3 +161,12 @@ const getDataKeysValues = dataRaw => {
   data.push(_name, _id);
   return data;
 };
+
+const getFormattedInvoices = dataRaw => {
+  const treat = new Invoice();
+  treat.treatCode = dataRaw['treatmentCodeField'];
+  treat.treatDesc = dataRaw['treatmentDescField'];
+  return treat;
+};
+
+

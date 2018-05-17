@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --environment=dev ",
+    "start": "ng serve --environment=dev --aot ",
     "build": "ng build --prod -bh /PortalSapakim/ --build-optimizer -vendor-chunk=true",
     "test": "ng test",
     "lint": "ng lint",

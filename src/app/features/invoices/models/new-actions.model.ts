@@ -102,6 +102,7 @@ export class RowUpdateRequest {
   custIdType: string;
   visitNum: string;
 }
+
 export enum PrintingOption {
   INVOICES = 1,
   ROWS = 2,
