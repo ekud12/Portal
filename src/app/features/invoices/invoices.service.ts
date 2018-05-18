@@ -78,6 +78,6 @@ export class InvoicesService {
   }
 
   createInvoice(request: NewInvoiceRequest): Observable<boolean> {
-    return Observable.of(true);
+    return this.backendService.post<any>(httpRoutes.INVOICES_CREATE_NEW_INVOICE, request);
   }
 }

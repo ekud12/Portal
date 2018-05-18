@@ -11,8 +11,8 @@ export class InvoiceStatusPipe implements PipeTransform {
           return 'בהקלדה';
         case '8':
           return 'בהקלדה זמן רב';
-        case '2':
-          return 'ממתין';
+        case '0':
+          return 'טרם הוקלד';
         case '9':
           return 'סגורה';
         default:

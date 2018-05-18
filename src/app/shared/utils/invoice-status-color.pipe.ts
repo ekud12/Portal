@@ -10,7 +10,7 @@ export class InvoiceStatusColorPipe implements PipeTransform {
         return 'black';
       case '8':
         return 'red';
-      case '2':
+      case '0':
         return 'purple';
       case '9':
         return 'green';

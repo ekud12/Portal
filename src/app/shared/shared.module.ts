@@ -20,6 +20,7 @@ import { InvoiceRowDatePipe } from './utils/invoice-row-date.pipe';
 import { InvoiceStatusColorPipe } from './utils/invoice-status-color.pipe';
 import { InvoiceStatusPipe } from './utils/invoice-status.pipe';
 import { TranslateModule } from '@ngx-translate/core';
+import { As400DatePipe } from './utils/as400-date.pipe';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { TranslateModule } from '@ngx-translate/core';
     InvoiceStatusPipe,
     InvoiceStatusColorPipe,
     InvoiceRowDatePipe,
-    FileUploadComponent
+    FileUploadComponent,
+    As400DatePipe
   ],
   entryComponents: [AlertDialogComponent, FileUploadComponent],
   providers: [{ provide: MAT_DIALOG_DATA, useValue: [] }, DatePipe],

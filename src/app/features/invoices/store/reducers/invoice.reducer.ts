@@ -61,7 +61,20 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
     case userActions.CREATE_INVOICE: {
       return {
         ...state,
-        activeInvoice: action.payload.invoice
+        isLoading: true
+      };
+    }
+    case userActions.CREATE_INVOICE_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    case userActions.CREATE_INVOICE_FAIL: {
+      return {
+        ...state,
+        isLoading: false
       };
     }
 

@@ -4,14 +4,21 @@ import * as userActions from '../actions';
 import { of } from 'rxjs/observable/of';
 import { switchMap, map, catchError, tap } from 'rxjs/operators';
 import * as fromRoot from '../../../../core/store';
+import * as userStore from '@userStore';
 import { InvoicesService } from '../../invoices.service';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
 import { NewInvoiceRequest } from '../../models/new-actions.model';
 import { ToastService } from '../../../../core/services/toast-service.service';
+import { InvoiceRowDatePipe } from 'app/shared/utils/invoice-row-date.pipe';
 
 @Injectable()
 export class InvoiceEffects {
-  constructor(private actions$: Actions, private invoicesService: InvoicesService, private toaster: ToastService) {}
+  constructor(
+    private actions$: Actions,
+    private invoicesService: InvoicesService,
+    private toaster: ToastService,
+    private invoiceDatePipe: InvoiceRowDatePipe
+  ) {}
 
   @Effect()
   getInvoices$ = this.actions$.ofType(userActions.GET_INVOICES).pipe(
@@ -27,6 +34,17 @@ export class InvoiceEffects {
   );
 
   @Effect()
+  /** add call to action: get rows for invoice */
+  activateInvoice$ = this.actions$.ofType(userActions.ACTIVATE_INVOICE).pipe(
+    map((action: userActions.ActivateInvoice) => action.payload),
+    tap(val => {
+      this.toaster.openSnackBar(`חשבונית מס' ${val.invoice.invoiceNumField} נבחרה כפעילה.`, null);
+      return val;
+    }),
+    switchMap(val => [new userActions.GetInvoiceRows(val), new fromRoot.Go({ path: ['/portal/invoices/rows'] })])
+  );
+
+  @Effect()
   createInvoice$ = this.actions$.ofType(userActions.CREATE_INVOICE).pipe(
     map((action: userActions.CreateInvoice) => action.payload),
     switchMap((newInvoicesRequest: NewInvoiceRequest) => {
@@ -37,17 +55,6 @@ export class InvoiceEffects {
           catchError(error => of(new userActions.CreateInvoiceFail(error)))
         );
     })
-  );
-
-  @Effect()
-  /** add call to action: get rows for invoice */
-  activateInvoice$ = this.actions$.ofType(userActions.ACTIVATE_INVOICE).pipe(
-    map((action: userActions.ActivateInvoice) => action.payload),
-    tap(val => {
-      this.toaster.openSnackBar(`חשבונית מס' ${val.invoice.invoiceNumField} נבחרה כפעילה.`, null);
-      return val;
-    }),
-    switchMap(val => [new userActions.GetInvoiceRows(val), new fromRoot.Go({ path: ['/portal/invoices/rows'] })])
   );
 
   @Effect()
@@ -67,7 +74,7 @@ export class InvoiceEffects {
   createInvoiceFailure$ = this.actions$.ofType(userActions.CREATE_INVOICE_FAIL).pipe(
     map((action: userActions.CreateInvoiceFail) => action.payload),
     tap(error => {
-      this.toaster.openSnackBar(`${error}`, null);
+      this.toaster.openSnackBar(`${error.errors[0]}`, null);
     })
   );
 

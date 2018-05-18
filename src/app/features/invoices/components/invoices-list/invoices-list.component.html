@@ -33,7 +33,7 @@
         <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
           <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col)}}</mat-header-cell>
 
-          <mat-cell *matCellDef=" let element" [style.color]="(element.statusField | invoiceStatusColor)"> {{(element[col] | invoiceRowDate | invoiceStatus:col)}} </mat-cell>
+          <mat-cell *matCellDef=" let element" [style.color]="(element.statusField | invoiceStatusColor)"> {{(element[col] | invoiceRowDate:col | invoiceStatus:col)}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef=" displayedColumns "></mat-header-row>
@@ -54,7 +54,8 @@
       </mat-card>
 
       <!-- In case we switched sapak and he doesnt have any invoices we show a message -->
-      <div *ngIf="(listOfInvoices$|async).length === 0" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
+      <div *ngIf="(listOfInvoices$|async).length === 0 && !(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center"
+        class="no-data-warn">
         אין חשבוניות להצגה
       </div>
 

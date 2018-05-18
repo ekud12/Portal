@@ -4,9 +4,9 @@
       חשבונית מספר:
       <div class="summary-content-item">{{(currentInvoice$|async)?.invoiceNumField}}</div>
       חודש:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.billMonthField}} </div>
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.billMonthField | invoiceRowDate:'billMonthField'}} </div>
       סטטוס:
-      <div class="summary-content-item">{{(currentInvoice$|async)?.statusField | invoiceStatus:'status'}}</div>
+      <div class="summary-content-item">{{(currentInvoice$|async)?.statusField | invoiceStatus:'statusField'}}</div>
       סכום לא כולל מע"מ:
       <div class="summary-content-item"> {{(currentInvoice$|async)?.typedSumField}}</div>
       אחוז מע"מ:

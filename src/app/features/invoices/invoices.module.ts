@@ -18,6 +18,7 @@ import { InvoicesContainerComponent } from './invoices-container/invoices-contai
 import { NewInvoiceRowComponent } from './components/new-invoice-row/new-invoice-row.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { ZakautModule } from 'app/features/zakaut/zakaut.module';
+import { InvoiceRowDatePipe } from 'app/shared/utils/invoice-row-date.pipe';
 
 const COMPONENTS = [
   InvoiceRowsComponent,
@@ -38,7 +39,7 @@ const COMPONENTS = [
     StoreModule.forFeature('invoices', reducers),
     EffectsModule.forFeature(effects)
   ],
-  providers: [InvoicesService, DatePipe],
+  providers: [InvoicesService, DatePipe, InvoiceRowDatePipe],
   entryComponents: COMPONENTS,
   declarations: COMPONENTS,
   exports: COMPONENTS

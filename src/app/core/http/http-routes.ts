@@ -11,9 +11,12 @@ export enum httpRoutes {
 
   /** Invoices Module Server Endpoints */
   INVOICES_API = 'api/invoices',
+
   INVOICES_GET_ALL_INVOICES = 'api/invoices/GetAllInvoices',
   INVOICES_GET_ALL_ROWS = 'api/invoices/GetInvoiceRows',
   INVOICES_GET_ALL_TREATMENTS = 'api/invoices/GetInvoiceTreatments',
+  INVOICES_CREATE_NEW_INVOICE = 'api/invoices/CreateNewInvoice',
+
 
   /** Treatments FOR SAPAK Server Endpoints */
   TREATMENTS_API = 'api/treatments',

@@ -25,6 +25,8 @@ export class ErrorHandler implements HttpInterceptor {
    */
   handleError(error): ErrorObservable {
     let errorMessage = '';
+    console.log(error);
+
     if (error instanceof HttpErrorResponse) {
       if (error.url.endsWith(httpRoutes.LOGIN)) {
         errorMessage = error.error.error_description;
@@ -35,7 +37,7 @@ export class ErrorHandler implements HttpInterceptor {
       } else if (error.url.endsWith(httpRoutes.INVOICES_API)) {
         errorMessage = error.error.errors === null ? error.error.message : error.error.errors;
       } else {
-        errorMessage = error.message;
+        errorMessage = error.error;
       }
     }
     return new ErrorObservable(errorMessage);

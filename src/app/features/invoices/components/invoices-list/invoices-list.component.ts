@@ -73,6 +73,11 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    /**
+     *
+     * AAADDDD HERE url which we came from. pass it in effect and if we need to than send action to get
+     * refreshed invoices.
+     */
     this.loggedUserName$.subscribe(val => (this.req.userName = val));
     this.currentSapak$.subscribe(spk => {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
@@ -82,6 +87,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
 
     this.listOfInvoices$.subscribe(val => {
       this.dataSource = new MatTableDataSource<Invoice>(val);
+
       /** initial sorting by date -> id */
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
