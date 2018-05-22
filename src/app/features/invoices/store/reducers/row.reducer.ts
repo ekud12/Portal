@@ -1,7 +1,6 @@
 import 'mdn-polyfills/String.prototype.padStart';
 
 import * as userActions from '../actions';
-
 export interface InvoiceRowState {
   activeInvoiceRow: any;
   listOfRowsForInvoice: any[];

@@ -35,16 +35,15 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
     'actions'
   ];
   displayedColumnsMap = [
-    { value: 'lineNum', viewValue: 'מספר שורה' },
-    { value: 'commitmentId', viewValue: 'מספר התחייבות' },
-    { value: 'cstFormattedId', viewValue: 'מספר זיהוי' },
-    { value: 'custFirstName', viewValue: 'שם פרטי' },
-    { value: 'custSecName', viewValue: 'שם משפחה' },
-    { value: 'typedAmount', viewValue: 'סכום' },
-    { value: 'date', viewValue: 'תאריך' },
-    { value: 'amount', viewValue: 'מספר טיפולים' },
-    { value: 'visitNum', viewValue: 'מספר ביקור' },
-    { value: 'actions', viewValue: '' }
+    { value: 'lineNum', viewValue: 'מספר זיהוי' },
+    { value: 'commitmentId', viewValue: 'שם המבוטח' },
+    { value: 'cstFormattedId', viewValue: 'תאריך' },
+    { value: 'custFirstName', viewValue: 'שעה' },
+    { value: 'custSecName', viewValue: 'כמות טיפולים שדווחו' },
+    { value: 'typedAmount', viewValue: 'קוד טיפול' },
+    { value: 'date', viewValue: 'תקין' },
+    { value: 'amount', viewValue: 'סיבה' },
+    { value: 'actions', viewValue: 'פרטים נוספים' }
   ];
   vars = {
     hideRequired: true,

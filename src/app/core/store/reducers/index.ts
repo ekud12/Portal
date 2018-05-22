@@ -62,6 +62,11 @@ export function getInitialState(): AppState {
         listOfTreatmentsForRow: null,
         isLoading: false,
         errors: []
+      },
+      misc: {
+        cardSwipes: null,
+        isLoading: false,
+        errors: []
       }
     },
     dashboard: {
@@ -77,7 +82,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
   return localStorageSync({
     keys: [
       { user: ['user', 'activeSapak', 'isLoading'] },
-      { invoices: { invoices: ['listOfInvoicesForSapak', 'activeInvoice'], rows: ['activeInvoiceRow'] } }
+      { invoices: { invoices: ['listOfInvoicesForSapak', 'activeInvoice'], rows: ['activeInvoiceRow'], misc: ['cardSwipes'] } }
     ],
     rehydrate: true
   })(reducer);
