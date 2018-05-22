@@ -10,6 +10,7 @@ import { ToastService } from 'app/core/services/toast-service.service';
 import { Go } from 'app/core/store/actions';
 import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.component';
 import { Observable } from 'rxjs/Observable';
+import * as moment from 'moment';
 
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
@@ -23,27 +24,26 @@ import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pi
 })
 export class CardSwipeReportComponent implements OnInit, AfterViewInit {
   displayedColumns = [
-    'lineNum',
-    'commitmentId',
-    'cstFormattedId',
-    'custFirstName',
-    'custSecName',
-    'typedAmount',
-    'date',
-    'amount',
-    'visitNum',
+    'fullID',
+    'fullName',
+    'dateField',
+    'timeField',
+    'commitmentIdField',
+    'treatmentCodeField',
+    'executionCodeField',
+    'remark2Field',
     'actions'
   ];
   displayedColumnsMap = [
-    { value: 'lineNum', viewValue: 'מספר זיהוי' },
-    { value: 'commitmentId', viewValue: 'שם המבוטח' },
-    { value: 'cstFormattedId', viewValue: 'תאריך' },
-    { value: 'custFirstName', viewValue: 'שעה' },
-    { value: 'custSecName', viewValue: 'כמות טיפולים שדווחו' },
-    { value: 'typedAmount', viewValue: 'קוד טיפול' },
-    { value: 'date', viewValue: 'תקין' },
-    { value: 'amount', viewValue: 'סיבה' },
-    { value: 'actions', viewValue: 'פרטים נוספים' }
+    { value: 'fullID', viewValue: 'מספר זיהוי' },
+    { value: 'fullName', viewValue: 'שם המבוטח' },
+    { value: 'dateField', viewValue: 'תאריך' },
+    { value: 'timeField', viewValue: 'שעה' },
+    { value: 'commitmentIdField', viewValue: 'כמות טיפולים שדווחו' },
+    { value: 'treatmentCodeField', viewValue: 'קוד טיפול' },
+    { value: 'executionCodeField', viewValue: 'תקין' },
+    { value: 'remark2Field', viewValue: 'סיבה' },
+    { value: 'actions', viewValue: 'פעולות נוספות' }
   ];
   vars = {
     hideRequired: true,
@@ -72,25 +72,35 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.cardSwipesForSapak$ = this.invoiceStore.select(fromInvoiceStore.cardSwipesSelector);
-    this.cardSwipesForSapak$.subscribe(val => {
-      this.dataSource = new MatTableDataSource<CardSwipeForSapak>(val);
-    });
     this.dataRequest$ = this.userStore.select(fromUserStore.userNameAndCurrentSapakSelector);
+    this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.miscLoadingSelector);
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    }, 1);
+    }, 100);
   }
 
   ngOnInit() {
     this.dataRequest$.take(1).subscribe(val => {
       this.invoiceStore.dispatch(new fromInvoiceStore.GetCardSwipes(val));
     });
-    this.dataSource.filterPredicate = (data: Element, filter: string) =>
-      data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
+    this.cardSwipesForSapak$.subscribe(val => {
+      this.dataSource = new MatTableDataSource<CardSwipeForSapak>(val);
+
+      /** initial sorting by date -> id */
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      // this.dataSource.filterPredicate = (data: CardSwipeForSapak, filter: string) => data.dateField.toString().includes(filter);
+      this.dataSource.connect().value.sort((a, b) => {
+        return (
+          moment(b.dateField, 'YYYY-MM-DDTHH:mm:ss').valueOf() - moment(a.dateField, 'YYYY-MM-DDTHH:mm:ss').valueOf() ||
+          b.timeField - a.timeField
+        );
+      });
+    });
   }
 
   filterData(filterValue: string) {

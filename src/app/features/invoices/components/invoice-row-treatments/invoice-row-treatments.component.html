@@ -11,25 +11,25 @@
       class="row-update-form">
       <div fxLayout="row" fxLayoutAlign="space-around center center">
         <mat-form-field>
-          <input matInput placeholder="התחייבות" [readonly]="(currentInvoice$|async).status> 1" [ngModel]="(currentInvoiceRow$|async).commitmentId"
+          <input matInput placeholder="התחייבות" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).commitmentId"
             name="date" (ngModelChange)="rowUpdateRequest.commitment
           = $event">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="תעודת זהות" [readonly]="(currentInvoice$|async).status > 1" [ngModel]="(currentInvoiceRow$|async).custID"
+          <input matInput placeholder="תעודת זהות" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).custID"
             name="id" (ngModelChange)="rowUpdateRequest.custId = $event">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="סוג זיהוי" [readonly]="(currentInvoice$|async).status > 1" [ngModel]="(currentInvoiceRow$|async).custIDtype"
+          <input matInput placeholder="סוג זיהוי" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).custIDtype"
             name="idtype" (ngModelChange)="rowUpdateRequest.custIdType = $event">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="מספר ביקור" [readonly]="(currentInvoice$|async).status > 1" [ngModel]="(currentInvoiceRow$|async).visitNum"
+          <input matInput placeholder="מספר ביקור" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).visitNum"
             name="visit" (ngModelChange)="rowUpdateRequest.visitNum = $event">
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center center">
           <div>
-            <button mat-raised-button color="primary" *ngIf="(currentInvoice$|async).status < 2" class="btn" (click)="createNewInvoiceRow()">עדכן</button>
+            <button mat-raised-button color="primary" *ngIf="(currentInvoice$|async).statusField == '1'" class="btn" (click)="createNewInvoiceRow()">עדכן</button>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
 
     <div fxLayout="row" fxLayoutAlign="space-between center center">
       <div>
-        <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).status < 2">הוספת טיפול</button>
+        <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).statusField < 2">הוספת טיפול</button>
       </div>
     </div>
 
@@ -56,7 +56,7 @@
 
               <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
               <mat-menu #menu="matMenu">
-                <button *ngIf="(currentInvoice$|async).status < 2" mat-menu-item>מחיקת שורה</button>
+                <button *ngIf="(currentInvoice$|async).statusField < 2" mat-menu-item>מחיקת שורה</button>
                 <button mat-menu-item>שכפול טיפול</button>
                 <button mat-menu-item>עדכון טיפול</button>
                 <button (click)="uploadSummary()" mat-menu-item>טעינת סיכום ביקור</button>

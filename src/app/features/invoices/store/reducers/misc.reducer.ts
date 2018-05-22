@@ -9,7 +9,7 @@ export interface MiscState {
 }
 
 export const miscInitialState: MiscState = {
-  cardSwipes: null,
+  cardSwipes: [],
   isLoading: false,
   errors: []
 };
@@ -19,6 +19,7 @@ export function miscReducer(state = miscInitialState, action: any): MiscState {
     case userActions.GET_CARD_SWIPES: {
       return {
         ...state,
+        cardSwipes: [],
         isLoading: true
       };
     }
