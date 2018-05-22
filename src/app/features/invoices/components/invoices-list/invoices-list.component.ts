@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
-import { Invoice, PrintingOption } from '../../models/new-actions.model';
+import { Invoice, PrintingOption } from '../../models/class-models/objects.model';
 
 @Component({
   selector: 'app-invoices-list',
@@ -73,11 +73,6 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    /**
-     *
-     * AAADDDD HERE url which we came from. pass it in effect and if we need to than send action to get
-     * refreshed invoices.
-     */
     this.loggedUserName$.subscribe(val => (this.req.userName = val));
     this.currentSapak$.subscribe(spk => {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;

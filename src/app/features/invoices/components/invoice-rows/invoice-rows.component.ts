@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { Sapak } from '../../../user/models/sapak.model';
-import { Invoice, PrintingOption } from '../../models/new-actions.model';
+import { Invoice, PrintingOption } from '../../models/class-models/objects.model';
 import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
 
 @Component({

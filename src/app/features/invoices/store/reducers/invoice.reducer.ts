@@ -1,5 +1,5 @@
 import 'mdn-polyfills/String.prototype.padStart';
-import { Invoice } from '../../models/new-actions.model';
+import { Invoice } from '../../models/class-models/objects.model';
 import * as userActions from '../actions';
 
 export interface InvoiceState {

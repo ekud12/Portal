@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
 
 import { Sapak } from '../../../user/models/sapak.model';
-import { Invoice } from '../../models/new-actions.model';
+import { Invoice } from '../../models/class-models/objects.model';
 import { NewInvoiceRowRequest } from '../../models/requests-models/requests';
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {

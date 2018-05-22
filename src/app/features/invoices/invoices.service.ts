@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { BackendService } from '../../core/services/backend.service';
 import { SapakDataRequest } from '../user/models/sapak.model';
-import { Invoice, InvoiceRow } from './models/new-actions.model';
+import { Invoice, InvoiceRow } from './models/class-models/objects.model';
 import { NewInvoiceRequest } from './models/requests-models/requests';
 
 @Injectable()
@@ -83,6 +83,6 @@ export class InvoicesService {
   }
 
   getMagneticCardReportsForSapak(request: SapakDataRequest): Observable<Invoice[]> {
-    return this.backendService.post<any>(httpRoutes.INVOICES_GET_MAGNETIC_CARD_REPORTS_FOR_SAPAK, request);
+    return this.backendService.post<any>(httpRoutes.INVOICES_GET_MAGNETIC_CARD_SWIPES_FOR_SAPAK, request);
   }
 }

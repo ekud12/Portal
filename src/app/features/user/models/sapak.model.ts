@@ -1,5 +1,5 @@
 import { Permission } from './permission.model';
-import { InvoiceRow, Invoice } from '../../invoices/models/new-actions.model';
+import { InvoiceRow, Invoice } from '../../invoices/models/class-models/objects.model';
 
 export class Sapak {
   kodSapak: string;

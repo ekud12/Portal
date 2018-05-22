@@ -13,7 +13,6 @@ export const RESET_MISC = '[Invoice] Reset Misc';
 export class GetCardSwipes implements Action {
   readonly type = GET_CARD_SWIPES;
   constructor(public payload: SapakDataRequest) {
-    console.log(payload);
   }
 }
 

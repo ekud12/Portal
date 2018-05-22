@@ -1,4 +1,4 @@
-import { PrintingOption } from '../../features/invoices/models/new-actions.model';
+import { PrintingOption } from '../../features/invoices/models/class-models/objects.model';
 
 export class PrintObject {
   headerDetailsText1 = 'קוד ספק:';

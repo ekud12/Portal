@@ -8,7 +8,7 @@ import { moveAnimation } from 'app/core/animations/animations';
 import { Observable } from 'rxjs/Observable';
 
 import { Sapak } from '../../user/models/sapak.model';
-import { Invoice, InvoiceRow } from '../models/new-actions.model';
+import { Invoice, InvoiceRow } from '../models/class-models/objects.model';
 
 @Component({
   selector: 'app-invoices-container',
