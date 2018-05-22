@@ -40,9 +40,7 @@ export class PrintLayoutComponent implements OnInit {
 
     /** if ie get from state */
     this.route.queryParams.subscribe(params => {
-      // this.ieBtn = true;
       this.returnURL = params.returnUrl;
-      // this.object = params.valObject;
     });
   }
 

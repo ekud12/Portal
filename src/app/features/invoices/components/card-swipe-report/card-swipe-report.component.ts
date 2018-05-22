@@ -17,11 +17,11 @@ import { Invoice, PrintingOption } from '../../models/new-actions.model';
 import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
 
 @Component({
-  selector: 'app-invoice-rows',
-  templateUrl: './invoice-rows.component.html',
-  styleUrls: ['./invoice-rows.component.css']
+  selector: 'app-card-swipe-report',
+  templateUrl: './card-swipe-report.component.html',
+  styleUrls: ['./card-swipe-report.component.css']
 })
-export class InvoiceRowsComponent implements OnInit, AfterViewInit {
+export class CardSwipeReportComponent implements OnInit, AfterViewInit {
   displayedColumns = [
     'lineNum',
     'commitmentId',
@@ -63,7 +63,6 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   selectedFilter = this.displayedColumnsMap[1];
   dataSource;
   displayNoRecords = false;
-  allowActionsByStatus = false;
 
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
@@ -82,13 +81,6 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       this.dataSource = new MatTableDataSource<Invoice>(val);
     });
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
-    this.currentInvoice$.subscribe(val => {
-      if (val !== null && +val.statusField < 2) {
-        this.allowActionsByStatus = true;
-      } else {
-        this.allowActionsByStatus = false;
-      }
-    });
   }
 
   ngAfterViewInit() {
@@ -190,9 +182,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
         `הננו מתכבדים להגיש דרישת תשלום מספר: ${
           inv.invoiceNumField
         } בגין השירותים שסיפקנו ללקוחות מאוחדת בחודש ${this.dateFormatter.transform(inv.billMonthField, 'billMonthField')}.`,
-        `סכום חשבון לפני מע"מ: ${inv.typedSumField}.
-         מע"מ: ${inv.vatPerField}.
-         סכום חשבון כולל מע"מ: ${inv.invoiceSumField}.`,
+        `סכום חשבון לפני מע"מ: ${inv.typedSumField}.  מע"מ: ${inv.vatPerField},    סכום חשבון כולל מע"מ: ${inv.invoiceSumField}.`,
         `יחד עם דרישת התשלום אנו מצרפים את התיעוד הרפואי של הטיפולים והשירותים הכלולים בדרישה זו.`,
         `לפרטים נוספים : איש קשר במערך הבקרה עטרה אלהרר atara@meuhedet.co.il.`
       ];

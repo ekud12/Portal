@@ -1,0 +1,81 @@
+<div fxLayout="column" fxLayoutAlign="space-around center stretch">
+  <!--
+  <div class="title" fxHide.lt-md fxFlexOrder="1">
+    <h1>פורטל ספקים</h1>
+    <h2>דוח דיווחי כרטיס מגנטי (ExtraNet)</h2>
+  </div>
+
+  <mat-card fxFlexOrder="2" class="treatments-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="10px">
+
+    <form #updateRowFormTag="ngForm" fxLayout="column" fxLayoutAlign="space-around stretch center" novalidate fxLayoutGap="10px"
+      class="row-update-form">
+      <div fxLayout="row" fxLayoutAlign="space-around center center">
+        <mat-form-field>
+          <input matInput placeholder="התחייבות" [readonly]="(currentInvoice$|async).status> 1" [ngModel]="(currentInvoiceRow$|async).commitmentId"
+            name="date" (ngModelChange)="rowUpdateRequest.commitment
+          = $event">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="תעודת זהות" [readonly]="(currentInvoice$|async).status > 1" [ngModel]="(currentInvoiceRow$|async).custID"
+            name="id" (ngModelChange)="rowUpdateRequest.custId = $event">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="סוג זיהוי" [readonly]="(currentInvoice$|async).status > 1" [ngModel]="(currentInvoiceRow$|async).custIDtype"
+            name="idtype" (ngModelChange)="rowUpdateRequest.custIdType = $event">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="מספר ביקור" [readonly]="(currentInvoice$|async).status > 1" [ngModel]="(currentInvoiceRow$|async).visitNum"
+            name="visit" (ngModelChange)="rowUpdateRequest.visitNum = $event">
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-between center center">
+          <div>
+            <button mat-raised-button color="primary" *ngIf="(currentInvoice$|async).status < 2" class="btn" (click)="createNewInvoiceRow()">עדכן</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center center">
+      <div>
+        <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).status < 2">הוספת טיפול</button>
+      </div>
+    </div>
+
+    <mat-card>
+      <mat-table #table [dataSource]="dataSource" matSort matSortActive="lineNum" matSortDirection="asc" matSortDisableClear>
+
+        <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
+
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col) }}</mat-header-cell>
+
+          <ng-container *ngIf="i < displayedColumns.length-1; else actionsTemplate">
+            <mat-cell *matCellDef=" let element "> {{(element[col] | invoiceRowDate)}} </mat-cell>
+          </ng-container>
+          <ng-template #actionsTemplate>
+            <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+
+              <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
+              <mat-menu #menu="matMenu">
+                <button *ngIf="(currentInvoice$|async).status < 2" mat-menu-item>מחיקת שורה</button>
+                <button mat-menu-item>שכפול טיפול</button>
+                <button mat-menu-item>עדכון טיפול</button>
+                <button (click)="uploadSummary()" mat-menu-item>טעינת סיכום ביקור</button>
+              </mat-menu>
+            </mat-cell>
+          </ng-template>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns; " class="invoices-row-list-item"></mat-row>
+      </mat-table>
+      <div *ngIf="(listOfInvoiceRows$|async).length===0 " fxLayout="row " fxLayoutAlign="space-around center center
+              " class="no-data-warn ">
+        אין שורות לחשבונית
+      </div>
+      <mat-paginator #paginator [pageSize]="10 " [pageSizeOptions]="[5, 10, 25] " [showFirstLastButtons]="true ">
+      </mat-paginator>
+
+    </mat-card>
+  </mat-card> -->
+</div>

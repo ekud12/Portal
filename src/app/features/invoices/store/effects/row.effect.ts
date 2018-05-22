@@ -6,7 +6,6 @@ import { switchMap, map, catchError, tap } from 'rxjs/operators';
 import * as fromRoot from '../../../../core/store';
 import { InvoicesService } from '../../invoices.service';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
-import { NewInvoiceRequest } from '../../models/new-actions.model';
 import { ToastService } from '../../../../core/services/toast-service.service';
 
 @Injectable()

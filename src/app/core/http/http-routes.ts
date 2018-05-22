@@ -16,7 +16,7 @@ export enum httpRoutes {
   INVOICES_GET_ALL_ROWS = 'api/invoices/GetInvoiceRows',
   INVOICES_GET_ALL_TREATMENTS = 'api/invoices/GetInvoiceTreatments',
   INVOICES_CREATE_NEW_INVOICE = 'api/invoices/CreateNewInvoice',
-
+  INVOICES_GET_MAGNETIC_CARD_REPORTS_FOR_SAPAK = 'api/invoices/GetMagneticCardReports',
 
   /** Treatments FOR SAPAK Server Endpoints */
   TREATMENTS_API = 'api/treatments',

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
-import { NewInvoiceRequest } from '../../models/new-actions.model';
+import { NewInvoiceRequest } from '../../models/requests-models/requests';
 
 export const GET_INVOICES = '[Invoice] Get Invoices';
 export const GET_INVOICES_SUCCESS = '[Invoice] Get Invoices Success';
@@ -22,7 +22,9 @@ export const RESET_INVOICES = '[Invoice] Reset Invoices';
 /** Actions - Get All Invoices */
 export class GetInvoices implements Action {
   readonly type = GET_INVOICES;
-  constructor(public payload: SapakDataRequest) {}
+  constructor(public payload: SapakDataRequest) {
+    console.log(payload);
+  }
 }
 
 export class GetInvoicesSuccess implements Action {
@@ -67,7 +69,8 @@ export class CreateInvoice implements Action {
 
 export class CreateInvoiceSuccess implements Action {
   readonly type = CREATE_INVOICE_SUCCESS;
-  constructor(public payload: any) {}
+  constructor(public payload: any, public reqRef) {
+  }
 }
 
 export class CreateInvoiceFail implements Action {

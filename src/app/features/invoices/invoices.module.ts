@@ -19,6 +19,7 @@ import { NewInvoiceRowComponent } from './components/new-invoice-row/new-invoice
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { ZakautModule } from 'app/features/zakaut/zakaut.module';
 import { InvoiceRowDatePipe } from 'app/shared/utils/invoice-row-date.pipe';
+import { CardSwipeReportComponent } from './components/card-swipe-report/card-swipe-report.component';
 
 const COMPONENTS = [
   InvoiceRowsComponent,
@@ -26,7 +27,8 @@ const COMPONENTS = [
   InvoiceRowTreatmentsComponent,
   InvoicesListComponent,
   InvoicesContainerComponent,
-  NewInvoiceRowComponent
+  NewInvoiceRowComponent,
+  CardSwipeReportComponent
 ];
 
 @NgModule({

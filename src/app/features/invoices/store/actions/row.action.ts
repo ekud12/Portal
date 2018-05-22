@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
-import { NewInvoiceRequest } from '../../models/new-actions.model';
 
 export const GET_INVOICE_ROWS = '[Invoice] Get Invoice Rows';
 export const GET_INVOICE_ROWS_SUCCESS = '[Invoice] Get Invoices Rows Success';

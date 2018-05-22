@@ -12,7 +12,8 @@ import { Observable } from 'rxjs/Observable';
 import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.component';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { Sapak } from '../../../user/models/sapak.model';
-import { Invoice, InvoiceRow, RowUpdateRequest } from '../../models/new-actions.model';
+import { Invoice, InvoiceRow } from '../../models/new-actions.model';
+import { RowUpdateRequest } from '../../models/requests-models/requests';
 
 @Component({
   selector: 'app-invoice-row-treatments',

@@ -7,8 +7,8 @@ import { Store } from '@ngrx/store';
 import * as fromUserStore from '@userStore';
 import { Observable } from 'rxjs/Observable';
 import { Sapak } from '../../../user/models/sapak.model';
-import { NewInvoiceRequest } from '../../models/new-actions.model';
 import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
+import { NewInvoiceRequest } from '../../models/requests-models/requests';
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -43,6 +43,7 @@ export class NewInvoiceComponent implements OnInit {
   newInvoiceRequest = new NewInvoiceRequest(this.vars.availableMonths[0], null, null);
   newInvoiceForm: FormGroup;
   @ViewChild('formTag') myForm;
+
   constructor(
     private fb: FormBuilder,
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
@@ -64,7 +65,7 @@ export class NewInvoiceComponent implements OnInit {
 
   createNewInvoice() {
     this.invoiceStore.dispatch(new fromInvoiceStore.CreateInvoice(this.newInvoiceRequest));
-    this.reset();
+    // this.reset();
   }
 
   reset() {

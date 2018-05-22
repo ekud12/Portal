@@ -7,9 +7,9 @@ import * as fromRoot from '../../../../core/store';
 import * as userStore from '@userStore';
 import { InvoicesService } from '../../invoices.service';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
-import { NewInvoiceRequest } from '../../models/new-actions.model';
 import { ToastService } from '../../../../core/services/toast-service.service';
 import { InvoiceRowDatePipe } from 'app/shared/utils/invoice-row-date.pipe';
+import { NewInvoiceRequest } from '../../models/requests-models/requests';
 
 @Injectable()
 export class InvoiceEffects {
@@ -51,7 +51,7 @@ export class InvoiceEffects {
       return this.invoicesService
         .createInvoice(newInvoicesRequest)
         .pipe(
-          switchMap(res => [new userActions.CreateInvoiceSuccess(res)]),
+          switchMap(res => [new userActions.CreateInvoiceSuccess(res, newInvoicesRequest)]),
           catchError(error => of(new userActions.CreateInvoiceFail(error)))
         );
     })
@@ -59,15 +59,22 @@ export class InvoiceEffects {
 
   @Effect()
   createInvoiceSuccess$ = this.actions$.ofType(userActions.CREATE_INVOICE_SUCCESS).pipe(
-    map((action: userActions.CreateInvoiceSuccess) => action.payload),
+    map((action: userActions.CreateInvoiceSuccess) => action.reqRef),
     tap(val => {
-      this.toaster.openSnackBar(`חשבונית מס' ${val} נוצרה בהצלחה.`, null);
+      this.toaster.openSnackBar(`חשבונית מס' ${val.invoiceNum} נוצרה בהצלחה.`, null);
     }),
-    map(() => {
-      return new fromRoot.Go({
+    map(val => {
+      const r = new SapakDataRequest();
+      r.userName = val.userName;
+      r.kodSapak = val.kodSapak;
+      return r;
+    }),
+    switchMap((val: SapakDataRequest) => [
+      new userActions.GetInvoices(val),
+      new fromRoot.Go({
         path: ['/portal/invoices/all']
-      });
-    })
+      })
+    ])
   );
 
   @Effect({ dispatch: false })

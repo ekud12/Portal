@@ -8,7 +8,7 @@ export class InvoiceRowDatePipe implements PipeTransform {
   constructor(private pipe: DatePipe) {}
 
   transform(value: any, args?: any): any {
-    if (args === 'billMonthField') {
+    if (args === 'billMonthField' || args === 'printSpecialDate') {
       const year = value.substr(0, 4);
       const month = value.substr(4, 2);
       return `${month}/${year}`;

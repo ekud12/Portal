@@ -23,7 +23,7 @@
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center center">
           <div>
-            <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).status < 2">הוסף שורה</button>
+            <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="allowActionsByStatus">הוסף שורה</button>
           </div>
           <div>
             <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">הדפס דרישת תשלום</button>
@@ -51,7 +51,7 @@
 
               <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
               <mat-menu #menu="matMenu">
-                <button *ngIf="(currentInvoice$|async).status < 2" mat-menu-item (click)="deleteRow(element)">מחק שורה</button>
+                <button *ngIf="allowActionsByStatus" mat-menu-item (click)="deleteRow(element)">מחק שורה</button>
                 <button mat-menu-item>טיפולים מדווחים למטופל</button>
                 <button mat-menu-item>טיפולים מדווחים להתחייבות</button>
               </mat-menu>
