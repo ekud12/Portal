@@ -5,75 +5,69 @@
     <h2>דוח דיווחי כרטיס מגנטי (ExtraNet)</h2>
   </div>
 
-  <mat-card fxFlexOrder="2" class="card-swipes-container" fxLayout="column" fxLayoutAlign="space-between center center" fxLayoutGap="60px">
-    <!--
-    <form #updateRowFormTag="ngForm" fxLayout="column" fxLayoutAlign="space-around stretch center" novalidate fxLayoutGap="10px"
-      class="row-update-form">
-      <div fxLayout="row" fxLayoutAlign="space-around center center">
-         <mat-form-field>
-          <input matInput placeholder="התחייבות" [ngModel]="(currentInvoiceRow$|async).commitmentId" name="date" (ngModelChange)="rowUpdateRequest.commitment
-          = $event">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="תעודת זהות" [ngModel]="(currentInvoiceRow$|async).custID" name="id" (ngModelChange)="rowUpdateRequest.custId = $event">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="סוג זיהוי" [ngModel]="(currentInvoiceRow$|async).custIDtype" name="idtype" (ngModelChange)="rowUpdateRequest.custIdType = $event">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="מספר ביקור" [ngModel]="(currentInvoiceRow$|async).visitNum" name="visit" (ngModelChange)="rowUpdateRequest.visitNum = $event">
-        </mat-form-field>
-        <div fxLayout="row" fxLayoutAlign="space-between center center">
-          <div>
-            <button mat-raised-button color="primary" *ngIf="(currentInvoice$|async).status < 2" class="btn" (click)="createNewInvoiceRow()">עדכן</button>
-          </div>
-        </div>
-      </div>
+  <mat-card fxFlexOrder="2" class="card-swipes-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
+    <form fxLayout="row" fxLayoutAlign="space-around center center" novalidate fxLayoutGap="10px" class="card-swipes-filter-form">
+      <mat-form-field>
+        <input matInput placeholder="סנן לפי תעודת זהות..." (keyup)="filterData('id',$event.target.value)">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="סנן לפי שם מבוטח..." (keyup)="filterData('name',$event.target.value)">
+      </mat-form-field>
+
+      <mat-form-field [floatLabel]="vars.floatLabel">
+        <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך" (dateChange)="filterData('fromDate',$event.target.value)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field [floatLabel]="vars.floatLabel">
+        <input matInput readonly [matDatepicker]="picker2" placeholder="עד תאריך" (dateChange)="filterData('toDate',$event.target.value)">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+
     </form>
 
-    <div fxLayout="row" fxLayoutAlign="space-between center center">
-      <div>
-        <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).status < 2">הוספת טיפול</button>
-      </div>
-    </div>
- -->
     <mat-card>
-      <mat-table #table [dataSource]="dataSource" matSort matSortActive="lineNum" matSortDirection="asc" matSortDisableClear>
+      <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear>
 
         <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
 
           <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col) }}</mat-header-cell>
 
           <ng-container *ngIf="i < displayedColumns.length-1; else actionsTemplate">
-            <mat-cell *matCellDef=" let element "> {{(element[col] | invoiceRowDate)}} </mat-cell>
+            <mat-cell *matCellDef=" let element "> {{(element[col] | datetime:col)}} </mat-cell>
           </ng-container>
           <ng-template #actionsTemplate>
             <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-
-              <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
-              <mat-menu #menu="matMenu">
-                <!-- <button *ngIf="(currentInvoice$|async).status < 2" mat-menu-item>מחיקת שורה</button> -->
-                <button mat-menu-item>שכפול טיפול</button>
-                <button mat-menu-item>עדכון טיפול</button>
-                <!-- <button (click)="uploadSummary()" mat-menu-item>טעינת סיכום ביקור</button> -->
-              </mat-menu>
+              <button mat-raised-button color="primary">פרטים נוספים</button>
             </mat-cell>
           </ng-template>
         </ng-container>
 
 
         <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns; " class="invoices-row-list-item"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns; " class="card-swipes-item"></mat-row>
       </mat-table>
 
+      <!-- Loader when the Store is loading Something, in our case card swipes list -->
       <div *ngIf="(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
         <mat-spinner></mat-spinner>
       </div>
 
-      <div *ngIf="((cardSwipesForSapak$|async).length === 0) && !(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center"
+      <!-- In case there are no records, we show an error of no results -->
+      <mat-card *ngIf="displayNoRecords" style="padding:100px;">
+        <h3 style="text-align:center;color:red"> לא נמצאו תוצאות עבור חתכי החיפוש.
+          <br>
+        </h3>
+      </mat-card>
+
+      <!-- In case we switched sapak and he doesnt have any invoices we show a message -->
+      <div *ngIf="(cardSwipesForSapak$|async).length === 0 && !(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center"
         class="no-data-warn">
         אין העברות כרטיסים לספק זה.
       </div>
+
       <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true">
       </mat-paginator>
 

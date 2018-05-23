@@ -37,7 +37,11 @@ export class SapakEffects {
       this.toaster.openSnackBar(`ספק פעיל שונה ל : ${val.kodSapak}.`, null);
       return val;
     }),
-    switchMap(dataModel => [new invoiceStore.GetInvoices(dataModel), new userActions.ChangeSapakCompleted()])
+    switchMap(dataModel => [
+      new invoiceStore.GetInvoices(dataModel),
+      new invoiceStore.GetCardSwipes(dataModel),
+      new userActions.ChangeSapakCompleted()
+    ])
   );
 
   @Effect({ dispatch: false })

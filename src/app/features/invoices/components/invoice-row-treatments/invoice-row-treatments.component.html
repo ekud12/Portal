@@ -29,16 +29,16 @@
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center center">
           <div>
-            <button mat-raised-button color="primary" *ngIf="(currentInvoice$|async).statusField == '1'" class="btn" (click)="createNewInvoiceRow()">עדכן</button>
+            <!-- <button mat-raised-button color="primary" *ngIf="(currentInvoice$|async).statusField == '1'" class="btn" (click)="createNewInvoiceRow()">עדכן</button> -->
           </div>
         </div>
       </div>
     </form>
 
     <div fxLayout="row" fxLayoutAlign="space-between center center">
-      <div>
+      <!-- <div>
         <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).statusField < 2">הוספת טיפול</button>
-      </div>
+      </div> -->
     </div>
 
     <mat-card>
@@ -56,7 +56,7 @@
 
               <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
               <mat-menu #menu="matMenu">
-                <button *ngIf="(currentInvoice$|async).statusField < 2" mat-menu-item>מחיקת שורה</button>
+                <!-- <button *ngIf="(currentInvoice$|async).statusField < 2" mat-menu-item>מחיקת שורה</button> -->
                 <button mat-menu-item>שכפול טיפול</button>
                 <button mat-menu-item>עדכון טיפול</button>
                 <button (click)="uploadSummary()" mat-menu-item>טעינת סיכום ביקור</button>

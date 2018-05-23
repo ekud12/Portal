@@ -43,7 +43,7 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
     { value: 'treatmentCodeField', viewValue: 'קוד טיפול' },
     { value: 'executionCodeField', viewValue: 'תקין' },
     { value: 'remark2Field', viewValue: 'סיבה' },
-    { value: 'actions', viewValue: 'פעולות נוספות' }
+    { value: 'actions', viewValue: '' }
   ];
   vars = {
     hideRequired: true,
@@ -58,6 +58,12 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
   cardSwipesForSapak$: Observable<CardSwipeForSapak[]>;
   isLoading$: Observable<boolean>;
   dataRequest$: Observable<SapakDataRequest>;
+  searchObject = {
+    fromDate: '',
+    toDate: '',
+    id: '',
+    name: ''
+  };
 
   selectedFilter = this.displayedColumnsMap[1];
   dataSource;
@@ -89,24 +95,52 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
     });
     this.cardSwipesForSapak$.subscribe(val => {
       this.dataSource = new MatTableDataSource<CardSwipeForSapak>(val);
-
-      /** initial sorting by date -> id */
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      // this.dataSource.filterPredicate = (data: CardSwipeForSapak, filter: string) => data.dateField.toString().includes(filter);
       this.dataSource.connect().value.sort((a, b) => {
         return (
           moment(b.dateField, 'YYYY-MM-DDTHH:mm:ss').valueOf() - moment(a.dateField, 'YYYY-MM-DDTHH:mm:ss').valueOf() ||
-          b.timeField - a.timeField
+          moment(b.dateField, 'HH:mm:ss').valueOf() - moment(a.dateField, 'HH:mm:ss').valueOf()
         );
       });
+      this.dataSource.filterPredicate = (data: CardSwipeForSapak, filter: any) => {
+        console.log(filter);
+        return (
+          data.fullID.toString().indexOf(filter.id) !== -1 &&
+          data.fullName.indexOf(filter.name) !== -1 &&
+          (data.dateField >= filter.fromDate && filter.toDate >= data.dateField)
+        );
+      };
     });
   }
 
-  filterData(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
+  filterData(searchControl: string, filterValue: string) {
+    if (searchControl !== 'fromDate' && searchControl !== 'toDate') {
+      filterValue = filterValue.trim();
+      filterValue = filterValue.toLowerCase();
+    } else {
+      filterValue = moment(filterValue)
+        .format('YYYY-MM-DDTHH:mm:ss')
+        .toString();
+    }
+
+    switch (searchControl) {
+      case 'id':
+        this.searchObject.id = filterValue;
+        break;
+      case 'name':
+        this.searchObject.name = filterValue;
+        break;
+      case 'fromDate':
+        this.searchObject.fromDate = filterValue;
+        break;
+      case 'toDate':
+        this.searchObject.toDate = filterValue;
+        break;
+      default:
+        break;
+    }
+    this.dataSource.filter = this.searchObject;
     if (this.dataSource.filteredData.length === 0) {
       this.displayNoRecords = true;
     } else {
