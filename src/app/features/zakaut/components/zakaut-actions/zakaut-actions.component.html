@@ -217,7 +217,9 @@
         </mat-list>
       </div>
     </mat-card>
-    <p *ngIf="(zakautErrors$|async).length> 0 || ((zakautResponse$|async) !== null)">הודעה זו תיעלם בעוד {{count}} שניות.</p>
+    <p *ngIf="(zakautErrors$|async).length> 0 || ((zakautResponse$|async) !== null)">הודעה זו תיעלם בעוד {{count}} שניות.
+      <a (click)="resetTimer()" style="text-decoration:underline;cursor:pointer;"> חזור ידנית </a>
+    </p>
   </mat-card>
 
 </div>

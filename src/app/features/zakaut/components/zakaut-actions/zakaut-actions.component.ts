@@ -21,7 +21,7 @@ import { Sapak, SapakTreatment } from 'app/features/user/models/sapak.model';
 import { Zakaut } from 'app/features/user/models/permission.model';
 import { ZakautQueryModel, ZakautNoCardReason, ZakautResponseModel } from 'app/features/zakaut/models/zakaut-query.model';
 import { timer } from 'rxjs/observable/timer';
-import { take, map, switchMap, tap } from 'rxjs/operators';
+import { take, map, switchMap, tap, takeWhile } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
 /**
@@ -119,7 +119,7 @@ export class ZakautActionsComponent implements OnInit {
   zakautWithCardForm: FormGroup;
   zakautWithTempCardForm: FormGroup;
   zakautManualForm: FormGroup;
-
+  manualReturn = false;
   objectKeys = Object.keys;
 
   /**
@@ -135,6 +135,7 @@ export class ZakautActionsComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.route.queryParams.subscribe(params => {
+      console.log(params);
       if (params['src'] === '2') {
         this.header = this.vars.subHeader[1];
         this.zakautRequest.moduleSrc = '2';
@@ -211,25 +212,34 @@ export class ZakautActionsComponent implements OnInit {
     this.onChanges();
   }
 
+  /**
+   * Timer for responses
+   */
   startTimer() {
-    this.count = 10;
+    this.manualReturn = false;
+    this.count = 15;
     this.timerActive = true;
     this.countDown$ = timer(0, 1000)
-      .pipe(take(this.count), tap(() => --this.count))
+      .pipe(takeWhile(() => !this.manualReturn && this.count !== 0), tap(() => --this.count))
       .subscribe(
         val => {},
         err => {},
         () => {
           this.currentSapak$.subscribe(sapak => {
             if (sapak.kodSapak !== '') {
-              (this.count = 10), this.zakautStore.dispatch(new fromZakautStore.ResetZakaut());
+              this.zakautStore.dispatch(new fromZakautStore.ResetZakaut());
+              this.count = 15;
               this.zakautWithCardForm.get('_zakautWithCardControl').enable();
               this.zakautWithCardForm.get('_zakautWithCardTreatCodeControl').enable();
               this.timerActive = false;
+              this.manualReturn = false;
             }
           });
         }
       );
+  }
+  resetTimer() {
+    this.manualReturn = true;
   }
 
   //#region Actions on all Forms
@@ -286,7 +296,6 @@ export class ZakautActionsComponent implements OnInit {
       ]),
       _zakautWithCardTreatCodeControl: new FormControl({ value: '' }, [Validators.required])
     });
-    // this.enableForm();
   }
 
   enableForm() {
