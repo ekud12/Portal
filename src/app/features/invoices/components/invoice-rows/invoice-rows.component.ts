@@ -178,9 +178,13 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
 
   openReportedTreatmentsForCommitment(row) {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
+    // TODO: Redirect to correct page
+    //this.routerStore.dispatch(new Go({ path: ['/aa'] }));
     console.log(row);
   }
   openReportedTreatmentsForCustomer(row) {
+    // TODO: Redirect to correct page
+    //this.routerStore.dispatch(new Go({ path: ['/aa'] }));
     console.log(row);
   }
 
