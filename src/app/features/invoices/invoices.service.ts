@@ -4,13 +4,14 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { BackendService } from '../../core/services/backend.service';
 import { SapakDataRequest } from '../user/models/sapak.model';
-import { Invoice, InvoiceRow } from './models/class-models/objects.model';
-import { NewInvoiceRequest } from './models/requests-models/requests';
+import { Invoice, InvoiceRow, ObligationByCustomerId } from './models/class-models/objects.model';
+import { NewInvoiceRequest, ObligationsByCustomerIdRequest } from './models/requests-models/requests';
 
 @Injectable()
 export class InvoicesService {
   constructor(private backendService: BackendService) {}
 
+  /** Invoice Actions */
   getAllInvoicesForSapak(request: SapakDataRequest): Observable<Invoice[]> {
     return this.backendService.post<any>(httpRoutes.INVOICES_GET_ALL_INVOICES, request);
   }
@@ -82,7 +83,12 @@ export class InvoicesService {
     return this.backendService.post<any>(httpRoutes.INVOICES_CREATE_NEW_INVOICE, request);
   }
 
+  /** Misc Actions */
   getMagneticCardReportsForSapak(request: SapakDataRequest): Observable<Invoice[]> {
     return this.backendService.post<any>(httpRoutes.INVOICES_GET_MAGNETIC_CARD_SWIPES_FOR_SAPAK, request);
+  }
+
+  getObligationsByCustomerId(request: ObligationsByCustomerIdRequest): Observable<ObligationByCustomerId[]> {
+    return this.backendService.post<any>(httpRoutes.INVOICES_GET_OBLIGATIONS_BY_CUSTOMER_ID, request);
   }
 }

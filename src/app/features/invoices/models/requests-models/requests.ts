@@ -50,3 +50,10 @@ export class RowUpdateRequest {
   custIdType: string;
   visitNum: string;
 }
+
+export class ObligationsByCustomerIdRequest {
+  userName: string;
+  kodSapak: string;
+  custIdType: string;
+  custId: string;
+}

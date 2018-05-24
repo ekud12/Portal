@@ -16,6 +16,7 @@ import { Sapak } from '../../../user/models/sapak.model';
 import { Invoice, PrintingOption } from '../../models/class-models/objects.model';
 import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
 import { ValidateAndCloseInvoiceComponent } from '../../utils/validate-and-close-invoice/validate-and-close-invoice.component';
+import { ObligationsByCustomerIdRequest } from '../../models/requests-models/requests';
 
 @Component({
   selector: 'app-invoice-rows',
@@ -52,6 +53,9 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     floatLabel: 'never'
   };
 
+  /** Requests */
+  obligationsByIdReq: ObligationsByCustomerIdRequest = { kodSapak: '', userName: '', custId: '', custIdType: '' };
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   userName: string;
@@ -83,6 +87,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       this.dataSource = new MatTableDataSource<Invoice>(val);
     });
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
+    /** allow actions by invoice status... change with atara */
     this.currentInvoice$.subscribe(val => {
       if (val !== null && +val.statusField < 2) {
         this.allowActionsByStatus = true;
@@ -103,7 +108,9 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.currentSapak$.subscribe(spk => {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
+      this.obligationsByIdReq.kodSapak = spk.kodSapak;
     });
+    this.loggedUserName$.subscribe(username => (this.obligationsByIdReq.userName = username));
 
     this.dataSource.filterPredicate = (data: Element, filter: string) =>
       data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
@@ -118,25 +125,6 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     } else {
       this.displayNoRecords = false;
     }
-  }
-
-  printData(type: PrintingOption): void {
-    switch (type) {
-      case PrintingOption.ROWS: {
-        this.buildPrintObjectRows();
-        break;
-      }
-      case PrintingOption.SUMMARY: {
-        this.buildPrintObjectSummary();
-        break;
-      }
-      case PrintingOption.CLOSE_INVOICE: {
-        this.buildPrintObjectCloseInvoice();
-        break;
-      }
-    }
-    this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.dataObject));
-    this.routerStore.dispatch(new Go({ path: ['print'], query: { isIE: true, returnUrl: this.router.url } }));
   }
 
   activateInvoiceRow(row: any) {
@@ -177,14 +165,19 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   }
 
   openReportedTreatmentsForCommitment(row) {
+    this.obligationsByIdReq.custId = '406';
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
     // TODO: Redirect to correct page
-    //this.routerStore.dispatch(new Go({ path: ['/aa'] }));
+    // this.routerStore.dispatch(new Go({ path: ['/aa'] }));
     console.log(row);
   }
   openReportedTreatmentsForCustomer(row) {
+    this.obligationsByIdReq.custIdType = '1';
+    this.obligationsByIdReq.custId = '406';
+    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
+    this.invoiceStore.dispatch(new fromInvoiceStore.GetObligationsByCustomerId(this.obligationsByIdReq));
     // TODO: Redirect to correct page
-    //this.routerStore.dispatch(new Go({ path: ['/aa'] }));
+    // this.routerStore.dispatch(new Go({ path: ['/aa'] }));
     console.log(row);
   }
 
@@ -192,7 +185,25 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;
   }
 
-  /************************************************  BUILD OBJECTS FOR PRINTING ****************************************************/
+  /************************************************  PRINTING ****************************************************/
+  printData(type: PrintingOption): void {
+    switch (type) {
+      case PrintingOption.ROWS: {
+        this.buildPrintObjectRows();
+        break;
+      }
+      case PrintingOption.SUMMARY: {
+        this.buildPrintObjectSummary();
+        break;
+      }
+      case PrintingOption.CLOSE_INVOICE: {
+        this.buildPrintObjectCloseInvoice();
+        break;
+      }
+    }
+    this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.dataObject));
+    this.routerStore.dispatch(new Go({ path: ['print'], query: { isIE: true, returnUrl: this.router.url } }));
+  }
   buildPrintObjectCloseInvoice() {
     this.currentInvoice$.take(1).subscribe(inv => {
       this.dataObject.mainHeader = `דרישת תשלום מספר ${inv.invoiceNumField} לחודש ${this.dateFormatter.transform(

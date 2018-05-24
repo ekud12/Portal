@@ -44,6 +44,7 @@ export class UserEffects {
         new zakautStore.ResetZakaut(),
         new invoicesStore.ResetInvoices(),
         new invoicesStore.ResetInvoiceRows(),
+        new invoicesStore.ResetMisc(),
         new userActions.UserLogoutCompleted()
       ]),
       catchError(error => of(new userActions.UserLoginFail(error)))
