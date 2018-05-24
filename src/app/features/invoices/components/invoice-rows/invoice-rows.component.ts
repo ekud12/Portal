@@ -176,8 +176,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.obligationsByIdReq.custId = '406';
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
     this.invoiceStore.dispatch(new fromInvoiceStore.GetObligationsByCustomerId(this.obligationsByIdReq));
-    // TODO: Redirect to correct page
-    // this.routerStore.dispatch(new Go({ path: ['/aa'] }));
+    this.routerStore.dispatch(new Go({ path: ['/portal/invoices/obligationsbyid'] }));
     console.log(row);
   }
 

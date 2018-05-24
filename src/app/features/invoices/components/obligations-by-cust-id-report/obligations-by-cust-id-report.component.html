@@ -1,0 +1,76 @@
+<div fxLayout="column" fxLayoutAlign="space-around center stretch">
+
+  <div class="title" fxHide.lt-md fxFlexOrder="1">
+    <h1>פורטל ספקים</h1>
+    <h2>טיפולים מדווחים למבוטח (ExtraNet)</h2>
+  </div>
+
+  <mat-card fxFlexOrder="2" class="card-swipes-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
+    <form fxLayout="row" fxLayoutAlign="space-around center center" novalidate fxLayoutGap="10px" class="card-swipes-filter-form">
+      <mat-form-field class="mat-form-field-custom ">
+        <input matInput placeholder="סנן לפי תעודת זהות..." (keyup)="filterData('id',$event.target.value)">
+      </mat-form-field>
+      <mat-form-field class="mat-form-field-custom ">
+        <input matInput placeholder="סנן לפי שם מבוטח..." (keyup)="filterData('name',$event.target.value)">
+      </mat-form-field>
+
+      <mat-form-field [floatLabel]="vars.floatLabel" class="mat-form-field-custom ">
+        <input matInput readonly [matDatepicker]="picker" [max]="maxDate" placeholder="מתאריך" (dateChange)="filterData('fromDate',$event.target.value)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field [floatLabel]="vars.floatLabel" class="mat-form-field-custom ">
+        <input matInput readonly [matDatepicker]="picker2" [min]="dynamicMin" placeholder="עד תאריך" (dateChange)="filterData('toDate',$event.target.value)">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+
+    </form>
+
+    <mat-card>
+      <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear>
+
+        <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
+
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col) }}</mat-header-cell>
+
+          <ng-container>
+            <mat-cell *matCellDef=" let element "> {{(element[col] | datetime:col)}} </mat-cell>
+          </ng-container>
+          <!-- <ng-template #actionsTemplate>
+            <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+              <button mat-raised-button color="primary">פרטים נוספים</button>
+            </mat-cell>
+          </ng-template> -->
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns; " class="card-swipes-item"></mat-row>
+      </mat-table>
+
+      <!-- Loader when the Store is loading Something, in our case card swipes list -->
+      <div *ngIf="(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <!-- In case there are no records, we show an error of no results -->
+      <mat-card *ngIf="displayNoRecords" style="padding:100px;">
+        <h3 style="text-align:center;color:red"> לא נמצאו תוצאות עבור חתכי החיפוש.
+          <br>
+        </h3>
+      </mat-card>
+
+      <!-- In case we switched sapak and he doesnt have any invoices we show a message -->
+      <div *ngIf="(obligationsByCustomerId$|async).length === 0 && !(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center"
+        class="no-data-warn">
+        אין העברות כרטיסים לספק זה.
+      </div>
+
+      <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true">
+      </mat-paginator>
+
+    </mat-card>
+  </mat-card>
+</div>

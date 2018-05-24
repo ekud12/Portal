@@ -7,6 +7,7 @@ import { InvoiceRowTreatmentsComponent } from './components/invoice-row-treatmen
 import { InvoicesContainerComponent } from './invoices-container/invoices-container.component';
 import { NewInvoiceRowComponent } from './components/new-invoice-row/new-invoice-row.component';
 import { CardSwipeReportComponent } from './components/card-swipe-report/card-swipe-report.component';
+import { ObligationsByCustIdReportComponent } from './components/obligations-by-cust-id-report/obligations-by-cust-id-report.component';
 
 export const invoicesRoutes: Routes = [
   {
@@ -20,6 +21,7 @@ export const invoicesRoutes: Routes = [
       { path: 'newRow', component: NewInvoiceRowComponent },
       { path: 'treatments', component: InvoiceRowTreatmentsComponent },
       { path: 'cardswipes', component: CardSwipeReportComponent },
+      { path: 'obligationsbyid', component: ObligationsByCustIdReportComponent },
       { path: 'card', loadChildren: 'app/features/zakaut/zakaut.module#ZakautModule' },
       { path: '**', redirectTo: '/portal/invoice' }
     ]

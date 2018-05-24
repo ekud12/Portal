@@ -21,6 +21,7 @@ import { ZakautModule } from 'app/features/zakaut/zakaut.module';
 import { InvoiceRowDatePipe } from 'app/shared/utils/invoice-row-date.pipe';
 import { CardSwipeReportComponent } from './components/card-swipe-report/card-swipe-report.component';
 import { ValidateAndCloseInvoiceComponent } from './utils/validate-and-close-invoice/validate-and-close-invoice.component';
+import { ObligationsByCustIdReportComponent } from './components/obligations-by-cust-id-report/obligations-by-cust-id-report.component';
 
 const COMPONENTS = [
   InvoiceRowsComponent,
@@ -30,7 +31,8 @@ const COMPONENTS = [
   InvoicesContainerComponent,
   NewInvoiceRowComponent,
   CardSwipeReportComponent,
-  ValidateAndCloseInvoiceComponent
+  ValidateAndCloseInvoiceComponent,
+  ObligationsByCustIdReportComponent
 ];
 
 @NgModule({
