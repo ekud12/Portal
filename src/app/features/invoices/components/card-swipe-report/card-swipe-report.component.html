@@ -15,13 +15,13 @@
       </mat-form-field>
 
       <mat-form-field [floatLabel]="vars.floatLabel">
-        <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך" (dateChange)="filterData('fromDate',$event.target.value)">
+        <input matInput readonly [matDatepicker]="picker" [max]="maxDate" placeholder="מתאריך" (dateChange)="filterData('fromDate',$event.target.value)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field [floatLabel]="vars.floatLabel">
-        <input matInput readonly [matDatepicker]="picker2" placeholder="עד תאריך" (dateChange)="filterData('toDate',$event.target.value)">
+        <input matInput readonly [matDatepicker]="picker2" [min]="dynamicMin" placeholder="עד תאריך" (dateChange)="filterData('toDate',$event.target.value)">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>

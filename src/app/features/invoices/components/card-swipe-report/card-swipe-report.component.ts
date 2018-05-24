@@ -64,7 +64,10 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
     id: '',
     name: ''
   };
-
+  minDate = '';
+  dynamicMin;
+  maxDate = new Date();
+  fromMinimalValue;
   selectedFilter = this.displayedColumnsMap[1];
   dataSource;
   displayNoRecords = false;
@@ -104,12 +107,16 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
         );
       });
       this.dataSource.filterPredicate = (data: CardSwipeForSapak, filter: any) => {
-        console.log(filter);
-        return (
-          data.fullID.toString().indexOf(filter.id) !== -1 &&
-          data.fullName.indexOf(filter.name) !== -1 &&
-          (data.dateField >= filter.fromDate && filter.toDate >= data.dateField)
-        );
+        const matchFilter = [];
+        matchFilter.push(data.fullID.includes(filter.id));
+        matchFilter.push(data.fullName.includes(filter.name));
+        if (filter.fromDate !== '') {
+          matchFilter.push(Date.parse(data.dateField).valueOf() >= Date.parse(filter.fromDate).valueOf());
+        }
+        if (filter.toDate !== '') {
+          matchFilter.push(Date.parse(filter.toDate).valueOf() >= Date.parse(data.dateField).valueOf());
+        }
+        return matchFilter.every(Boolean);
       };
     });
   }
@@ -133,6 +140,7 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
         break;
       case 'fromDate':
         this.searchObject.fromDate = filterValue;
+        this.dynamicMin = new Date(filterValue);
         break;
       case 'toDate':
         this.searchObject.toDate = filterValue;
@@ -150,5 +158,10 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
 
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;
+  }
+
+  changeMinDate(value) {
+    console.log(value);
+    console.log(Date.parse(value));
   }
 }
