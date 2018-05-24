@@ -21,15 +21,17 @@
         <mat-form-field>
           <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="filterData($event.target.value)">
         </mat-form-field>
-        <div fxLayout="row" fxLayoutAlign="space-between center center">
+        <div fxLayout="column" fxLayoutAlign="space-between end center" fxLayoutGap="10px">
+
           <div>
-            <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="allowActionsByStatus">הוסף שורה</button>
-          </div>
-          <div>
-            <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">הדפס דרישת תשלום</button>
+            <button mat-raised-button color="primary" class="btn" (click)="printData(5)">הדפס דרישת תשלום</button>
             <button mat-raised-button color="primary" class="btn" (click)="printData(2)"> הדפס שורות לחשבונית</button>
             <button mat-raised-button color="primary" class="btn"> הדפס טיפולים לחשבונית</button>
             <button mat-raised-button color="primary" class="btn" (click)="printData(4)">הדפס סיכום חשבונית</button>
+          </div>
+          <div>
+            <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="allowActionsByStatus">הוסף שורה</button>
+            <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">סגירת דרישת תשלום</button>
           </div>
         </div>
 

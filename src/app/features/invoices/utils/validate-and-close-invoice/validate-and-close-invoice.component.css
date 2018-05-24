@@ -1,0 +1,27 @@
+.dialog {
+  /* font-size: 30px; */
+  color: rgb(0, 83, 179);
+}
+h2 {
+  font-size: 1.5em;
+}
+
+.dcontent {
+  width: 100%;
+}
+
+.padded {
+  padding: 30px 30px;
+}
+
+.success-icon {
+  font-weight: bold;
+  color: green;
+  font-size: 50px !important;
+}
+
+.error-icon {
+  font-weight: bold;
+  color: rgb(221, 0, 0);
+  font-size: 50px !important;
+}

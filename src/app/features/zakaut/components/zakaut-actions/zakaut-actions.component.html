@@ -204,7 +204,7 @@
     <mat-card *ngIf="((zakautResponse$|async) !== null)" class="response-msg-good" fxLayout="row" fxLayoutAlign="space-between center center"
       fxLayoutPadding="20px" fxLayout.xs="column">
       <div>
-        <mat-icon class=" Vicon ">done</mat-icon>
+        <mat-icon class="Vicon">done</mat-icon>
       </div>
       <div fxLayout="column " fxLayoutAlign="start stretch center " fxLayoutPadding="8px ">
         <mat-list *ngFor="let msg of (zakautResponse$|async).messages " class="info ">

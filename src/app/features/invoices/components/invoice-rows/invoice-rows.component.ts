@@ -15,6 +15,7 @@ import { PrintObject } from '../../../../shared/global-models/print-object.inter
 import { Sapak } from '../../../user/models/sapak.model';
 import { Invoice, PrintingOption } from '../../models/class-models/objects.model';
 import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
+import { ValidateAndCloseInvoiceComponent } from '../../utils/validate-and-close-invoice/validate-and-close-invoice.component';
 
 @Component({
   selector: 'app-invoice-rows',
@@ -153,9 +154,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   }
 
   closeInvoice() {
-    const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: { data: 'לאחר הפקת דרישת התשלום, לא ניתן יהיה לעדכן את החשבונית.' }
-    });
+    const dialogRef = this.dialog.open(ValidateAndCloseInvoiceComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         /** add logic to close invoice and only than go to print */
