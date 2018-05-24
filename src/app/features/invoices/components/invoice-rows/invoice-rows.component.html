@@ -54,8 +54,8 @@
               <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
               <mat-menu #menu="matMenu">
                 <button *ngIf="allowActionsByStatus" mat-menu-item (click)="deleteRow(element)">מחק שורה</button>
-                <button mat-menu-item>טיפולים מדווחים למטופל</button>
-                <button mat-menu-item>טיפולים מדווחים להתחייבות</button>
+                <button mat-menu-item (click)="openReportedTreatmentsForCommitment(element)">טיפולים מדווחים להתחייבות</button>
+                <button mat-menu-item (click)="openReportedTreatmentsForCustomer(element)">טיפולים מדווחים ללקוח</button>
               </mat-menu>
             </mat-cell>
           </ng-template>

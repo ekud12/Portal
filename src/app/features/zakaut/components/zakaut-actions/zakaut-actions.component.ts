@@ -135,10 +135,12 @@ export class ZakautActionsComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
+      console.log(params['src']);
       if (params['src'] === '2') {
         this.header = this.vars.subHeader[1];
         this.zakautRequest.moduleSrc = '2';
+      } else {
+        this.zakautRequest.moduleSrc = '1';
       }
     });
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);

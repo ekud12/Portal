@@ -12,17 +12,17 @@ import { ToastService } from '../../../../core/services/toast-service.service';
 export class RowEffects {
   constructor(private actions$: Actions, private invoicesService: InvoicesService, private toaster: ToastService) {}
 
-  @Effect()
+  @Effect({ dispatch: false })
   activateInvoiceRow$ = this.actions$.ofType(userActions.ACTIVATE_INVOICE_ROW).pipe(
     map((action: userActions.ActivateInvoiceRow) => action.payload),
     tap(val => {
       this.toaster.openSnackBar(`שורה מס' ${val.lineNum} נבחרה כפעילה.`, null);
-    }),
-    map(() => {
-      return new fromRoot.Go({
-        path: ['/portal/invoices/treatments']
-      });
     })
+    // map(() => {
+    //   return new fromRoot.Go({
+    //     path: ['/portal/invoices/treatments']
+    //   });
+    // })
   );
 
   @Effect()
@@ -38,37 +38,8 @@ export class RowEffects {
     })
   );
 
-  // @Effect()
-  // createInvoice$ = this.actions$.ofType(userActions.CREATEֹֹֹּ_INVOICE).pipe(
-  //   map((action: userActions.CreateInvoice) => action.payload),
-  //   switchMap((newInvoicesRequest: NewInvoiceRequest) => {
-  //     return this.invoicesService
-  //       .createInvoice(newInvoicesRequest)
-  //       .pipe(
-  //         switchMap(res => [new userActions.CreateInvoiceSuccess(res)]),
-  //         catchError(error => of(new userActions.CreateInvoiceFail(error)))
-  //       );
-  //   })
-  // );
-
-  // @Effect()
-  // createInvoiceSuccess$ = this.actions$.ofType(userActions.CREATEֹֹֹּ_INVOICE_SUCCESS).pipe(
-  //   map((action: userActions.CreateInvoiceSuccess) => action.payload),
-  //   tap(val => {
-  //     this.toaster.openSnackBar(`שורה מס' ${val} נוספה בהצלחה.`, null);
-  //   }),
-  //   map(() => {
-  //     return new fromRoot.Go({
-  //       path: ['/portal/invoices/rows']
-  //     });
-  //   })
-  // );
-
-  // @Effect({ dispatch: false })
-  // createInvoiceFailure$ = this.actions$.ofType(userActions.CREATEֹֹֹּ_INVOICE_FAIL).pipe(
-  //   map((action: userActions.CreateInvoiceFail) => action.payload),
-  //   tap(error => {
-  //     this.toaster.openSnackBar(`${error}`, null);
-  //   })
-  // );
+  @Effect()
+  resetInvoiceRows$ = this.actions$
+    .ofType(userActions.ACTIVATE_INVOICE)
+    .pipe(switchMap(val => [new userActions.ResetInvoiceRows()]));
 }

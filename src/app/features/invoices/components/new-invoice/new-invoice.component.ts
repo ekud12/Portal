@@ -35,7 +35,7 @@ export class NewInvoiceComponent implements OnInit {
       minlength: 'נתון קצר מדי'
     },
     comment: 'ניתן ליצור חשבונית עד חודשיים לאחור***',
-    availableMonths: getDatesForInvoiceCreation(3)
+    availableMonths: getDatesForInvoiceCreation(36)
   };
   loggedUserName$: Observable<string>;
   currentSapak$: Observable<Sapak>;

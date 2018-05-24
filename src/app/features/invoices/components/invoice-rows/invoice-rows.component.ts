@@ -141,6 +141,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
 
   activateInvoiceRow(row: any) {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
+    this.routerStore.dispatch(new Go({ path: ['/portal/invoices/treatments'] }));
   }
 
   createNewInvoiceRow() {
@@ -165,13 +166,22 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
 
   deleteRow(a: any) {
     const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: { data: 'האם למחוק את השורה הנוכחית?' }
+      data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${a.lineNum})?` }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log('Deleting row...');
         /** delete invoice row and call op 03 to get all invoice rows again */
       }
     });
+  }
+
+  openReportedTreatmentsForCommitment(row) {
+    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
+    console.log(row);
+  }
+  openReportedTreatmentsForCustomer(row) {
+    console.log(row);
   }
 
   getViewValue(v) {
