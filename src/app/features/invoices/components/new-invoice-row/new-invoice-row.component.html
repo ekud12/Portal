@@ -16,19 +16,17 @@
             required>
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="custId" pattern="\d{9,9}" placeholder="תעודת זהות" maxLength="9" [(ngModel)]="newInvoiceRowRequest.custId"
-            required>
+          <input matInput type="text" name="custId" pattern="\d{9,9}" placeholder="תעודת זהות" maxLength="9" [(ngModel)]="newInvoiceRowRequest.custId">
         </mat-form-field>
-        <mat-form-field class="mat-form-field-custom ">
-          <mat-select [(ngModel)]="newInvoiceRowRequest.custIdType" name="custIdType" required>
+        <mat-form-field class="mat-form-field-custom">
+          <mat-select [(ngModel)]="newInvoiceRowRequest.custIdType" name="custIdType">
             <mat-option *ngFor="let idType of vars.idTypes" [value]="idType.value">
               {{idType.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="visitNum" pattern="\d*" placeholder="מספר ביקור" maxLength="11" [(ngModel)]="newInvoiceRowRequest.visitNum"
-            required>
+          <input matInput type="text" name="visitNum" pattern="\d*" placeholder="מספר ביקור" maxLength="11" [(ngModel)]="newInvoiceRowRequest.visitNum">
         </mat-form-field>
       </div>
 
@@ -49,10 +47,10 @@
             (input)="updateTreatValue($event.target.value)" required>
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="treatCount" pattern="\d*" placeholder="כמות" #num1 maxLength="10" [(ngModel)]="newInvoiceRowRequest.treatCount"
+          <input matInput type="text" name="treatCount" pattern="\d*" placeholder="כמות" #num1 maxLength="2" [(ngModel)]="newInvoiceRowRequest.treatCount"
             required>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="mat-form-field-custom">
           <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" placeholder="תאריך ביקור" [(ngModel)]="newInvoiceRowRequest.date"
             name="date" required readonly>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -62,14 +60,14 @@
 
       <div fxLayout="row" fxLayoutAlign="start center stretch">
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="מחיר" pattern="\d*" maxLength="10" #num2
-            required [disabled]="!(canEnterPrice$|async)">
+          <input matInput type="text" name="price" placeholder="מחיר (0.0)" pattern="\d*" [(ngModel)]="newInvoiceRowRequest.price"
+            maxLength="10" #num2  [disabled]="!(canEnterPrice$|async)" required>
         </mat-form-field>
       </div>
+
       <div fxLayout="row" fxLayoutAlign="start stretch center">
         <mat-form-field class="mat-form-field-custom">
-          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="סהכ" maxLength="15" required disabled
-            value=" {{num1.value * num2.value}} ₪">
+          <input matInput type="text" name="total" pattern="[A-Za-z0-9.]*" placeholder="סהכ" maxLength="15" required readonly value=" {{num1.value * num2.value}} ₪">
         </mat-form-field>
 
       </div>
@@ -78,6 +76,7 @@
         <button mat-raised-button type="button" (click)="reset()" color="primary" class="btn">נקה</button>
         <button mat-raised-button type="submit" color="primary" class="btn" [disabled]="!formTag.form.valid">שלח</button>
       </div>
+
       <!-- <section class="loader-section ">
         <mat-progress-bar mode="indeterminate " *ngIf="(isValidating$|async) ">
         </mat-progress-bar>

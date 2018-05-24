@@ -70,6 +70,9 @@ a:link {
   animation: sk-chasingDotsRotate 2s infinite linear;
 }
 
+/* mat-table {
+  border: 1px solid rgb(131, 162, 172);
+} */
 .loader-text {
   display: flex;
   flex-direction: row;
@@ -142,7 +145,7 @@ a:link {
 .mat-form-field-custom {
   background-color: rgb(255, 255, 255);
   padding-right: 10px;
-  padding-left: 10px;
+  margin-left: 30px;
 }
 
 .mat-form-field-custom:before {

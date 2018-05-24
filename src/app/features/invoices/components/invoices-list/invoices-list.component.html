@@ -8,17 +8,17 @@
   <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
 
     <form fxLayout="row" fxLayoutAlign="space-around center center" novalidate fxLayoutGap="10px" class="invoices-filter-form">
-      <mat-form-field>
+      <mat-form-field class="mat-form-field-custom ">
         <input matInput placeholder="סנן לפי חשבונית..." (keyup)="applyFilterInvoiceNumber($event.target.value)">
       </mat-form-field>
 
-      <mat-form-field [floatLabel]="vars.floatLabel">
+      <mat-form-field [floatLabel]="vars.floatLabel" class="mat-form-field-custom ">
         <input matInput readonly [matDatepicker]="picker" placeholder="מתאריך">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker startView="year"></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field [floatLabel]="vars.floatLabel">
+      <mat-form-field [floatLabel]="vars.floatLabel" class="mat-form-field-custom ">
         <input matInput readonly [matDatepicker]="picker2" placeholder="עד תאריך">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>

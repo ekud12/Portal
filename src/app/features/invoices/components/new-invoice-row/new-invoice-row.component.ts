@@ -7,7 +7,6 @@ import { Store } from '@ngrx/store';
 import * as fromUserStore from '@userStore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
-
 import { Sapak } from '../../../user/models/sapak.model';
 import { Invoice } from '../../models/class-models/objects.model';
 import { NewInvoiceRowRequest } from '../../models/requests-models/requests';
@@ -40,6 +39,7 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
     comment: '',
     availableMonths: getDatesForInvoiceCreation(3)
   };
+
   loggedUserName$: Observable<string>;
   currentSapak$: Observable<Sapak>;
   currentInvoice$: Observable<Invoice>;
@@ -48,6 +48,7 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
   minDate: Date;
   maxDate: Date;
   newInvoiceRowRequest = new NewInvoiceRowRequest('', '', '', null, '', null, '');
+
   @ViewChild('formTag') myForm;
   @ViewChild('treatChoices') treatChoices;
 
@@ -62,7 +63,7 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.maxDate = moment().toDate();
     this.minDate = moment()
-      .add(-6, 'month')
+      .add(-12, 'month')
       .toDate();
     this.loggedUserName$.subscribe(username => (this.newInvoiceRowRequest.userName = username));
     this.currentSapak$.subscribe(spk => {

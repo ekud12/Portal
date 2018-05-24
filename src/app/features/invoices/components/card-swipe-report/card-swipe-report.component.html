@@ -7,20 +7,20 @@
 
   <mat-card fxFlexOrder="2" class="card-swipes-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
     <form fxLayout="row" fxLayoutAlign="space-around center center" novalidate fxLayoutGap="10px" class="card-swipes-filter-form">
-      <mat-form-field>
+      <mat-form-field class="mat-form-field-custom ">
         <input matInput placeholder="סנן לפי תעודת זהות..." (keyup)="filterData('id',$event.target.value)">
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="mat-form-field-custom ">
         <input matInput placeholder="סנן לפי שם מבוטח..." (keyup)="filterData('name',$event.target.value)">
       </mat-form-field>
 
-      <mat-form-field [floatLabel]="vars.floatLabel">
+      <mat-form-field [floatLabel]="vars.floatLabel" class="mat-form-field-custom ">
         <input matInput readonly [matDatepicker]="picker" [max]="maxDate" placeholder="מתאריך" (dateChange)="filterData('fromDate',$event.target.value)">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field [floatLabel]="vars.floatLabel">
+      <mat-form-field [floatLabel]="vars.floatLabel" class="mat-form-field-custom ">
         <input matInput readonly [matDatepicker]="picker2" [min]="dynamicMin" placeholder="עד תאריך" (dateChange)="filterData('toDate',$event.target.value)">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
