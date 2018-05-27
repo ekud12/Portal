@@ -52,6 +52,7 @@ export class RowUpdateRequest {
 }
 
 export class ObligationsByCustomerIdRequest {
+  constructor() {}
   userName: string;
   kodSapak: string;
   custIdType: string;

@@ -14,3 +14,8 @@ export const allInvoiceRowsSelector = createSelector(
   getInvoiceRowState,
   (state: fromInvoiceRow.InvoiceRowState) => state.listOfRowsForInvoice
 );
+
+export const invoiceRowsErrorsSelector = createSelector(
+  getInvoiceRowState,
+  (state: fromInvoiceRow.InvoiceRowState) => state.errors
+);

@@ -63,7 +63,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   loggedUserName$: Observable<string>;
   listOfInvoiceRows$: Observable<InvoiceRow[]>;
   currentInvoice$: Observable<Invoice>;
-
+  errors$: Observable<any>;
   dataObject: PrintObject = new PrintObject();
   selectedFilter = this.displayedColumnsMap[1];
   dataSource;
@@ -95,6 +95,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
         this.allowActionsByStatus = false;
       }
     });
+    this.errors$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsErrorsSelector);
   }
 
   ngAfterViewInit() {
@@ -108,6 +109,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.currentSapak$.subscribe(spk => {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
+      /** Init Future Requests  */
       this.obligationsByIdReq.kodSapak = spk.kodSapak;
     });
     this.loggedUserName$.subscribe(username => (this.obligationsByIdReq.userName = username));
@@ -137,7 +139,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       if (val.statusField === '0' || val.statusField === '1') {
         this.routerStore.dispatch(new Go({ path: ['portal/invoices/newRow'] }));
       } else {
-        this.toaster.openSnackBar('סטטוס חשבונית פעילה לא מאפשר הוספת שורה חדשה.');
+        this.toaster.openSnackBar('סטטוס חשבונית פעילה נוכחית לא מאפשר הוספת שורה חדשה.');
       }
     });
   }
@@ -170,6 +172,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     // TODO: Redirect to correct page
     // this.routerStore.dispatch(new Go({ path: ['/aa'] }));
   }
+
   openReportedTreatmentsForCustomer(row) {
     this.obligationsByIdReq.custIdType = '1';
     this.obligationsByIdReq.custId = '406';

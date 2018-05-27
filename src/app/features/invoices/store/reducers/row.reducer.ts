@@ -42,6 +42,9 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
     }
     case userActions.GET_INVOICE_ROWS_SUCCESS: {
       const data = action.payload.data.resultSetData;
+      data.map(row => {
+        row = addFullNameAndFullId(row);
+      });
       return {
         ...state,
         listOfRowsForInvoice: data,
@@ -58,3 +61,29 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
   }
   return state;
 }
+
+/**
+ * Utility functions for Misc State
+ * combine family name with first name and same for ids
+ */
+const getName = (firstName, lastName) => {
+  return `${firstName} ${lastName}`;
+};
+
+const getId = (idType, id) => {
+  return `${idType}-${id.padStart(9, '0')}`;
+};
+
+const addObject = (objects, val, key) => {
+  const obj = {};
+  obj[key] = val;
+  return Object.assign(objects, obj);
+};
+
+const addFullNameAndFullId = dataRaw => {
+  const _id = getId(dataRaw['custIdTypeField'], dataRaw['custIdField']);
+  const _name = getName(dataRaw['custFirstNameField'], dataRaw['custSecNameField']);
+  dataRaw.cstFullNameField = _name;
+  dataRaw.cstFormattedIdField = _id;
+  return dataRaw;
+};

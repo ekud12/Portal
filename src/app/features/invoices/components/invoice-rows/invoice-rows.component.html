@@ -75,7 +75,7 @@
       </mat-card>
       <div *ngIf="!(listOfInvoiceRows$|async)" fxLayout="row " fxLayoutAlign="space-around center center
             " class="no-data-warn ">
-        אין שורות לחשבונית
+        {{(errors$|async)?.errors}}
       </div>
       <mat-paginator #paginator [pageSize]="10 " [pageSizeOptions]="[5, 10, 25] " [showFirstLastButtons]="true ">
       </mat-paginator>

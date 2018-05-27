@@ -35,7 +35,7 @@ export class LoggerService {
       if (source.includes('UNKNOWN')) {
         console.log(`{Source: ${source} | Message: ${message}}`);
       } else {
-        console.log(`${message}`);
+        console.log(`{Source: ${source} | Message: ${message}}`);
       }
     }
 

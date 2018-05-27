@@ -14,7 +14,7 @@
         <div class="summary-content-item">{{(currentInvoice$|async)?.statusField | invoiceStatus:'statusField'}}</div>
       </div>
       <div class="border-table">
-
+        סכום שהוקלד
         <div class="summary-content-item"> {{(currentInvoice$|async)?.typedSumField}}</div>
       </div>
       <div class="border-table">
@@ -33,31 +33,31 @@
     <div *ngIf=(currentInvoiceRow$|async) class="invoices-row-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
       <div class="border-table">
         שורה מספר :
-        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.lineNum }}</div>
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.lineNumField }}</div>
       </div>
       <div class="border-table">
         שם המבוטח :
-        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.custFirstName}} {{ (currentInvoiceRow$|async)?.custSecName}} </div>
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.custFirstNameField}} {{ (currentInvoiceRow$|async)?.custSecNameField}} </div>
       </div>
       <div class="border-table">
         תאריך :
-        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.date | date:'dd/MM/yyyy'}} </div>
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.dateField | date:'dd/MM/yyyy'}} </div>
       </div>
       <div class="border-table">
         סכום :
-        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.amount }} </div>
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.amountField }} </div>
       </div>
       <div class="border-table">
         התחייבות :
-        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.commitmentId }} </div>
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.commitmentIdField }} </div>
       </div>
       <div class="border-table">
         מספר זהות :
-        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.cstFormattedId }} </div>
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.cstFormattedIdField }} </div>
       </div>
       <div class="border-table">
         מספר ביקור :
-        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.visitNum }} </div>
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.visitNumField }} </div>
       </div>
     </div>
   </div>
