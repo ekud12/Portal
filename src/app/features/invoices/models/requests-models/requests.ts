@@ -57,3 +57,11 @@ export class ObligationsByCustomerIdRequest {
   custIdType: string;
   custId: string;
 }
+
+export class GetAllRowsForInvoiceRequest {
+  constructor() {}
+  kodSapak: string;
+  userName: string;
+  billMonth: string;
+  invoiceNum: string;
+}

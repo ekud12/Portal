@@ -32,6 +32,7 @@
           <div>
             <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="allowActionsByStatus">הוסף שורה</button>
             <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">סגירת דרישת תשלום</button>
+            <mat-slide-toggle>הצג רק שורות קיזוזים</mat-slide-toggle>
           </div>
         </div>
 
@@ -56,6 +57,7 @@
                 <button *ngIf="allowActionsByStatus" mat-menu-item (click)="deleteRow(element)">מחק שורה</button>
                 <button mat-menu-item (click)="openReportedTreatmentsForCommitment(element)">טיפולים מדווחים להתחייבות</button>
                 <button mat-menu-item (click)="openReportedTreatmentsForCustomer(element)">טיפולים מדווחים ללקוח</button>
+                <button mat-menu-item (click)="openKizuzDetailsForRow(element)">צפייה בפרטי הקיזוז</button>
               </mat-menu>
             </mat-cell>
           </ng-template>

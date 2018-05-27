@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { Sapak } from '../../../user/models/sapak.model';
-import { Invoice, PrintingOption } from '../../models/class-models/objects.model';
+import { Invoice, PrintingOption, InvoiceRow } from '../../models/class-models/objects.model';
 import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
 import { ValidateAndCloseInvoiceComponent } from '../../utils/validate-and-close-invoice/validate-and-close-invoice.component';
 import { ObligationsByCustomerIdRequest } from '../../models/requests-models/requests';
@@ -25,27 +25,27 @@ import { ObligationsByCustomerIdRequest } from '../../models/requests-models/req
 })
 export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   displayedColumns = [
-    'lineNum',
-    'commitmentId',
-    'cstFormattedId',
-    'custFirstName',
-    'custSecName',
-    'typedAmount',
-    'date',
-    'amount',
-    'visitNum',
+    'lineNumField',
+    'commitmentIdField',
+    'cstFormattedIdField',
+    'custFirstNameField',
+    'custSecNameField',
+    'typedAmountField',
+    'dateField',
+    'amountField',
+    'visitNumField',
     'actions'
   ];
   displayedColumnsMap = [
-    { value: 'lineNum', viewValue: 'מספר שורה' },
-    { value: 'commitmentId', viewValue: 'מספר התחייבות' },
-    { value: 'cstFormattedId', viewValue: 'מספר זיהוי' },
-    { value: 'custFirstName', viewValue: 'שם פרטי' },
-    { value: 'custSecName', viewValue: 'שם משפחה' },
-    { value: 'typedAmount', viewValue: 'סכום' },
-    { value: 'date', viewValue: 'תאריך' },
-    { value: 'amount', viewValue: 'מספר טיפולים' },
-    { value: 'visitNum', viewValue: 'מספר ביקור' },
+    { value: 'lineNumField', viewValue: 'מספר שורה' },
+    { value: 'commitmentIdField', viewValue: 'מספר התחייבות' },
+    { value: 'cstFormattedIdField', viewValue: 'מספר זיהוי' },
+    { value: 'custFirstNameField', viewValue: 'שם פרטי' },
+    { value: 'custSecNameField', viewValue: 'שם משפחה' },
+    { value: 'typedAmountField', viewValue: 'סכום' },
+    { value: 'dateField', viewValue: 'תאריך' },
+    { value: 'amountField', viewValue: 'מספר טיפולים' },
+    { value: 'visitNumField', viewValue: 'מספר ביקור' },
     { value: 'actions', viewValue: '' }
   ];
   vars = {
@@ -61,7 +61,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   userName: string;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
-  listOfInvoiceRows$: Observable<Invoice[]>;
+  listOfInvoiceRows$: Observable<InvoiceRow[]>;
   currentInvoice$: Observable<Invoice>;
 
   dataObject: PrintObject = new PrintObject();
@@ -84,7 +84,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoiceRows$ = this.invoiceStore.select(fromInvoiceStore.allInvoiceRowsSelector);
     this.listOfInvoiceRows$.subscribe(val => {
-      this.dataSource = new MatTableDataSource<Invoice>(val);
+      this.dataSource = new MatTableDataSource<InvoiceRow>(val);
     });
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
     /** allow actions by invoice status... change with atara */
@@ -169,7 +169,6 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
     // TODO: Redirect to correct page
     // this.routerStore.dispatch(new Go({ path: ['/aa'] }));
-    console.log(row);
   }
   openReportedTreatmentsForCustomer(row) {
     this.obligationsByIdReq.custIdType = '1';
@@ -178,6 +177,8 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.invoiceStore.dispatch(new fromInvoiceStore.GetObligationsByCustomerId(this.obligationsByIdReq));
     this.routerStore.dispatch(new Go({ path: ['/portal/invoices/obligationsbyid'], query: { returnUrl: this.router.url } }));
   }
+
+  openKizuzDetailsForRow(row) {}
 
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;

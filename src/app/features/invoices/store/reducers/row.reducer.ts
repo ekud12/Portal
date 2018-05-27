@@ -1,9 +1,10 @@
 import 'mdn-polyfills/String.prototype.padStart';
 
 import * as userActions from '../actions';
+import { InvoiceRow } from '../../models/class-models/objects.model';
 export interface InvoiceRowState {
   activeInvoiceRow: any;
-  listOfRowsForInvoice: any[];
+  listOfRowsForInvoice: InvoiceRow[];
   errors: string[];
   isLoading: boolean;
 }
@@ -40,9 +41,10 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
       };
     }
     case userActions.GET_INVOICE_ROWS_SUCCESS: {
+      const data = action.payload.data.resultSetData;
       return {
         ...state,
-        listOfRowsForInvoice: action.payload,
+        listOfRowsForInvoice: data,
         isLoading: false
       };
     }

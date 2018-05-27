@@ -23,40 +23,10 @@ export class Invoice {
 }
 
 export class InvoiceRow {
-  lineNum: number;
-  custIDtype: string;
-  custID: number;
-  custIDBikoret: number;
-  custSecName: string;
-  custFirstName: string;
-  commitmentId: number;
-  visitNum: number;
-  amount: number;
-  typedAmount: number;
-  treatmentLine: number;
-  date: Date;
-  treatmentCode: string;
-  kzzType: string;
-  KzzCode: string;
-  kzzDesc: string;
-  kzzLiterally1: string;
-  kzzLiterally2: string;
-  kzzLiterally3: string;
-  kzzLiterally4: string;
-  kzzLiterally5: string;
-  kzzLiterally6: string;
-  KzzStatus: string;
-  kzzStatusDesc: string;
-  treatmentDesc: string;
-  cstFormattedId: string;
-  cstFullName: string;
-}
-
-export class InvoiceKizuzRow {
+  PropertyChanged?: string;
   lineNumField?: string;
-  custIDtypeField?: string;
-  custIDField?: string;
-  custIDBikoretField?: string;
+  custIdTypeField?: string;
+  custIdField?: string;
   custSecNameField?: string;
   custFirstNameField?: string;
   commitmentIdField?: string;
@@ -70,6 +40,7 @@ export class InvoiceKizuzRow {
   kzzTypeDescField?: string;
   KzzCodeField?: string;
   kzzDescField?: string;
+  kzzField?: string;
   kzzLiterally1Field?: string;
   kzzLiterally2Field?: string;
   kzzLiterally3Field?: string;
@@ -81,6 +52,8 @@ export class InvoiceKizuzRow {
   cstFormattedIdField?: string;
   cstFullNameField?: string;
 }
+
+
 
 export class InvoiceTreatment {
   constructor() {}

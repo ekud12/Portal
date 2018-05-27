@@ -58,7 +58,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
 
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
-  listOfInvoiceRows$: Observable<Invoice[]>;
+  listOfInvoiceRows$: Observable<InvoiceRow[]>;
   currentInvoice$: Observable<Invoice>;
   currentInvoiceRow$: Observable<InvoiceRow>;
   dataObject: PrintObject = new PrintObject();
@@ -79,7 +79,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoiceRows$ = this.invoiceStore.select(fromInvoiceStore.allInvoiceRowsSelector);
     this.listOfInvoiceRows$.subscribe(val => {
-      this.dataSource = new MatTableDataSource<Invoice>(val);
+      this.dataSource = new MatTableDataSource<InvoiceRow>(val);
     });
     this.currentInvoiceRow$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceRowSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
