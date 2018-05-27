@@ -19,3 +19,8 @@ export const invoiceRowsErrorsSelector = createSelector(
   getInvoiceRowState,
   (state: fromInvoiceRow.InvoiceRowState) => state.errors
 );
+
+export const invoiceRowsLoadingSelector = createSelector(
+  getInvoiceRowState,
+  (state: fromInvoiceRow.InvoiceRowState) => state.isLoading
+);

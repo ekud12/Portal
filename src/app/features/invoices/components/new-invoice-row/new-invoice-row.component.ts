@@ -7,9 +7,23 @@ import { Store } from '@ngrx/store';
 import * as fromUserStore from '@userStore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
-import { Sapak } from '../../../user/models/sapak.model';
+import { Sapak, SapakTreatment } from '../../../user/models/sapak.model';
 import { Invoice } from '../../models/class-models/objects.model';
 import { NewInvoiceRowRequest } from '../../models/requests-models/requests';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD-MM-YYYY'
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -26,6 +40,11 @@ export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   selector: 'app-new-invoice-row',
   templateUrl: './new-invoice-row.component.html',
   styleUrls: ['./new-invoice-row.component.css']
+  // providers: [
+  //   { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+
+  //   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+  // ]
 })
 export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
   vars = {
@@ -39,16 +58,17 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
     comment: '',
     availableMonths: getDatesForInvoiceCreation(3)
   };
-
+  chosenTreatCode: SapakTreatment;
   loggedUserName$: Observable<string>;
   currentSapak$: Observable<Sapak>;
   currentInvoice$: Observable<Invoice>;
+  isLoading$: Observable<boolean>;
   errors$: Observable<any>;
   matcher = new ErrorStateMatcher();
   canEnterPrice$: Observable<boolean>;
   minDate: Date;
   maxDate: Date;
-  newInvoiceRowRequest = new NewInvoiceRowRequest('', '', '', null, '', null, '');
+  newInvoiceRowRequest = new NewInvoiceRowRequest();
 
   @ViewChild('formTag') myForm;
   @ViewChild('treatChoices') treatChoices;
@@ -58,7 +78,8 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
     this.canEnterPrice$ = this.userStore.select(fromUserStore.activeSapakCanEnterPriceSelector);
-    this.errors$ = this.invoiceStore.select(fromInvoiceStore.invoiceErrorsSelector);
+    this.errors$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsErrorsSelector);
+    this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsLoadingSelector);
   }
 
   ngAfterViewInit() {}
@@ -72,14 +93,16 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
       this.newInvoiceRowRequest.kodSapak = spk.kodSapak;
     });
     this.currentInvoice$.subscribe(inv => {
-      this.newInvoiceRowRequest.billMonth = inv.billMonthField;
-      this.newInvoiceRowRequest.invoiceNum = inv.invoiceNumField;
+      if (inv !== null) {
+        this.newInvoiceRowRequest.billMonth = inv.billMonthField;
+        this.newInvoiceRowRequest.invoiceNum = inv.invoiceNumField;
+      }
     });
   }
 
   addInvoiceRow() {
+    this.newInvoiceRowRequest.treat = this.chosenTreatCode.treatCode;
     console.log(this.newInvoiceRowRequest);
-    // if error returned stay here and display error if success go back to rows
     this.invoiceStore.dispatch(new fromInvoiceStore.CreateInvoiceRow(this.newInvoiceRowRequest));
   }
 

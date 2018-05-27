@@ -19,31 +19,14 @@ export class NewInvoiceRowRequest {
   billMonth: string;
   invoiceNum: string;
   commitment: string;
-  custId: string;
+  custId?: string;
   custIdType = '1';
-  visitNum: string;
-  treat: SapakTreatment;
+  visitNum?: string;
+  treat: string;
   treatCount: string;
   date: Date;
-  typedObligationAmount: string;
-
-  constructor(
-    commitment: string,
-    custId: string,
-    visitNum: string,
-    treat: SapakTreatment,
-    treatCount: string,
-    date: Date,
-    typedObligationAmount: string
-  ) {
-    this.commitment = commitment;
-    this.custId = custId;
-    this.visitNum = visitNum;
-    this.treat = treat;
-    this.treatCount = treatCount;
-    this.date = date;
-    this.typedObligationAmount = typedObligationAmount;
-  }
+  typedObligationAmount?: string;
+  constructor() {}
 }
 
 export class RowUpdateRequest {

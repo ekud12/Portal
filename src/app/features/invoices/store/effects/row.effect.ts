@@ -25,12 +25,12 @@ export class RowEffects {
     //   });
     // })
   );
-
+  @Effect()
   createInvoiceRow$ = this.actions$.ofType(userActions.CREATE_INVOICE_ROW).pipe(
     map((action: userActions.CreateInvoiceRow) => action.payload),
-    switchMap((newInvoicesRequest: NewInvoiceRowRequest) => {
+    switchMap((request: NewInvoiceRowRequest) => {
       return this.invoicesService
-        .createInvoiceRow(newInvoicesRequest)
+        .createInvoiceRow(request)
         .pipe(
           switchMap(res => [new userActions.CreateInvoiceRowSuccess(res)]),
           catchError(error => of(new userActions.CreateInvoiceRowFail(error)))

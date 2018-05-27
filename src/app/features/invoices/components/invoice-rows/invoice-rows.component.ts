@@ -84,7 +84,11 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoiceRows$ = this.invoiceStore.select(fromInvoiceStore.allInvoiceRowsSelector);
     this.listOfInvoiceRows$.subscribe(val => {
-      this.dataSource = new MatTableDataSource<InvoiceRow>(val);
+      if (val !== null) {
+        this.dataSource = new MatTableDataSource<InvoiceRow>(val);
+      } else {
+        this.dataSource = new MatTableDataSource<InvoiceRow>([]);
+      }
     });
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
     /** allow actions by invoice status... change with atara */

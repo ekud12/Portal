@@ -67,16 +67,22 @@
         <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns; " class="invoices-row-list-item " (click)="activateInvoiceRow(row) "></mat-row>
       </mat-table>
+
+
       <mat-card *ngIf="displayNoRecords" style="padding:100px;">
         <h3 style="text-align:center"> לא נמצאו תוצאות עבור:
           <span style="color:red">"{{dataSource.filter}}"</span>
           <br>
         </h3>
       </mat-card>
+
+      <!-- In case returned Errors -->
       <div *ngIf="!(listOfInvoiceRows$|async)" fxLayout="row " fxLayoutAlign="space-around center center
             " class="no-data-warn ">
         {{(errors$|async)?.errors}}
       </div>
+
+      
       <mat-paginator #paginator [pageSize]="10 " [pageSizeOptions]="[5, 10, 25] " [showFirstLastButtons]="true ">
       </mat-paginator>
 

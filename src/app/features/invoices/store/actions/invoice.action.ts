@@ -23,7 +23,6 @@ export const RESET_INVOICES = '[Invoice] Reset Invoices';
 export class GetInvoices implements Action {
   readonly type = GET_INVOICES;
   constructor(public payload: SapakDataRequest) {
-    console.log(payload);
   }
 }
 
@@ -76,7 +75,6 @@ export class CreateInvoiceSuccess implements Action {
 export class CreateInvoiceFail implements Action {
   readonly type = CREATE_INVOICE_FAIL;
   constructor(public payload: any) {
-    console.log(payload);
   }
 }
 

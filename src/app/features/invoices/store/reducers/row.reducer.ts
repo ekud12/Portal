@@ -11,7 +11,7 @@ export interface InvoiceRowState {
 
 export const invoiceRowInitialState: InvoiceRowState = {
   activeInvoiceRow: null,
-  listOfRowsForInvoice: null,
+  listOfRowsForInvoice: [],
   isLoading: false,
   errors: []
 };
@@ -40,7 +40,8 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
     case userActions.GET_INVOICE_ROWS: {
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        errors: []
       };
     }
     case userActions.GET_INVOICE_ROWS_SUCCESS: {
@@ -51,7 +52,8 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
       return {
         ...state,
         listOfRowsForInvoice: data,
-        isLoading: false
+        isLoading: false,
+        errors: []
       };
     }
     case userActions.GET_INVOICE_ROWS_FAIL: {
@@ -82,7 +84,7 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
     case userActions.CREATE_INVOICE_ROW_FAIL: {
       return {
         ...state,
-        errors: action.payload,
+        errors: action.payload.errors,
         isLoading: false
       };
     }
