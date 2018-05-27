@@ -60,8 +60,8 @@ export class RowEffects {
     })
   );
 
-  // @Effect()
-  // resetInvoiceRows$ = this.actions$
-  //   .ofType(userActions.ACTIVATE_INVOICE)
-  //   .pipe(switchMap(val => [new userActions.ResetInvoiceRows()]));
+  @Effect()
+  resetInvoiceRows$ = this.actions$
+    .ofType(userActions.ACTIVATE_INVOICE)
+    .pipe(switchMap(val => [new userActions.ResetInvoiceRows()]));
 }
