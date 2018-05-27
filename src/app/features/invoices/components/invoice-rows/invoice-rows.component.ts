@@ -181,7 +181,11 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.routerStore.dispatch(new Go({ path: ['/portal/invoices/obligationsbyid'], query: { returnUrl: this.router.url } }));
   }
 
-  openKizuzDetailsForRow(row) {}
+  openKizuzDetailsForRow(row) {
+    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
+    // this.invoiceStore.dispatch(new fromInvoiceStore.GetObligationsByCustomerId(this.obligationsByIdReq));
+    this.routerStore.dispatch(new Go({ path: ['/portal/invoices/kizuz'], query: { returnUrl: this.router.url } }));
+  }
 
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;

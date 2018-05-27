@@ -1,0 +1,45 @@
+<div fxLayout="column" fxLayoutAlign="space-around center stretch">
+
+  <div class="title" fxHide.lt-md fxFlexOrder="1">
+    <h1>פורטל ספקים</h1>
+    <h2>צפייה בפרטי קיזוז (ExtraNet)</h2>
+  </div>
+
+  <mat-card fxFlexOrder="2" class="kizuz-details-container" fxLayout="column" fxLayoutAlign="space-between  center center"
+    fxLayoutGap="60px">
+    <form fxLayout="column" fxLayoutAlign="space-around start center" novalidate fxLayoutGap="10px" class="kizuz-details-filter-form">
+      <div>
+        סוג קיזוז:
+        <mat-form-field>
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).kzzTypeField" name="id">
+        </mat-form-field>
+      </div>
+      <div>
+        סכום קיזוז מקורי:
+        <mat-form-field>
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFullNameField" name="name">
+        </mat-form-field>
+      </div>
+      <div>
+        סטטוס קיזוז:
+        <mat-form-field>
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).kzzStatusDescField" name="name">
+        </mat-form-field>
+      </div>
+      <div>
+        סכום קיזוז סופי:
+        <mat-form-field>
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFullNameField" name="name">
+        </mat-form-field>
+      </div>
+      <div>
+        סיבת קיזוז:
+        <mat-form-field>
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFullNameField" name="name">
+        </mat-form-field>
+      </div>
+    </form>
+
+    <button mat-raised-button color="primary" (click)="goBack()">חזור</button>
+  </mat-card>
+</div>

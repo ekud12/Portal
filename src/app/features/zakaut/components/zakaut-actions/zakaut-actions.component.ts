@@ -56,7 +56,7 @@ export class ZakautActionsComponent implements OnInit {
    */
   //#region
   vars = {
-    subHeader: ['בדיקת זכאות', 'העברת כרטיס מגנטי(ExtraNet)'],
+    subHeader: ['בדיקת זכאות', 'העברת כרטיס מגנטי (ExtraNet)'],
     floatLabel: 'never',
     BtnName: 'בדוק זכאות',
     BtnValidating: 'בודק זכאות, אנא המתן...',

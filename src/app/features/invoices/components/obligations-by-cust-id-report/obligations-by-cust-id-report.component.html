@@ -10,13 +10,13 @@
       <div>
         מספר זהות:
         <mat-form-field>
-          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFormattedId" name="id">
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFormattedIdField" name="id">
         </mat-form-field>
       </div>
       <div>
         שם המבוטח:
         <mat-form-field>
-          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFullName" name="name">
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFullNameField" name="name">
         </mat-form-field>
       </div>
     </form>

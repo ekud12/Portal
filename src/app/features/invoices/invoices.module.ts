@@ -22,6 +22,7 @@ import { InvoiceRowDatePipe } from 'app/shared/utils/invoice-row-date.pipe';
 import { CardSwipeReportComponent } from './components/card-swipe-report/card-swipe-report.component';
 import { ValidateAndCloseInvoiceComponent } from './utils/validate-and-close-invoice/validate-and-close-invoice.component';
 import { ObligationsByCustIdReportComponent } from './components/obligations-by-cust-id-report/obligations-by-cust-id-report.component';
+import { KizuzDetailsComponent } from './components/kizuz-details/kizuz-details.component';
 
 const COMPONENTS = [
   InvoiceRowsComponent,
@@ -32,7 +33,8 @@ const COMPONENTS = [
   NewInvoiceRowComponent,
   CardSwipeReportComponent,
   ValidateAndCloseInvoiceComponent,
-  ObligationsByCustIdReportComponent
+  ObligationsByCustIdReportComponent,
+  KizuzDetailsComponent
 ];
 
 @NgModule({
