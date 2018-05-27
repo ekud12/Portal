@@ -43,6 +43,7 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
   loggedUserName$: Observable<string>;
   currentSapak$: Observable<Sapak>;
   currentInvoice$: Observable<Invoice>;
+  errors$: Observable<any>;
   matcher = new ErrorStateMatcher();
   canEnterPrice$: Observable<boolean>;
   minDate: Date;
@@ -57,6 +58,7 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
     this.canEnterPrice$ = this.userStore.select(fromUserStore.activeSapakCanEnterPriceSelector);
+    this.errors$ = this.invoiceStore.select(fromInvoiceStore.invoiceErrorsSelector);
   }
 
   ngAfterViewInit() {}
@@ -69,12 +71,16 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
     this.currentSapak$.subscribe(spk => {
       this.newInvoiceRowRequest.kodSapak = spk.kodSapak;
     });
+    this.currentInvoice$.subscribe(inv => {
+      this.newInvoiceRowRequest.billMonth = inv.billMonthField;
+      this.newInvoiceRowRequest.invoiceNum = inv.invoiceNumField;
+    });
   }
 
   addInvoiceRow() {
     console.log(this.newInvoiceRowRequest);
     // if error returned stay here and display error if success go back to rows
-    // this.invoiceStore.dispatch(new fromInvoiceStore.CreateInvoice(this.newInvoiceRowRequest));
+    this.invoiceStore.dispatch(new fromInvoiceStore.CreateInvoiceRow(this.newInvoiceRowRequest));
   }
 
   reset() {

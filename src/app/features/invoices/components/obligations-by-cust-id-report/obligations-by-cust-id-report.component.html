@@ -44,16 +44,16 @@
       </div>
 
       <!-- In case there are no records, we show an error of no results -->
-      <mat-card *ngIf="displayNoRecords" style="padding:100px;">
+      <!-- <mat-card *ngIf="displayNoRecords" style="padding:100px;">
         <h3 style="text-align:center;color:red"> לא נמצאו תוצאות עבור חתכי החיפוש.
           <br>
         </h3>
-      </mat-card>
+      </mat-card> -->
 
       <!-- In case we switched sapak and he doesnt have any invoices we show a message -->
       <div *ngIf="(obligationsByCustomerId$|async).length === 0 && !(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center"
         class="no-data-warn">
-        אין העברות כרטיסים לספק זה.
+        {{(errors$|async)?.errors}}
       </div>
 
       <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true">

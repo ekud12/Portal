@@ -174,8 +174,8 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   }
 
   openReportedTreatmentsForCustomer(row) {
-    this.obligationsByIdReq.custIdType = '1';
-    this.obligationsByIdReq.custId = '406';
+    this.obligationsByIdReq.custIdType = row.custIdTypeField;
+    this.obligationsByIdReq.custId = row.custIdField;
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
     this.invoiceStore.dispatch(new fromInvoiceStore.GetObligationsByCustomerId(this.obligationsByIdReq));
     this.routerStore.dispatch(new Go({ path: ['/portal/invoices/obligationsbyid'], query: { returnUrl: this.router.url } }));

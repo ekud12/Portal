@@ -18,12 +18,14 @@ export const invoiceRowInitialState: InvoiceRowState = {
 
 export function rowReducer(state = invoiceRowInitialState, action: any): InvoiceRowState {
   switch (action.type) {
+    /** Actiavte Invoice Row */
     case userActions.ACTIVATE_INVOICE_ROW: {
       return {
         ...state,
         activeInvoiceRow: action.payload
       };
     }
+    /** Reset invoice rows Submodule */
     case userActions.RESET_INVOICE_ROWS: {
       return {
         ...state,
@@ -34,6 +36,7 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
       };
     }
 
+    /** Get Invoice Rows */
     case userActions.GET_INVOICE_ROWS: {
       return {
         ...state,
@@ -52,6 +55,31 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
       };
     }
     case userActions.GET_INVOICE_ROWS_FAIL: {
+      return {
+        ...state,
+        errors: action.payload,
+        isLoading: false
+      };
+    }
+
+    /** Create New Invoice Row */
+    case userActions.CREATE_INVOICE_ROW: {
+      return {
+        ...state,
+        isLoading: true,
+        errors: []
+      };
+    }
+    case userActions.CREATE_INVOICE_ROW_SUCCESS: {
+      console.log(action.payload);
+      console.log('SUCCESS');
+      return {
+        ...state,
+        errors: [],
+        isLoading: false
+      };
+    }
+    case userActions.CREATE_INVOICE_ROW_FAIL: {
       return {
         ...state,
         errors: action.payload,

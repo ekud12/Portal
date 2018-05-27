@@ -14,6 +14,10 @@ export class NewInvoiceRequest {
 }
 
 export class NewInvoiceRowRequest {
+  userName: string;
+  kodSapak: string;
+  billMonth: string;
+  invoiceNum: string;
   commitment: string;
   custId: string;
   custIdType = '1';
@@ -21,9 +25,7 @@ export class NewInvoiceRowRequest {
   treat: SapakTreatment;
   treatCount: string;
   date: Date;
-  price: string;
-  userName: string;
-  kodSapak: string;
+  typedObligationAmount: string;
 
   constructor(
     commitment: string,
@@ -32,7 +34,7 @@ export class NewInvoiceRowRequest {
     treat: SapakTreatment,
     treatCount: string,
     date: Date,
-    price: string
+    typedObligationAmount: string
   ) {
     this.commitment = commitment;
     this.custId = custId;
@@ -40,7 +42,7 @@ export class NewInvoiceRowRequest {
     this.treat = treat;
     this.treatCount = treatCount;
     this.date = date;
-    this.price = price;
+    this.typedObligationAmount = typedObligationAmount;
   }
 }
 

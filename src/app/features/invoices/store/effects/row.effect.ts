@@ -7,6 +7,7 @@ import * as fromRoot from '../../../../core/store';
 import { InvoicesService } from '../../invoices.service';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
 import { ToastService } from '../../../../core/services/toast-service.service';
+import { NewInvoiceRowRequest } from '../../models/requests-models/requests';
 
 @Injectable()
 export class RowEffects {
@@ -18,6 +19,27 @@ export class RowEffects {
     tap(val => {
       this.toaster.openSnackBar(`שורה מס' ${val.lineNum} נבחרה כפעילה.`, null);
     })
+    // map(() => {
+    //   return new fromRoot.Go({
+    //     path: ['/portal/invoices/treatments']
+    //   });
+    // })
+  );
+
+  createInvoiceRow$ = this.actions$.ofType(userActions.CREATE_INVOICE_ROW).pipe(
+    map((action: userActions.CreateInvoiceRow) => action.payload),
+    switchMap((newInvoicesRequest: NewInvoiceRowRequest) => {
+      return this.invoicesService
+        .createInvoiceRow(newInvoicesRequest)
+        .pipe(
+          switchMap(res => [new userActions.CreateInvoiceRowSuccess(res)]),
+          catchError(error => of(new userActions.CreateInvoiceRowFail(error)))
+        );
+    })
+    // map((action: userActions.CreateInvoiceRow) => action.payload),
+    // tap(val => {
+    //   this.toaster.openSnackBar(`שורה מס' ${val.lineNum} נבחרה כפעילה.`, null);
+    // })
     // map(() => {
     //   return new fromRoot.Go({
     //     path: ['/portal/invoices/treatments']

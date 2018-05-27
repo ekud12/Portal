@@ -66,6 +66,7 @@ export class ObligationsByCustIdReportComponent implements OnInit, AfterViewInit
   dataSource;
   displayNoRecords = false;
   returnURL;
+  errors$: Observable<any>;
 
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
@@ -79,6 +80,8 @@ export class ObligationsByCustIdReportComponent implements OnInit, AfterViewInit
     this.obligationsByCustomerId$ = this.invoiceStore.select(fromInvoiceStore.obligationsByCustomerIdSelector);
     this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.miscLoadingSelector);
     this.activeInvoiceRow$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceRowSelector);
+    this.errors$ = this.invoiceStore.select(fromInvoiceStore.miscErrorsSelector);
+
   }
 
   ngAfterViewInit() {
