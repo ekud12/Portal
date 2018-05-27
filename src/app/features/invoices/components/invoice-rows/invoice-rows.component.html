@@ -10,19 +10,24 @@
 
     <form fxLayout="column" fxLayoutAlign="space-around stretch center" novalidate fxLayoutGap="10px" class="invoices-rows-filter-form">
       <div fxLayout="row" fxLayoutAlign="space-around center center">
-        <mat-form-field class="mat-form-field-custom ">
-          <mat-select placeholder="בחר מסנן.." [(ngModel)]="selectedFilter" name="filterCategory">
-            <mat-option *ngFor="let searchFilter of displayedColumnsMap | slice: 0:displayedColumnsMap.length-1" [value]="searchFilter">
-              {{ searchFilter.viewValue }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div fxLayout="column" fxLayoutAlign="space-around start center">
+          <div fxLayout="row" fxLayoutAlign="space-around center center">
+            <mat-form-field class="mat-form-field-custom ">
+              <mat-select placeholder="בחר מסנן.." [(ngModel)]="selectedFilter" name="filterCategory">
+                <mat-option *ngFor="let searchFilter of displayedColumnsMap | slice: 0:displayedColumnsMap.length-1" [value]="searchFilter">
+                  {{ searchFilter.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="mat-form-field-custom ">
+              <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="filterData($event.target.value)">
+            </mat-form-field>
+          </div>
 
-        <mat-form-field class="mat-form-field-custom ">
-          <input matInput placeholder="{{selectedFilter.viewValue}}" (keyup)="filterData($event.target.value)">
-        </mat-form-field>
+          <mat-slide-toggle>הצג רק שורות קיזוזים</mat-slide-toggle>
+        </div>
+
         <div fxLayout="column" fxLayoutAlign="space-between end center" fxLayoutGap="10px">
-
           <div>
             <button mat-raised-button color="primary" class="btn" (click)="printData(5)">הדפס דרישת תשלום</button>
             <button mat-raised-button color="primary" class="btn" (click)="printData(2)"> הדפס שורות לחשבונית</button>
@@ -32,7 +37,7 @@
           <div>
             <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="allowActionsByStatus">הוסף שורה</button>
             <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">סגירת דרישת תשלום</button>
-            <mat-slide-toggle>הצג רק שורות קיזוזים</mat-slide-toggle>
+
           </div>
         </div>
 
@@ -69,6 +74,12 @@
       </mat-table>
 
 
+      <!-- Loader when the Store is loading Something, in our case card swipes list -->
+      <div *ngIf="(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <!-- Search No results Message -->
       <mat-card *ngIf="displayNoRecords" style="padding:100px;">
         <h3 style="text-align:center"> לא נמצאו תוצאות עבור:
           <span style="color:red">"{{dataSource.filter}}"</span>
@@ -76,14 +87,14 @@
         </h3>
       </mat-card>
 
-      <!-- In case returned Errors -->
-      <div *ngIf="!(listOfInvoiceRows$|async)" fxLayout="row " fxLayoutAlign="space-around center center
+      <!-- No Rows Message -->
+      <div *ngIf="(listOfInvoiceRows$|async)?.length === 0" fxLayout="row " fxLayoutAlign="space-around center center
             " class="no-data-warn ">
-        {{(errors$|async)?.errors}}
+        אין שורות לחשבונית
       </div>
 
-      
-      <mat-paginator #paginator [pageSize]="10 " [pageSizeOptions]="[5, 10, 25] " [showFirstLastButtons]="true ">
+
+      <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25] " [showFirstLastButtons]="true ">
       </mat-paginator>
 
     </mat-card>

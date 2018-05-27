@@ -31,7 +31,6 @@ h2 {
   margin-bottom: 30px;
 }
 
-
 .treat-field {
   width: 30em;
 }
@@ -39,9 +38,6 @@ h2 {
   width: 70%;
   padding: 30px;
 }
-
-/* .new-invoice-row-form {
-} */
 
 .btn {
   margin: 0px 10px;
@@ -52,4 +48,13 @@ h2 {
   font-size: 25px;
   font-weight: bold;
   color: rgb(0, 81, 134);
+}
+
+.errors {
+  border: 3px solid red;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 10px 0px;
+  padding: 10px 10px;
 }

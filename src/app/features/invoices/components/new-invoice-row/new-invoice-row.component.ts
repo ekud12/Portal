@@ -98,11 +98,11 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
         this.newInvoiceRowRequest.invoiceNum = inv.invoiceNumField;
       }
     });
+    this.invoiceStore.dispatch(new fromInvoiceStore.ResetInvoiceRows());
   }
 
   addInvoiceRow() {
     this.newInvoiceRowRequest.treat = this.chosenTreatCode.treatCode;
-    console.log(this.newInvoiceRowRequest);
     this.invoiceStore.dispatch(new fromInvoiceStore.CreateInvoiceRow(this.newInvoiceRowRequest));
   }
 

@@ -107,14 +107,20 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   }
 
   applyFilterInvoiceNumber(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
-    if (this.dataSource.filteredData.length === 0) {
-      this.displayNoRecords = true;
-    } else {
-      this.displayNoRecords = false;
-    }
+    this.listOfInvoices$.take(1).subscribe(val => {
+      if (val.length !== 0) {
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
+        if (this.dataSource.filteredData.length === 0) {
+          this.displayNoRecords = true;
+        } else {
+          this.displayNoRecords = false;
+        }
+      } else {
+        this.displayNoRecords = false;
+      }
+    });
   }
 
   activateInvoice(inv: any) {

@@ -63,6 +63,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   loggedUserName$: Observable<string>;
   listOfInvoiceRows$: Observable<InvoiceRow[]>;
   currentInvoice$: Observable<Invoice>;
+  isLoading$: Observable<boolean>;
   errors$: Observable<any>;
   dataObject: PrintObject = new PrintObject();
   selectedFilter = this.displayedColumnsMap[1];
@@ -83,22 +84,8 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoiceRows$ = this.invoiceStore.select(fromInvoiceStore.allInvoiceRowsSelector);
-    this.listOfInvoiceRows$.subscribe(val => {
-      if (val !== null) {
-        this.dataSource = new MatTableDataSource<InvoiceRow>(val);
-      } else {
-        this.dataSource = new MatTableDataSource<InvoiceRow>([]);
-      }
-    });
-    this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
-    /** allow actions by invoice status... change with atara */
-    this.currentInvoice$.subscribe(val => {
-      if (val !== null && +val.statusField < 2) {
-        this.allowActionsByStatus = true;
-      } else {
-        this.allowActionsByStatus = false;
-      }
-    });
+
+    this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsLoadingSelector);
     this.errors$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsErrorsSelector);
   }
 
@@ -106,7 +93,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    }, 1);
+    }, 1000);
   }
 
   ngOnInit() {
@@ -116,6 +103,24 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       /** Init Future Requests  */
       this.obligationsByIdReq.kodSapak = spk.kodSapak;
     });
+    this.listOfInvoiceRows$.subscribe(val => {
+      if (val !== null) {
+        this.dataSource = new MatTableDataSource<InvoiceRow>(val);
+      } else {
+        this.dataSource = new MatTableDataSource<InvoiceRow>([]);
+      }
+    });
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
+    /** allow actions by invoice status... change with atara */
+    this.currentInvoice$.subscribe(val => {
+      if (val !== null && +val.statusField < 2) {
+        this.allowActionsByStatus = true;
+      } else {
+        this.allowActionsByStatus = false;
+      }
+    });
     this.loggedUserName$.subscribe(username => (this.obligationsByIdReq.userName = username));
 
     this.dataSource.filterPredicate = (data: Element, filter: string) =>
@@ -123,14 +128,20 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   }
 
   filterData(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
-    if (this.dataSource.filteredData.length === 0) {
-      this.displayNoRecords = true;
-    } else {
-      this.displayNoRecords = false;
-    }
+    this.listOfInvoiceRows$.take(1).subscribe(val => {
+      if (val.length !== 0) {
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
+        if (this.dataSource.filteredData.length === 0) {
+          this.displayNoRecords = true;
+        } else {
+          this.displayNoRecords = false;
+        }
+      } else {
+        this.displayNoRecords = false;
+      }
+    });
   }
 
   activateInvoiceRow(row: any) {
