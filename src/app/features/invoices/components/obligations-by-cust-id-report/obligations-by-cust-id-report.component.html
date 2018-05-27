@@ -7,25 +7,18 @@
 
   <mat-card fxFlexOrder="2" class="card-swipes-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
     <form fxLayout="row" fxLayoutAlign="space-around center center" novalidate fxLayoutGap="10px" class="card-swipes-filter-form">
-      <mat-form-field class="mat-form-field-custom ">
-        <input matInput placeholder="סנן לפי תעודת זהות..." (keyup)="filterData('id',$event.target.value)">
-      </mat-form-field>
-      <mat-form-field class="mat-form-field-custom ">
-        <input matInput placeholder="סנן לפי שם מבוטח..." (keyup)="filterData('name',$event.target.value)">
-      </mat-form-field>
-
-      <mat-form-field [floatLabel]="vars.floatLabel" class="mat-form-field-custom ">
-        <input matInput readonly [matDatepicker]="picker" [max]="maxDate" placeholder="מתאריך" (dateChange)="filterData('fromDate',$event.target.value)">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field [floatLabel]="vars.floatLabel" class="mat-form-field-custom ">
-        <input matInput readonly [matDatepicker]="picker2" [min]="dynamicMin" placeholder="עד תאריך" (dateChange)="filterData('toDate',$event.target.value)">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-
+      <div>
+        מספר זהות:
+        <mat-form-field>
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFormattedId" name="id">
+        </mat-form-field>
+      </div>
+      <div>
+        שם המבוטח:
+        <mat-form-field>
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFullName" name="name">
+        </mat-form-field>
+      </div>
     </form>
 
     <mat-card>
@@ -36,13 +29,8 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col) }}</mat-header-cell>
 
           <ng-container>
-            <mat-cell *matCellDef=" let element "> {{(element[col] | datetime:col)}} </mat-cell>
+            <mat-cell *matCellDef=" let element "> {{(element[col] | datetime:col | invoiceRowDate:col)}} </mat-cell>
           </ng-container>
-          <!-- <ng-template #actionsTemplate>
-            <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-              <button mat-raised-button color="primary">פרטים נוספים</button>
-            </mat-cell>
-          </ng-template> -->
         </ng-container>
 
 
@@ -72,5 +60,6 @@
       </mat-paginator>
 
     </mat-card>
+    <button mat-raised-button color="primary" (click)="goBack()">חזור</button>
   </mat-card>
 </div>

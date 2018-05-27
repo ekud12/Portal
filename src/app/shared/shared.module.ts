@@ -2,7 +2,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatPaginatorIntl } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { MdePopoverModule } from '@material-extended/mde';
 import { EffectsModule } from '@ngrx/effects';
@@ -22,6 +22,7 @@ import { InvoiceStatusPipe } from './utils/invoice-status.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { As400DatePipe } from './utils/as400-date.pipe';
 import { DatetimePipe } from './utils/datetime.pipe';
+import { CustomMatPaginatorIntl } from './global-models/material-custom-impl.class';
 
 @NgModule({
   imports: [
@@ -50,7 +51,11 @@ import { DatetimePipe } from './utils/datetime.pipe';
     DatetimePipe
   ],
   entryComponents: [AlertDialogComponent, FileUploadComponent],
-  providers: [{ provide: MAT_DIALOG_DATA, useValue: [] }, DatePipe],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: [] },
+    DatePipe,
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+  ],
   exports: [
     materialImports,
     FlexLayoutModule,

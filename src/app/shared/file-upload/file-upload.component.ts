@@ -64,6 +64,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   startUpload(): void {
+    console.log(this.files);
     const event: UploadInput = {
       type: 'uploadAll',
       url: 'http://ngx-uploader.com/upload',

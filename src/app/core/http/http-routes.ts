@@ -19,6 +19,9 @@ export enum httpRoutes {
   INVOICES_GET_MAGNETIC_CARD_SWIPES_FOR_SAPAK = 'api/invoices/GetCardSwipesForSapak',
   INVOICES_GET_OBLIGATIONS_BY_CUSTOMER_ID = 'api/invoices/GetObligationsForCustomer',
 
+  /** Files Handling endpoints */
+  FILES_API = 'api/files',
+  FILES_UPLOAD_FILE = 'api/files/UploadFile',
   /** Treatments FOR SAPAK Server Endpoints */
   TREATMENTS_API = 'api/treatments',
   TREATMENTS_FOR_SAPAK_EP = 'api/treatments/GetTreatmentsForSapak',

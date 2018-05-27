@@ -23,8 +23,8 @@ export class InvoicesService {
         custIDtype: '1',
         custID: 40,
         custIDBikoret: 6,
-        custSecName: 'מישהו',
-        custFirstName: 'ומשהו',
+        custSecName: 'ישראלי',
+        custFirstName: 'ישראל',
         commitmentId: 99999999,
         visitNum: 54,
         amount: 1,
@@ -44,7 +44,8 @@ export class InvoicesService {
         KzzStatus: 'תקין',
         kzzStatusDesc: 'תקיןןןן',
         treatmentDesc: 'טיפול של הביוקר',
-        cstFormattedId: '1-00000040-6'
+        cstFormattedId: '1-00000040-6',
+        cstFullName: 'ישראל ישראלי'
       },
       {
         lineNum: 2,
@@ -72,7 +73,8 @@ export class InvoicesService {
         KzzStatus: 'תקין',
         kzzStatusDesc: 'תקיןןןן',
         treatmentDesc: '2טיפול של הביוקר',
-        cstFormattedId: '1-40223123-4'
+        cstFormattedId: '1-40223123-4',
+        cstFullName: ''
       }
     ];
     const retEmpty = [];
@@ -90,5 +92,33 @@ export class InvoicesService {
 
   getObligationsByCustomerId(request: ObligationsByCustomerIdRequest): Observable<ObligationByCustomerId[]> {
     return this.backendService.post<any>(httpRoutes.INVOICES_GET_OBLIGATIONS_BY_CUSTOMER_ID, request);
+  }
+
+  uploadInvoice(params: any): Observable<any> {
+    return this.backendService.post(httpRoutes.FILES_UPLOAD_FILE, {
+      body: this.generateInvoiceFormData(params)
+    });
+  }
+
+  private generateInvoiceFormData(params: any): FormData {
+    const formData: FormData = new FormData();
+    // formData.append('month', params.month.toString());
+    // formData.append('year', params.year.toString());
+    // formData.append('invoiceId', params.invoiceId.toString());
+    // formData.append('invoiceType', params.invoiceType.toString());
+    if (params.mediaFile) {
+      formData.append('mediaFile', params.mediaFile);
+    }
+    // if (params.invoiceFile) {
+    //   formData.append('invoiceFile', params.invoiceFile);
+    // }
+    formData.append('sapakId', params.sapakId.toString());
+    // formData.append('sapakName', params.sapakName);
+    formData.append('username', params.username);
+    // if (params.transactionId) {
+    //   formData.append('transactionId', params.transactionId.toString());
+    // }
+
+    return formData;
   }
 }

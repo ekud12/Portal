@@ -1,30 +1,64 @@
 <div fxLayout="row" fxLayoutAlign="space-between center center" class="top-invoice-menu" [@itemAnim]>
   <div *ngIf="(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch center">
     <div class="invoices-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
-      חשבונית מספר:
-      <div class="summary-content-item">{{(currentInvoice$|async)?.invoiceNumField}}</div>
-      חודש:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.billMonthField | invoiceRowDate:'billMonthField'}} </div>
-      סטטוס:
-      <div class="summary-content-item">{{(currentInvoice$|async)?.statusField | invoiceStatus:'statusField'}}</div>
-      סכום לא כולל מע"מ:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.typedSumField}}</div>
-      אחוז מע"מ:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.rateField}}</div>
-      סכום כולל מע"מ:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.invoiceSumField}}</div>
-      הערות:
-      <div class="summary-content-item"> {{(currentInvoice$|async)?.remark1Field}},{{(currentInvoice$|async)?.remark2Field}}</div>
+      <div class="border-table">
+        חשבונית מספר:
+        <div class="summary-content-item">{{(currentInvoice$|async)?.invoiceNumField}}</div>
+      </div>
+      <div class="border-table">
+        חודש:
+        <div class="summary-content-item"> {{(currentInvoice$|async)?.billMonthField | invoiceRowDate:'billMonthField'}} </div>
+      </div>
+      <div class="border-table">
+        סטטוס:
+        <div class="summary-content-item">{{(currentInvoice$|async)?.statusField | invoiceStatus:'statusField'}}</div>
+      </div>
+      <div class="border-table">
+
+        <div class="summary-content-item"> {{(currentInvoice$|async)?.typedSumField}}</div>
+      </div>
+      <div class="border-table">
+        אחוז מע"מ:
+        <div class="summary-content-item"> {{(currentInvoice$|async)?.rateField}}</div>
+      </div>
+      <div class="border-table">
+        סכום כולל מע"מ:
+        <div class="summary-content-item"> {{(currentInvoice$|async)?.invoiceSumField}}</div>
+      </div>
+      <div class="border-table">
+        הערות:
+        <div class="summary-content-item"> {{(currentInvoice$|async)?.remark1Field}},{{(currentInvoice$|async)?.remark2Field}}</div>
+      </div>
     </div>
     <div *ngIf=(currentInvoiceRow$|async) class="invoices-row-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
-      שורה מספר :
-      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.lineNum }}</div>
-      שם המבוטח :
-      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.custFirstName}} {{ (currentInvoiceRow$|async)?.custSecName}} </div>
-      תאריך :
-      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.date | date:'dd/MM/yyyy'}} </div>
-      סכום :
-      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.amount }} </div>
+      <div class="border-table">
+        שורה מספר :
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.lineNum }}</div>
+      </div>
+      <div class="border-table">
+        שם המבוטח :
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.custFirstName}} {{ (currentInvoiceRow$|async)?.custSecName}} </div>
+      </div>
+      <div class="border-table">
+        תאריך :
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.date | date:'dd/MM/yyyy'}} </div>
+      </div>
+      <div class="border-table">
+        סכום :
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.amount }} </div>
+      </div>
+      <div class="border-table">
+        התחייבות :
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.commitmentId }} </div>
+      </div>
+      <div class="border-table">
+        מספר זהות :
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.cstFormattedId }} </div>
+      </div>
+      <div class="border-table">
+        מספר ביקור :
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.visitNum }} </div>
+      </div>
     </div>
   </div>
   <div *ngIf="!(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch center">

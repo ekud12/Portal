@@ -49,6 +49,37 @@ export class InvoiceRow {
   kzzStatusDesc: string;
   treatmentDesc: string;
   cstFormattedId: string;
+  cstFullName: string;
+}
+
+export class InvoiceKizuzRow {
+  lineNumField?: string;
+  custIDtypeField?: string;
+  custIDField?: string;
+  custIDBikoretField?: string;
+  custSecNameField?: string;
+  custFirstNameField?: string;
+  commitmentIdField?: string;
+  visitNumField?: string;
+  amountField?: string;
+  typedAmountField?: string;
+  treatmentLineField?: string;
+  dateField?: Date;
+  editionNumField?: string;
+  kzzTypeField?: string;
+  kzzTypeDescField?: string;
+  KzzCodeField?: string;
+  kzzDescField?: string;
+  kzzLiterally1Field?: string;
+  kzzLiterally2Field?: string;
+  kzzLiterally3Field?: string;
+  kzzLiterally4Field?: string;
+  kzzLiterally5Field?: string;
+  kzzLiterally6Field?: string;
+  KzzStatusField?: string;
+  kzzStatusDescField?: string;
+  cstFormattedIdField?: string;
+  cstFullNameField?: string;
 }
 
 export class InvoiceTreatment {

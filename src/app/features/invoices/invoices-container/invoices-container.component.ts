@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import * as fromUserStore from '@userStore';
 import { moveAnimation } from 'app/core/animations/animations';
 import { Observable } from 'rxjs/Observable';
-
 import { Sapak } from '../../user/models/sapak.model';
 import { Invoice, InvoiceRow } from '../models/class-models/objects.model';
 
