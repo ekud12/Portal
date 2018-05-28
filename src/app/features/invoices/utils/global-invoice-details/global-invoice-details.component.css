@@ -1,0 +1,26 @@
+
+
+.summary-content-item {
+  padding-left: 1.2em;
+  padding-right: 0.4em;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+
+.border-table {
+  padding: 0px 0px;
+  margin: 0px 0px;
+  width: auto;
+}
+
+.container-test {
+
+  border: 3px dotted orange;
+  border-radius: 5px;
+  width: 720px;
+
+  z-index: 5000;
+  height: auto;
+  padding: 8px 8px !important;
+}

@@ -1,0 +1,62 @@
+<mat-card *ngIf="(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch stretch" class="container-test">
+  <div class="invoices-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
+    <div class="border-table">
+      חשבונית מספר:
+      <div class="summary-content-item">{{(currentInvoice$|async)?.invoiceNumField}}</div>
+    </div>
+    <div class="border-table">
+      חודש:
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.billMonthField | invoiceRowDate:'billMonthField'}} </div>
+    </div>
+    <div class="border-table">
+      סטטוס:
+      <div class="summary-content-item">{{(currentInvoice$|async)?.statusField | invoiceStatus:'statusField'}}</div>
+    </div>
+    <div class="border-table">
+      סכום שהוקלד
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.typedSumField}}</div>
+    </div>
+    <div class="border-table">
+      אחוז מע"מ:
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.rateField}}</div>
+    </div>
+    <div class="border-table">
+      סכום כולל מע"מ:
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.invoiceSumField}}</div>
+    </div>
+    <div class="border-table">
+      הערות:
+      <div class="summary-content-item"> {{(currentInvoice$|async)?.remark1Field}},{{(currentInvoice$|async)?.remark2Field}}</div>
+    </div>
+  </div>
+  <div *ngIf=(currentInvoiceRow$|async) class="invoices-row-full-content-summary" fxLayout="row" fxLayoutAlign="start center center">
+    <div class="border-table">
+      שורה מספר :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.lineNumField }}</div>
+    </div>
+    <div class="border-table">
+      שם המבוטח :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.custFirstNameField}} {{ (currentInvoiceRow$|async)?.custSecNameField}} </div>
+    </div>
+    <div class="border-table">
+      תאריך :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.dateField | date:'dd/MM/yyyy'}} </div>
+    </div>
+    <div class="border-table">
+      סכום :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.amountField }} </div>
+    </div>
+    <div class="border-table">
+      התחייבות :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.commitmentIdField }} </div>
+    </div>
+    <div class="border-table">
+      מספר זהות :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.cstFormattedIdField }} </div>
+    </div>
+    <div class="border-table">
+      מספר ביקור :
+      <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.visitNumField }} </div>
+    </div>
+  </div>
+</mat-card>

@@ -131,7 +131,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
 
   activateInvoiceRow(row: any) {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
-    this.routerStore.dispatch(new Go({ path: ['/portal/invoices/treatments'] }));
+    // this.routerStore.dispatch(new Go({ path: ['/portal/invoices/treatments'] }));
   }
 
   createNewInvoiceRow() {

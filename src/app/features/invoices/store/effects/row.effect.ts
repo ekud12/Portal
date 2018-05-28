@@ -18,7 +18,7 @@ export class RowEffects {
   activateInvoiceRow$ = this.actions$.ofType(userActions.ACTIVATE_INVOICE_ROW).pipe(
     map((action: userActions.ActivateInvoiceRow) => action.payload),
     tap(val => {
-      this.toaster.openSnackBar(`שורה מס' ${val.lineNum} נבחרה כפעילה.`, null);
+      this.toaster.openSnackBar(`שורה מס' ${val.lineNumField} נבחרה כפעילה.`, null);
     })
     // map(() => {
     //   return new fromRoot.Go({
@@ -100,7 +100,7 @@ export class RowEffects {
   deleteInvoiceCompleted$ = this.actions$
     /** IN CASE its last row it returns an error, needs fixing on as400 part to indicate the case as success
      */
-    .ofType(userActions.DELETE_INVOICE_ROW_SUCCESS, userActions.DELETE_INVOICE_ROW_FAIL)
+    .ofType(userActions.DELETE_INVOICE_ROW_SUCCESS)
     .pipe(
       map((action: userActions.DeleteInvoiceRowSuccess) => action.payload),
       map((request: DeleteInvoiceRowRequest) => {
