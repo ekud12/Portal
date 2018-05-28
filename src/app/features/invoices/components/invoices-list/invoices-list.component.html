@@ -1,9 +1,14 @@
 <div fxLayout="column" fxLayoutAlign="space-around center stretch">
 
-    <div class="title" fxHide.lt-md fxFlexOrder="1" fxLayout="row" fxLayoutAlign="space-between center start">
-        <div>    <h1>פורטל ספקים</h1>
-    <h2>הצגת חשבוניות (ExtraNet)</h2></div>
-    <app-global-invoice-details></app-global-invoice-details>
+  <div class="title" fxHide.lt-md fxFlexOrder="1" fxLayout="row" fxLayoutAlign="start end">
+    <div style="margin-left: 63px;">
+      <h1>פורטל ספקים</h1>
+      <h2>הצגת חשבוניות (ExtraNet)</h2>
+    </div>
+    <div fxFlex>
+      <app-global-invoice-details></app-global-invoice-details>
+    </div>
+
   </div>
 
   <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
