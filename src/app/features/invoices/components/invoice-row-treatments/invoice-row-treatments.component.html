@@ -11,20 +11,20 @@
       class="row-update-form">
       <div fxLayout="row" fxLayoutAlign="space-around center center">
         <mat-form-field>
-          <input matInput placeholder="התחייבות" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).commitmentId"
+          <input matInput placeholder="התחייבות" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).commitmentIdField"
             name="date" (ngModelChange)="rowUpdateRequest.commitment
           = $event">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="תעודת זהות" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).custID"
+          <input matInput placeholder="תעודת זהות" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).custIdField"
             name="id" (ngModelChange)="rowUpdateRequest.custId = $event">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="סוג זיהוי" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).custIDtype"
+          <input matInput placeholder="סוג זיהוי" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).custIdTypeField"
             name="idtype" (ngModelChange)="rowUpdateRequest.custIdType = $event">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="מספר ביקור" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).visitNum"
+          <input matInput placeholder="מספר ביקור" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).visitNumField"
             name="visit" (ngModelChange)="rowUpdateRequest.visitNum = $event">
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center center">

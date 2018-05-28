@@ -88,7 +88,9 @@ export class DeleteInvoiceRowSuccess implements Action {
 }
 export class DeleteInvoiceRowFail implements Action {
   readonly type = DELETE_INVOICE_ROW_FAIL;
-  constructor(public payload: any) {}
+  constructor(public payload: any) {
+    console.log(payload);
+  }
 }
 export class DeleteInvoiceRowCompleted implements Action {
   readonly type = DELETE_INVOICE_ROW_COMPLETED;

@@ -10,20 +10,6 @@ import { Observable } from 'rxjs/Observable';
 import { Sapak, SapakTreatment } from '../../../user/models/sapak.model';
 import { Invoice } from '../../models/class-models/objects.model';
 import { NewInvoiceRowRequest } from '../../models/requests-models/requests';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'DD-MM-YYYY'
-  },
-  display: {
-    dateInput: 'LL',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY'
-  }
-};
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -40,11 +26,6 @@ export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   selector: 'app-new-invoice-row',
   templateUrl: './new-invoice-row.component.html',
   styleUrls: ['./new-invoice-row.component.css']
-  // providers: [
-  //   { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-
-  //   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
-  // ]
 })
 export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
   vars = {

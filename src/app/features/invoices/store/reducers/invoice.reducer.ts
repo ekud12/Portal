@@ -31,7 +31,6 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
       return {
         ...state,
         listOfInvoicesForSapak: action.payload.data.resultSetData,
-        activeInvoice: null,
         isLoading: false
       };
     }

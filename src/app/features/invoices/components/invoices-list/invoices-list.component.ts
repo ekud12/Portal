@@ -8,7 +8,6 @@ import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
-
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
 import { Invoice, PrintingOption } from '../../models/class-models/objects.model';

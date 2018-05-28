@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import * as userActions from '../actions';
 import { of } from 'rxjs/observable/of';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
-import * as fromRoot from '../../../../core/store';
-import { InvoicesService } from '../../invoices.service';
-import { SapakDataRequest } from '../../../user/models/sapak.model';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { ToastService } from '../../../../core/services/toast-service.service';
-import { NewInvoiceRowRequest, DeleteInvoiceRowRequest } from '../../models/requests-models/requests';
+import * as fromRoot from '../../../../core/store';
+import { SapakDataRequest } from '../../../user/models/sapak.model';
+import { InvoicesService } from '../../invoices.service';
+import { Invoice } from '../../models/class-models/objects.model';
+import { DeleteInvoiceRowRequest, NewInvoiceRowRequest } from '../../models/requests-models/requests';
+import * as userActions from '../actions';
 
 @Injectable()
 export class RowEffects {
@@ -80,7 +81,7 @@ export class RowEffects {
       return this.invoicesService
         .deleteInvoiceRow(request)
         .pipe(
-          switchMap(res => [new userActions.DeleteInvoiceRowSuccess(res)]),
+          switchMap(res => [new userActions.DeleteInvoiceRowSuccess(request)]),
           catchError(error => of(new userActions.DeleteInvoiceRowFail(error)))
         );
     })
@@ -96,18 +97,26 @@ export class RowEffects {
   );
 
   @Effect()
-  deleteInvoiceCompleted$ = this.actions$.ofType(userActions.DELETE_INVOICE_ROW_SUCCESS).pipe(
-    map((action: userActions.DeleteInvoiceRowSuccess) => action.payload),
-    map((request: DeleteInvoiceRowRequest) => {
-      const newRequest = new SapakDataRequest();
-      newRequest.invoice.invoiceNumField = request.invoiceNum;
-      newRequest.invoice.billMonthField = request.billMonth;
-      newRequest.userName = request.userName;
-      newRequest.kodSapak = request.kodSapak;
-      return newRequest;
-    }),
-    switchMap(val => [new userActions.GetInvoiceRows(val)])
-  );
+  deleteInvoiceCompleted$ = this.actions$
+    /** IN CASE its last row it returns an error, needs fixing on as400 part to indicate the case as success
+     */
+    .ofType(userActions.DELETE_INVOICE_ROW_SUCCESS, userActions.DELETE_INVOICE_ROW_FAIL)
+    .pipe(
+      map((action: userActions.DeleteInvoiceRowSuccess) => action.payload),
+      map((request: DeleteInvoiceRowRequest) => {
+        const newRequest = new SapakDataRequest();
+        newRequest.invoice = new Invoice();
+        newRequest.invoice.invoiceNumField = request.invoiceNum;
+        newRequest.invoice.billMonthField = request.billMonth;
+        newRequest.userName = request.userName;
+        newRequest.kodSapak = request.kodSapak;
+        return newRequest;
+      }),
+      tap(val => {
+        this.toaster.openSnackBar(`שורה נמחקה בהצלחה!`, null);
+      }),
+      switchMap(val => [new userActions.GetInvoiceRows(val)])
+    );
 
   @Effect()
   resetInvoiceRows$ = this.actions$

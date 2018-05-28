@@ -1,28 +1,21 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import * as fromRoot from '@coreStore';
 import * as fromInvoiceStore from '@invoicesStore';
 import { Store } from '@ngrx/store';
-import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
-import { ToastService } from 'app/core/services/toast-service.service';
-import { Go } from 'app/core/store/actions';
-import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.component';
-import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
-
-import { PrintObject } from '../../../../shared/global-models/print-object.interface';
+import { Observable } from 'rxjs/Observable';
 import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
-import { Invoice, PrintingOption, CardSwipeForSapak } from '../../models/class-models/objects.model';
-import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
+import { CardSwipeForSapak } from '../../models/class-models/objects.model';
 
 @Component({
   selector: 'app-card-swipe-report',
   templateUrl: './card-swipe-report.component.html',
   styleUrls: ['./card-swipe-report.component.css']
 })
-export class CardSwipeReportComponent implements OnInit, AfterViewInit {
+export class CardSwipeReportComponent implements OnInit {
   displayedColumns = [
     'fullID',
     'fullName',
@@ -85,12 +78,7 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
     this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.miscLoadingSelector);
   }
 
-  ngAfterViewInit() {
-    // setTimeout(() => {
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    // }, 100);
-  }
+
 
   ngOnInit() {
     this.dataRequest$.take(1).subscribe(val => {

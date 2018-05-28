@@ -10,13 +10,12 @@ import { ToastService } from 'app/core/services/toast-service.service';
 import { Go } from 'app/core/store/actions';
 import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.component';
 import { Observable } from 'rxjs/Observable';
-
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
-import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
-import { Invoice, PrintingOption, InvoiceRow } from '../../models/class-models/objects.model';
 import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
+import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
+import { Invoice, InvoiceRow, PrintingOption } from '../../models/class-models/objects.model';
+import { DeleteInvoiceRowRequest, ObligationsByCustomerIdRequest } from '../../models/requests-models/requests';
 import { ValidateAndCloseInvoiceComponent } from '../../utils/validate-and-close-invoice/validate-and-close-invoice.component';
-import { ObligationsByCustomerIdRequest, DeleteInvoiceRowRequest } from '../../models/requests-models/requests';
 
 @Component({
   selector: 'app-invoice-rows',
