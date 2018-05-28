@@ -12,7 +12,7 @@ import { AlertDialogComponent } from 'app/shared/alert-dialog/alert-dialog.compo
 import { Observable } from 'rxjs/Observable';
 
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
-import { Sapak } from '../../../user/models/sapak.model';
+import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
 import { Invoice, PrintingOption, InvoiceRow } from '../../models/class-models/objects.model';
 import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
 import { ValidateAndCloseInvoiceComponent } from '../../utils/validate-and-close-invoice/validate-and-close-invoice.component';
@@ -66,10 +66,12 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   isLoading$: Observable<boolean>;
   errors$: Observable<any>;
   dataObject: PrintObject = new PrintObject();
+  dataRequest$: Observable<SapakDataRequest>;
   selectedFilter = this.displayedColumnsMap[1];
   dataSource;
   displayNoRecords = false;
   allowActionsByStatus = false;
+  loadingHeavydata = false;
 
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
@@ -85,6 +87,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoiceRows$ = this.invoiceStore.select(fromInvoiceStore.allInvoiceRowsSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
+    this.dataRequest$ = this.userStore.select(fromUserStore.userNameAndCurrentSapakSelector);
     this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsLoadingSelector);
     this.errors$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsErrorsSelector);
   }
@@ -93,10 +96,17 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    }, 1000);
+    }, 100);
   }
 
   ngOnInit() {
+    this.dataRequest$.take(1).subscribe(val => {
+      this.currentInvoice$.take(1).subscribe(inv => {
+        val.invoice = inv;
+      });
+      this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoiceRows(val));
+    });
+    this.loggedUserName$.subscribe(username => (this.obligationsByIdReq.userName = username));
     this.currentSapak$.subscribe(spk => {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
@@ -116,14 +126,13 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       } else {
         this.dataSource = new MatTableDataSource<InvoiceRow>([]);
       }
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
     this.dataSource.filterPredicate = (data: Element, filter: string) =>
       data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
-    /** allow actions by invoice status... change with atara */
-
-    this.loggedUserName$.subscribe(username => (this.obligationsByIdReq.userName = username));
   }
 
   filterData(filterValue: string) {

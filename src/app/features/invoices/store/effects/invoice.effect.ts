@@ -42,7 +42,7 @@ export class InvoiceEffects {
       return val;
     }),
     switchMap(val => [
-      new userActions.GetInvoiceRows(val),
+      // new userActions.GetInvoiceRows(val),
       new fromRoot.Go({ path: ['/portal/invoices/rows'] })])
   );
 
