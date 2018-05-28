@@ -75,7 +75,7 @@
         <mat-spinner></mat-spinner>
       </div>
 
-      <div *ngIf="(errors$|async).length > 0" fxLayout="row" fxLayoutAlign="space-around center center" class="errors">
+      <div *ngIf="(errors$|async) && (errors$|async).length > 0" fxLayout="row" fxLayoutAlign="space-around center center" class="errors">
         {{(errors$|async)[0]}}
       </div>
 

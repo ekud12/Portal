@@ -178,11 +178,11 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.currentInvoice$.subscribe(val => {
       if (val !== null && +val.statusField < 2) {
         this.allowActionsByStatus = true;
+        this.deleteRowRequest.billMonth = val.billMonthField;
+        this.deleteRowRequest.invoiceNum = val.invoiceNumField;
       } else {
         this.allowActionsByStatus = false;
       }
-      this.deleteRowRequest.billMonth = val.billMonthField;
-      this.deleteRowRequest.invoiceNum = val.invoiceNumField;
     });
   }
 

@@ -41,7 +41,8 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   listOfInvoices$: Observable<Invoice[]>;
   currentInvoice$: Observable<Invoice>;
   isLoading$: Observable<boolean>;
-  isLoadingBigData;
+  dataRequest$: Observable<SapakDataRequest>;
+
   dataObject: PrintObject = new PrintObject();
   selectedFilter;
   dataSource;
@@ -55,35 +56,21 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     private userStore: Store<fromUserStore.UserState>,
     public dialog: MatDialog
   ) {
-    this.isLoadingBigData = true;
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoices$ = this.invoiceStore.select(fromInvoiceStore.allInvoicesSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
     this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.invoiceLoadingSelector);
+    this.dataRequest$ = this.userStore.select(fromUserStore.userNameAndCurrentSapakSelector);
   }
 
-  ngAfterViewInit() {
-    /** TO allow content to load while building the view  */
-    setTimeout(() => {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.isLoadingBigData = false;
-    }, 50);
-  }
+  ngAfterViewInit() {}
 
   ngOnInit() {
-    this.loggedUserName$.subscribe(val => (this.req.userName = val));
-    this.currentSapak$.subscribe(spk => {
-      this.dataObject.headerDetailsValue1 = spk.kodSapak;
-      this.dataObject.headerDetailsValue2 = spk.description;
-      this.req.kodSapak = spk.kodSapak;
-    });
-
+    this.getAllInvoices();
+    this.initFutureRequests();
     this.listOfInvoices$.subscribe(val => {
       this.dataSource = new MatTableDataSource<Invoice>(val);
-
-      /** initial sorting by date -> id */
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate = (data: Invoice, filter: string) => data.invoiceNumField.toString().includes(filter);
@@ -100,6 +87,21 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     this.buildObjectForPrint();
     this.sharedStore.dispatch(new fromSharedStore.SetPrintData(this.dataObject));
     this.routerStore.dispatch(new fromRoot.Go({ path: ['print'], query: { isIE: true, returnUrl: this.router.url } }));
+  }
+
+  getAllInvoices() {
+    this.dataRequest$.take(1).subscribe(val => {
+      this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoices(val));
+    });
+  }
+
+  initFutureRequests() {
+    this.loggedUserName$.subscribe(val => (this.req.userName = val));
+    this.currentSapak$.subscribe(spk => {
+      this.dataObject.headerDetailsValue1 = spk.kodSapak;
+      this.dataObject.headerDetailsValue2 = spk.description;
+      this.req.kodSapak = spk.kodSapak;
+    });
   }
 
   newInvoice() {
@@ -123,7 +125,7 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  activateInvoice(inv: any) {
+  activateInvoice(inv: Invoice) {
     this.req.invoice = inv;
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoice(this.req));
   }

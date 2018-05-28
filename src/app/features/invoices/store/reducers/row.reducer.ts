@@ -75,8 +75,6 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
       };
     }
     case userActions.CREATE_INVOICE_ROW_SUCCESS: {
-      console.log(action.payload);
-      console.log('SUCCESS');
       return {
         ...state,
         errors: [],

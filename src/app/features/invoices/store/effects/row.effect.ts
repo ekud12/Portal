@@ -25,6 +25,20 @@ export class RowEffects {
     //   });
     // })
   );
+
+  @Effect()
+  getInvoiceRows$ = this.actions$.ofType(userActions.GET_INVOICE_ROWS).pipe(
+    map((action: userActions.GetInvoiceRows) => action.payload),
+    switchMap((request: SapakDataRequest) => {
+      return this.invoicesService
+        .getAllInvoiceRows(request)
+        .pipe(
+          switchMap(res => [new userActions.GetInvoiceRowsSuccess(res)]),
+          catchError(error => of(new userActions.GetInvoiceRowsFail(error)))
+        );
+    })
+  );
+
   @Effect()
   createInvoiceRow$ = this.actions$.ofType(userActions.CREATE_INVOICE_ROW).pipe(
     map((action: userActions.CreateInvoiceRow) => action.payload),
@@ -45,6 +59,18 @@ export class RowEffects {
     //     path: ['/portal/invoices/treatments']
     //   });
     // })
+  );
+
+  @Effect()
+  createInvoiceRowSuccess$ = this.actions$.ofType(userActions.CREATE_INVOICE_ROW_SUCCESS).pipe(
+    tap(val => {
+      this.toaster.openSnackBar(`שורה נוספה בהצלחה!`, null);
+    }),
+    map(() => {
+      return new fromRoot.Go({
+        path: ['/portal/invoices/rows']
+      });
+    })
   );
 
   @Effect()
@@ -70,19 +96,6 @@ export class RowEffects {
   );
 
   @Effect()
-  getInvoiceRows$ = this.actions$.ofType(userActions.GET_INVOICE_ROWS).pipe(
-    map((action: userActions.GetInvoiceRows) => action.payload),
-    switchMap((request: SapakDataRequest) => {
-      return this.invoicesService
-        .getAllInvoiceRows(request)
-        .pipe(
-          switchMap(res => [new userActions.GetInvoiceRowsSuccess(res)]),
-          catchError(error => of(new userActions.GetInvoiceRowsFail(error)))
-        );
-    })
-  );
-
-  @Effect()
   deleteInvoiceCompleted$ = this.actions$.ofType(userActions.DELETE_INVOICE_ROW_SUCCESS).pipe(
     map((action: userActions.DeleteInvoiceRowSuccess) => action.payload),
     map((request: DeleteInvoiceRowRequest) => {
@@ -95,4 +108,9 @@ export class RowEffects {
     }),
     switchMap(val => [new userActions.GetInvoiceRows(val)])
   );
+
+  @Effect()
+  resetInvoiceRows$ = this.actions$
+    .ofType(userActions.ACTIVATE_INVOICE)
+    .pipe(switchMap(val => [new userActions.ResetInvoiceRows()]));
 }
