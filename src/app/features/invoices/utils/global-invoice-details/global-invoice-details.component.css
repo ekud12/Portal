@@ -27,3 +27,8 @@
 .invoices-row-full-content-summary {
   padding: 3px 0px;
 }
+
+table {
+  border-collapse: separate;
+  border-spacing: 10px 10px;
+}
