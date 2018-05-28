@@ -31,7 +31,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     'custSecNameField',
     'typedAmountField',
     'dateField',
-    'amountField',
+    'treatmentLineField',
     'visitNumField',
     'actions'
   ];
@@ -43,7 +43,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     { value: 'custSecNameField', viewValue: 'שם משפחה' },
     { value: 'typedAmountField', viewValue: 'סכום' },
     { value: 'dateField', viewValue: 'תאריך' },
-    { value: 'amountField', viewValue: 'מספר טיפולים' },
+    { value: 'treatmentLineField', viewValue: 'מספר טיפולים' },
     { value: 'visitNumField', viewValue: 'מספר ביקור' },
     { value: 'actions', viewValue: '' }
   ];

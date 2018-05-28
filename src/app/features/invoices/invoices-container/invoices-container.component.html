@@ -1,14 +1,14 @@
 <div fxLayout="row" fxLayoutAlign="space-between center center" class="top-invoice-menu" [@itemAnim]>
   <div class="invoices-actions" fxLayout="row" fxLayoutAlign="space-around stretch">
-    <button (click)="goToCard($event)" routerLink="/portal/invoices/card" routerLinkActive="active" mat-button>העברת כרטיס מגנטי</button>
-    <button routerLinkActive="active" routerLink="/portal/invoices/cardswipes" mat-button routerLinkActiveOptions="{exact:
-          true}">דוח דיווחי כ.מגנטי</button>
     <button mat-button routerLink="/portal/invoices/all" routerLinkActive="active" routerLinkActiveOptions="{exact:
-          true}">חשבוניות</button>
+        true}">חשבוניות</button>
     <button *ngIf="(currentInvoice$|async)" routerLink="/portal/invoices/rows" routerLinkActive="active" routerLinkActiveOptions="{exact:
           true}" mat-button>שורות לחשבונית</button>
+    <button routerLinkActive="active" routerLink="/portal/invoices/cardswipes" mat-button routerLinkActiveOptions="{exact:
+            true}">דוח דיווחי כ.מגנטי</button>
     <button *ngIf="(currentInvoice$|async)" routerLinkActive="active" routerLinkActiveOptions="{exact:
           true}" mat-button>ש. קיזוזים לחשבונית</button>
+    <button (click)="goToCard($event)" routerLink="/portal/invoices/card" routerLinkActive="active" mat-button>העברת כרטיס מגנטי</button>
   </div>
 
   <div *ngIf="!(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch center">

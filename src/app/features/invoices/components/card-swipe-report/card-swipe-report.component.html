@@ -73,7 +73,7 @@
         אין העברות כרטיסים לספק זה.
       </div>
 
-      <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true">
+      <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25,(cardSwipesForSapak$|async).length]" [showFirstLastButtons]="true">
       </mat-paginator>
 
     </mat-card>

@@ -7,7 +7,7 @@
       </td>
       <td class="border-table" align="right">
         חודש
-        <div class="summary-content-item"> {{(currentInvoice$|async)?.billMonthField | invoiceRowDate:'billMontdField'}} </div>
+        <div class="summary-content-item"> {{(currentInvoice$|async)?.billMonthField | invoiceRowDate:'billMonthField'}} </div>
       </td>
       <td class="border-table" align="right">
         סטטוס
@@ -30,34 +30,34 @@
         <div class="summary-content-item"> {{(currentInvoice$|async)?.remark1Field}},{{(currentInvoice$|async)?.remark2Field}}</div>
       </td>
     </tr>
-    <tr *ngIf=(currentInvoiceRow$|async) >
+    <tr *ngIf=(currentInvoiceRow$|async)>
       <td class="border-table" align="right">
-          שורה מספר
-          <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.lineNumField }}</div>
+        שורה מספר
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.lineNumField }}</div>
       </td>
       <td class="border-table" align="right">
-          שם המבוטח
-          <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.custFirstNameField}} {{ (currentInvoiceRow$|async)?.custSecNameField}} </div>
+        שם המבוטח
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.custFirstNameField}} {{ (currentInvoiceRow$|async)?.custSecNameField}} </div>
       </td>
       <td class="border-table" align="right">
-          תאריך
-          <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.dateField | date:'dd/MM/yyyy'}} </div>
+        תאריך
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.dateField | date:'dd/MM/yyyy'}} </div>
       </td>
       <td class="border-table" align="right">
-          סכום
-          <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.amountField }} </div>
+        סכום
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.amountField }} </div>
       </td>
       <td class="border-table" align="right">
-          התחייבות
-          <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.commitmentIdField }} </div>
+        התחייבות
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.commitmentIdField }} </div>
       </td>
       <td class="border-table" align="right">
-          מספר זהות
-          <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.cstFormattedIdField }} </div>
+        מספר זהות
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.cstFormattedIdField }} </div>
       </td>
       <td class="border-table" align="right">
-          מספר ביקור
-          <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.visitNumField }} </div>
+        מספר ביקור
+        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.visitNumField }} </div>
       </td>
     </tr>
   </table>
