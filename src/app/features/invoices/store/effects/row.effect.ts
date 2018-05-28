@@ -50,9 +50,9 @@ export class RowEffects {
   @Effect()
   getInvoiceRows$ = this.actions$.ofType(userActions.GET_INVOICE_ROWS).pipe(
     map((action: userActions.GetInvoiceRows) => action.payload),
-    switchMap((allInvoiceRowsRequest: SapakDataRequest) => {
+    switchMap((request: SapakDataRequest) => {
       return this.invoicesService
-        .getAllInvoiceRows(allInvoiceRowsRequest)
+        .getAllInvoiceRows(request)
         .pipe(
           switchMap(res => [new userActions.GetInvoiceRowsSuccess(res)]),
           catchError(error => of(new userActions.GetInvoiceRowsFail(error)))
@@ -60,8 +60,8 @@ export class RowEffects {
     })
   );
 
-  @Effect()
-  resetInvoiceRows$ = this.actions$
-    .ofType(userActions.ACTIVATE_INVOICE)
-    .pipe(switchMap(val => [new userActions.ResetInvoiceRows()]));
+  // @Effect()
+  // resetInvoiceRows$ = this.actions$
+  //   .ofType(userActions.ACTIVATE_INVOICE)
+  //   .pipe(switchMap(val => [new userActions.ResetInvoiceRows()]));
 }

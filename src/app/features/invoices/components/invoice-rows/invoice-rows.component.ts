@@ -84,7 +84,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.listOfInvoiceRows$ = this.invoiceStore.select(fromInvoiceStore.allInvoiceRowsSelector);
-
+    this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
     this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsLoadingSelector);
     this.errors$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsErrorsSelector);
   }
@@ -103,6 +103,13 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       /** Init Future Requests  */
       this.obligationsByIdReq.kodSapak = spk.kodSapak;
     });
+    this.currentInvoice$.subscribe(val => {
+      if (val !== null && +val.statusField < 2) {
+        this.allowActionsByStatus = true;
+      } else {
+        this.allowActionsByStatus = false;
+      }
+    });
     this.listOfInvoiceRows$.subscribe(val => {
       if (val !== null) {
         this.dataSource = new MatTableDataSource<InvoiceRow>(val);
@@ -112,19 +119,11 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
-    /** allow actions by invoice status... change with atara */
-    this.currentInvoice$.subscribe(val => {
-      if (val !== null && +val.statusField < 2) {
-        this.allowActionsByStatus = true;
-      } else {
-        this.allowActionsByStatus = false;
-      }
-    });
-    this.loggedUserName$.subscribe(username => (this.obligationsByIdReq.userName = username));
-
     this.dataSource.filterPredicate = (data: Element, filter: string) =>
       data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
+    /** allow actions by invoice status... change with atara */
+
+    this.loggedUserName$.subscribe(username => (this.obligationsByIdReq.userName = username));
   }
 
   filterData(filterValue: string) {

@@ -46,17 +46,13 @@
 
     <mat-card>
       <mat-table #table [dataSource]="dataSource" matSort matSortActive="lineNum" matSortDirection="asc" matSortDisableClear>
-
         <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
-
           <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col) }}</mat-header-cell>
-
           <ng-container *ngIf="i < displayedColumns.length-1; else actionsTemplate">
             <mat-cell *matCellDef=" let element "> {{(element[col] | datetime:col)}} </mat-cell>
           </ng-container>
           <ng-template #actionsTemplate>
             <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-
               <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
               <mat-menu #menu="matMenu">
                 <button *ngIf="allowActionsByStatus" mat-menu-item (click)="deleteRow(element)">מחק שורה</button>
@@ -67,8 +63,6 @@
             </mat-cell>
           </ng-template>
         </ng-container>
-
-
         <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns; " class="invoices-row-list-item " (click)="activateInvoiceRow(row) "></mat-row>
       </mat-table>
@@ -88,13 +82,13 @@
       </mat-card>
 
       <!-- No Rows Message -->
-      <div *ngIf="(listOfInvoiceRows$|async)?.length === 0" fxLayout="row " fxLayoutAlign="space-around center center
+      <div *ngIf="(listOfInvoiceRows$|async)?.length === 0 && !(isLoading$|async)" fxLayout="row " fxLayoutAlign="space-around center center
             " class="no-data-warn ">
         אין שורות לחשבונית
       </div>
 
 
-      <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25] " [showFirstLastButtons]="true ">
+      <mat-paginator #paginator [pageSize]="7" [pageSizeOptions]="[7, 10, 25] " [showFirstLastButtons]="true ">
       </mat-paginator>
 
     </mat-card>

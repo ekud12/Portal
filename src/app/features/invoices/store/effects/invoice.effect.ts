@@ -41,7 +41,9 @@ export class InvoiceEffects {
       this.toaster.openSnackBar(`חשבונית מס' ${val.invoice.invoiceNumField} נבחרה כפעילה.`, null);
       return val;
     }),
-    switchMap(val => [new userActions.GetInvoiceRows(val), new fromRoot.Go({ path: ['/portal/invoices/rows'] })])
+    switchMap(val => [
+      new userActions.GetInvoiceRows(val),
+      new fromRoot.Go({ path: ['/portal/invoices/rows'] })])
   );
 
   @Effect()

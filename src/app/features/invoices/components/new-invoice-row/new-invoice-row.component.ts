@@ -84,6 +84,7 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {}
   ngOnInit() {
+    // this.invoiceStore.dispatch(new fromInvoiceStore.ResetInvoiceRows());
     this.maxDate = moment().toDate();
     this.minDate = moment()
       .add(-12, 'month')
@@ -98,7 +99,6 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
         this.newInvoiceRowRequest.invoiceNum = inv.invoiceNumField;
       }
     });
-    this.invoiceStore.dispatch(new fromInvoiceStore.ResetInvoiceRows());
   }
 
   addInvoiceRow() {

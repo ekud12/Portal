@@ -60,6 +60,7 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
     case userActions.GET_INVOICE_ROWS_FAIL: {
       return {
         ...state,
+        listOfRowsForInvoice: [],
         errors: action.payload,
         isLoading: false
       };

@@ -86,10 +86,10 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }, 100);
+    // setTimeout(() => {
+    //   this.dataSource.paginator = this.paginator;
+    //   this.dataSource.sort = this.sort;
+    // }, 100);
   }
 
   ngOnInit() {
@@ -158,10 +158,5 @@ export class CardSwipeReportComponent implements OnInit, AfterViewInit {
 
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;
-  }
-
-  changeMinDate(value) {
-    console.log(value);
-    console.log(Date.parse(value));
   }
 }
