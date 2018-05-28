@@ -2,7 +2,9 @@
 
   <div class="title" fxHide.lt-md fxFlexOrder="1">
     <h1>פורטל ספקים</h1>
+    <ng-content></ng-content>
     <h2>שורות לחשבונית (ExtraNet)</h2>
+
   </div>
 
   <mat-card fxFlexOrder="2" class="invoices-rows-container" fxLayout="column" fxLayoutAlign="space-between  center center"
@@ -35,7 +37,7 @@
             <button mat-raised-button color="primary" class="btn" (click)="printData(4)">הדפס סיכום חשבונית</button>
           </div>
           <div>
-            <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" >הוסף שורה</button>
+            <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()">הוסף שורה</button>
             <button mat-raised-button color="primary" class="btn" (click)="closeInvoice()">סגירת דרישת תשלום</button>
 
           </div>

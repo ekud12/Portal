@@ -37,3 +37,14 @@
   margin: 0px 0px;
   width: auto;
 }
+
+.container-test {
+  position: absolute;
+  border-radius: 10px;
+  width: 40%;
+  right: 40%;
+  height: 88px;
+  z-index: 5000;
+  margin-top: 26px;
+  align-self: flex-end;
+}
