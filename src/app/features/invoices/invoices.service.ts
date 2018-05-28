@@ -9,7 +9,8 @@ import {
   NewInvoiceRequest,
   ObligationsByCustomerIdRequest,
   GetAllRowsForInvoiceRequest,
-  NewInvoiceRowRequest
+  NewInvoiceRowRequest,
+  DeleteInvoiceRowRequest
 } from './models/requests-models/requests';
 
 @Injectable()
@@ -36,6 +37,10 @@ export class InvoicesService {
 
   createInvoiceRow(request: NewInvoiceRowRequest): Observable<boolean> {
     return this.backendService.post<any>(httpRoutes.INVOICES_CREATE_NEW_INVOICE_ROW, request);
+  }
+
+  deleteInvoiceRow(request: DeleteInvoiceRowRequest): Observable<boolean> {
+    return this.backendService.delete(httpRoutes.INVOICES_DELETE_INVOICE_ROW, request);
   }
 
   /** Misc Actions */

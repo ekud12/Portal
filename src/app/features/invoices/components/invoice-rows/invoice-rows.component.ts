@@ -16,7 +16,7 @@ import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
 import { Invoice, PrintingOption, InvoiceRow } from '../../models/class-models/objects.model';
 import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
 import { ValidateAndCloseInvoiceComponent } from '../../utils/validate-and-close-invoice/validate-and-close-invoice.component';
-import { ObligationsByCustomerIdRequest } from '../../models/requests-models/requests';
+import { ObligationsByCustomerIdRequest, DeleteInvoiceRowRequest } from '../../models/requests-models/requests';
 
 @Component({
   selector: 'app-invoice-rows',
@@ -67,6 +67,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   errors$: Observable<any>;
   dataObject: PrintObject = new PrintObject();
   dataRequest$: Observable<SapakDataRequest>;
+  deleteRowRequest: DeleteInvoiceRowRequest = new DeleteInvoiceRowRequest();
   selectedFilter = this.displayedColumnsMap[1];
   dataSource;
   displayNoRecords = false;
@@ -92,34 +93,11 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.errors$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsErrorsSelector);
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }, 100);
-  }
+  ngAfterViewInit() {}
 
   ngOnInit() {
-    this.dataRequest$.take(1).subscribe(val => {
-      this.currentInvoice$.take(1).subscribe(inv => {
-        val.invoice = inv;
-      });
-      this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoiceRows(val));
-    });
-    this.loggedUserName$.subscribe(username => (this.obligationsByIdReq.userName = username));
-    this.currentSapak$.subscribe(spk => {
-      this.dataObject.headerDetailsValue1 = spk.kodSapak;
-      this.dataObject.headerDetailsValue2 = spk.description;
-      /** Init Future Requests  */
-      this.obligationsByIdReq.kodSapak = spk.kodSapak;
-    });
-    this.currentInvoice$.subscribe(val => {
-      if (val !== null && +val.statusField < 2) {
-        this.allowActionsByStatus = true;
-      } else {
-        this.allowActionsByStatus = false;
-      }
-    });
+    this.getAllInvoiceRows();
+    this.initFutureRequests();
     this.listOfInvoiceRows$.subscribe(val => {
       if (val !== null) {
         this.dataSource = new MatTableDataSource<InvoiceRow>(val);
@@ -177,14 +155,47 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getAllInvoiceRows() {
+    this.dataRequest$.take(1).subscribe(val => {
+      this.currentInvoice$.take(1).subscribe(inv => {
+        val.invoice = inv;
+      });
+      this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoiceRows(val));
+    });
+  }
+
+  initFutureRequests() {
+    this.loggedUserName$.subscribe(username => {
+      this.obligationsByIdReq.userName = username;
+      this.deleteRowRequest.userName = username;
+    });
+    this.currentSapak$.subscribe(spk => {
+      this.dataObject.headerDetailsValue1 = spk.kodSapak;
+      this.dataObject.headerDetailsValue2 = spk.description;
+      this.obligationsByIdReq.kodSapak = spk.kodSapak;
+      this.deleteRowRequest.kodSapak = spk.kodSapak;
+    });
+    this.currentInvoice$.subscribe(val => {
+      if (val !== null && +val.statusField < 2) {
+        this.allowActionsByStatus = true;
+      } else {
+        this.allowActionsByStatus = false;
+      }
+      this.deleteRowRequest.billMonth = val.billMonthField;
+      this.deleteRowRequest.invoiceNum = val.invoiceNumField;
+    });
+  }
+
   deleteRow(a: any) {
+    this.deleteRowRequest.invoiceRow = a.lineNumField;
     const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${a.lineNum})?` }
+      data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${a.lineNumField})?` }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Deleting row...');
-        /** delete invoice row and call op 03 to get all invoice rows again */
+        this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteRowRequest));
+        // this.getAllInvoiceRows();
+      } else {
       }
     });
   }
@@ -206,7 +217,6 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
 
   openKizuzDetailsForRow(row) {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
-    // this.invoiceStore.dispatch(new fromInvoiceStore.GetObligationsByCustomerId(this.obligationsByIdReq));
     this.routerStore.dispatch(new Go({ path: ['/portal/invoices/kizuz'], query: { returnUrl: this.router.url } }));
   }
 

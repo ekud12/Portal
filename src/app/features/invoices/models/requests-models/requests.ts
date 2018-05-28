@@ -29,6 +29,15 @@ export class NewInvoiceRowRequest {
   constructor() {}
 }
 
+export class DeleteInvoiceRowRequest {
+  userName: string;
+  kodSapak: string;
+  billMonth: string;
+  invoiceNum: string;
+  invoiceRow: string;
+  constructor() {}
+}
+
 export class RowUpdateRequest {
   commitment: string;
   custId: string;
