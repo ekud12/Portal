@@ -119,14 +119,14 @@
 
 ::ng-deep .mat-tab-label {
   width: 100% !important;
-  background-color: #009bdf;
+  background-color: rgb(0, 132, 219);
   opacity: 1 !important;
   color: white;
 }
 
 ::ng-deep .mat-tab-label-active {
   background-color: rgb(255, 255, 255);
-  color: #009bdf;
+  color: rgb(0, 132, 219);
 }
 
 .title {
@@ -149,7 +149,7 @@ h1 {
 }
 
 h2 {
-  background: #009bdf;
+  background: rgb(0, 132, 219);
   padding-right: 15px;
   color: #ffffff;
   width: 330px;

@@ -1,4 +1,3 @@
-
 h1 {
   background: #ffffff;
   padding-right: 15px;
@@ -15,7 +14,7 @@ h1 {
 }
 
 h2 {
-  background: #009bdf;
+  background: rgb(0, 132, 219);
   padding-right: 15px;
   color: #ffffff;
   width: 350px;

@@ -151,7 +151,7 @@ a:link {
 .mat-form-field-custom:before {
   content: '';
   position: absolute;
-  border-left: 8px #00a2ff solid;
+  border-left: 8px rgb(0, 132, 219) solid;
   right: -15px;
   top: 10px;
   height: 60%;
