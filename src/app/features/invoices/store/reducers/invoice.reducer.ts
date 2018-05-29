@@ -28,6 +28,13 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
       };
     }
     case userActions.GET_INVOICES_SUCCESS: {
+      const arr = action.payload.data.resultSetData;
+      arr.map(val => {
+        if (val['totalOffsetField'] !== '0.0') {
+          console.log(val);
+        }
+      });
+
       return {
         ...state,
         listOfInvoicesForSapak: action.payload.data.resultSetData,

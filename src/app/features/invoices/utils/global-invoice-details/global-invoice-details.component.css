@@ -32,3 +32,10 @@ table {
   border-collapse: separate;
   border-spacing: 10px 10px;
 }
+
+.info-row-title {
+  font-size: 20px;
+  text-decoration: underline;
+  font-weight: bold;
+  align-self: center;
+}
