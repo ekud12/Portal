@@ -1,9 +1,9 @@
 <mat-card *ngIf="(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch stretch" class="container-test">
   <table>
     <tr>
-      <td class="info-row-title">
+      <!-- <td class="info-row-title">
         חשבונית
-      </td>
+      </td> -->
       <td class="border-table" align="right">
         חשבונית מספר
         <div class="summary-content-item">{{(currentInvoice$|async)?.invoiceNumField}}</div>
@@ -34,9 +34,9 @@
       </td>
     </tr>
     <tr *ngIf=(currentInvoiceRow$|async)>
-      <td class="info-row-title">
+      <!-- <td class="info-row-title">
         שורה
-      </td>
+      </td> -->
       <td class="border-table" align="right">
         שורה מספר
         <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.lineNumField }}</div>
