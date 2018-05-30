@@ -54,7 +54,6 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('updateRowFormTag') myForm;
 
-  userName: string;
 
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;

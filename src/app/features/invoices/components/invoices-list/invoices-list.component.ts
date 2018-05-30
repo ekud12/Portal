@@ -34,7 +34,6 @@ export class InvoicesListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  userName: string;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
   listOfInvoices$: Observable<Invoice[]>;

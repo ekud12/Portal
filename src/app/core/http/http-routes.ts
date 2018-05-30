@@ -23,7 +23,8 @@ export enum httpRoutes {
 
   /** Files Handling endpoints */
   FILES_API = 'api/files',
-  FILES_UPLOAD_FILE = 'api/files/UploadFile',
+  FILES_UPLOAD_SUMMARY = 'api/files/UploadSummary',
+
   /** Treatments FOR SAPAK Server Endpoints */
   TREATMENTS_API = 'api/treatments',
   TREATMENTS_FOR_SAPAK_EP = 'api/treatments/GetTreatmentsForSapak',

@@ -7,14 +7,18 @@ export class InvoiceStatusPipe implements PipeTransform {
   transform(value: any, args?: any): any {
     if (args === 'statusField') {
       switch (value) {
-        case '1':
-          return 'בהקלדה';
-        case '8':
-          return 'בהקלדה זמן רב';
         case '0':
-          return 'טרם הוקלד';
+          return 'בהקלדה';
+        case '1':
+          return 'בהקלדה זמן רב';
+        case '6':
+          return 'ההקלדה הסתיימה';
+        case '7':
+          return 'ממתין להשלמות';
+        case '8':
+          return 'בבדיקה';
         case '9':
-          return 'סגורה';
+          return 'אושרה לתשלום';
         default:
           return value;
       }

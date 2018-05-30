@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uploader';
+import { httpRoutes } from '@http-routes';
+import { UploadFile, UploadInput, UploadOutput, UploaderOptions, humanizeBytes } from 'ngx-uploader';
+import { BackendService } from '../../core/services/backend.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -18,7 +20,7 @@ export class FileUploadComponent implements OnInit {
   uploadClass = 'drop-container';
   hideInput = false;
 
-  constructor() {
+  constructor(private backendService: BackendService) {
     this.options = {
       concurrency: 1,
       allowedContentTypes: [
@@ -64,10 +66,14 @@ export class FileUploadComponent implements OnInit {
   }
 
   startUpload(): void {
-    console.log(this.files);
+    const formData: FormData = new FormData();
+    console.log(this.files[0]);
+    formData.append('file', this.files[0].nativeFile, 'testFile');
+    console.log(formData.get('file'));
+    this.backendService.post(httpRoutes.FILES_UPLOAD_SUMMARY, { body: formData });
     const event: UploadInput = {
-      type: 'uploadAll',
-      url: 'http://ngx-uploader.com/upload',
+      type: 'uploadFile',
+      url: 'http://localhost/PortalSapakimAPI/api/files/UploadSummary',
       method: 'POST',
       data: { foo: 'bar' }
     };

@@ -60,7 +60,7 @@ export class ValidateAndCloseInvoiceComponent implements OnInit {
 
   closeInvoice() {
     this.processStage = 'checking';
-    // this.closeInvoiceVerified = true;
+
     setTimeout(() => (this.processStage = 'error'), 3000);
   }
 }

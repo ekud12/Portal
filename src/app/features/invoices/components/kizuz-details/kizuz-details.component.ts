@@ -28,7 +28,6 @@ import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pi
   styleUrls: ['./kizuz-details.component.css']
 })
 export class KizuzDetailsComponent implements OnInit {
-  userName: string;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
   activeInvoiceRow$: Observable<InvoiceRow>;

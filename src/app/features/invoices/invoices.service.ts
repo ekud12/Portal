@@ -6,11 +6,11 @@ import { BackendService } from '../../core/services/backend.service';
 import { SapakDataRequest } from '../user/models/sapak.model';
 import { Invoice, InvoiceRow, ObligationByCustomerId } from './models/class-models/objects.model';
 import {
-  NewInvoiceRequest,
-  ObligationsByCustomerIdRequest,
+  DeleteInvoiceRowRequest,
   GetAllRowsForInvoiceRequest,
+  NewInvoiceRequest,
   NewInvoiceRowRequest,
-  DeleteInvoiceRowRequest
+  ObligationsByCustomerIdRequest
 } from './models/requests-models/requests';
 
 @Injectable()
@@ -53,7 +53,7 @@ export class InvoicesService {
   }
 
   uploadInvoice(params: any): Observable<any> {
-    return this.backendService.post(httpRoutes.FILES_UPLOAD_FILE, {
+    return this.backendService.post(httpRoutes.FILES_UPLOAD_SUMMARY, {
       body: this.generateInvoiceFormData(params)
     });
   }

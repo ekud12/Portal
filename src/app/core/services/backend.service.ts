@@ -1,14 +1,13 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '@environment';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/operator/timeoutWith';
-
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '@environment';
-import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class BackendService {
@@ -23,12 +22,12 @@ export class BackendService {
   }
 
   get<T>(url: string, params?: any) {
-    return this.http
-      .get(this._generateUrl(url), { params: params })
-      .timeoutWith(5000, Observable.throw(this.timeoutError));
+    return this.http.get(this._generateUrl(url), { params: params }).timeoutWith(5000, Observable.throw(this.timeoutError));
   }
 
   post<T>(url: string, body: any, multipartData?: FormData) {
+    console.log(body);
+    console.log(url);
     return this.http.post(this._generateUrl(url), body).timeoutWith(5000, Observable.throw(this.timeoutError));
   }
 

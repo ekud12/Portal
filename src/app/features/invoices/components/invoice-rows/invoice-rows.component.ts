@@ -52,21 +52,28 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     floatLabel: 'never'
   };
 
-  /** Requests */
-  obligationsByIdReq: ObligationsByCustomerIdRequest = { kodSapak: '', userName: '', custId: '', custIdType: '' };
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  userName: string;
+
+  /**
+   * Store Observables
+   */
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
   listOfInvoiceRows$: Observable<InvoiceRow[]>;
   currentInvoice$: Observable<Invoice>;
   isLoading$: Observable<boolean>;
   errors$: Observable<any>;
-  dataObject: PrintObject = new PrintObject();
+  canActivate$: Observable<boolean>;
+
+  /**
+   * Requests
+   */
   dataRequest$: Observable<SapakDataRequest>;
+  obligationsByIdReq: ObligationsByCustomerIdRequest = { kodSapak: '', userName: '', custId: '', custIdType: '' };
   deleteRowRequest: DeleteInvoiceRowRequest = new DeleteInvoiceRowRequest();
+
+  dataObject: PrintObject = new PrintObject();
   selectedFilter = this.displayedColumnsMap[1];
   dataSource;
   displayNoRecords = false;
@@ -90,6 +97,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.dataRequest$ = this.userStore.select(fromUserStore.userNameAndCurrentSapakSelector);
     this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsLoadingSelector);
     this.errors$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsErrorsSelector);
+    this.canActivate$ = this.invoiceStore.select(fromInvoiceStore.canDoActionsForInvoiceSelector);
   }
 
   ngAfterViewInit() {}
@@ -131,7 +139,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
 
   activateInvoiceRow(row: any) {
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
-    // this.routerStore.dispatch(new Go({ path: ['/portal/invoices/treatments'] }));
+    this.routerStore.dispatch(new Go({ path: ['/portal/invoices/treatments'] }));
   }
 
   createNewInvoiceRow() {
@@ -223,6 +231,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;
   }
 
+  //#region Printing
   /************************************************  PRINTING ****************************************************/
   printData(type: PrintingOption): void {
     switch (type) {
@@ -316,4 +325,5 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   }
 
   /*********************************************************  END ************************************************************/
+  //#endregion
 }
