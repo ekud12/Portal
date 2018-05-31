@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as fromRoot from '@coreStore';
 import * as fromInvoiceStore from '@invoicesStore';
@@ -14,6 +14,7 @@ import { Invoice, InvoiceRow } from '../../models/class-models/objects.model';
   styleUrls: ['./global-invoice-details.component.css']
 })
 export class GlobalInvoiceDetailsComponent implements OnInit {
+  @Input() toHide: boolean;
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
   currentInvoice$: Observable<Invoice>;

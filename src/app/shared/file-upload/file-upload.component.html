@@ -1,23 +1,59 @@
 <div fxLayout="column" fxLayoutAlign="space-around center stretch" dir="rtl" class="dialog">
-  <h1 mat-dialog-title>טעינת סיכום ביקור</h1>
-  <mat-dialog-content class="dcontent">
+  <h1 mat-dialog-title>{{title}}</h1>
+  <mat-dialog-content class="dcontent" [ngSwitch]="stage">
+    <div *ngSwitchCase="'none'">
+      <div [ngClass]="uploadClass" fxLayout="column" fxLayoutAlign="space-around center center" ngFileDrop [options]="options"
+        (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" class="padded">
+        <div fxLayout="column" fxLayoutAlign="space-around center center">
+          <div>
+            {{ fileName }}
+          </div>
+          <div>
+            <label class="upload-button">
+              <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple> בחר קובץ להעלאה.
+            </label>
+          </div>
+        </div>
 
-    <div [ngClass]="uploadClass" fxLayout="column" fxLayoutAlign="space-around center center" ngFileDrop [options]="options"
-      (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
-      <div fxLayout="column" fxLayoutAlign="space-around center center">
-        <div>
-          {{ fileName }}
-        </div>
-        <div>
-          <label class="upload-button">
-            <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple> טען קובץ.
-          </label>
-        </div>
+      </div>
+      *שים לב: גודל קובץ מקסימלי: {{maxFilesizeAllowed | fileSize}}
+      <div fxLayout="row" fxLayoutAlign="center center" class="upload-buttons">
+        <button mat-raised-button [mat-dialog-close]="false" color="warn">נקה</button>
+        <button mat-raised-button (click)="startUpload()" [disabled]="!fileValid" color="primary">טען</button>
       </div>
     </div>
+
+    <div div *ngSwitchCase="'loading'" class="padded">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngSwitchCase="'success'" fxLayout="column" fxLayoutAlign="space-around center stretch" fxLayoutGap="30px" [@itemFade]
+      class="padded">
+      <div fxLayout="row" fxLayoutAlign="space-around center center">
+        <div>
+          <mat-icon class="success-icon">done</mat-icon>
+        </div>
+        <div>
+          <h2>סיכום ביקור נטען בהצלחה.</h2>
+        </div>
+      </div>
+      <button mat-raised-button [mat-dialog-close]="false" color="primary">חזור</button>
+    </div>
+
+    <div *ngSwitchCase="'error'" fxLayout="column" fxLayoutAlign="space-around center stretch" fxLayoutGap="30px" class="padded">
+      <div fxLayout="row" fxLayoutAlign="space-around center center">
+        <div>
+          <mat-icon class="error-icon">error_outline</mat-icon>
+        </div>
+        <div>
+          <h2>חלה שגיאה בעת טעינת סיכום הביקור.</h2>
+        </div>
+      </div>
+      <button mat-raised-button (click)="reset()" color="primary">חזור</button>
+    </div>
+
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-raised-button [mat-dialog-close]="false" color="warn">נקה</button>
-    <button mat-raised-button (click)="startUpload()" color="primary">טען</button>
+
   </mat-dialog-actions>
 </div>

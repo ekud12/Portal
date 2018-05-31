@@ -2,6 +2,11 @@
   width: 100%;
   height: 100%;
   border: 2px solid rgb(146, 146, 146);
+  color: rgb(0, 28, 46);
+}
+h1 {
+  font-size: 2em;
+  color: orange;
 }
 
 .drop-container {
@@ -61,4 +66,24 @@
 }
 input {
   display: none;
+}
+
+.padded {
+  padding: 30px 30px;
+}
+
+.success-icon {
+  font-weight: bold;
+  color: green;
+  font-size: 50px !important;
+}
+
+.error-icon {
+  font-weight: bold;
+  color: rgb(221, 0, 0);
+  font-size: 50px !important;
+}
+
+.upload-buttons {
+  padding: 10px 10px;
 }

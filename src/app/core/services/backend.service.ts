@@ -26,8 +26,6 @@ export class BackendService {
   }
 
   post<T>(url: string, body: any, multipartData?: FormData) {
-    console.log(body);
-    console.log(url);
     return this.http.post(this._generateUrl(url), body).timeoutWith(5000, Observable.throw(this.timeoutError));
   }
 

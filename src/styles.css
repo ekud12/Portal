@@ -35,6 +35,11 @@ a:link {
   text-decoration: none;
 }
 
+.snack-item {
+  justify-content: center;
+  align-self: center;
+  align-content: center;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 8px;

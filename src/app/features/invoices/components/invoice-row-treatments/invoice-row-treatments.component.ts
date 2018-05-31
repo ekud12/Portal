@@ -2,13 +2,13 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import * as fromRoot from '@coreStore';
+import { httpRoutes } from '@http-routes';
 import * as fromInvoiceStore from '@invoicesStore';
 import { Store } from '@ngrx/store';
 import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
 import { ToastService } from 'app/core/services/toast-service.service';
 import { Observable } from 'rxjs/Observable';
-
 import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.component';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { Sapak } from '../../../user/models/sapak.model';
@@ -53,7 +53,6 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('updateRowFormTag') myForm;
-
 
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
@@ -111,9 +110,19 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
 
   uploadSummary() {
     const dialogRef = this.dialog.open(FileUploadComponent, {
-      width: '50%',
-      height: '500px'
+      width: '40%',
+      height: '400px'
     });
+    const instance = dialogRef.componentInstance;
+    instance.title = 'טעינת סיכום ביקור';
+    instance.fileUploadEndpointInput = httpRoutes.FILES_UPLOAD_SUMMARY;
+    instance.allowedContentTypesInput = [
+      'application/pdf',
+      'application/x-pdf',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/msword'
+    ];
+    instance.maxFilesizeAllowed = 4194304;
   }
 
   addNewTreatments() {}

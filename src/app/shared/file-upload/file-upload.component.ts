@@ -1,62 +1,61 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { httpRoutes } from '@http-routes';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { UploadFile, UploadInput, UploadOutput, UploaderOptions, humanizeBytes } from 'ngx-uploader';
+import { fadeAnimation } from '../../core/animations';
 import { BackendService } from '../../core/services/backend.service';
 
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.css']
+  styleUrls: ['./file-upload.component.css'],
+  animations: [fadeAnimation]
 })
 export class FileUploadComponent implements OnInit {
+  // not all needed
   options: UploaderOptions;
-  formData: FormData;
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
   humanizeBytes: Function;
   dragOver: boolean;
-  fileName = 'גרור קובץ לכאן או ';
-  inputFileName = 'טען קובץ ידנית';
-  uploadClass = 'drop-container';
-  hideInput = false;
+  stage: string;
+  fileName: string;
+  inputFileName: string;
+  uploadClass: string;
+  hideInput: boolean;
+  fileValid = false;
+  @Input() title: string;
+  @Input() fileUploadEndpointInput: string;
+  @Input() allowedContentTypesInput: string[];
+  @Input() maxFilesizeAllowed: number;
 
   constructor(private backendService: BackendService) {
     this.options = {
       concurrency: 1,
-      allowedContentTypes: [
-        'application/pdf',
-        'application/x-pdf',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/msword'
-      ]
+      allowedContentTypes: this.allowedContentTypesInput
     };
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.reset();
+  }
 
   onUploadOutput(output: UploadOutput): void {
-    if (output.type === 'allAddedToQueue') {
-      // when all files added in queue
-      // uncomment this if you want to auto upload files when added
-      // const event: UploadInput = {
-      //   type: 'uploadAll',
-      //   url: '/upload',
-      //   method: 'POST',
-      //   data: { foo: 'bar' }
-      // };
-      // this.uploadInput.emit(event);
-    } else if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') {
-      // add file to array when added
-      this.files.push(output.file);
-      this.fileName = this.files[0].name;
-      this.uploadClass = 'drop-container-good';
-      this.hideInput = true;
-      /** add logic to send file to server */
+    if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') {
+      if (output.file.size > this.maxFilesizeAllowed) {
+        this.fileName = `הקובץ ${output.file.name}, חורג ממגבלת גודל הקובץ המקסימלי.`;
+        this.uploadClass = 'drop-container-bad';
+        this.hideInput = true;
+      } else {
+        this.files = [];
+        this.files.push(output.file);
+        this.fileName = this.files[0].name;
+        this.uploadClass = 'drop-container-good';
+        this.hideInput = true;
+        this.fileValid = true;
+      }
     } else if (output.type === 'removed') {
-      // remove file from array when removed
       this.files = this.files.filter((file: UploadFile) => file !== output.file);
     } else if (output.type === 'rejected' && typeof output.file !== 'undefined') {
       this.fileName = `הקובץ ${output.file.name}, הינו בפורמט לא נתמך.`;
@@ -66,30 +65,29 @@ export class FileUploadComponent implements OnInit {
   }
 
   startUpload(): void {
-    const formData: FormData = new FormData();
     console.log(this.files[0]);
+    const formData: FormData = new FormData();
     formData.append('file', this.files[0].nativeFile, 'testFile');
-    console.log(formData.get('file'));
-    this.backendService.post(httpRoutes.FILES_UPLOAD_SUMMARY, { body: formData });
-    const event: UploadInput = {
-      type: 'uploadFile',
-      url: 'http://localhost/PortalSapakimAPI/api/files/UploadSummary',
-      method: 'POST',
-      data: { foo: 'bar' }
-    };
-
-    this.uploadInput.emit(event);
+    this.stage = 'loading';
+    this.backendService.post(this.fileUploadEndpointInput, formData).subscribe(
+      val => {
+        console.log(val);
+        this.stage = 'success';
+      },
+      error => {
+        console.log(error);
+        this.stage = 'error';
+      }
+    );
   }
 
-  cancelUpload(id: string): void {
-    this.uploadInput.emit({ type: 'cancel', id: id });
-  }
-
-  removeFile(id: string): void {
-    this.uploadInput.emit({ type: 'remove', id: id });
-  }
-
-  removeAllFiles(): void {
-    this.uploadInput.emit({ type: 'removeAll' });
+  reset() {
+    this.stage = 'none';
+    this.files = [];
+    this.fileName = 'גרור קובץ לכאן או ';
+    this.inputFileName = 'טען קובץ ידנית';
+    this.uploadClass = 'drop-container';
+    this.hideInput = false;
+    this.fileValid = false;
   }
 }
