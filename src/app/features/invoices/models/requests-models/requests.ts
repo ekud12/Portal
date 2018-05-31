@@ -1,5 +1,3 @@
-import { SapakTreatment } from '../../../user/models/sapak.model';
-
 export class NewInvoiceRequest {
   invoiceDate: string;
   invoiceNum: string;
@@ -59,4 +57,13 @@ export class GetAllRowsForInvoiceRequest {
   userName: string;
   billMonth: string;
   invoiceNum: string;
+}
+
+export class GetAllTreatmentsForInvoiceRowRequest {
+  constructor() {}
+  kodSapak: string;
+  userName: string;
+  billMonth: string;
+  invoiceNum: string;
+  rowNum: string;
 }

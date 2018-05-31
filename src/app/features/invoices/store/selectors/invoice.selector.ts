@@ -16,7 +16,7 @@ export const invoiceErrorsSelector = createSelector(getInvoiceState, (state: fro
 export const invoiceLoadingSelector = createSelector(getInvoiceState, (state: fromInvoice.InvoiceState) => state.isLoading);
 
 export const canDoActionsForInvoiceSelector = createSelector(getInvoiceState, (state: fromInvoice.InvoiceState) => {
-  if (state.activeInvoice.statusField === '1' || state.activeInvoice.statusField === '0') {
+  if (state.activeInvoice && (state.activeInvoice.statusField === '1' || state.activeInvoice.statusField === '0')) {
     return true;
   } else {
     return false;

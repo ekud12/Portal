@@ -53,10 +53,58 @@ export class InvoiceRow {
   cstFullNameField?: string;
 }
 
-
-
 export class InvoiceTreatment {
   constructor() {}
+  PropertyChanged?: string;
+  amount2Field?: string;
+  amountField?: string;
+  commitmentIdField?: string;
+  currencyField?: string;
+  custFirstNameField?: string;
+  custIdField?: string;
+  custIdTypeField?: string;
+  custSecNameField?: string;
+  dateField?: string;
+  exeCodeField?: string;
+  invoiceNumField?: string;
+  invoiceSumField?: string;
+  invoiceTypeField?: string;
+  isDocField?: string;
+  isVatField?: string;
+  kzzCodeField?: string;
+  kzzDescField?: string;
+  kzzLiterally1Field?: string;
+  kzzLiterally2Field?: string;
+  kzzLiterally3Field?: string;
+  kzzLiterally4Field?: string;
+  kzzLiterally5Field?: string;
+  kzzLiterally6Field?: string;
+  kzzStatusDescField?: string;
+  kzzStatusField?: string;
+  kzzTypeDescField?: string;
+  kzzTypeField?: string;
+  lineNumField?: string;
+  rateField?: string;
+  remark1Field?: string;
+  remark2Field?: string;
+  requestTypeField?: string;
+  statusField?: string;
+  supplierCodeField?: string;
+  supplierDescField?: string;
+  totalKZZApprlField?: string;
+  totalOffsetField?: string;
+  totalRowsNumField?: string;
+  treatmentCodeField?: string;
+  treatmentDescField?: string;
+  treatmentNumField?: string;
+  treatmentRowNumField?: string;
+  typedAmount2Field?: string;
+  typedAmountField?: string;
+  typedSumField?: string;
+  userField?: string;
+  vatPerField?: string;
+  visitNumField?: string;
+  yearBillMonthField?: string;
 }
 
 export class CardSwipeForSapak {

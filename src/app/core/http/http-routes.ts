@@ -14,7 +14,7 @@ export enum httpRoutes {
 
   INVOICES_GET_ALL_INVOICES = 'api/invoices/GetAllInvoices',
   INVOICES_GET_ALL_ROWS = 'api/invoices/GetAllInvoiceRows',
-  INVOICES_GET_ALL_TREATMENTS = 'api/invoices/GetInvoiceTreatments',
+  INVOICES_GET_ALL_TREATMENTS_FOR_INVOICE_ROW = 'api/invoices/GetAllTreatmentsForInvoiceRow',
   INVOICES_CREATE_NEW_INVOICE = 'api/invoices/CreateNewInvoice',
   INVOICES_CREATE_NEW_INVOICE_ROW = 'api/invoices/CreateNewInvoiceRow',
   INVOICES_DELETE_INVOICE_ROW = 'api/invoices/DeleteInvoiceRow',

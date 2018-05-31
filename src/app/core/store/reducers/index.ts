@@ -1,16 +1,14 @@
 export * from './router.reducer';
 
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Params } from '@angular/router';
-import { createFeatureSelector, ActionReducerMap, ActionReducer, MetaReducer } from '@ngrx/store';
+import { InvoicesState } from '@invoicesStore';
+import * as fromRouter from '@ngrx/router-store';
+import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { DashboardState } from '@portalStore';
+import { SharedState } from '@sharedStore';
+import { UserState } from '@userStore';
+import { ZakautState } from '@zakautStore';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { RouterState, routerInitialState } from './router.reducer';
-import * as fromRouter from '@ngrx/router-store';
-
-import { ZakautState } from '@zakautStore';
-import { UserState } from '@userStore';
-import { InvoicesState } from '@invoicesStore';
-import { SharedState } from '@sharedStore';
-import { DashboardState } from '@portalStore';
 
 export interface AppState {
   router: fromRouter.RouterReducerState<RouterState>;
@@ -87,6 +85,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         invoices: {
           invoices: ['listOfInvoicesForSapak', 'activeInvoice'],
           rows: ['listOfRowsForInvoice', 'activeInvoiceRow'],
+          treat: ['listOfTreatmentsForRow', 'activeTreatment'],
           misc: ['cardSwipes', 'obligationsByCustomerId']
         }
       }

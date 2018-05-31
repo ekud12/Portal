@@ -1,18 +1,28 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { InvoicesState } from '../reducers';
+import { createSelector } from '@ngrx/store';
 import * as fromFeature from '../reducers';
+import * as fromInvoiceTreatRow from '../reducers/treat.reducer';
 
 export const getInvoiceRowTreatsState = createSelector(
   fromFeature.getInvoicesState,
   (state: fromFeature.InvoicesState) => state.treats
 );
 
-// export const currentInvoiceRowSelector = createSelector(
-//   getInvoiceRowState,
-//   (state: fromInvoiceRow.InvoiceRowState) => state.activeInvoiceRow
-// );
+export const currentRowTreatmentSelector = createSelector(
+  getInvoiceRowTreatsState,
+  (state: fromInvoiceTreatRow.InvoiceRowTreatState) => state.activeTreatment
+);
 
-// export const allInvoiceRowsSelector = createSelector(
-//   getInvoiceRowState,
-//   (state: fromInvoiceRow.InvoiceRowState) => state.listOfRowsForInvoice
-// );
+export const allTreatmentsForRowSelector = createSelector(
+  getInvoiceRowTreatsState,
+  (state: fromInvoiceTreatRow.InvoiceRowTreatState) => state.listOfTreatmentsForRow
+);
+
+export const treatmentRowLoadingSelector = createSelector(
+  getInvoiceRowTreatsState,
+  (state: fromInvoiceTreatRow.InvoiceRowTreatState) => state.isLoading
+);
+
+export const treatmentRowErrorsSelector = createSelector(
+  getInvoiceRowTreatsState,
+  (state: fromInvoiceTreatRow.InvoiceRowTreatState) => state.errors
+);

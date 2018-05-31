@@ -8,6 +8,7 @@ import { Invoice, InvoiceRow, ObligationByCustomerId } from './models/class-mode
 import {
   DeleteInvoiceRowRequest,
   GetAllRowsForInvoiceRequest,
+  GetAllTreatmentsForInvoiceRowRequest,
   NewInvoiceRequest,
   NewInvoiceRowRequest,
   ObligationsByCustomerIdRequest
@@ -29,6 +30,16 @@ export class InvoicesService {
     req.billMonth = request.invoice.billMonthField;
     req.invoiceNum = request.invoice.invoiceNumField;
     return this.backendService.post<any>(httpRoutes.INVOICES_GET_ALL_ROWS, req);
+  }
+
+  getAllTreatmentsForInvoiceRow(request: SapakDataRequest): Observable<InvoiceRow[]> {
+    const req = new GetAllTreatmentsForInvoiceRowRequest();
+    req.userName = request.userName;
+    req.kodSapak = request.kodSapak;
+    req.billMonth = request.invoice.billMonthField;
+    req.invoiceNum = request.invoice.invoiceNumField;
+    req.rowNum = request.invoiceRow.lineNumField;
+    return this.backendService.post<any>(httpRoutes.INVOICES_GET_ALL_TREATMENTS_FOR_INVOICE_ROW, req);
   }
 
   createInvoice(request: NewInvoiceRequest): Observable<boolean> {

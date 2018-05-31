@@ -11,7 +11,7 @@ import { ToastService } from 'app/core/services/toast-service.service';
 import { Observable } from 'rxjs/Observable';
 import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.component';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
-import { Sapak } from '../../../user/models/sapak.model';
+import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
 import { Invoice, InvoiceRow } from '../../models/class-models/objects.model';
 import { RowUpdateRequest } from '../../models/requests-models/requests';
 
@@ -63,7 +63,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   selectedFilter = this.displayedColumnsMap[1];
   dataSource;
   rowUpdateRequest = new RowUpdateRequest();
-
+  dataRequest$: Observable<SapakDataRequest>;
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
     private router: Router,
@@ -81,6 +81,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     });
     this.currentInvoiceRow$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceRowSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
+    this.dataRequest$ = this.userStore.select(fromUserStore.userNameAndCurrentSapakSelector);
   }
 
   ngAfterViewInit() {
@@ -92,6 +93,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.getAllTreatmentsForInvoiceRow();
     this.currentSapak$.subscribe(spk => {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
@@ -106,6 +108,18 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
+  }
+
+  getAllTreatmentsForInvoiceRow() {
+    this.dataRequest$.take(1).subscribe((val => {
+      this.currentInvoice$.take(1).subscribe(inv => {
+        val.invoice = inv;
+      });
+      this.currentInvoiceRow$.take(1).subscribe(row => {
+        val.invoiceRow = row;
+      });
+      this.invoiceStore.dispatch(new fromInvoiceStore.GetTreatmentsForRow(val));
+    }));
   }
 
   uploadSummary() {
