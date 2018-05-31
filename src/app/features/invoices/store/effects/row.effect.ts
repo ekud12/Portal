@@ -7,7 +7,7 @@ import * as fromRoot from '../../../../core/store';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
 import { InvoicesService } from '../../invoices.service';
 import { Invoice } from '../../models/class-models/objects.model';
-import { DeleteInvoiceRowRequest, NewInvoiceRowRequest } from '../../models/requests-models/requests';
+import { DeleteInvoiceRowRequest, NewInvoiceRowRequest, UpdateInvoiceRowRequest } from '../../models/requests-models/requests';
 import * as userActions from '../actions';
 
 @Injectable()
@@ -83,6 +83,28 @@ export class RowEffects {
         .pipe(
           switchMap(res => [new userActions.DeleteInvoiceRowSuccess(request)]),
           catchError(error => of(new userActions.DeleteInvoiceRowFail(error)))
+        );
+    })
+    // map((action: userActions.CreateInvoiceRow) => action.payload),
+    // tap(val => {
+    //   this.toaster.openSnackBar(`שורה מס' ${val.lineNum} נבחרה כפעילה.`, null);
+    // })
+    // map(() => {
+    //   return new fromRoot.Go({
+    //     path: ['/portal/invoices/treatments']
+    //   });
+    // })
+  );
+
+  @Effect()
+  updateInvoiceRow$ = this.actions$.ofType(userActions.UPDATE_INVOICE_ROW).pipe(
+    map((action: userActions.UpdateInvoiceRow) => action.payload),
+    switchMap((request: UpdateInvoiceRowRequest) => {
+      return this.invoicesService
+        .updateInvoiceRow(request)
+        .pipe(
+          switchMap(res => [new userActions.UpdateInvoiceRowSuccess(request)]),
+          catchError(error => of(new userActions.UpdateInvoiceRowFail(error)))
         );
     })
     // map((action: userActions.CreateInvoiceRow) => action.payload),

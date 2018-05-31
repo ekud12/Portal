@@ -17,20 +17,20 @@
       <div fxLayout="row" fxLayoutAlign="space-around center center">
         <mat-form-field class="mat-form-field-custom ">
           <input matInput placeholder="התחייבות" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).commitmentIdField"
-            name="date" (ngModelChange)="rowUpdateRequest.commitment
+            name="date" (ngModelChange)="tempUpdateRowRequest.commitment
           = $event">
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom ">
           <input matInput placeholder="תעודת זהות" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).custIdField"
-            name="id" (ngModelChange)="rowUpdateRequest.custId = $event">
+            name="id" (ngModelChange)="tempUpdateRowRequest.custId = $event">
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom ">
           <input matInput placeholder="סוג זיהוי" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).custIdTypeField"
-            name="idtype" (ngModelChange)="rowUpdateRequest.custIdType = $event">
+            name="idtype" (ngModelChange)="tempUpdateRowRequest.custIdType = $event">
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom ">
           <input matInput placeholder="מספר ביקור" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).visitNumField"
-            name="visit" (ngModelChange)="rowUpdateRequest.visitNum = $event">
+            name="visit" (ngModelChange)="tempUpdateRowRequest.visitNum = $event">
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center center">
           <div>

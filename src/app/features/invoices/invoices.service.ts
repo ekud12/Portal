@@ -11,7 +11,8 @@ import {
   GetAllTreatmentsForInvoiceRowRequest,
   NewInvoiceRequest,
   NewInvoiceRowRequest,
-  ObligationsByCustomerIdRequest
+  ObligationsByCustomerIdRequest,
+  UpdateInvoiceRowRequest
 } from './models/requests-models/requests';
 
 @Injectable()
@@ -52,6 +53,9 @@ export class InvoicesService {
 
   deleteInvoiceRow(request: DeleteInvoiceRowRequest): Observable<boolean> {
     return this.backendService.delete(httpRoutes.INVOICES_DELETE_INVOICE_ROW, request);
+  }
+  updateInvoiceRow(request: UpdateInvoiceRowRequest): Observable<boolean> {
+    return this.backendService.post(httpRoutes.INVOICES_UPDATE_INVOICE_ROW, request);
   }
 
   /** Misc Actions */

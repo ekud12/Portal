@@ -13,7 +13,7 @@ import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
 import { Invoice, InvoiceRow, InvoiceTreatment } from '../../models/class-models/objects.model';
-import { RowUpdateRequest } from '../../models/requests-models/requests';
+import { UpdateInvoiceRowRequest, UpdatedRowInputFromUser } from '../../models/requests-models/requests';
 
 @Component({
   selector: 'app-invoice-row-treatments',
@@ -21,6 +21,37 @@ import { RowUpdateRequest } from '../../models/requests-models/requests';
   styleUrls: ['./invoice-row-treatments.component.css']
 })
 export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('updateRowFormTag') myForm;
+
+  vars = {
+    hideRequired: true,
+    floatLabel: 'never'
+  };
+
+  /**
+   * Observables for Store
+   */
+  currentSapak$: Observable<Sapak>;
+  loggedUserName$: Observable<string>;
+  listOfTreatmentsForRow$: Observable<InvoiceTreatment[]>;
+  currentInvoice$: Observable<Invoice>;
+  currentInvoiceRow$: Observable<InvoiceRow>;
+  dataRequest$: Observable<SapakDataRequest>;
+  canActivate$: Observable<boolean>;
+
+  /**
+   * Special Local Objects and Requests
+   */
+  dataObject: PrintObject = new PrintObject();
+  tempUpdateRowRequest: UpdatedRowInputFromUser = new UpdatedRowInputFromUser();
+  updateRowRequest: UpdateInvoiceRowRequest = new UpdateInvoiceRowRequest();
+
+  /**
+   * Material Table parameters
+   */
+  dataSource;
   displayedColumns = [
     'treatmentCodeField',
     'treatmentDescField',
@@ -37,26 +68,8 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     { value: 'typedAmount2Field', viewValue: 'מחיר' },
     { value: 'actions', viewValue: '' }
   ];
-  vars = {
-    hideRequired: true,
-    floatLabel: 'never'
-  };
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('updateRowFormTag') myForm;
-
-  currentSapak$: Observable<Sapak>;
-  loggedUserName$: Observable<string>;
-  listOfTreatmentsForRow$: Observable<InvoiceTreatment[]>;
-  currentInvoice$: Observable<Invoice>;
-  currentInvoiceRow$: Observable<InvoiceRow>;
-  dataObject: PrintObject = new PrintObject();
   selectedFilter = this.displayedColumnsMap[1];
-  dataSource;
-  rowUpdateRequest = new RowUpdateRequest();
-  dataRequest$: Observable<SapakDataRequest>;
-  canActivate$: Observable<boolean>;
+
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
     private router: Router,
@@ -85,23 +98,46 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getAllTreatmentsForInvoiceRow();
-
-    this.currentSapak$.subscribe(spk => {
-      this.dataObject.headerDetailsValue1 = spk.kodSapak;
-      this.dataObject.headerDetailsValue2 = spk.description;
-    });
-    this.currentInvoice$.subscribe(val => {});
+    this.initFutureRequests();
     this.listOfTreatmentsForRow$.subscribe(val => {
       this.dataSource = new MatTableDataSource<InvoiceTreatment>(val);
     });
-    this.dataSource.filterPredicate = (data: Element, filter: string) =>
-      data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
+    // this.dataSource.filterPredicate = (data: Element, filter: string) =>
+    //   data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
   }
 
   filterData(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
+  }
+
+  initFutureRequests() {
+    this.loggedUserName$.subscribe(username => {
+      this.updateRowRequest.userName = username;
+    });
+    this.currentSapak$.subscribe(spk => {
+      this.dataObject.headerDetailsValue1 = spk.kodSapak;
+      this.dataObject.headerDetailsValue2 = spk.description;
+      this.updateRowRequest.kodSapak = spk.kodSapak;
+    });
+    this.currentInvoice$.subscribe(val => {
+      this.updateRowRequest.invoiceNum = val.invoiceNumField;
+      this.updateRowRequest.billMonth = val.billMonthField;
+      this.updateRowRequest.billMonth = val.billMonthField;
+    });
+    this.currentInvoiceRow$.subscribe(val => {
+      this.updateRowRequest.rowNum = val.lineNumField;
+      this.updateRowRequest.custId = val.custIdField;
+      this.updateRowRequest.custIdType = val.custIdTypeField;
+      this.updateRowRequest.commitmentId = val.commitmentIdField;
+      this.updateRowRequest.visitNum = val.visitNumField;
+      this.updateRowRequest.date = val.dateField;
+      this.tempUpdateRowRequest.custIdType = val.custIdTypeField;
+      this.tempUpdateRowRequest.custId = val.custIdField;
+      this.tempUpdateRowRequest.commitment = val.commitmentIdField;
+      this.tempUpdateRowRequest.visitNum = val.visitNumField;
+    });
   }
 
   getAllTreatmentsForInvoiceRow() {
@@ -116,7 +152,15 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  updateRow() {}
+  updateRow(row: InvoiceRow) {
+    console.log(this.tempUpdateRowRequest);
+    this.updateRowRequest.custIdType = this.tempUpdateRowRequest.custIdType;
+    this.updateRowRequest.custId = this.tempUpdateRowRequest.custId;
+    this.updateRowRequest.visitNum = this.tempUpdateRowRequest.visitNum;
+    this.updateRowRequest.commitmentId = this.tempUpdateRowRequest.commitment;
+    this.invoiceStore.dispatch(new fromInvoiceStore.UpdateInvoiceRow(this.updateRowRequest));
+  }
+
   uploadSummary() {
     const dialogRef = this.dialog.open(FileUploadComponent, {
       width: '40%',

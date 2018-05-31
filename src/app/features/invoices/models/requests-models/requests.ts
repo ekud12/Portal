@@ -36,13 +36,27 @@ export class DeleteInvoiceRowRequest {
   constructor() {}
 }
 
-export class RowUpdateRequest {
-  commitment: string;
-  custId: string;
-  custIdType: string;
-  visitNum: string;
+export class UpdateInvoiceRowRequest {
+  constructor() {}
+  userName: string;
+  kodSapak: string;
+  billMonth: string;
+  invoiceNum: string;
+  rowNum: string;
+  custIdType?: string;
+  custId?: string;
+  commitmentId?: string;
+  visitNum?: string;
+  date?: Date;
 }
 
+export class UpdatedRowInputFromUser {
+  constructor() {}
+  custIdType: string;
+  custId: string;
+  commitment: string;
+  visitNum: string;
+}
 export class ObligationsByCustomerIdRequest {
   constructor() {}
   userName: string;

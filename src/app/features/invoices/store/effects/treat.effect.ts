@@ -14,18 +14,6 @@ import * as userActions from '../actions';
 export class TreatmentsEffects {
   constructor(private actions$: Actions, private invoicesService: InvoicesService, private toaster: ToastService) {}
 
-  @Effect({ dispatch: false })
-  activateInvoiceRow$ = this.actions$.ofType(userActions.ACTIVATE_INVOICE_ROW).pipe(
-    map((action: userActions.ActivateInvoiceRow) => action.payload),
-    tap(val => {
-      this.toaster.openSnackBar(`שורה מס' ${val.lineNumField} נבחרה כפעילה.`, null);
-    })
-    // map(() => {
-    //   return new fromRoot.Go({
-    //     path: ['/portal/invoices/treatments']
-    //   });
-    // })
-  );
 
   @Effect()
   getTreatmentsForInvoiceRow$ = this.actions$.ofType(userActions.GET_TREATMENTS_FOR_ROW).pipe(
@@ -39,87 +27,4 @@ export class TreatmentsEffects {
         );
     })
   );
-
-  @Effect()
-  createInvoiceRow$ = this.actions$.ofType(userActions.CREATE_INVOICE_ROW).pipe(
-    map((action: userActions.CreateInvoiceRow) => action.payload),
-    switchMap((request: NewInvoiceRowRequest) => {
-      return this.invoicesService
-        .createInvoiceRow(request)
-        .pipe(
-          switchMap(res => [new userActions.CreateInvoiceRowSuccess(res)]),
-          catchError(error => of(new userActions.CreateInvoiceRowFail(error)))
-        );
-    })
-    // map((action: userActions.CreateInvoiceRow) => action.payload),
-    // tap(val => {
-    //   this.toaster.openSnackBar(`שורה מס' ${val.lineNum} נבחרה כפעילה.`, null);
-    // })
-    // map(() => {
-    //   return new fromRoot.Go({
-    //     path: ['/portal/invoices/treatments']
-    //   });
-    // })
-  );
-
-  @Effect()
-  createInvoiceRowSuccess$ = this.actions$.ofType(userActions.CREATE_INVOICE_ROW_SUCCESS).pipe(
-    tap(val => {
-      this.toaster.openSnackBar(`שורה נוספה בהצלחה!`, null);
-    }),
-    map(() => {
-      return new fromRoot.Go({
-        path: ['/portal/invoices/rows']
-      });
-    })
-  );
-
-  @Effect()
-  deleteInvoiceRow$ = this.actions$.ofType(userActions.DELETE_INVOICE_ROW).pipe(
-    map((action: userActions.DeleteInvoiceRow) => action.payload),
-    switchMap((request: DeleteInvoiceRowRequest) => {
-      return this.invoicesService
-        .deleteInvoiceRow(request)
-        .pipe(
-          switchMap(res => [new userActions.DeleteInvoiceRowSuccess(request)]),
-          catchError(error => of(new userActions.DeleteInvoiceRowFail(error)))
-        );
-    })
-    // map((action: userActions.CreateInvoiceRow) => action.payload),
-    // tap(val => {
-    //   this.toaster.openSnackBar(`שורה מס' ${val.lineNum} נבחרה כפעילה.`, null);
-    // })
-    // map(() => {
-    //   return new fromRoot.Go({
-    //     path: ['/portal/invoices/treatments']
-    //   });
-    // })
-  );
-
-  @Effect()
-  deleteInvoiceCompleted$ = this.actions$
-    /** IN CASE its last row it returns an error, needs fixing on as400 part to indicate the case as success
-     */
-    .ofType(userActions.DELETE_INVOICE_ROW_SUCCESS)
-    .pipe(
-      map((action: userActions.DeleteInvoiceRowSuccess) => action.payload),
-      map((request: DeleteInvoiceRowRequest) => {
-        const newRequest = new SapakDataRequest();
-        newRequest.invoice = new Invoice();
-        newRequest.invoice.invoiceNumField = request.invoiceNum;
-        newRequest.invoice.billMonthField = request.billMonth;
-        newRequest.userName = request.userName;
-        newRequest.kodSapak = request.kodSapak;
-        return newRequest;
-      }),
-      tap(val => {
-        this.toaster.openSnackBar(`שורה נמחקה בהצלחה!`, null);
-      }),
-      switchMap(val => [new userActions.GetInvoiceRows(val)])
-    );
-
-  @Effect()
-  resetInvoiceRows$ = this.actions$
-    .ofType(userActions.ACTIVATE_INVOICE)
-    .pipe(switchMap(val => [new userActions.ResetInvoiceRows()]));
 }

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
-import { NewInvoiceRowRequest, DeleteInvoiceRowRequest } from '../../models/requests-models/requests';
+import { DeleteInvoiceRowRequest, NewInvoiceRowRequest, UpdateInvoiceRowRequest } from '../../models/requests-models/requests';
 
 export const GET_INVOICE_ROWS = '[Invoice] Get Invoice Rows';
 export const GET_INVOICE_ROWS_SUCCESS = '[Invoice] Get Invoices Rows Success';
@@ -21,6 +21,11 @@ export const DELETE_INVOICE_ROW = '[Invoice] Delete Invoice Row';
 export const DELETE_INVOICE_ROW_SUCCESS = '[Invoice] Delete Invoice Row Success';
 export const DELETE_INVOICE_ROW_FAIL = '[Invoice] Delete Invoice Row Fail';
 export const DELETE_INVOICE_ROW_COMPLETED = '[Invoice] Delete Row Completed';
+
+export const UPDATE_INVOICE_ROW = '[Invoice] Update Invoice Row';
+export const UPDATE_INVOICE_ROW_SUCCESS = '[Invoice] Update Invoice Row Success';
+export const UPDATE_INVOICE_ROW_FAIL = '[Invoice] Update Invoice Row Fail';
+export const UPDATE_INVOICE_ROW_COMPLETED = '[Invoice] Update Row Completed';
 
 export const RESET_INVOICE_ROWS = '[Invoice] Reset Invoice Rows';
 
@@ -96,6 +101,22 @@ export class DeleteInvoiceRowCompleted implements Action {
   readonly type = DELETE_INVOICE_ROW_COMPLETED;
 }
 
+export class UpdateInvoiceRow implements Action {
+  readonly type = UPDATE_INVOICE_ROW;
+  constructor(public payload: UpdateInvoiceRowRequest) {}
+}
+export class UpdateInvoiceRowSuccess implements Action {
+  readonly type = UPDATE_INVOICE_ROW_SUCCESS;
+  constructor(public payload: any) {}
+}
+export class UpdateInvoiceRowFail implements Action {
+  readonly type = UPDATE_INVOICE_ROW_FAIL;
+  constructor(public payload: any) {}
+}
+export class UpdateInvoiceRowCompleted implements Action {
+  readonly type = UPDATE_INVOICE_ROW_COMPLETED;
+}
+
 export class ResetInvoiceRows implements Action {
   readonly type = RESET_INVOICE_ROWS;
 }
@@ -105,4 +126,13 @@ export type userRowActions =
   | ActivateInvoiceRowSuccess
   | ActivateInvoiceRowFail
   | ActivateInvoiceRowCompleted
+  | CreateInvoiceRow
+  | CreateInvoiceRowSuccess
+  | CreateInvoiceRowFail
+  | DeleteInvoiceRow
+  | DeleteInvoiceRowSuccess
+  | DeleteInvoiceRowFail
+  | UpdateInvoiceRowSuccess
+  | UpdateInvoiceRow
+  | UpdateInvoiceRowFail
   | ResetInvoiceRows;
