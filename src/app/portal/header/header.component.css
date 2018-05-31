@@ -12,16 +12,15 @@
 
 .navbar .logo {
   padding-right: 10px;
+  height: 54px;
+  width: 229px;
 }
-
+img {
+  max-width: 100%;
+}
 .navbar .link {
   margin-left: 10px;
   margin-right: 10px;
-}
-
-.navbar .hamburger {
-  /* background: rgb(0, 132, 219);
-  color: white; */
 }
 
 .active {
