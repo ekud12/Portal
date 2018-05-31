@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.component';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
-import { Invoice, InvoiceRow } from '../../models/class-models/objects.model';
+import { Invoice, InvoiceRow, InvoiceTreatment } from '../../models/class-models/objects.model';
 import { RowUpdateRequest } from '../../models/requests-models/requests';
 
 @Component({
@@ -22,27 +22,19 @@ import { RowUpdateRequest } from '../../models/requests-models/requests';
 })
 export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   displayedColumns = [
-    'lineNum',
-    'commitmentId',
-    'cstFormattedId',
-    'custFirstName',
-    'custSecName',
-    'typedAmount',
-    'date',
-    'amount',
-    'visitNum',
+    'treatmentCodeField',
+    'treatmentDescField',
+    'dateField',
+    'treatmentNumField',
+    'typedAmount2Field',
     'actions'
   ];
   displayedColumnsMap = [
-    { value: 'lineNum', viewValue: 'מספר שורה' },
-    { value: 'commitmentId', viewValue: 'מספר התחייבות' },
-    { value: 'cstFormattedId', viewValue: 'מספר זיהוי' },
-    { value: 'custFirstName', viewValue: 'שם פרטי' },
-    { value: 'custSecName', viewValue: 'שם משפחה' },
-    { value: 'typedAmount', viewValue: 'סכום' },
-    { value: 'date', viewValue: 'תאריך' },
-    { value: 'amount', viewValue: 'מספר טיפולים' },
-    { value: 'visitNum', viewValue: 'מספר ביקור' },
+    { value: 'treatmentCodeField', viewValue: 'קוד טיפול' },
+    { value: 'treatmentDescField', viewValue: 'תיאור טיפול' },
+    { value: 'dateField', viewValue: 'תאריך' },
+    { value: 'treatmentNumField', viewValue: 'כמות' },
+    { value: 'typedAmount2Field', viewValue: 'מחיר' },
     { value: 'actions', viewValue: '' }
   ];
   vars = {
@@ -56,7 +48,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
 
   currentSapak$: Observable<Sapak>;
   loggedUserName$: Observable<string>;
-  listOfInvoiceRows$: Observable<InvoiceRow[]>;
+  listOfTreatmentsForRow$: Observable<InvoiceTreatment[]>;
   currentInvoice$: Observable<Invoice>;
   currentInvoiceRow$: Observable<InvoiceRow>;
   dataObject: PrintObject = new PrintObject();
@@ -64,6 +56,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   dataSource;
   rowUpdateRequest = new RowUpdateRequest();
   dataRequest$: Observable<SapakDataRequest>;
+  canActivate$: Observable<boolean>;
   constructor(
     private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
     private router: Router,
@@ -75,13 +68,11 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   ) {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
-    this.listOfInvoiceRows$ = this.invoiceStore.select(fromInvoiceStore.allInvoiceRowsSelector);
-    this.listOfInvoiceRows$.subscribe(val => {
-      this.dataSource = new MatTableDataSource<InvoiceRow>(val);
-    });
+    this.listOfTreatmentsForRow$ = this.invoiceStore.select(fromInvoiceStore.allTreatmentsForRowSelector);
     this.currentInvoiceRow$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceRowSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
     this.dataRequest$ = this.userStore.select(fromUserStore.userNameAndCurrentSapakSelector);
+    this.canActivate$ = this.invoiceStore.select(fromInvoiceStore.canDoActionsForInvoiceSelector);
   }
 
   ngAfterViewInit() {
@@ -94,12 +85,15 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getAllTreatmentsForInvoiceRow();
+
     this.currentSapak$.subscribe(spk => {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
     });
     this.currentInvoice$.subscribe(val => {});
-
+    this.listOfTreatmentsForRow$.subscribe(val => {
+      this.dataSource = new MatTableDataSource<InvoiceTreatment>(val);
+    });
     this.dataSource.filterPredicate = (data: Element, filter: string) =>
       data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
   }
@@ -111,7 +105,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   }
 
   getAllTreatmentsForInvoiceRow() {
-    this.dataRequest$.take(1).subscribe((val => {
+    this.dataRequest$.take(1).subscribe(val => {
       this.currentInvoice$.take(1).subscribe(inv => {
         val.invoice = inv;
       });
@@ -119,9 +113,10 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
         val.invoiceRow = row;
       });
       this.invoiceStore.dispatch(new fromInvoiceStore.GetTreatmentsForRow(val));
-    }));
+    });
   }
 
+  updateRow() {}
   uploadSummary() {
     const dialogRef = this.dialog.open(FileUploadComponent, {
       width: '40%',
@@ -152,6 +147,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   //   });
   // }
 
+  addTreatment() {}
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;
   }

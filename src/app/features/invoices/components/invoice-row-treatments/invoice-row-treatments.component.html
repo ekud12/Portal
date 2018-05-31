@@ -1,8 +1,13 @@
 <div fxLayout="column" fxLayoutAlign="space-around center stretch">
 
-  <div class="title" fxHide.lt-md fxFlexOrder="1">
-    <h1>פורטל ספקים</h1>
-    <h2>רשימת טיפולים לשורה (ExtraNet)</h2>
+  <div class="title" fxHide.lt-md fxFlexOrder="1" fxLayout="row" fxLayoutAlign="start end">
+    <div style="margin-left: 63px;">
+      <h1>פורטל ספקים</h1>
+      <h2>רשימת טיפולים לשורה (ExtraNet)</h2>
+    </div>
+    <div fxFlex>
+      <app-global-invoice-details></app-global-invoice-details>
+    </div>
   </div>
 
   <mat-card fxFlexOrder="2" class="treatments-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="10px">
@@ -10,50 +15,46 @@
     <form #updateRowFormTag="ngForm" fxLayout="column" fxLayoutAlign="space-around stretch center" novalidate fxLayoutGap="10px"
       class="row-update-form">
       <div fxLayout="row" fxLayoutAlign="space-around center center">
-        <mat-form-field>
-          <input matInput placeholder="התחייבות" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).commitmentIdField"
+        <mat-form-field class="mat-form-field-custom ">
+          <input matInput placeholder="התחייבות" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).commitmentIdField"
             name="date" (ngModelChange)="rowUpdateRequest.commitment
           = $event">
         </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="תעודת זהות" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).custIdField"
+        <mat-form-field class="mat-form-field-custom ">
+          <input matInput placeholder="תעודת זהות" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).custIdField"
             name="id" (ngModelChange)="rowUpdateRequest.custId = $event">
         </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="סוג זיהוי" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).custIdTypeField"
+        <mat-form-field class="mat-form-field-custom ">
+          <input matInput placeholder="סוג זיהוי" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).custIdTypeField"
             name="idtype" (ngModelChange)="rowUpdateRequest.custIdType = $event">
         </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="מספר ביקור" [readonly]="(currentInvoice$|async).statusField == '1'" [ngModel]="(currentInvoiceRow$|async).visitNumField"
+        <mat-form-field class="mat-form-field-custom ">
+          <input matInput placeholder="מספר ביקור" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).visitNumField"
             name="visit" (ngModelChange)="rowUpdateRequest.visitNum = $event">
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center center">
           <div>
-            <!-- <button mat-raised-button color="primary" *ngIf="(currentInvoice$|async).statusField == '1'" class="btn" (click)="createNewInvoiceRow()">עדכן</button> -->
+            <button mat-raised-button color="primary" *ngIf="(canActivate$|async)" class="btn" (click)="updateRow()">עדכן שורה</button>
           </div>
         </div>
       </div>
     </form>
 
     <div fxLayout="row" fxLayoutAlign="space-between center center">
-      <!-- <div>
-        <button mat-raised-button color="primary" class="btn" (click)="createNewInvoiceRow()" *ngIf="(currentInvoice$|async).statusField < 2">הוספת טיפול</button>
-      </div> -->
+      <div>
+        <button mat-raised-button color="primary" class="btn" (click)="addTreatment()" *ngIf="(canActivate$|async)">הוספת טיפול</button>
+      </div>
     </div>
 
     <mat-card>
       <mat-table #table [dataSource]="dataSource" matSort matSortActive="lineNum" matSortDirection="asc" matSortDisableClear>
-
         <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
-
           <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col) }}</mat-header-cell>
-
           <ng-container *ngIf="i < displayedColumns.length-1; else actionsTemplate">
             <mat-cell *matCellDef=" let element "> {{(element[col] | invoiceRowDate)}} </mat-cell>
           </ng-container>
           <ng-template #actionsTemplate>
             <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-
               <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
               <mat-menu #menu="matMenu">
                 <!-- <button *ngIf="(currentInvoice$|async).statusField < 2" mat-menu-item>מחיקת שורה</button> -->
@@ -69,7 +70,7 @@
         <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns; " class="invoices-row-list-item"></mat-row>
       </mat-table>
-      <div *ngIf="(listOfInvoiceRows$|async).length===0 " fxLayout="row " fxLayoutAlign="space-around center center
+      <div *ngIf="(listOfTreatmentsForRow$|async).length===0 " fxLayout="row " fxLayoutAlign="space-around center center
               " class="no-data-warn ">
         אין שורות לחשבונית
       </div>
