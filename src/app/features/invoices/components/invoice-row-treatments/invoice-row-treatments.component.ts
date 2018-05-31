@@ -133,10 +133,10 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
       this.updateRowRequest.commitmentId = val.commitmentIdField;
       this.updateRowRequest.visitNum = val.visitNumField;
       this.updateRowRequest.date = val.dateField;
-      this.tempUpdateRowRequest.custIdType = val.custIdTypeField;
-      this.tempUpdateRowRequest.custId = val.custIdField;
-      this.tempUpdateRowRequest.commitment = val.commitmentIdField;
-      this.tempUpdateRowRequest.visitNum = val.visitNumField;
+      // this.tempUpdateRowRequest.custIdType = val.custIdTypeField;
+      // this.tempUpdateRowRequest.custId = val.custIdField;
+      // this.tempUpdateRowRequest.commitment = val.commitmentIdField;
+      // this.tempUpdateRowRequest.visitNum = val.visitNumField;
     });
   }
 
