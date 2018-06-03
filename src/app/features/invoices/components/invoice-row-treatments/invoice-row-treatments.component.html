@@ -18,23 +18,24 @@
         <mat-form-field class="mat-form-field-custom ">
           <input matInput placeholder="התחייבות" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).commitmentIdField"
             name="date" (ngModelChange)="tempUpdateRowRequest.commitment
-          = $event">
+          = $event" pattern="\d{9,9}" required maxlength="9">
         </mat-form-field>
-        <mat-form-field class="mat-form-field-custom ">
+        <mat-form-field class="mat-form-field-custom">
           <input matInput placeholder="תעודת זהות" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).custIdField"
-            name="id" (ngModelChange)="tempUpdateRowRequest.custId = $event">
+            name="id" (ngModelChange)="tempUpdateRowRequest.custId = $event" pattern="\d{9,9}" required maxlength="9">
         </mat-form-field>
-        <mat-form-field class="mat-form-field-custom ">
+        <mat-form-field class="mat-form-field-custom">
           <input matInput placeholder="סוג זיהוי" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).custIdTypeField"
-            name="idtype" (ngModelChange)="tempUpdateRowRequest.custIdType = $event">
+            name="idtype" (ngModelChange)="tempUpdateRowRequest.custIdType = $event" required>
         </mat-form-field>
-        <mat-form-field class="mat-form-field-custom ">
+        <mat-form-field class="mat-form-field-custom">
           <input matInput placeholder="מספר ביקור" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).visitNumField"
-            name="visit" (ngModelChange)="tempUpdateRowRequest.visitNum = $event">
+            name="visit" pattern="\d{1,11}" (ngModelChange)="tempUpdateRowRequest.visitNum = $event" required maxlength="11">
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center center">
           <div>
-            <button mat-raised-button color="primary" *ngIf="(canActivate$|async)" class="btn" (click)="updateRow()">עדכן שורה</button>
+            <button mat-raised-button color="primary" *ngIf="(canActivate$|async)" [disabled]="!updateRowFormTag.form.valid" class="btn"
+              (click)="updateRow()">עדכן שורה</button>
           </div>
         </div>
       </div>

@@ -28,17 +28,17 @@ export class FileUploadComponent implements OnInit {
   @Input() maxFilesizeAllowed: number;
 
   constructor(private backendService: BackendService) {
-    this.options = {
-      concurrency: 1,
-      allowedContentTypes: this.allowedContentTypesInput
-    };
-    this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
   }
 
   ngOnInit() {
     this.reset();
+    this.options = {
+      concurrency: 1,
+      allowedContentTypes: this.allowedContentTypesInput
+    };
+    this.files = []; // local uploading files array
   }
 
   onUploadOutput(output: UploadOutput): void {
