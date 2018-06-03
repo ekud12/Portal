@@ -26,7 +26,7 @@ export class FileUploadComponent implements OnInit {
   @Input() fileUploadEndpointInput: string;
   @Input() allowedContentTypesInput: string[];
   @Input() maxFilesizeAllowed: number;
-
+  @Input() successMsg: string;
   constructor(private backendService: BackendService) {
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;

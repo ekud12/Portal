@@ -38,7 +38,23 @@ export class NewTreatmentForRowRequest {
   treatCount: string;
   date: Date;
   typedObligationAmount?: string;
-  linesNum: string;
+  linesNum = '999';
+}
+
+export class DeleteTreatmentForRowRequest {
+  userName: string;
+  kodSapak: string;
+  billMonth: string;
+  invoiceNum: string;
+  invoiceRow: string;
+  treatmentRowNum: string;
+  commitmentId: string;
+  date: Date;
+  treatCode: string;
+  treatCount: string;
+  typedObligationAmount: string;
+
+  constructor() {}
 }
 export class DeleteInvoiceRowRequest {
   userName: string;

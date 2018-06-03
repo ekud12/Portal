@@ -10,11 +10,16 @@ import * as fromSharedStore from '@sharedStore';
 import * as fromUserStore from '@userStore';
 import { ToastService } from 'app/core/services/toast-service.service';
 import { Observable } from 'rxjs/Observable';
+import { AlertDialogComponent } from '../../../../shared/alert-dialog/alert-dialog.component';
 import { FileUploadComponent } from '../../../../shared/file-upload/file-upload.component';
 import { PrintObject } from '../../../../shared/global-models/print-object.interface';
 import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
 import { Invoice, InvoiceRow, InvoiceTreatment } from '../../models/class-models/objects.model';
-import { UpdateInvoiceRowRequest, UpdatedRowInputFromUser } from '../../models/requests-models/requests';
+import {
+  DeleteTreatmentForRowRequest,
+  UpdateInvoiceRowRequest,
+  UpdatedRowInputFromUser
+} from '../../models/requests-models/requests';
 
 @Component({
   selector: 'app-invoice-row-treatments',
@@ -48,7 +53,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   dataObject: PrintObject = new PrintObject();
   tempUpdateRowRequest: UpdatedRowInputFromUser = new UpdatedRowInputFromUser();
   updateRowRequest: UpdateInvoiceRowRequest = new UpdateInvoiceRowRequest();
-
+  deleteTreatmentForRowRequest: DeleteTreatmentForRowRequest = new DeleteTreatmentForRowRequest();
   /**
    * Material Table parameters
    */
@@ -176,23 +181,27 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
       'application/msword'
     ];
     instance.maxFilesizeAllowed = 4194304;
+    instance.successMsg = 'סיכום ביקור נטען בהצלחה.';
   }
 
-  addNewTreatments() {}
-
-  // deleteTreatments(a: any) {
-  //   const dialogRef = this.dialog.open(AlertDialogComponent, {
-  //     data: { data: 'האם למחוק את השורה הנוכחית?' }
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       /** delete invoice row and call op 03 to get all invoice rows again */
-  //     }
-  //   });
-  // }
 
   addTreatment() {
     this.routerStore.dispatch(new Go({ path: ['portal/invoices/newTreatment'], query: { returnUrl: this.router.url } }));
+  }
+
+  deleteTreatment(treatRow: InvoiceTreatment) {
+    this.deleteTreatmentForRowRequest.invoiceRow = treatRow.lineNumField;
+    /** add per request */
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${treatRow.lineNumField})?` }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteTreatmentForRowRequest));
+        // this.getAllInvoiceRows();
+      } else {
+      }
+    });
   }
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;

@@ -58,7 +58,7 @@
             <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
               <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
               <mat-menu #menu="matMenu">
-                <!-- <button *ngIf="(currentInvoice$|async).statusField < 2" mat-menu-item>מחיקת שורה</button> -->
+                <button *ngIf="(canActivate$|async)" mat-menu-item (click)="deleteTreatment(element)">מחיקת טיפול</button>
                 <button mat-menu-item>שכפול טיפול</button>
                 <button mat-menu-item>עדכון טיפול</button>
                 <button (click)="uploadSummary()" mat-menu-item>טעינת סיכום ביקור</button>
