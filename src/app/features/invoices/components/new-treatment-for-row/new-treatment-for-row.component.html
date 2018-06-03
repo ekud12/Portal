@@ -1,0 +1,80 @@
+<div fxLayout="column" fxLayoutAlign="space-around center stretch">
+
+  <div class="title" fxHide.lt-md fxFlexOrder="1" fxLayout="row" fxLayoutAlign="start end">
+    <div style="margin-left: 63px;">
+      <h1>פורטל ספקים</h1>
+      <h2>הוספת טיפול (ExtraNet)</h2>
+    </div>
+    <div fxFlex>
+      <app-global-invoice-details></app-global-invoice-details>
+    </div>
+  </div>
+
+  <mat-card fxFlexOrder="2" class="form-container" fxLayout="column" fxLayoutAlign="stretch center">
+
+    <form fxLayout="column" #formTag="ngForm" fxLayoutAlign="start stretch start" fxLayoutGap="10px" class="new-invoice-row-form"
+      (ngSubmit)="addTreatmentForRow()" novalidate *ngIf="(currentSapak$ | async).treatments.length > 0">
+
+      <div fxLayout="row" fxLayoutAlign="start stretch stretch">
+        <mat-form-field class="mat-form-field-custom treat-field" [floatLabel]="vars.floatLabel">
+          <mat-select placeholder="נא לבחור טיפול או להזין קוד טיפול." [(ngModel)]="chosenTreatCode" name="treat" #treatChoices required>
+            <mat-option *ngFor="let treat of (currentSapak$ |async).treatments" [value]="treat">
+              {{treat.treatDesc}} | ({{treat.treatCode}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center stretch">
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="קוד טיפול" maxLength="10" [ngModel]="treatChoices.value ? treatChoices.value.treatCode : treatChoices.value "
+            (input)="updateTreatValue($event.target.value)" required>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="treatCount" pattern="\d*" placeholder="כמות" #num1 maxLength="2" [(ngModel)]="newTreatmentForRowRequest.treatCount"
+            required>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" placeholder="תאריך ביקור" [(ngModel)]="newTreatmentForRowRequest.date"
+            name="date" required readonly>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker readonly #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center stretch">
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="price" placeholder="מחיר (0.0)" pattern="\d*" [(ngModel)]="newTreatmentForRowRequest.typedObligationAmount"
+            maxLength="10" #num2 [disabled]="!(canEnterPrice$|async)" required>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start stretch center">
+        <mat-form-field class="mat-form-field-custom">
+          <input matInput type="text" name="total" pattern="[A-Za-z0-9.]*" placeholder="סהכ" maxLength="15" required readonly value=" {{num1.value * num2.value}} ₪">
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <div *ngIf="(errors$|async) && (errors$|async).length > 0" fxLayout="row" fxLayoutAlign="space-around center center" class="errors">
+        {{(errors$|async)[0]}}
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button type="button" (click)="reset()" color="primary" class="btn">נקה</button>
+        <button mat-raised-button type="submit" color="primary" class="btn" [disabled]="!formTag.form.valid">שלח</button>
+        <button mat-raised-button type="submit" color="primary" class="btn" (click)="goBack()">בטל</button>
+      </div>
+    </form>
+
+    <div *ngIf="(currentSapak$ | async).treatments.length === 0" fxLayout="column" fxLayoutAlign="space-around center center"
+      class="no-work-error">
+      <span> לקוח יקר, </span>
+      <span>חלה תקלה בעת טעינת טיפולים לספק. אנא פנה לתמיכה או בחר ספק אחר.</span>
+    </div>
+
+  </mat-card>
+</div>

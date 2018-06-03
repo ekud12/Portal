@@ -21,6 +21,7 @@ export function treatReducer(state = invoiceRowTreatInitialState, action: any): 
     case userActions.GET_TREATMENTS_FOR_ROW: {
       return {
         ...state,
+        errors: [],
         isLoading: true
       };
     }
@@ -29,6 +30,7 @@ export function treatReducer(state = invoiceRowTreatInitialState, action: any): 
       return {
         ...state,
         listOfTreatmentsForRow: data,
+        errors: [],
         isLoading: false
       };
     }

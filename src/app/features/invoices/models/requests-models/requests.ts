@@ -27,6 +27,19 @@ export class NewInvoiceRowRequest {
   constructor() {}
 }
 
+export class NewTreatmentForRowRequest {
+  constructor() {}
+  userName: string;
+  kodSapak: string;
+  billMonth: string;
+  invoiceNum: string;
+  rowNum: string;
+  treat: string;
+  treatCount: string;
+  date: Date;
+  typedObligationAmount?: string;
+  linesNum: string;
+}
 export class DeleteInvoiceRowRequest {
   userName: string;
   kodSapak: string;

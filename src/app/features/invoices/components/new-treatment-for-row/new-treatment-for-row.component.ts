@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as fromInvoiceStore from '@invoicesStore';
 import { Store } from '@ngrx/store';
 import * as fromUserStore from '@userStore';
@@ -9,7 +10,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
 import { Sapak, SapakTreatment } from '../../../user/models/sapak.model';
 import { Invoice } from '../../models/class-models/objects.model';
-import { NewInvoiceRowRequest } from '../../models/requests-models/requests';
+import { NewInvoiceRowRequest, NewTreatmentForRowRequest } from '../../models/requests-models/requests';
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -23,11 +24,11 @@ export class ZakautErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-new-invoice-row',
-  templateUrl: './new-invoice-row.component.html',
-  styleUrls: ['./new-invoice-row.component.css']
+  selector: 'app-new-treatment-for-row',
+  templateUrl: './new-treatment-for-row.component.html',
+  styleUrls: ['./new-treatment-for-row.component.css']
 })
-export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
+export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
   vars = {
     hideRequired: true,
     floatLabel: 'never',
@@ -49,12 +50,17 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
   canEnterPrice$: Observable<boolean>;
   minDate: Date;
   maxDate: Date;
-  newInvoiceRowRequest = new NewInvoiceRowRequest();
-
+  newTreatmentForRowRequest = new NewTreatmentForRowRequest();
+  returnURL = '';
   @ViewChild('formTag') myForm;
   @ViewChild('treatChoices') treatChoices;
 
-  constructor(private invoiceStore: Store<fromInvoiceStore.InvoicesState>, private userStore: Store<fromUserStore.UserState>) {
+  constructor(
+    private invoiceStore: Store<fromInvoiceStore.InvoicesState>,
+    private userStore: Store<fromUserStore.UserState>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
@@ -65,32 +71,39 @@ export class NewInvoiceRowComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {}
   ngOnInit() {
-    // this.invoiceStore.dispatch(new fromInvoiceStore.ResetInvoiceRows());
+    this.route.queryParams.subscribe(params => {
+      this.returnURL = params.returnUrl;
+    });
     this.maxDate = moment().toDate();
     this.minDate = moment()
       .add(-12, 'month')
       .toDate();
-    this.loggedUserName$.subscribe(username => (this.newInvoiceRowRequest.userName = username));
+    this.loggedUserName$.subscribe(username => (this.newTreatmentForRowRequest.userName = username));
     this.currentSapak$.subscribe(spk => {
-      this.newInvoiceRowRequest.kodSapak = spk.kodSapak;
+      this.newTreatmentForRowRequest.kodSapak = spk.kodSapak;
     });
     this.currentInvoice$.subscribe(inv => {
       if (inv !== null) {
-        this.newInvoiceRowRequest.billMonth = inv.billMonthField;
-        this.newInvoiceRowRequest.invoiceNum = inv.invoiceNumField;
+        this.newTreatmentForRowRequest.billMonth = inv.billMonthField;
+        this.newTreatmentForRowRequest.invoiceNum = inv.invoiceNumField;
       }
     });
-    this.newInvoiceRowRequest.treatCount = '1';
-    this.newInvoiceRowRequest.date = new Date();
+    this.newTreatmentForRowRequest.treatCount = '1';
+    this.newTreatmentForRowRequest.date = new Date();
   }
 
-  addInvoiceRow() {
-    this.newInvoiceRowRequest.treat = this.chosenTreatCode.treatCode;
-    this.invoiceStore.dispatch(new fromInvoiceStore.CreateInvoiceRow(this.newInvoiceRowRequest));
+  addTreatmentForRow() {
+    this.newTreatmentForRowRequest.treat = this.chosenTreatCode.treatCode;
+    console.log(this.newTreatmentForRowRequest);
+    // this.invoiceStore.dispatch(new fromInvoiceStore.CreateInvoiceRow(this.newInvoiceRowRequest));
   }
 
   reset() {
-    this.myForm.resetForm({ custIdType: this.vars.idTypes[0].value, treatCount: '1', date: new Date() });
+    this.myForm.resetForm({ treatCount: '1', date: new Date() });
+  }
+
+  goBack() {
+    this.router.navigateByUrl(this.returnURL);
   }
 
   updateTreatValue(e) {

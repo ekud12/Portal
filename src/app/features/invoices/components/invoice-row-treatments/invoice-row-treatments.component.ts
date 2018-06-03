@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import * as fromRoot from '@coreStore';
+import { Go } from '@coreStore';
 import { httpRoutes } from '@http-routes';
 import * as fromInvoiceStore from '@invoicesStore';
 import { Store } from '@ngrx/store';
@@ -190,7 +191,9 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   //   });
   // }
 
-  addTreatment() {}
+  addTreatment() {
+    this.routerStore.dispatch(new Go({ path: ['portal/invoices/newTreatment'], query: { returnUrl: this.router.url } }));
+  }
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;
   }
