@@ -1,7 +1,7 @@
 import 'mdn-polyfills/String.prototype.padStart';
-
-import * as userActions from '../actions';
 import { InvoiceRow } from '../../models/class-models/objects.model';
+import * as userActions from '../actions';
+
 export interface InvoiceRowState {
   activeInvoiceRow: any;
   listOfRowsForInvoice: InvoiceRow[];
@@ -82,6 +82,63 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
       };
     }
     case userActions.CREATE_INVOICE_ROW_FAIL: {
+      return {
+        ...state,
+        errors: action.payload.errors,
+        isLoading: false
+      };
+    }
+
+    /** Update Invoice Row */
+    case userActions.UPDATE_INVOICE_ROW: {
+      return {
+        ...state,
+        isLoading: true,
+        errors: []
+      };
+    }
+
+    case userActions.UPDATE_INVOICE_ROW_SUCCESS: {
+      const rows = state.listOfRowsForInvoice;
+      rows.map(row => {
+        if (row.lineNumField === action.payload.rowNum) {
+          row.commitmentIdField = action.payload.commitmentId.toString();
+          row.visitNumField = action.payload.visitNum.toString();
+          row.custIdField = action.payload.custId.toString();
+          row.custIdTypeField = action.payload.custIdType.toString();
+        }
+      });
+      return {
+        ...state,
+        listOfRowsForInvoice: rows,
+        errors: [],
+        isLoading: false
+      };
+    }
+    case userActions.UPDATE_INVOICE_ROW_FAIL: {
+      return {
+        ...state,
+        errors: action.payload.errors,
+        isLoading: false
+      };
+    }
+
+    /** Delete Invoice Row */
+    case userActions.DELETE_INVOICE_ROW: {
+      return {
+        ...state,
+        isLoading: true,
+        errors: []
+      };
+    }
+    case userActions.DELETE_INVOICE_ROW_SUCCESS: {
+      return {
+        ...state,
+        errors: [],
+        isLoading: false
+      };
+    }
+    case userActions.DELETE_INVOICE_ROW_FAIL: {
       return {
         ...state,
         errors: action.payload.errors,

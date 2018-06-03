@@ -153,7 +153,6 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   }
 
   updateRow(row: InvoiceRow) {
-    console.log(this.tempUpdateRowRequest);
     this.updateRowRequest.custIdType = this.tempUpdateRowRequest.custIdType;
     this.updateRowRequest.custId = this.tempUpdateRowRequest.custId;
     this.updateRowRequest.visitNum = this.tempUpdateRowRequest.visitNum;

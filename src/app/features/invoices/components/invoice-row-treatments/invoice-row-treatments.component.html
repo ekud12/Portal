@@ -26,7 +26,7 @@
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">
           <input matInput placeholder="סוג זיהוי" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).custIdTypeField"
-            name="idtype" (ngModelChange)="tempUpdateRowRequest.custIdType = $event" required>
+            name="idtype" (ngModelChange)="tempUpdateRowRequest.custIdType = $event" required pattern="[19]{1,1}" maxlength="1">
         </mat-form-field>
         <mat-form-field class="mat-form-field-custom">
           <input matInput placeholder="מספר ביקור" [readonly]="!(canActivate$|async)" [ngModel]="(currentInvoiceRow$|async).visitNumField"

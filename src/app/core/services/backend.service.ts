@@ -14,27 +14,29 @@ export class BackendService {
   baseUrl: string;
   tokenBaseUrl: string;
   timeoutError: Error = new Error();
+  maxTimeout: number;
 
   constructor(private http: HttpClient) {
     this.baseUrl = environment.http.baseUrl;
     this.timeoutError.message = 'פג תוקף זמן הפעולה.';
     this.timeoutError.name = 'שגיאה';
+    this.maxTimeout = 10000;
   }
 
   get<T>(url: string, params?: any) {
-    return this.http.get(this._generateUrl(url), { params: params }).timeoutWith(5000, Observable.throw(this.timeoutError));
+    return this.http.get(this._generateUrl(url), { params: params }).timeoutWith(this.maxTimeout, Observable.throw(this.timeoutError));
   }
 
   post<T>(url: string, body: any, multipartData?: FormData) {
-    return this.http.post(this._generateUrl(url), body).timeoutWith(5000, Observable.throw(this.timeoutError));
+    return this.http.post(this._generateUrl(url), body).timeoutWith(this.maxTimeout, Observable.throw(this.timeoutError));
   }
 
   delete(url: string, params?: any) {
-    return this.http.delete(this._generateUrl(url), { params: params }).timeoutWith(5000, Observable.throw(this.timeoutError));
+    return this.http.delete(this._generateUrl(url), { params: params }).timeoutWith(this.maxTimeout, Observable.throw(this.timeoutError));
   }
 
   put(url: string, body: any, multipartData?: FormData) {
-    return this.http.put(this._generateUrl(url), body).timeoutWith(5000, Observable.throw(this.timeoutError));
+    return this.http.put(this._generateUrl(url), body).timeoutWith(this.maxTimeout, Observable.throw(this.timeoutError));
   }
 
   private _generateUrl(url) {
