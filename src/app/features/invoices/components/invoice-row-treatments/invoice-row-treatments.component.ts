@@ -96,7 +96,6 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    /** TO allow content to load while building the view  */
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -107,10 +106,12 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     this.getAllTreatmentsForInvoiceRow();
     this.initFutureRequests();
     this.listOfTreatmentsForRow$.subscribe(val => {
-      this.dataSource = new MatTableDataSource<InvoiceTreatment>(val);
+      if (val !== null) {
+        this.dataSource = new MatTableDataSource<InvoiceTreatment>(val);
+      } else {
+        this.dataSource = new MatTableDataSource<InvoiceTreatment>([]);
+      }
     });
-    // this.dataSource.filterPredicate = (data: Element, filter: string) =>
-    //   data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
   }
 
   filterData(filterValue: string) {

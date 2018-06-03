@@ -13,6 +13,14 @@ import * as userActions from '../actions';
 export class TreatmentsEffects {
   constructor(private actions$: Actions, private invoicesService: InvoicesService, private toaster: ToastService) {}
 
+  @Effect({ dispatch: false })
+  activateTreatment$ = this.actions$.ofType(userActions.ACTIVATE_TREATMENT).pipe(
+    map((action: userActions.ActivateTreatment) => action.payload)
+    // tap(val => {
+    //   this.toaster.openSnackBar(`טיפ מס' ${val.lineNumField} נבחרה כפעילה.`, null);
+    // })
+  );
+
   @Effect()
   getTreatmentsForInvoiceRow$ = this.actions$.ofType(userActions.GET_TREATMENTS_FOR_ROW).pipe(
     map((action: userActions.GetTreatmentsForRow) => action.payload),
@@ -50,4 +58,9 @@ export class TreatmentsEffects {
       });
     })
   );
+
+  // @Effect()
+  // resetTreatmentsForRow$ = this.actions$
+  //   .ofType(userActions.ACTIVATE_INVOICE)
+  //   .pipe(switchMap(val => [new userActions.ResetInvoiceRows()]));
 }

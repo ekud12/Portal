@@ -57,7 +57,7 @@ export function getInitialState(): AppState {
       },
       treats: {
         activeTreatment: null,
-        listOfTreatmentsForRow: null,
+        listOfTreatmentsForRow: [],
         isLoading: false,
         errors: []
       },

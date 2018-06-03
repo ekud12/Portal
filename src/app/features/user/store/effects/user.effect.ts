@@ -1,13 +1,11 @@
-import 'rxjs/add/operator/take';
-
 import { Injectable } from '@angular/core';
 import * as invoicesStore from '@invoicesStore';
 import { Actions, Effect } from '@ngrx/effects';
 import * as zakautStore from '@zakautStore';
 import { AuthenticationService } from 'app/core/services/auth.service';
+import 'rxjs/add/operator/take';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
-
 import * as fromRoot from '../../../../core/store';
 import { LoginModel } from '../../models/login.model';
 import { UserService } from '../../user.service';
@@ -44,6 +42,7 @@ export class UserEffects {
         new zakautStore.ResetZakaut(),
         new invoicesStore.ResetInvoices(),
         new invoicesStore.ResetInvoiceRows(),
+        new invoicesStore.ResetInvoiceRowTreatments(),
         new invoicesStore.ResetMisc(),
         new userActions.UserLogoutCompleted()
       ]),

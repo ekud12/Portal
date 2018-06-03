@@ -28,6 +28,17 @@ export function treatReducer(state = invoiceRowTreatInitialState, action: any): 
       };
     }
 
+    /** Reset Treatments Submodule */
+    case userActions.RESET_INVOICE_ROWS_TREATMENTS: {
+      return {
+        ...state,
+        activeTreatment: null,
+        listOfTreatmentsForRow: null,
+        isLoading: false,
+        errors: []
+      };
+    }
+
     /** Get All treatments for A row */
     case userActions.GET_TREATMENTS_FOR_ROW: {
       return {
@@ -75,21 +86,6 @@ export function treatReducer(state = invoiceRowTreatInitialState, action: any): 
         isLoading: false
       };
     }
-    //   case userActions.ACTIVATE_INVOICE_ROW: {
-    //     return {
-    //       ...state,
-    //       activeInvoiceRow: action.payload
-    //     };
-    //   }
-    //   case userActions.RESET_INVOICE_ROWS: {
-    //     return {
-    //       ...state,
-    //       activeInvoiceRow: null,
-    //       listOfRowsForInvoice: null,
-    //       isLoading: false,
-    //       errors: []
-    //     };
-    //   }
   }
 
   return state;
