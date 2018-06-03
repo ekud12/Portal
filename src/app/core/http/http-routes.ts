@@ -17,6 +17,7 @@ export enum httpRoutes {
   INVOICES_GET_ALL_TREATMENTS_FOR_INVOICE_ROW = 'api/invoices/GetAllTreatmentsForInvoiceRow',
   INVOICES_CREATE_NEW_INVOICE = 'api/invoices/CreateNewInvoice',
   INVOICES_CREATE_NEW_INVOICE_ROW = 'api/invoices/CreateNewInvoiceRow',
+  INVOICES_CREATE_NEW_TREATMENT_FOR_ROW = 'api/invoices/CreateNewTreatmentForRow',
   INVOICES_DELETE_INVOICE_ROW = 'api/invoices/DeleteInvoiceRow',
   INVOICES_UPDATE_INVOICE_ROW = 'api/invoices/UpdateInvoiceRow',
   INVOICES_GET_MAGNETIC_CARD_SWIPES_FOR_SAPAK = 'api/invoices/GetCardSwipesForSapak',

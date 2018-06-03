@@ -6,14 +6,12 @@ import { ToastService } from '../../../../core/services/toast-service.service';
 import * as fromRoot from '../../../../core/store';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
 import { InvoicesService } from '../../invoices.service';
-import { Invoice } from '../../models/class-models/objects.model';
-import { DeleteInvoiceRowRequest, NewInvoiceRowRequest } from '../../models/requests-models/requests';
+import { NewTreatmentForRowRequest } from '../../models/requests-models/requests';
 import * as userActions from '../actions';
 
 @Injectable()
 export class TreatmentsEffects {
   constructor(private actions$: Actions, private invoicesService: InvoicesService, private toaster: ToastService) {}
-
 
   @Effect()
   getTreatmentsForInvoiceRow$ = this.actions$.ofType(userActions.GET_TREATMENTS_FOR_ROW).pipe(
@@ -25,6 +23,31 @@ export class TreatmentsEffects {
           switchMap(res => [new userActions.GetTreatmentsForRowSuccess(res)]),
           catchError(error => of(new userActions.GetTreatmentsForRowFail(error)))
         );
+    })
+  );
+
+  @Effect()
+  createNewTreatmentForRow$ = this.actions$.ofType(userActions.CREATE_TREATMENT_FOR_ROW).pipe(
+    map((action: userActions.CreateNewTreatmentForInvoiceRow) => action.payload),
+    switchMap((request: NewTreatmentForRowRequest) => {
+      return this.invoicesService
+        .createTreatmentForRow(request)
+        .pipe(
+          switchMap(res => [new userActions.CreateNewTreatmentForInvoiceRowSuccess(res)]),
+          catchError(error => of(new userActions.CreateNewTreatmentForInvoiceRowFail(error)))
+        );
+    })
+  );
+
+  @Effect()
+  createNewTreatmentForRowSuccess$ = this.actions$.ofType(userActions.CREATE_TREATMENT_FOR_ROW_SUCCESS).pipe(
+    tap(val => {
+      this.toaster.openSnackBar(`טיפול נוסף בהצלחה.`, null);
+    }),
+    map(() => {
+      return new fromRoot.Go({
+        path: ['/portal/invoices/treatments']
+      });
     })
   );
 }

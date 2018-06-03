@@ -41,6 +41,29 @@ export function treatReducer(state = invoiceRowTreatInitialState, action: any): 
         isLoading: false
       };
     }
+
+    /** Create New Treatment Line for Invoice Row */
+    case userActions.CREATE_TREATMENT_FOR_ROW: {
+      return {
+        ...state,
+        isLoading: true,
+        errors: []
+      };
+    }
+    case userActions.CREATE_TREATMENT_FOR_ROW_SUCCESS: {
+      return {
+        ...state,
+        errors: [],
+        isLoading: false
+      };
+    }
+    case userActions.CREATE_TREATMENT_FOR_ROW_FAIL: {
+      return {
+        ...state,
+        errors: action.payload.errors,
+        isLoading: false
+      };
+    }
     //   case userActions.ACTIVATE_INVOICE_ROW: {
     //     return {
     //       ...state,

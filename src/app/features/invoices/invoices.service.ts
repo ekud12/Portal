@@ -11,6 +11,7 @@ import {
   GetAllTreatmentsForInvoiceRowRequest,
   NewInvoiceRequest,
   NewInvoiceRowRequest,
+  NewTreatmentForRowRequest,
   ObligationsByCustomerIdRequest,
   UpdateInvoiceRowRequest
 } from './models/requests-models/requests';
@@ -49,6 +50,9 @@ export class InvoicesService {
 
   createInvoiceRow(request: NewInvoiceRowRequest): Observable<boolean> {
     return this.backendService.post<any>(httpRoutes.INVOICES_CREATE_NEW_INVOICE_ROW, request);
+  }
+  createTreatmentForRow(request: NewTreatmentForRowRequest): Observable<boolean> {
+    return this.backendService.post<any>(httpRoutes.INVOICES_CREATE_NEW_TREATMENT_FOR_ROW, request);
   }
 
   deleteInvoiceRow(request: DeleteInvoiceRowRequest): Observable<boolean> {

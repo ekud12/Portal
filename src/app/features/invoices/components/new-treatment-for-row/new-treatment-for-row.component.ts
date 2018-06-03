@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -10,7 +9,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
 import { Sapak, SapakTreatment } from '../../../user/models/sapak.model';
 import { Invoice } from '../../models/class-models/objects.model';
-import { NewInvoiceRowRequest, NewTreatmentForRowRequest } from '../../models/requests-models/requests';
+import { NewTreatmentForRowRequest } from '../../models/requests-models/requests';
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -37,8 +36,7 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
       minlength: 'נתון קצר מדי'
     },
     idTypes: [{ value: '1', viewValue: 'תז' }, { value: '9', viewValue: 'דרכון' }],
-    comment: '',
-    availableMonths: getDatesForInvoiceCreation(3)
+    comment: ''
   };
   chosenTreatCode: SapakTreatment;
   loggedUserName$: Observable<string>;
@@ -94,8 +92,7 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
 
   addTreatmentForRow() {
     this.newTreatmentForRowRequest.treat = this.chosenTreatCode.treatCode;
-    console.log(this.newTreatmentForRowRequest);
-    // this.invoiceStore.dispatch(new fromInvoiceStore.CreateInvoiceRow(this.newInvoiceRowRequest));
+    this.invoiceStore.dispatch(new fromInvoiceStore.CreateNewTreatmentForInvoiceRow(this.newTreatmentForRowRequest));
   }
 
   reset() {
@@ -117,11 +114,3 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
     });
   }
 }
-
-const getDatesForInvoiceCreation = range => {
-  const datePipe = new DatePipe('en-US');
-  const now = new Date();
-  return [...Array.from(Array(range).keys())].map(v =>
-    datePipe.transform(new Date(now.getFullYear(), now.getMonth() - v), 'MM/yyyy')
-  );
-};
