@@ -23,9 +23,9 @@ export class ZakautErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-new-treatment-for-row',
-  templateUrl: './new-treatment-for-row.component.html',
-  styleUrls: ['./new-treatment-for-row.component.css']
+  selector: 'app-treatment-for-row',
+  templateUrl: './treatment-for-row.component.html',
+  styleUrls: ['./treatment-for-row.component.css']
 })
 export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
   vars = {
@@ -38,6 +38,7 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
     idTypes: [{ value: '1', viewValue: 'תז' }, { value: '9', viewValue: 'דרכון' }],
     comment: ''
   };
+
   chosenTreatCode: SapakTreatment;
   loggedUserName$: Observable<string>;
   currentSapak$: Observable<Sapak>;

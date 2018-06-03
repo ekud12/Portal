@@ -54,6 +54,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   tempUpdateRowRequest: UpdatedRowInputFromUser = new UpdatedRowInputFromUser();
   updateRowRequest: UpdateInvoiceRowRequest = new UpdateInvoiceRowRequest();
   deleteTreatmentForRowRequest: DeleteTreatmentForRowRequest = new DeleteTreatmentForRowRequest();
+
   /**
    * Material Table parameters
    */
@@ -121,18 +122,25 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   initFutureRequests() {
     this.loggedUserName$.subscribe(username => {
       this.updateRowRequest.userName = username;
+      this.deleteTreatmentForRowRequest.userName = username;
     });
     this.currentSapak$.subscribe(spk => {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
+      this.deleteTreatmentForRowRequest.kodSapak = spk.kodSapak;
       this.updateRowRequest.kodSapak = spk.kodSapak;
     });
     this.currentInvoice$.subscribe(val => {
-      this.updateRowRequest.invoiceNum = val.invoiceNumField;
-      this.updateRowRequest.billMonth = val.billMonthField;
-      this.updateRowRequest.billMonth = val.billMonthField;
+      if (val !== null) {
+        this.updateRowRequest.invoiceNum = val.invoiceNumField;
+        this.updateRowRequest.billMonth = val.billMonthField;
+        this.updateRowRequest.billMonth = val.billMonthField;
+        this.deleteTreatmentForRowRequest.invoiceNum = val.invoiceNumField;
+        this.deleteTreatmentForRowRequest.billMonth = val.billMonthField;
+      }
     });
     this.currentInvoiceRow$.subscribe(val => {
+      if (val !== null) {
       this.updateRowRequest.rowNum = val.lineNumField;
       this.updateRowRequest.custId = val.custIdField;
       this.updateRowRequest.custIdType = val.custIdTypeField;
@@ -143,6 +151,10 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
       this.tempUpdateRowRequest.custId = val.custIdField;
       this.tempUpdateRowRequest.commitment = val.commitmentIdField;
       this.tempUpdateRowRequest.visitNum = val.visitNumField;
+      this.deleteTreatmentForRowRequest.commitmentId = val.commitmentIdField;
+      this.deleteTreatmentForRowRequest.invoiceRow = val.lineNumField;
+      this.deleteTreatmentForRowRequest.typedObligationAmount = val.lineNumField;
+      }
     });
   }
 
@@ -184,7 +196,6 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     instance.successMsg = 'סיכום ביקור נטען בהצלחה.';
   }
 
-
   addTreatment() {
     this.routerStore.dispatch(new Go({ path: ['portal/invoices/newTreatment'], query: { returnUrl: this.router.url } }));
   }
@@ -203,6 +214,37 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  duplicateTreatment(treatRow: InvoiceTreatment) {
+    this.deleteTreatmentForRowRequest.invoiceRow = treatRow.lineNumField;
+    /** add per request */
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${treatRow.lineNumField})?` }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteTreatmentForRowRequest));
+        // this.getAllInvoiceRows();
+      } else {
+      }
+    });
+  }
+
+  updateTreatment(treatRow: InvoiceTreatment) {
+    this.deleteTreatmentForRowRequest.invoiceRow = treatRow.lineNumField;
+    /** add per request */
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${treatRow.lineNumField})?` }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteTreatmentForRowRequest));
+        // this.getAllInvoiceRows();
+      } else {
+      }
+    });
+  }
+
   getViewValue(v) {
     return this.displayedColumnsMap.find(a => a.value === v).viewValue;
   }

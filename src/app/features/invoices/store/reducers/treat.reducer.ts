@@ -18,6 +18,16 @@ export const invoiceRowTreatInitialState: InvoiceRowTreatState = {
 
 export function treatReducer(state = invoiceRowTreatInitialState, action: any): InvoiceRowTreatState {
   switch (action.type) {
+    /** Actiavte Invoice Row */
+    case userActions.ACTIVATE_INVOICE_ROW: {
+      return {
+        ...state,
+        activeTreatment: action.payload,
+        errors: [],
+        isLoading: true
+      };
+    }
+    /** Get All treatments for A row */
     case userActions.GET_TREATMENTS_FOR_ROW: {
       return {
         ...state,

@@ -201,7 +201,6 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteRowRequest));
-        // this.getAllInvoiceRows();
       } else {
       }
     });
