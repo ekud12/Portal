@@ -1,9 +1,6 @@
 <mat-card *ngIf="(currentInvoice$|async)" fxLayout="column" fxLayoutAlign="start stretch stretch" class="container-test">
   <table>
     <tr>
-      <!-- <td class="info-row-title">
-        חשבונית
-      </td> -->
       <td class="border-table" align="right">
         חשבונית מספר
         <div class="summary-content-item">{{(currentInvoice$|async)?.invoiceNumField}}</div>
@@ -34,9 +31,6 @@
       </td>
     </tr>
     <tr *ngIf=(currentInvoiceRow$|async)>
-      <!-- <td class="info-row-title">
-        שורה
-      </td> -->
       <td class="border-table" align="right">
         שורה מספר
         <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.lineNumField }}</div>
@@ -53,15 +47,15 @@
         סכום
         <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.amountField }} </div>
       </td>
-      <td class="border-table" align="right">
+      <td class="border-table" align="right" *ngIf="!toHide">
         התחייבות
         <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.commitmentIdField }} </div>
       </td>
-      <td class="border-table" align="right">
+      <td class="border-table" align="right" *ngIf="!toHide">
         מספר זהות
-        <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.cstFormattedIdField }} </div>
+        <div class="summary-content-item" *ngIf="!toHide"> {{ (currentInvoiceRow$|async)?.cstFormattedIdField }} </div>
       </td>
-      <td class="border-table" align="right">
+      <td class="border-table" align="right" *ngIf="!toHide">
         מספר ביקור
         <div class="summary-content-item"> {{ (currentInvoiceRow$|async)?.visitNumField }} </div>
       </td>

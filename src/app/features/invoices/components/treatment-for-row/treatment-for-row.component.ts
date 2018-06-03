@@ -77,6 +77,10 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
     this.minDate = moment()
       .add(-12, 'month')
       .toDate();
+    this.initFutureRequests();
+  }
+
+  initFutureRequests() {
     this.loggedUserName$.subscribe(username => (this.newTreatmentForRowRequest.userName = username));
     this.currentSapak$.subscribe(spk => {
       this.newTreatmentForRowRequest.kodSapak = spk.kodSapak;

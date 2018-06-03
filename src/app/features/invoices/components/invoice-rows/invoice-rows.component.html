@@ -60,10 +60,14 @@
             <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
               <mat-icon [matMenuTriggerFor]="menu" matTooltip="פעולות לשורה" matTooltipPosition="left">more_vert</mat-icon>
               <mat-menu #menu="matMenu">
-                <button *ngIf="(canActivate$|async)" mat-menu-item (click)="deleteRow(element)">מחק שורה</button>
-                <button mat-menu-item (click)="openReportedTreatmentsForCommitment(element)">טיפולים מדווחים להתחייבות</button>
-                <button mat-menu-item (click)="openReportedTreatmentsForCustomer(element)">טיפולים מדווחים ללקוח</button>
-                <button mat-menu-item (click)="openKizuzDetailsForRow(element)">צפייה בפרטי הקיזוז</button>
+                <button *ngIf="(canActivate$|async)" mat-menu-item (click)="deleteRow(element)">
+                  <mat-icon>delete_forever</mat-icon>מחק שורה</button>
+                <button mat-menu-item (click)="openReportedTreatmentsForCommitment(element)">
+                  <mat-icon>assignment</mat-icon>טיפולים מדווחים להתחייבות</button>
+                <button mat-menu-item (click)="openReportedTreatmentsForCustomer(element)">
+                  <mat-icon>assignment</mat-icon>טיפולים מדווחים ללקוח</button>
+                <button mat-menu-item (click)="openKizuzDetailsForRow(element)">
+                  <mat-icon>compare_arrows</mat-icon>צפייה בפרטי הקיזוז</button>
               </mat-menu>
             </mat-cell>
           </ng-template>

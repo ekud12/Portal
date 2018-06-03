@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
+import { InvoiceTreatment } from '../../models/class-models/objects.model';
 import { NewTreatmentForRowRequest } from '../../models/requests-models/requests';
 
 export const GET_TREATMENTS_FOR_ROW = '[Invoice] Get Treatments for Invoice Row';
@@ -61,7 +62,7 @@ export class CreateNewTreatmentForInvoiceRowCompleted implements Action {
 /** Actions - Activate Treatment */
 export class ActivateTreatment implements Action {
   readonly type = ACTIVATE_TREATMENT;
-  constructor(public payload: any) {}
+  constructor(public payload: InvoiceTreatment) {}
 }
 export class ActivateTreatmentSuccess implements Action {
   readonly type = ACTIVATE_TREATMENT_SUCCESS;

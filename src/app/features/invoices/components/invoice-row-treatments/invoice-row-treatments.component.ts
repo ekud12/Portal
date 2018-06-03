@@ -141,19 +141,19 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     });
     this.currentInvoiceRow$.subscribe(val => {
       if (val !== null) {
-      this.updateRowRequest.rowNum = val.lineNumField;
-      this.updateRowRequest.custId = val.custIdField;
-      this.updateRowRequest.custIdType = val.custIdTypeField;
-      this.updateRowRequest.commitmentId = val.commitmentIdField;
-      this.updateRowRequest.visitNum = val.visitNumField;
-      this.updateRowRequest.date = val.dateField;
-      this.tempUpdateRowRequest.custIdType = val.custIdTypeField;
-      this.tempUpdateRowRequest.custId = val.custIdField;
-      this.tempUpdateRowRequest.commitment = val.commitmentIdField;
-      this.tempUpdateRowRequest.visitNum = val.visitNumField;
-      this.deleteTreatmentForRowRequest.commitmentId = val.commitmentIdField;
-      this.deleteTreatmentForRowRequest.invoiceRow = val.lineNumField;
-      this.deleteTreatmentForRowRequest.typedObligationAmount = val.lineNumField;
+        this.updateRowRequest.rowNum = val.lineNumField;
+        this.updateRowRequest.custId = val.custIdField;
+        this.updateRowRequest.custIdType = val.custIdTypeField;
+        this.updateRowRequest.commitmentId = val.commitmentIdField;
+        this.updateRowRequest.visitNum = val.visitNumField;
+        this.updateRowRequest.date = val.dateField;
+        this.tempUpdateRowRequest.custIdType = val.custIdTypeField;
+        this.tempUpdateRowRequest.custId = val.custIdField;
+        this.tempUpdateRowRequest.commitment = val.commitmentIdField;
+        this.tempUpdateRowRequest.visitNum = val.visitNumField;
+        this.deleteTreatmentForRowRequest.commitmentId = val.commitmentIdField;
+        this.deleteTreatmentForRowRequest.invoiceRow = val.lineNumField;
+        this.deleteTreatmentForRowRequest.typedObligationAmount = val.lineNumField;
       }
     });
   }
@@ -170,6 +170,9 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  activateTreatment(treat: InvoiceTreatment) {
+    this.invoiceStore.dispatch(new fromInvoiceStore.ActivateTreatment(treat));
+  }
   updateRow(row: InvoiceRow) {
     this.updateRowRequest.custIdType = this.tempUpdateRowRequest.custIdType;
     this.updateRowRequest.custId = this.tempUpdateRowRequest.custId;
@@ -216,33 +219,35 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   }
 
   duplicateTreatment(treatRow: InvoiceTreatment) {
-    this.deleteTreatmentForRowRequest.invoiceRow = treatRow.lineNumField;
-    /** add per request */
-    const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${treatRow.lineNumField})?` }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteTreatmentForRowRequest));
-        // this.getAllInvoiceRows();
-      } else {
-      }
-    });
+    this.activateTreatment(treatRow);
+    // this.deleteTreatmentForRowRequest.invoiceRow = treatRow.lineNumField;
+    // /** add per request */
+    // const dialogRef = this.dialog.open(AlertDialogComponent, {
+    //   data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${treatRow.lineNumField})?` }
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     // this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteTreatmentForRowRequest));
+    //     // this.getAllInvoiceRows();
+    //   } else {
+    //   }
+    // });
   }
 
   updateTreatment(treatRow: InvoiceTreatment) {
-    this.deleteTreatmentForRowRequest.invoiceRow = treatRow.lineNumField;
-    /** add per request */
-    const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${treatRow.lineNumField})?` }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteTreatmentForRowRequest));
-        // this.getAllInvoiceRows();
-      } else {
-      }
-    });
+    this.activateTreatment(treatRow);
+    // this.deleteTreatmentForRowRequest.invoiceRow = treatRow.lineNumField;
+    // /** add per request */
+    // const dialogRef = this.dialog.open(AlertDialogComponent, {
+    //   data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${treatRow.lineNumField})?` }
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     // this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteTreatmentForRowRequest));
+    //     // this.getAllInvoiceRows();
+    //   } else {
+    //   }
+    // });
   }
 
   getViewValue(v) {

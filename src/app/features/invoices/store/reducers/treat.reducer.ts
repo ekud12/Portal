@@ -27,6 +27,7 @@ export function treatReducer(state = invoiceRowTreatInitialState, action: any): 
         isLoading: true
       };
     }
+
     /** Get All treatments for A row */
     case userActions.GET_TREATMENTS_FOR_ROW: {
       return {
