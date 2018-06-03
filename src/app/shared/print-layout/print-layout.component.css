@@ -80,6 +80,10 @@
   /* font-size: 15px; */
 }
 
+table {
+  border-collapse: separate;
+  border-spacing: 10px 10px;
+}
 @media print {
   body * {
     display: none !important;

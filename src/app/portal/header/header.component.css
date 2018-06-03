@@ -14,9 +14,13 @@
   padding-right: 10px;
   height: 54px;
   width: 229px;
+  cursor: pointer;
+  outline: none;
 }
 img {
   max-width: 100%;
+  outline: none;
+  border: 0;
 }
 .navbar .link {
   margin-left: 10px;

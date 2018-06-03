@@ -116,8 +116,13 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       this.dataSource.sort = this.sort;
     });
 
-    this.dataSource.filterPredicate = (data: Element, filter: string) =>
-      data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
+    this.dataSource.filterPredicate = (data: InvoiceRow, filter: string) => {
+      if (this.selectedFilter.value === 'lineNumField') {
+        return +data[this.selectedFilter.value] === +filter || filter === 'all';
+      } else {
+        return data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
+      }
+    };
   }
 
   filterData(filterValue: string) {
@@ -257,14 +262,21 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
         'billMonthField'
       )}.`;
       this.dataObject.specialData = [
-        `הננו מתכבדים להגיש דרישת תשלום מספר: ${
-          inv.invoiceNumField
-        } בגין השירותים שסיפקנו ללקוחות מאוחדת בחודש ${this.dateFormatter.transform(inv.billMonthField, 'billMonthField')}.`,
-        `סכום חשבון לפני מע"מ: ${inv.typedSumField}.
-         מע"מ: ${inv.vatPerField}.
-         סכום חשבון כולל מע"מ: ${inv.invoiceSumField}.`,
-        `יחד עם דרישת התשלום אנו מצרפים את התיעוד הרפואי של הטיפולים והשירותים הכלולים בדרישה זו.`,
-        `לפרטים נוספים : איש קשר במערך הבקרה עטרה אלהרר atara@meuhedet.co.il.`
+        'הננו מתכבדים להגיש דרישת תשלום מספר: ' + inv.invoiceNumField + '.',
+        'בגין השירותים שסיפקנו ללקוחות מאוחדת בחודש ' +
+          this.dateFormatter.transform(inv.billMonthField, 'billMonthField') +
+          '.' +
+          '\n\n\n\n\n',
+        'סכום חשבון לפני מע"מ:',
+        inv.typedSumField,
+        'מע"מ:',
+        inv.vatPerField,
+        'סכום חשבון כולל מע"מ:',
+        inv.invoiceSumField + '.\n\n\n\n\n',
+        'יחד עם דרישת התשלום אנו מצרפים את התיעוד הרפואי של הטיפולים והשירותים הכלולים בדרישה זו.',
+        'לפרטים נוספים :',
+        'איש קשר במערך הבקרה עטרה אלהרר',
+        'atara@meuhedet.co.il.'
       ];
     });
     this.dataObject.printOption = PrintingOption.CLOSE_INVOICE;

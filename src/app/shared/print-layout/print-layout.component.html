@@ -61,7 +61,7 @@
           <mat-table #table [dataSource]="dataSource">
             <ng-container *ngFor="let col of object.displayedColumns" [cdkColumnDef]="col">
               <mat-header-cell *cdkHeaderCellDef> {{getViewValue(col)}} </mat-header-cell>
-              <mat-cell *cdkCellDef="let row"> {{(row[col] | invoiceRowDate | invoiceStatus:col)}} </mat-cell>
+              <mat-cell *cdkCellDef="let row"> {{(row[col] | invoiceRowDate:col | invoiceStatus:col)}} </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="object.displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: object.displayedColumns;" class="pgbreak"></mat-row>
@@ -71,9 +71,45 @@
 
       <div *ngIf="(object.printOption === 4 || object.printOption === 5)" fxLayout="column" fxLayoutAlign="start stretch center"
         fxLayoutGap="25px">
-        <div *ngFor="let sd of object.specialData" class="special-data">
+        <table>
+          <tr class="special-data">
+            {{object.specialData[0]}}
+          </tr>
+          <tr class="special-data">
+            {{object.specialData[1]}}
+          </tr>
+          <tr class="special-data">
+          </tr>
+          <tr class="special-data">
+            <td> {{object.specialData[2]}}</td>
+            <td>{{object.specialData[3]}}</td>
+          </tr>
+          <tr class="special-data">
+            <td> {{object.specialData[4]}}</td>
+            <td>{{object.specialData[5]}}</td>
+          </tr>
+          <tr class="special-data">
+            <td> {{object.specialData[6]}}</td>
+            <td>{{object.specialData[7]}}</td>
+          </tr>
+          <tr class="special-data">
+          </tr>
+          <tr class="special-data">
+            {{object.specialData[8]}}
+          </tr>
+          <tr class="special-data">
+            {{object.specialData[9]}}
+          </tr>
+          <tr class="special-data">
+            {{object.specialData[10]}}
+          </tr>
+          <tr class="special-data">
+            {{object.specialData[11]}}
+          </tr>
+        </table>
+        <!-- <div *ngFor="let sd of object.specialData" class="special-data">
           {{sd}}
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

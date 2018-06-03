@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import * as fromSharedStore from '@sharedStore';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-
 import { PrintObject } from '../global-models/print-object.interface';
 
 @Component({
@@ -20,7 +19,7 @@ export class PrintLayoutComponent implements OnInit {
   object: PrintObject = new PrintObject();
   object$: Observable<any>;
   data: any[];
-
+  html = `<div>aaaa</div>`;
   constructor(private router: Router, private route: ActivatedRoute, private sharedStore: Store<fromSharedStore.SharedState>) {}
 
   ieBtn = false;
