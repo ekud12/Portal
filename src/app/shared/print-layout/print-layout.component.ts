@@ -20,15 +20,20 @@ export class PrintLayoutComponent implements OnInit {
   object$: Observable<any>;
   data: any[];
   html = `<div>aaaa</div>`;
-  constructor(private router: Router, private route: ActivatedRoute, private sharedStore: Store<fromSharedStore.SharedState>) {}
+  constructor(private router: Router, private route: ActivatedRoute, private sharedStore: Store<fromSharedStore.SharedState>) {
+    this.object$ = this.sharedStore.select(fromSharedStore.currentPrintObjectSelector);
+  }
 
   ieBtn = false;
   returnURL = '';
 
   ngOnInit() {
-    this.object$ = this.sharedStore.select(fromSharedStore.currentPrintObjectSelector);
     this.object$.subscribe(val => {
-      this.object = val;
+      if (val) {
+        this.object = val;
+      } else {
+        this.router.navigate(['portal/invoices']);
+      }
     });
 
     if (this.object.printOption) {

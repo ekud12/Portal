@@ -4,7 +4,9 @@
   font-weight: bolder;
   padding: 0px 30px;
 }
-
+table {
+  width: 100%;
+}
 .print-wrapper {
   background-color: white;
   display: block;
@@ -80,10 +82,6 @@
   /* font-size: 15px; */
 }
 
-table {
-  border-collapse: separate;
-  border-spacing: 10px 10px;
-}
 @media print {
   body * {
     display: none !important;
