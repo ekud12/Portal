@@ -1,10 +1,11 @@
 import 'mdn-polyfills/String.prototype.padStart';
-import { Invoice, CardSwipeForSapak } from '../../models/class-models/objects.model';
+import { CardSwipeForSapak } from '../../models/class-models/objects.model';
 import * as userActions from '../actions';
 
 export interface MiscState {
   cardSwipes: CardSwipeForSapak[];
   obligationsByCustomerId: any[];
+  obligationsByCustomerIdAndCommitment: any[];
   errors: string[];
   isLoading: boolean;
 }
@@ -12,6 +13,7 @@ export interface MiscState {
 export const miscInitialState: MiscState = {
   cardSwipes: [],
   obligationsByCustomerId: [],
+  obligationsByCustomerIdAndCommitment: [],
   isLoading: false,
   errors: []
 };
@@ -61,6 +63,30 @@ export function miscReducer(state = miscInitialState, action: any): MiscState {
       };
     }
     case userActions.GET_OBLIGATIONS_BY_CUSTOMER_ID_FAIL: {
+      return {
+        ...state,
+        errors: action.payload,
+        isLoading: false
+      };
+    }
+
+    /** Reducer for Obligations by customer ID and Commitment*/
+    case userActions.GET_OBLIGATIONS_BY_CUSTOMER_ID_AND_COMMITMENT: {
+      return {
+        ...state,
+        obligationsByCustomerIdAndCommitment: [],
+        isLoading: true
+      };
+    }
+    case userActions.GET_OBLIGATIONS_BY_CUSTOMER_ID_AND_COMMITMENT_SUCCESS: {
+      const arr = action.payload.data.resultSetData;
+      return {
+        ...state,
+        obligationsByCustomerIdAndCommitment: arr,
+        isLoading: false
+      };
+    }
+    case userActions.GET_OBLIGATIONS_BY_CUSTOMER_ID_AND_COMMITMENT_FAIL: {
       return {
         ...state,
         errors: action.payload,

@@ -15,14 +15,15 @@ import { InvoicesListComponent } from './components/invoices-list/invoices-list.
 import { KizuzDetailsComponent } from './components/kizuz-details/kizuz-details.component';
 import { NewInvoiceRowComponent } from './components/new-invoice-row/new-invoice-row.component';
 import { NewInvoiceComponent } from './components/new-invoice/new-invoice.component';
+import { ObligationsByCustIdAndCommitmentReportComponent } from './components/obligations-by-cust-id-and-commitment-report/obligations-by-cust-id-and-commitment-report.component';
 import { ObligationsByCustIdReportComponent } from './components/obligations-by-cust-id-report/obligations-by-cust-id-report.component';
+import { NewTreatmentForRowComponent } from './components/treatment-for-row/treatment-for-row.component';
 import { InvoicesContainerComponent } from './invoices-container/invoices-container.component';
 import { InvoicesService } from './invoices.service';
 import { invoicesRoutes } from './routes';
 import { effects, reducers } from './store';
 import { GlobalInvoiceDetailsComponent } from './utils/global-invoice-details/global-invoice-details.component';
 import { ValidateAndCloseInvoiceComponent } from './utils/validate-and-close-invoice/validate-and-close-invoice.component';
-import { NewTreatmentForRowComponent } from './components/treatment-for-row/treatment-for-row.component';
 
 const COMPONENTS = [
   InvoiceRowsComponent,
@@ -36,7 +37,8 @@ const COMPONENTS = [
   ValidateAndCloseInvoiceComponent,
   ObligationsByCustIdReportComponent,
   KizuzDetailsComponent,
-  GlobalInvoiceDetailsComponent
+  GlobalInvoiceDetailsComponent,
+  ObligationsByCustIdAndCommitmentReportComponent
 ];
 
 @NgModule({

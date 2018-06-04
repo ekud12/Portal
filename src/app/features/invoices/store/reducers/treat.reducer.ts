@@ -24,7 +24,7 @@ export function treatReducer(state = invoiceRowTreatInitialState, action: any): 
         ...state,
         activeTreatment: action.payload,
         errors: [],
-        isLoading: true
+        isLoading: false
       };
     }
 
@@ -43,6 +43,7 @@ export function treatReducer(state = invoiceRowTreatInitialState, action: any): 
     case userActions.GET_TREATMENTS_FOR_ROW: {
       return {
         ...state,
+        listOfTreatmentsForRow: [],
         errors: [],
         isLoading: true
       };

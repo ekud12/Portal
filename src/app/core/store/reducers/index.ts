@@ -64,6 +64,7 @@ export function getInitialState(): AppState {
       misc: {
         cardSwipes: null,
         obligationsByCustomerId: null,
+        obligationsByCustomerIdAndCommitment: null,
         isLoading: false,
         errors: []
       }
@@ -86,7 +87,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
           invoices: ['listOfInvoicesForSapak', 'activeInvoice'],
           rows: ['listOfRowsForInvoice', 'activeInvoiceRow'],
           treat: ['listOfTreatmentsForRow', 'activeTreatment'],
-          misc: ['cardSwipes', 'obligationsByCustomerId']
+          misc: ['cardSwipes', 'obligationsByCustomerId', 'obligationsByCustomerIdAndCommitment']
         }
       }
     ],

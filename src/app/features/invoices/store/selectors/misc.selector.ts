@@ -12,6 +12,12 @@ export const obligationsByCustomerIdSelector = createSelector(
   (state: fromMisc.MiscState) => state.obligationsByCustomerId
 );
 
+export const obligationsByCustomerIdAndCommitmentSelector = createSelector(
+  getMiscState,
+  (state: fromMisc.MiscState) => state.obligationsByCustomerIdAndCommitment
+);
+
+
 export const miscErrorsSelector = createSelector(getMiscState, (state: fromMisc.MiscState) => state.errors);
 
 export const miscLoadingSelector = createSelector(getMiscState, (state: fromMisc.MiscState) => state.isLoading);

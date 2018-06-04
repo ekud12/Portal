@@ -17,7 +17,7 @@
 
       <div fxLayout="row" fxLayoutAlign="start stretch stretch">
         <mat-form-field class="mat-form-field-custom treat-field" [floatLabel]="vars.floatLabel">
-          <mat-select placeholder="נא לבחור טיפול או להזין קוד טיפול." [(ngModel)]="chosenTreatCode" name="treat" #treatChoices required>
+          <mat-select placeholder="נא לבחור טיפול או להזין קוד טיפול." [(value)]="chosenTreatCode" name="treat" #treatChoices required>
             <mat-option *ngFor="let treat of (currentSapak$ |async).treatments" [value]="treat">
               {{treat.treatDesc}} | ({{treat.treatCode}})
             </mat-option>
@@ -30,10 +30,12 @@
           <input matInput type="text" name="treatManual" pattern="[A-Za-z0-9.]*" placeholder="קוד טיפול" maxLength="10" [ngModel]="treatChoices.value ? treatChoices.value.treatCode : treatChoices.value "
             (input)="updateTreatValue($event.target.value)" required>
         </mat-form-field>
+
         <mat-form-field class="mat-form-field-custom">
           <input matInput type="text" name="treatCount" pattern="\d*" placeholder="כמות" #num1 maxLength="2" [(ngModel)]="newTreatmentForRowRequest.treatCount"
             required>
         </mat-form-field>
+
         <mat-form-field class="mat-form-field-custom">
           <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" placeholder="תאריך ביקור" [(ngModel)]="newTreatmentForRowRequest.date"
             name="date" required readonly>

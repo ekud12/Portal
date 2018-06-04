@@ -23,6 +23,7 @@ export enum httpRoutes {
   INVOICES_UPDATE_INVOICE_ROW = 'api/invoices/UpdateInvoiceRow',
   INVOICES_GET_MAGNETIC_CARD_SWIPES_FOR_SAPAK = 'api/invoices/GetCardSwipesForSapak',
   INVOICES_GET_OBLIGATIONS_BY_CUSTOMER_ID = 'api/invoices/GetObligationsForCustomer',
+  INVOICES_GET_OBLIGATIONS_BY_CUSTOMER_ID_AND_COMMITMENT = 'api/invoices/GetObligationsForCustomerAndCommitment',
 
   /** Files Handling endpoints */
   FILES_API = 'api/files',

@@ -206,7 +206,9 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   }
 
   addTreatment() {
-    this.routerStore.dispatch(new Go({ path: ['portal/invoices/newTreatment'], query: { returnUrl: this.router.url } }));
+    this.routerStore.dispatch(
+      new Go({ path: ['portal/invoices/treatment'], query: { returnUrl: this.router.url, src: 'create' } })
+    );
   }
 
   deleteTreatment(treatRow: InvoiceTreatment) {
@@ -230,34 +232,16 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
 
   duplicateTreatment(treatRow: InvoiceTreatment) {
     this.activateTreatment(treatRow);
-    // this.deleteTreatmentForRowRequest.invoiceRow = treatRow.lineNumField;
-    // /** add per request */
-    // const dialogRef = this.dialog.open(AlertDialogComponent, {
-    //   data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${treatRow.lineNumField})?` }
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     // this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteTreatmentForRowRequest));
-    //     // this.getAllInvoiceRows();
-    //   } else {
-    //   }
-    // });
+    this.routerStore.dispatch(
+      new Go({ path: ['portal/invoices/treatment'], query: { returnUrl: this.router.url, src: 'duplicate' } })
+    );
   }
 
   updateTreatment(treatRow: InvoiceTreatment) {
     this.activateTreatment(treatRow);
-    // this.deleteTreatmentForRowRequest.invoiceRow = treatRow.lineNumField;
-    // /** add per request */
-    // const dialogRef = this.dialog.open(AlertDialogComponent, {
-    //   data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${treatRow.lineNumField})?` }
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     // this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteTreatmentForRowRequest));
-    //     // this.getAllInvoiceRows();
-    //   } else {
-    //   }
-    // });
+    this.routerStore.dispatch(
+      new Go({ path: ['portal/invoices/treatment'], query: { returnUrl: this.router.url, src: 'update' } })
+    );
   }
 
   getViewValue(v) {

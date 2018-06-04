@@ -4,7 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { BackendService } from '../../core/services/backend.service';
 import { SapakDataRequest } from '../user/models/sapak.model';
-import { Invoice, InvoiceRow, ObligationByCustomerId } from './models/class-models/objects.model';
+import {
+  Invoice,
+  InvoiceRow,
+  ObligationByCustomerId,
+  ObligationByCustomerIdAndCommitment
+} from './models/class-models/objects.model';
 import {
   DeleteInvoiceRowRequest,
   DeleteTreatmentForRowRequest,
@@ -13,6 +18,7 @@ import {
   NewInvoiceRequest,
   NewInvoiceRowRequest,
   NewTreatmentForRowRequest,
+  ObligationsByCustomerIdAndCommitmentRequest,
   ObligationsByCustomerIdRequest,
   UpdateInvoiceRowRequest
 } from './models/requests-models/requests';
@@ -74,6 +80,12 @@ export class InvoicesService {
 
   getObligationsByCustomerId(request: ObligationsByCustomerIdRequest): Observable<ObligationByCustomerId[]> {
     return this.backendService.post<any>(httpRoutes.INVOICES_GET_OBLIGATIONS_BY_CUSTOMER_ID, request);
+  }
+
+  getObligationsByCustomerIdAndCommitment(
+    request: ObligationsByCustomerIdAndCommitmentRequest
+  ): Observable<ObligationByCustomerIdAndCommitment[]> {
+    return this.backendService.post<any>(httpRoutes.INVOICES_GET_OBLIGATIONS_BY_CUSTOMER_ID_AND_COMMITMENT, request);
   }
 
   uploadInvoice(params: any): Observable<any> {

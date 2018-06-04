@@ -14,7 +14,11 @@ import { PrintObject } from '../../../../shared/global-models/print-object.inter
 import { InvoiceRowDatePipe } from '../../../../shared/utils/invoice-row-date.pipe';
 import { Sapak, SapakDataRequest } from '../../../user/models/sapak.model';
 import { Invoice, InvoiceRow, PrintingOption } from '../../models/class-models/objects.model';
-import { DeleteInvoiceRowRequest, ObligationsByCustomerIdRequest } from '../../models/requests-models/requests';
+import {
+  DeleteInvoiceRowRequest,
+  ObligationsByCustomerIdAndCommitmentRequest,
+  ObligationsByCustomerIdRequest
+} from '../../models/requests-models/requests';
 import { ValidateAndCloseInvoiceComponent } from '../../utils/validate-and-close-invoice/validate-and-close-invoice.component';
 
 @Component({
@@ -71,6 +75,15 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
    */
   dataRequest$: Observable<SapakDataRequest>;
   obligationsByIdReq: ObligationsByCustomerIdRequest = { kodSapak: '', userName: '', custId: '', custIdType: '' };
+  obligationsByIdAndCommitmentReq: ObligationsByCustomerIdAndCommitmentRequest = {
+    kodSapak: '',
+    userName: '',
+    custId: '',
+    custIdType: '',
+    commitmentId: '',
+    linesNum: ''
+  };
+
   deleteRowRequest: DeleteInvoiceRowRequest = new DeleteInvoiceRowRequest();
 
   dataObject: PrintObject = new PrintObject();
@@ -177,13 +190,16 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   }
 
   initFutureRequests() {
+
     this.loggedUserName$.subscribe(username => {
       this.obligationsByIdReq.userName = username;
+      this.obligationsByIdAndCommitmentReq.userName = username;
       this.deleteRowRequest.userName = username;
     });
     this.currentSapak$.subscribe(spk => {
       this.dataObject.headerDetailsValue1 = spk.kodSapak;
       this.dataObject.headerDetailsValue2 = spk.description;
+      this.obligationsByIdAndCommitmentReq.kodSapak = spk.kodSapak;
       this.obligationsByIdReq.kodSapak = spk.kodSapak;
       this.deleteRowRequest.kodSapak = spk.kodSapak;
     });
@@ -212,10 +228,17 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
   }
 
   openReportedTreatmentsForCommitment(row) {
-    this.obligationsByIdReq.custId = '406';
+    this.obligationsByIdAndCommitmentReq.custIdType = row.custIdTypeField;
+    this.obligationsByIdAndCommitmentReq.custId = row.custIdField;
+    this.obligationsByIdAndCommitmentReq.commitmentId = row.commitmentIdField;
+    this.obligationsByIdAndCommitmentReq.linesNum = '999';
     this.invoiceStore.dispatch(new fromInvoiceStore.ActivateInvoiceRow(row));
-    // TODO: Redirect to correct page
-    // this.routerStore.dispatch(new Go({ path: ['/aa'] }));
+    this.invoiceStore.dispatch(
+      new fromInvoiceStore.GetObligationsByCustomerIdAndCommitment(this.obligationsByIdAndCommitmentReq)
+    );
+    this.routerStore.dispatch(
+      new Go({ path: ['/portal/invoices/obligationsbyidandcommitment'], query: { returnUrl: this.router.url } })
+    );
   }
 
   openReportedTreatmentsForCustomer(row) {

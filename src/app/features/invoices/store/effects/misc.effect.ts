@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import * as userActions from '../actions';
 import { of } from 'rxjs/observable/of';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
-import * as fromRoot from '../../../../core/store';
-import { InvoicesService } from '../../invoices.service';
-import { SapakDataRequest } from '../../../user/models/sapak.model';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { ToastService } from '../../../../core/services/toast-service.service';
-import { ObligationsByCustomerIdRequest } from '../../models/requests-models/requests';
+import { SapakDataRequest } from '../../../user/models/sapak.model';
+import { InvoicesService } from '../../invoices.service';
+import {
+  ObligationsByCustomerIdAndCommitmentRequest,
+  ObligationsByCustomerIdRequest
+} from '../../models/requests-models/requests';
+import * as userActions from '../actions';
 
 @Injectable()
 export class MiscEffects {
@@ -35,6 +37,19 @@ export class MiscEffects {
         .pipe(
           switchMap(res => [new userActions.GetObligationsByCustomerIdSuccess(res)]),
           catchError(error => of(new userActions.GetObligationsByCustomerIdFail(error)))
+        );
+    })
+  );
+
+  @Effect()
+  getObligationsByCustomerIdAndCommitment$ = this.actions$.ofType(userActions.GET_OBLIGATIONS_BY_CUSTOMER_ID_AND_COMMITMENT).pipe(
+    map((action: userActions.GetObligationsByCustomerIdAndCommitment) => action.payload),
+    switchMap((request: ObligationsByCustomerIdAndCommitmentRequest) => {
+      return this.invoicesService
+        .getObligationsByCustomerIdAndCommitment(request)
+        .pipe(
+          switchMap(res => [new userActions.GetObligationsByCustomerIdAndCommitmentSuccess(res)]),
+          catchError(error => of(new userActions.GetObligationsByCustomerIdAndCommitmentFail(error)))
         );
     })
   );

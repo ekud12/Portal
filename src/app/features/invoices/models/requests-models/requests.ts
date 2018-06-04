@@ -64,7 +64,6 @@ export class DeleteInvoiceRowRequest {
   constructor() {}
 }
 
-
 export class UpdateInvoiceRowRequest {
   constructor() {}
   userName: string;
@@ -92,6 +91,16 @@ export class ObligationsByCustomerIdRequest {
   kodSapak: string;
   custIdType: string;
   custId: string;
+}
+
+export class ObligationsByCustomerIdAndCommitmentRequest {
+  constructor() {}
+  userName: string;
+  kodSapak: string;
+  custIdType: string;
+  custId: string;
+  commitmentId: string;
+  linesNum: string;
 }
 
 export class GetAllRowsForInvoiceRequest {

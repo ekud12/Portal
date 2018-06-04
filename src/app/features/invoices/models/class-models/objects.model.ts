@@ -181,6 +181,59 @@ export class ObligationByCustomerId {
   PropertyChanged?: string;
 }
 
+export class ObligationByCustomerIdAndCommitment {
+  requestTypeField?: string;
+  userField?: string;
+  supplierCodeField?: string;
+  supplierDescField?: string;
+  billMonthField?: string;
+  invoiceNumField?: string;
+  invoiceTypeField?: string;
+  invoiceSumField?: string;
+  typedSumField?: string;
+  totalRowsNumField?: string;
+  exeCodeField?: string;
+  totalOffsetField?: string;
+  totalKZZApprlField?: string;
+  rateField?: string;
+  isVatField?: string;
+  currencyField?: string;
+  vatPercentField?: string;
+  remark1Field?: string;
+  remark2Field?: string;
+  statusField?: string;
+  lineNumField?: string;
+  custIdTypeField?: string;
+  custIdField?: string;
+  custSecNameField?: string;
+  custFirstNameField?: string;
+  commitmentIdField?: string;
+  visitNumField?: string;
+  amountField?: string;
+  typedAmountField?: string;
+  treatmentLineField?: string;
+  dateField?: string;
+  treatmentCodeField?: string;
+  treatmentDescField?: string;
+  treatmentNumField?: string;
+  amount2Field?: string;
+  typedAmount2Field?: string;
+  kzzTypeField?: string;
+  kzzTypeDescField?: string;
+  kzzCodeField?: string;
+  kzzDescField?: string;
+  kzzLiterally1Field?: string;
+  kzzLiterally2Field?: string;
+  kzzLiterally3Field?: string;
+  kzzLiterally4Field?: string;
+  kzzLiterally5Field?: string;
+  kzzLiterally6Field?: string;
+  kzzStatusField?: string;
+  kzzStatusDescField?: string;
+  isDocField?: string;
+  PropertyChanged?: string;
+}
+
 export enum PrintingOption {
   INVOICES = 1,
   ROWS = 2,

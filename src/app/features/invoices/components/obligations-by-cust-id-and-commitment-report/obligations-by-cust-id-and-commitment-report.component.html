@@ -1,0 +1,71 @@
+<div fxLayout="column" fxLayoutAlign="space-around center stretch">
+
+  <div class="title" fxHide.lt-md fxFlexOrder="1" fxLayout="row" fxLayoutAlign="start end">
+    <div style="margin-left: 63px;">
+      <h1>פורטל ספקים</h1>
+      <h2>טיפולים מדווחים להתחייבות (ExtraNet)</h2>
+    </div>
+    <div fxFlex>
+      <app-global-invoice-details></app-global-invoice-details>
+    </div>
+  </div>
+
+  <mat-card fxFlexOrder="2" class="card-swipes-container" fxLayout="column" fxLayoutAlign="space-between  center center" fxLayoutGap="60px">
+    <form fxLayout="row" fxLayoutAlign="space-around center center" novalidate fxLayoutGap="10px" class="card-swipes-filter-form">
+      <div>
+        מספר זהות:
+        <mat-form-field>
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFormattedIdField" name="id">
+        </mat-form-field>
+      </div>
+      <div>
+        שם המבוטח:
+        <mat-form-field>
+          <input matInput readonly [ngModel]="(activeInvoiceRow$|async).cstFullNameField" name="name">
+        </mat-form-field>
+      </div>
+    </form>
+
+    <mat-card>
+      <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear>
+
+        <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
+
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col) }}</mat-header-cell>
+
+          <ng-container>
+            <mat-cell *matCellDef="let element"> {{(element[col] | datetime:col | invoiceRowDate:col)}} </mat-cell>
+          </ng-container>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns; " class="card-swipes-item"></mat-row>
+      </mat-table>
+
+      <!-- Loader when the Store is loading Something, in our case card swipes list -->
+      <div *ngIf="(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <!-- In case there are no records, we show an error of no results -->
+      <!-- <mat-card *ngIf="displayNoRecords" style="padding:100px;">
+        <h3 style="text-align:center;color:red"> לא נמצאו תוצאות עבור חתכי החיפוש.
+          <br>
+        </h3>
+      </mat-card> -->
+
+      <!-- In case we switched sapak and he doesnt have any invoices we show a message -->
+      <div *ngIf="(obligationsByCustomerIdAndCommitment$|async).length === 0 && !(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center"
+        class="no-data-warn">
+        {{(errors$|async)?.errors}}
+      </div>
+
+      <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25,(obligationsByCustomerIdAndCommitment$|async).length]"
+        [showFirstLastButtons]="true">
+      </mat-paginator>
+
+    </mat-card>
+    <button mat-raised-button color="primary" (click)="goBack()">חזור</button>
+  </mat-card>
+</div>
