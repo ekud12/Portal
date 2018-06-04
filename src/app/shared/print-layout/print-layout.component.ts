@@ -19,7 +19,6 @@ export class PrintLayoutComponent implements OnInit {
   object: PrintObject = new PrintObject();
   object$: Observable<any>;
   data: any[];
-  html = `<div>aaaa</div>`;
   constructor(private router: Router, private route: ActivatedRoute, private sharedStore: Store<fromSharedStore.SharedState>) {
     this.object$ = this.sharedStore.select(fromSharedStore.currentPrintObjectSelector);
   }
@@ -42,7 +41,6 @@ export class PrintLayoutComponent implements OnInit {
       this.dataSubject.next(this.data);
     }
 
-    /** if ie get from state */
     this.route.queryParams.subscribe(params => {
       this.returnURL = params.returnUrl;
     });

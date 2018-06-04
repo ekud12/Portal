@@ -2,13 +2,13 @@
 
   <div class="title" fxHide.lt-md fxFlexOrder="1" fxLayout="row" fxLayoutAlign="start end">
     <div style="margin-left: 63px;">
-    <h1>פורטל ספקים</h1>
-    <h2>יצירת חשבונית חדשה (ExtraNet)</h2>
+      <h1>פורטל ספקים</h1>
+      <h2>יצירת חשבונית חדשה (ExtraNet)</h2>
+    </div>
+    <div fxFlex>
+      <app-global-invoice-details></app-global-invoice-details>
+    </div>
   </div>
-  <div fxFlex>
-    <app-global-invoice-details></app-global-invoice-details>
-  </div>
-</div>
 
 
   <mat-card fxFlexOrder="2" class="invoices-container" fxLayout="column" fxLayoutAlign="start stretch center">
@@ -41,6 +41,8 @@
       <div fxLayout="row" fxLayoutAlign="end center center">
         <button mat-raised-button type="button" (click)="reset()" color="primary" class="btn">נקה</button>
         <button mat-raised-button type="submit" disabled="{{!newInvoiceForm.valid}}" color="primary" class="btn">צור חשבונית</button>
+        <button mat-raised-button type="submit" color="primary" class="btn" routerLink="/portal/invoices/all">בטל</button>
+
       </div>
       <!-- <section class="loader-section">
         <mat-progress-bar mode="indeterminate" *ngIf="(isValidating$|async)">

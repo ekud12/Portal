@@ -87,6 +87,7 @@
       <div fxLayout="row" fxLayoutAlign="end center">
         <button mat-raised-button type="button" (click)="reset()" color="primary" class="btn">נקה</button>
         <button mat-raised-button type="submit" color="primary" class="btn" [disabled]="!formTag.form.valid">שלח</button>
+        <button mat-raised-button type="submit" color="primary" class="btn" routerLink="/portal/invoices/rows">בטל</button>
       </div>
     </form>
 

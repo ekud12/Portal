@@ -19,7 +19,7 @@ export const invoiceRowTreatInitialState: InvoiceRowTreatState = {
 export function treatReducer(state = invoiceRowTreatInitialState, action: any): InvoiceRowTreatState {
   switch (action.type) {
     /** Actiavte Invoice Row */
-    case userActions.ACTIVATE_INVOICE_ROW: {
+    case userActions.ACTIVATE_TREATMENT: {
       return {
         ...state,
         activeTreatment: action.payload,
@@ -80,6 +80,29 @@ export function treatReducer(state = invoiceRowTreatInitialState, action: any): 
       };
     }
     case userActions.CREATE_TREATMENT_FOR_ROW_FAIL: {
+      return {
+        ...state,
+        errors: action.payload.errors,
+        isLoading: false
+      };
+    }
+
+    /** Delete Treatment for Row */
+    case userActions.DELETE_TREATMENT_FOR_ROW: {
+      return {
+        ...state,
+        isLoading: true,
+        errors: []
+      };
+    }
+    case userActions.DELETE_TREATMENT_FOR_ROW_SUCCESS: {
+      return {
+        ...state,
+        errors: [],
+        isLoading: false
+      };
+    }
+    case userActions.DELETE_TREATMENT_FOR_ROW_FAIL: {
       return {
         ...state,
         errors: action.payload.errors,

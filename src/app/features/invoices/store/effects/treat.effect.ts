@@ -6,20 +6,17 @@ import { ToastService } from '../../../../core/services/toast-service.service';
 import * as fromRoot from '../../../../core/store';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
 import { InvoicesService } from '../../invoices.service';
-import { NewTreatmentForRowRequest } from '../../models/requests-models/requests';
+import { DeleteTreatmentForRowRequest, NewTreatmentForRowRequest } from '../../models/requests-models/requests';
 import * as userActions from '../actions';
 
 @Injectable()
 export class TreatmentsEffects {
   constructor(private actions$: Actions, private invoicesService: InvoicesService, private toaster: ToastService) {}
 
-  @Effect({ dispatch: false })
-  activateTreatment$ = this.actions$.ofType(userActions.ACTIVATE_TREATMENT).pipe(
-    map((action: userActions.ActivateTreatment) => action.payload)
-    // tap(val => {
-    //   this.toaster.openSnackBar(`טיפ מס' ${val.lineNumField} נבחרה כפעילה.`, null);
-    // })
-  );
+  // @Effect({ dispatch: false })
+  // activateTreatment$ = this.actions$.ofType(userActions.ACTIVATE_TREATMENT).pipe(
+  //   map((action: userActions.ActivateTreatment) => action.payload)
+  // );
 
   @Effect()
   getTreatmentsForInvoiceRow$ = this.actions$.ofType(userActions.GET_TREATMENTS_FOR_ROW).pipe(
@@ -57,6 +54,36 @@ export class TreatmentsEffects {
         path: ['/portal/invoices/treatments']
       });
     })
+  );
+
+  @Effect()
+  deleteTreatmentForRow$ = this.actions$.ofType(userActions.DELETE_TREATMENT_FOR_ROW).pipe(
+    map((action: userActions.DeleteTreatmentForInvoiceRow) => action.payload),
+    switchMap((request: DeleteTreatmentForRowRequest) => {
+      return this.invoicesService
+        .deleteTreatmentForRow(request)
+        .pipe(
+          switchMap(res => [new userActions.DeleteTreatmentForInvoiceRowSuccess(request)]),
+          catchError(error => of(new userActions.DeleteTreatmentForInvoiceRowFail(error)))
+        );
+    })
+  );
+  @Effect()
+  deleteTreatmentForRowSuccess$ = this.actions$.ofType(userActions.DELETE_TREATMENT_FOR_ROW_SUCCESS).pipe(
+    map((action: userActions.DeleteTreatmentForInvoiceRowSuccess) => action.payload),
+    // map((request: DeleteInvoiceRowRequest) => {
+    //   const newRequest = new SapakDataRequest();
+    //   newRequest.invoice = new Invoice();
+    //   newRequest.invoice.invoiceNumField = request.invoiceNum;
+    //   newRequest.invoice.billMonthField = request.billMonth;
+    //   newRequest.userName = request.userName;
+    //   newRequest.kodSapak = request.kodSapak;
+    //   return newRequest;
+    // }),
+    tap(val => {
+      this.toaster.openSnackBar(`טיפול נמחק בהצלחה`, null);
+    })
+    // switchMap(val => [new userActions.GetInvoiceRows(val)])
   );
 
   // @Effect()

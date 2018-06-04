@@ -7,6 +7,7 @@ import { SapakDataRequest } from '../user/models/sapak.model';
 import { Invoice, InvoiceRow, ObligationByCustomerId } from './models/class-models/objects.model';
 import {
   DeleteInvoiceRowRequest,
+  DeleteTreatmentForRowRequest,
   GetAllRowsForInvoiceRequest,
   GetAllTreatmentsForInvoiceRowRequest,
   NewInvoiceRequest,
@@ -53,6 +54,10 @@ export class InvoicesService {
   }
   createTreatmentForRow(request: NewTreatmentForRowRequest): Observable<boolean> {
     return this.backendService.post<any>(httpRoutes.INVOICES_CREATE_NEW_TREATMENT_FOR_ROW, request);
+  }
+
+  deleteTreatmentForRow(request: DeleteTreatmentForRowRequest): Observable<boolean> {
+    return this.backendService.post(httpRoutes.INVOICES_DELETE_TREATMENT_FOR_ROW, request);
   }
 
   deleteInvoiceRow(request: DeleteInvoiceRowRequest): Observable<boolean> {

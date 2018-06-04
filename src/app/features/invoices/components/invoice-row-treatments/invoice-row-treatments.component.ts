@@ -208,15 +208,19 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   }
 
   deleteTreatment(treatRow: InvoiceTreatment) {
+    // this.invoiceStore.dispatch(new fromInvoiceStore.ActivateTreatment(treatRow));
     this.deleteTreatmentForRowRequest.invoiceRow = treatRow.lineNumField;
-    /** add per request */
+    this.deleteTreatmentForRowRequest.treatCode = treatRow.treatmentCodeField;
+    this.deleteTreatmentForRowRequest.treatCount = treatRow.treatmentNumField;
+    this.deleteTreatmentForRowRequest.date = treatRow.dateField;
+    this.deleteTreatmentForRowRequest.treatmentRowNum = treatRow.treatmentRowNumField;
+    this.deleteTreatmentForRowRequest.typedObligationAmount = treatRow.typedAmount2Field;
     const dialogRef = this.dialog.open(AlertDialogComponent, {
-      data: { data: `האם למחוק את השורה הנוכחית(שורה מס' ${treatRow.lineNumField})?` }
+      data: { data: `האם למחוק את הטיפול?` }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteTreatmentForRowRequest));
-        // this.getAllInvoiceRows();
+        this.invoiceStore.dispatch(new fromInvoiceStore.DeleteTreatmentForInvoiceRow(this.deleteTreatmentForRowRequest));
       } else {
       }
     });

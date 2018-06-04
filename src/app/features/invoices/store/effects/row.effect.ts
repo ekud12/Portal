@@ -75,20 +75,9 @@ export class RowEffects {
 
   @Effect({ dispatch: false })
   updateInvoiceSuccess$ = this.actions$.ofType(userActions.UPDATE_INVOICE_ROW_SUCCESS).pipe(
-    // map((action: userActions.UpdateInvoiceRowSuccess) => action.payload),
-    // map((request: DeleteInvoiceRowRequest) => {
-    //   const newRequest = new SapakDataRequest();
-    //   newRequest.invoice = new Invoice();
-    //   newRequest.invoice.invoiceNumField = request.invoiceNum;
-    //   newRequest.invoice.billMonthField = request.billMonth;
-    //   newRequest.userName = request.userName;
-    //   newRequest.kodSapak = request.kodSapak;
-    //   return newRequest;
-    // }),
     tap(val => {
       this.toaster.openSnackBar(`שורה עודכנה בהצלחה בהצלחה!`, null);
     })
-    // switchMap(val => [new userActions.GetTreatmentsForRow(val)])
   );
 
   @Effect({ dispatch: false })
@@ -111,6 +100,7 @@ export class RowEffects {
         );
     })
   );
+
   @Effect()
   deleteInvoiceSuccess$ = this.actions$.ofType(userActions.DELETE_INVOICE_ROW_SUCCESS).pipe(
     map((action: userActions.DeleteInvoiceRowSuccess) => action.payload),

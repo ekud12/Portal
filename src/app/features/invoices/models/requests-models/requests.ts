@@ -49,11 +49,10 @@ export class DeleteTreatmentForRowRequest {
   invoiceRow: string;
   treatmentRowNum: string;
   commitmentId: string;
-  date: Date;
+  date: string;
   treatCode: string;
   treatCount: string;
   typedObligationAmount: string;
-
   constructor() {}
 }
 export class DeleteInvoiceRowRequest {
@@ -64,6 +63,7 @@ export class DeleteInvoiceRowRequest {
   invoiceRow: string;
   constructor() {}
 }
+
 
 export class UpdateInvoiceRowRequest {
   constructor() {}

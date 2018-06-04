@@ -52,7 +52,7 @@
         <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
           <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col) }}</mat-header-cell>
           <ng-container *ngIf="i < displayedColumns.length-1; else actionsTemplate">
-            <mat-cell *matCellDef=" let element "> {{(element[col] | invoiceRowDate)}} </mat-cell>
+            <mat-cell *matCellDef=" let element "> {{(element[col] | datetime:col)}} </mat-cell>
           </ng-container>
           <ng-template #actionsTemplate>
             <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">

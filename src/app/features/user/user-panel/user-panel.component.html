@@ -2,12 +2,12 @@
   <mat-icon>account_circle</mat-icon>
   <mat-spinner *ngIf="(userLoader$ | async)" [diameter]="22" class="usr-spn"></mat-spinner>
   <span class="spk">
-    {{(activeSapak$ | async)?.description}} 
+    {{(activeSapak$ | async)?.description}}
   </span>
   <mat-icon>keyboard_arrow_down</mat-icon>
 </button>
 
-<mat-menu #menu="matMenu" class="menu" yPosition="below" [overlapTrigger]="false">
+<mat-menu #menu="matMenu" class="menu" yPosition="below" [overlapTrigger]="false" >
   <ng-template matMenuContent>
     <div (click)="$event.stopPropagation();" fxLayout="column" fxLayoutAlign="space-between center center" class="spk-chooser"
       fxLayoutGap="10px">
