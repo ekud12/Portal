@@ -99,17 +99,17 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
     }
 
     case userActions.UPDATE_INVOICE_ROW_SUCCESS: {
-      const rows = state.listOfRowsForInvoice;
+      const rows = action.payload.data.resultSetData;
+      const rowToUpdate = rows.filter(val => val['lineNumField'] === action.request.rowNum)[0];
+      const a = addFullNameAndFullId(rowToUpdate);
       rows.map(row => {
-        if (row.lineNumField === action.payload.rowNum) {
-          row.commitmentIdField = action.payload.commitmentId.toString();
-          row.visitNumField = action.payload.visitNum.toString();
-          row.custIdField = action.payload.custId.toString();
-          row.custIdTypeField = action.payload.custIdType.toString();
+        if (row.lineNumField === a.lineNumField) {
+          row = a;
         }
       });
       return {
         ...state,
+        activeInvoiceRow: a,
         listOfRowsForInvoice: rows,
         errors: [],
         isLoading: false

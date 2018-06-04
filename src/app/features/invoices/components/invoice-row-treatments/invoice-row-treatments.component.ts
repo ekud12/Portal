@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
@@ -24,7 +25,8 @@ import {
 @Component({
   selector: 'app-invoice-row-treatments',
   templateUrl: './invoice-row-treatments.component.html',
-  styleUrls: ['./invoice-row-treatments.component.css']
+  styleUrls: ['./invoice-row-treatments.component.css'],
+  providers: [DatePipe]
 })
 export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -84,7 +86,8 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     private userStore: Store<fromUserStore.UserState>,
     private routerStore: Store<fromRoot.AppState>,
     public dialog: MatDialog,
-    private toaster: ToastService
+    private toaster: ToastService,
+    private datePipe: DatePipe
   ) {
     this.loggedUserName$ = this.userStore.select(fromUserStore.userNameSelector);
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);

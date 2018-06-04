@@ -107,7 +107,7 @@ export class UpdateInvoiceRow implements Action {
 }
 export class UpdateInvoiceRowSuccess implements Action {
   readonly type = UPDATE_INVOICE_ROW_SUCCESS;
-  constructor(public payload: any) {}
+  constructor(public payload: any, public request: any) {}
 }
 export class UpdateInvoiceRowFail implements Action {
   readonly type = UPDATE_INVOICE_ROW_FAIL;

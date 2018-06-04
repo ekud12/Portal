@@ -76,11 +76,11 @@
         <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns; " class="invoices-row-list-item"></mat-row>
       </mat-table>
-      <div *ngIf="(listOfTreatmentsForRow$|async).length===0 " fxLayout="row " fxLayoutAlign="space-around center center
+      <div *ngIf="(listOfTreatmentsForRow$|async)?.length===0 " fxLayout="row " fxLayoutAlign="space-around center center
               " class="no-data-warn ">
         אין שורות לחשבונית
       </div>
-      <mat-paginator #paginator [pageSize]="10 " [pageSizeOptions]="[5, 10, 25] " [showFirstLastButtons]="true ">
+      <mat-paginator #paginator [pageSize]="10 " [pageSizeOptions]="[5, 10, 25]" [showFirstLastButtons]="true ">
       </mat-paginator>
 
     </mat-card>

@@ -67,28 +67,36 @@ export class RowEffects {
       return this.invoicesService
         .updateInvoiceRow(request)
         .pipe(
-          switchMap(res => [new userActions.UpdateInvoiceRowSuccess(request)]),
+          switchMap(res => [new userActions.UpdateInvoiceRowSuccess(res, request)]),
           catchError(error => of(new userActions.UpdateInvoiceRowFail(error)))
         );
     })
   );
 
-  @Effect()
+  @Effect({ dispatch: false })
   updateInvoiceSuccess$ = this.actions$.ofType(userActions.UPDATE_INVOICE_ROW_SUCCESS).pipe(
-    map((action: userActions.UpdateInvoiceRowSuccess) => action.payload),
-    map((request: DeleteInvoiceRowRequest) => {
-      const newRequest = new SapakDataRequest();
-      newRequest.invoice = new Invoice();
-      newRequest.invoice.invoiceNumField = request.invoiceNum;
-      newRequest.invoice.billMonthField = request.billMonth;
-      newRequest.userName = request.userName;
-      newRequest.kodSapak = request.kodSapak;
-      return newRequest;
-    }),
+    // map((action: userActions.UpdateInvoiceRowSuccess) => action.payload),
+    // map((request: DeleteInvoiceRowRequest) => {
+    //   const newRequest = new SapakDataRequest();
+    //   newRequest.invoice = new Invoice();
+    //   newRequest.invoice.invoiceNumField = request.invoiceNum;
+    //   newRequest.invoice.billMonthField = request.billMonth;
+    //   newRequest.userName = request.userName;
+    //   newRequest.kodSapak = request.kodSapak;
+    //   return newRequest;
+    // }),
     tap(val => {
       this.toaster.openSnackBar(`שורה עודכנה בהצלחה בהצלחה!`, null);
-    }),
-    switchMap(val => [new userActions.GetTreatmentsForRow(val)])
+    })
+    // switchMap(val => [new userActions.GetTreatmentsForRow(val)])
+  );
+
+  @Effect({ dispatch: false })
+  updateInvoiceFail$ = this.actions$.ofType(userActions.UPDATE_INVOICE_ROW_FAIL).pipe(
+    map((action: userActions.UpdateInvoiceRowSuccess) => action.payload),
+    tap(val => {
+      this.toaster.openSnackBar(val.errors, null);
+    })
   );
 
   @Effect()
