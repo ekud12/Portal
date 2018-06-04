@@ -48,6 +48,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
   currentInvoiceRow$: Observable<InvoiceRow>;
   dataRequest$: Observable<SapakDataRequest>;
   canActivate$: Observable<boolean>;
+  isLoading$: Observable<boolean>;
 
   /**
    * Special Local Objects and Requests
@@ -96,6 +97,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
     this.dataRequest$ = this.userStore.select(fromUserStore.userNameAndCurrentSapakSelector);
     this.canActivate$ = this.invoiceStore.select(fromInvoiceStore.canDoActionsForInvoiceSelector);
+    this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.treatmentRowLoadingSelector);
   }
 
   ngAfterViewInit() {

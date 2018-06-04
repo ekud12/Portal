@@ -6,7 +6,7 @@ import { ToastService } from '../../../../core/services/toast-service.service';
 import * as fromRoot from '../../../../core/store';
 import { SapakDataRequest } from '../../../user/models/sapak.model';
 import { InvoicesService } from '../../invoices.service';
-import { Invoice } from '../../models/class-models/objects.model';
+import { Invoice, InvoiceRow } from '../../models/class-models/objects.model';
 import { DeleteInvoiceRowRequest, NewInvoiceRowRequest, UpdateInvoiceRowRequest } from '../../models/requests-models/requests';
 import * as userActions from '../actions';
 
@@ -73,11 +73,24 @@ export class RowEffects {
     })
   );
 
-  @Effect({ dispatch: false })
-  updateInvoiceSuccess$ = this.actions$.ofType(userActions.UPDATE_INVOICE_ROW_SUCCESS).pipe(
+  @Effect()
+  updateInvoiceRowSuccess$ = this.actions$.ofType(userActions.UPDATE_INVOICE_ROW_SUCCESS).pipe(
+    map((action: userActions.UpdateInvoiceRowSuccess) => action.request),
+    map((request: UpdateInvoiceRowRequest) => {
+      const newRequest = new SapakDataRequest();
+      newRequest.invoice = new Invoice();
+      newRequest.invoiceRow = new InvoiceRow();
+      newRequest.invoice.invoiceNumField = request.invoiceNum;
+      newRequest.invoice.billMonthField = request.billMonth;
+      newRequest.invoiceRow.lineNumField = request.rowNum;
+      newRequest.userName = request.userName;
+      newRequest.kodSapak = request.kodSapak;
+      return newRequest;
+    }),
     tap(val => {
       this.toaster.openSnackBar(`שורה עודכנה בהצלחה בהצלחה!`, null);
-    })
+    }),
+    switchMap(val => [new userActions.GetTreatmentsForRow(val)])
   );
 
   @Effect({ dispatch: false })

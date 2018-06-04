@@ -76,6 +76,13 @@
         <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns; " class="invoices-row-list-item"></mat-row>
       </mat-table>
+
+      <!-- Loader when the Store is loading Something, in our case invoices rows list -->
+      <div *ngIf="(isLoading$|async)" fxLayout="row" fxLayoutAlign="space-around center center" class="no-data-warn">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <!--  In case there are no rows -->
       <div *ngIf="(listOfTreatmentsForRow$|async)?.length===0 " fxLayout="row " fxLayoutAlign="space-around center center
               " class="no-data-warn ">
         אין שורות לחשבונית
