@@ -46,7 +46,7 @@
   <div *ngIf="object.parentContent" fxLayout="row" fxLayoutAlign="center center" class="parent-content">
     <div *ngFor="let pci of object.parentContent" class="parent-content-item" fxLayout="row" fxLayoutAlign="center center">
       <div class="parent-content-item-desc">{{ pci.view }}</div>
-      <div>{{ pci.value }}</div>
+      <div>{{ pci.value | invoiceRowDate:pci.col | invoiceStatus:pci.col }}</div>
     </div>
 
   </div>
@@ -55,13 +55,14 @@
     <div fxLayout="row" fxLayoutAlign="space-around center center" class="main-header">
       {{object.mainHeader}}
     </div>
+
     <div fxLayout="row" fxLayoutAlign="space-around stretch stretch" class="main-content">
       <div *ngIf="object.printOption === 1 || object.printOption === 2 || object.printOption === 3">
         <div class="table-content">
           <mat-table #table [dataSource]="dataSource">
             <ng-container *ngFor="let col of object.displayedColumns" [cdkColumnDef]="col">
               <mat-header-cell *cdkHeaderCellDef> {{getViewValue(col)}} </mat-header-cell>
-              <mat-cell *cdkCellDef="let row"> {{(row[col] | invoiceRowDate:col | invoiceStatus:col)}} </mat-cell>
+              <mat-cell *cdkCellDef="let row"> {{(row[col] | invoiceRowDate:col | invoiceStatus:col | datetime:col)}} </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="object.displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: object.displayedColumns;" class="pgbreak"></mat-row>
@@ -69,8 +70,7 @@
         </div>
       </div>
 
-      <div *ngIf="(object.printOption === 5)" fxLayout="column" fxLayoutAlign="start stretch center"
-        fxLayoutGap="25px">
+      <div *ngIf="(object.printOption === 5)" fxLayout="column" fxLayoutAlign="start stretch center" fxLayoutGap="25px">
 
         <div>
           {{object.specialData[0]}}

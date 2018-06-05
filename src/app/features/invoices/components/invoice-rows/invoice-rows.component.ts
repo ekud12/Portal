@@ -330,13 +330,13 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.dataObject.mainHeader = 'ריכוז שורות לחשבונית';
     this.currentInvoice$.take(1).subscribe(inv => {
       this.dataObject.parentContent = [
-        { view: `חשבונית מס:`, value: inv.invoiceNumField },
-        { view: `חודש:`, value: inv.billMonthField },
-        { view: `סטטוס:`, value: inv.statusField },
-        { view: `סכום לא כולל מע"מ:`, value: inv.typedSumField },
-        { view: `אחוז מע"מ:`, value: inv.vatPerField },
-        { view: `סכום כולל מע"מ:`, value: inv.invoiceSumField },
-        { view: `הערות: `, value: inv.remark1Field }
+        { view: `חשבונית מס:`, value: inv.invoiceNumField, col: null },
+        { view: `חודש:`, value: inv.billMonthField, col: 'billMonthField' },
+        { view: `סטטוס:`, value: inv.statusField, col: 'statusField' },
+        { view: `סכום לא כולל מע"מ:`, value: inv.typedSumField, col: null },
+        { view: `אחוז מע"מ:`, value: inv.vatPerField, col: null },
+        { view: `סכום כולל מע"מ:`, value: inv.invoiceSumField, col: null },
+        { view: `הערות: `, value: inv.remark1Field, col: null }
       ];
     });
 
@@ -351,13 +351,13 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     this.dataObject.mainHeader = '';
     this.currentInvoice$.take(1).subscribe(inv => {
       this.dataObject.parentContent = [
-        { view: `חשבונית מס:`, value: inv.invoiceNumField },
-        { view: `חודש:`, value: inv.billMonthField },
-        { view: `סטטוס:`, value: inv.statusField },
-        { view: `סכום לא כולל מע"מ:`, value: inv.typedSumField },
-        { view: `אחוז מע"מ:`, value: inv.vatPerField },
-        { view: `סכום כולל מע"מ:`, value: inv.invoiceSumField },
-        { view: `הערות: `, value: inv.remark1Field }
+        { view: `חשבונית מס:`, value: inv.invoiceNumField, col: null },
+        { view: `חודש:`, value: inv.billMonthField, col: 'billMonthField' },
+        { view: `סטטוס:`, value: inv.statusField, col: 'statusField' },
+        { view: `סכום לא כולל מע"מ:`, value: inv.typedSumField, col: null },
+        { view: `אחוז מע"מ:`, value: inv.vatPerField, col: null },
+        { view: `סכום כולל מע"מ:`, value: inv.invoiceSumField, col: null },
+        { view: `הערות: `, value: inv.remark1Field, col: null }
       ];
     });
 

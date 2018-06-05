@@ -7,11 +7,16 @@ export class InvoiceRowDatePipe implements PipeTransform {
   constructor(private pipe: DatePipe) {}
 
   transform(value: any, args?: any): any {
+    console.log(value);
+    console.log(args);
     if (args === 'billMonthField' || args === 'printSpecialDate' || args === 'yearBillMonthField') {
-      // const year = value.toString().substr(0, 4);
-      // const month = value.toString().substr(4, 2);
-      // return `${month}/${year}`;
-      return ``;
+      if (value !== null && value !== undefined) {
+        const year = value.toString().substr(0, 4);
+        const month = value.toString().substr(4, 2);
+        return `${month}/${year}`;
+      } else {
+        return ``;
+      }
     } else {
       return value;
     }
