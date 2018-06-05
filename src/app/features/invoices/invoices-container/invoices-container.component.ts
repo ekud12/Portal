@@ -38,13 +38,14 @@ export class InvoicesContainerComponent implements OnInit {
     this.currentInvoice$.subscribe(invVal => {
       if (!invVal) {
         this.routerStore.dispatch(new fromRoot.Go({ path: ['/portal/invoices/all'] }));
-      } else {
-        this.currentInvoiceRow$.take(1).subscribe(rowVal => {
-          if (!rowVal) {
-            this.routerStore.dispatch(new fromRoot.Go({ path: ['/portal/invoices/rows'] }));
-          }
-        });
       }
+      // else {
+      //   this.currentInvoiceRow$.take(1).subscribe(rowVal => {
+      //     if (!rowVal) {
+      //       this.routerStore.dispatch(new fromRoot.Go({ path: ['/portal/invoices/rows'] }));
+      //     }
+      //   });
+      // }
     });
   }
 

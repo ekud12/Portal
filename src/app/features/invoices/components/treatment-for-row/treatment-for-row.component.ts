@@ -8,7 +8,7 @@ import * as fromUserStore from '@userStore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
 import { Sapak, SapakTreatment } from '../../../user/models/sapak.model';
-import { Invoice, InvoiceTreatment } from '../../models/class-models/objects.model';
+import { Invoice, InvoiceRow, InvoiceTreatment } from '../../models/class-models/objects.model';
 import { NewTreatmentForRowRequest } from '../../models/requests-models/requests';
 
 export class ZakautErrorStateMatcher implements ErrorStateMatcher {
@@ -43,6 +43,7 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
   loggedUserName$: Observable<string>;
   currentSapak$: Observable<Sapak>;
   currentInvoice$: Observable<Invoice>;
+  currentInvoiceRow$: Observable<InvoiceRow>;
   currentTreatment$: Observable<InvoiceTreatment>;
   isLoading$: Observable<boolean>;
   errors$: Observable<any>;
@@ -51,6 +52,8 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
   minDate: Date;
   maxDate: Date;
   newTreatmentForRowRequest = new NewTreatmentForRowRequest();
+  funcRef;
+  title = '';
   returnURL = '';
   srcComponent = '';
   @ViewChild('formTag') myForm;
@@ -66,24 +69,15 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
     this.currentSapak$ = this.userStore.select(fromUserStore.activeSapakSelector);
     this.currentInvoice$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceSelector);
     this.currentTreatment$ = this.invoiceStore.select(fromInvoiceStore.currentRowTreatmentSelector);
+    this.currentInvoiceRow$ = this.invoiceStore.select(fromInvoiceStore.currentInvoiceRowSelector);
     this.canEnterPrice$ = this.userStore.select(fromUserStore.activeSapakCanEnterPriceSelector);
-    this.errors$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsErrorsSelector);
+    this.errors$ = this.invoiceStore.select(fromInvoiceStore.treatmentRowErrorsSelector);
     this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.invoiceRowsLoadingSelector);
   }
 
   ngAfterViewInit() {}
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.returnURL = params.returnUrl;
-      this.srcComponent = params.src;
-      if (this.srcComponent === 'duplicate') {
-        console.log('duplicate');
-      } else if (this.srcComponent === 'update') {
-        console.log('update');
-      } else {
-        console.log('create');
-      }
-    });
+    this.setSourceParams();
     this.initFutureRequests(this.srcComponent);
     this.maxDate = moment().toDate();
     this.minDate = moment()
@@ -91,6 +85,23 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
       .toDate();
   }
 
+  setSourceParams() {
+    this.route.queryParams.subscribe(params => {
+      this.returnURL = params.returnUrl;
+      this.srcComponent = params.src;
+      if (this.srcComponent === 'duplicate') {
+        this.title = 'שכפול טיפול';
+        console.log('duplicate');
+      } else if (this.srcComponent === 'update') {
+        this.title = 'עדכון טיפול';
+        console.log('update');
+      } else {
+        this.title = 'הוספת טיפול';
+        console.log('create');
+        this.funcRef = this.addTreatmentForRow;
+      }
+    });
+  }
   initFutureRequests(src: string) {
     this.loggedUserName$.subscribe(username => (this.newTreatmentForRowRequest.userName = username));
     this.currentSapak$.subscribe(spk => {
@@ -102,27 +113,45 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
         this.newTreatmentForRowRequest.invoiceNum = inv.invoiceNumField;
       }
     });
-    switch (src) {
-      case 'create': {
-        this.newTreatmentForRowRequest.treatCount = '1';
-        this.newTreatmentForRowRequest.date = new Date();
-        break;
+    this.currentInvoiceRow$.subscribe(row => {
+      if (row !== null) {
+        this.newTreatmentForRowRequest.rowNum = row.lineNumField;
       }
-      case 'duplicate': {
-        this.currentTreatment$.subscribe(val => {
-          this.newTreatmentForRowRequest.treatCount = val.treatmentNumField;
-          this.newTreatmentForRowRequest.date = new Date(val.dateField);
-          this.newTreatmentForRowRequest.treat = val.treatmentCodeField;
-          this.currentSapak$.take(1).subscribe(spk => {
-            if (spk.treatments.find(v => v.treatCode === val.treatmentCodeField)) {
-              this.chosenTreatCode = spk.treatments.find(v => v.treatCode === val.treatmentCodeField);
-            }
+    });
+    if (src) {
+      switch (src) {
+        case 'create': {
+          this.newTreatmentForRowRequest.treatCount = '1';
+          this.newTreatmentForRowRequest.date = new Date();
+          this.newTreatmentForRowRequest.typedObligationAmount = '0';
+          break;
+        }
+        case 'duplicate':
+        case 'update': {
+          this.currentTreatment$.subscribe(val => {
+            this.newTreatmentForRowRequest.treatCount = val.treatmentNumField;
+            this.newTreatmentForRowRequest.date = new Date(val.dateField);
+            this.newTreatmentForRowRequest.treat = val.treatmentCodeField;
+            this.newTreatmentForRowRequest.typedObligationAmount = val.typedAmount2Field;
+
+            this.currentSapak$.take(1).subscribe(spk => {
+              if (spk.treatments.find(v => v.treatCode === val.treatmentCodeField)) {
+                this.chosenTreatCode = spk.treatments.find(v => v.treatCode === val.treatmentCodeField);
+              }
+            });
           });
-        });
-        break;
+          break;
+        }
       }
+    } else {
+      this.router.navigate(['/portal/invoices']);
     }
   }
+
+  // myfunction(action: () => void) {
+  //   if(srcComponent === addTreatmentForRow)
+  //   action();
+  // }
 
   addTreatmentForRow() {
     this.newTreatmentForRowRequest.treat = this.chosenTreatCode.treatCode;

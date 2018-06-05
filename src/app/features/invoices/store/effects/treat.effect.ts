@@ -17,12 +17,10 @@ export class TreatmentsEffects {
   getTreatmentsForInvoiceRow$ = this.actions$.ofType(userActions.GET_TREATMENTS_FOR_ROW).pipe(
     map((action: userActions.GetTreatmentsForRow) => action.payload),
     switchMap((request: SapakDataRequest) => {
-      return this.invoicesService
-        .getAllTreatmentsForInvoiceRow(request)
-        .pipe(
-          switchMap(res => [new userActions.GetTreatmentsForRowSuccess(res)]),
-          catchError(error => of(new userActions.GetTreatmentsForRowFail(error)))
-        );
+      return this.invoicesService.getAllTreatmentsForInvoiceRow(request).pipe(
+        switchMap(res => [new userActions.GetTreatmentsForRowSuccess(res)]),
+        catchError(error => of(new userActions.GetTreatmentsForRowFail(error)))
+      );
     })
   );
 
@@ -30,12 +28,10 @@ export class TreatmentsEffects {
   createNewTreatmentForRow$ = this.actions$.ofType(userActions.CREATE_TREATMENT_FOR_ROW).pipe(
     map((action: userActions.CreateNewTreatmentForInvoiceRow) => action.payload),
     switchMap((request: NewTreatmentForRowRequest) => {
-      return this.invoicesService
-        .createTreatmentForRow(request)
-        .pipe(
-          switchMap(res => [new userActions.CreateNewTreatmentForInvoiceRowSuccess(res)]),
-          catchError(error => of(new userActions.CreateNewTreatmentForInvoiceRowFail(error)))
-        );
+      return this.invoicesService.createTreatmentForRow(request).pipe(
+        switchMap(res => [new userActions.CreateNewTreatmentForInvoiceRowSuccess(res)]),
+        catchError(error => of(new userActions.CreateNewTreatmentForInvoiceRowFail(error)))
+      );
     })
   );
 
@@ -51,16 +47,26 @@ export class TreatmentsEffects {
     })
   );
 
+  // @Effect()
+  // createNewTreatmentForRowFail$ = this.actions$.ofType(userActions.CREATE_TREATMENT_FOR_ROW_SUCCESS).pipe(
+  //   tap(val => {
+  //     this.toaster.openSnackBar(`טיפול נוסף בהצלחה.`, null);
+  //   }),
+  //   map(() => {
+  //     return new fromRoot.Go({
+  //       path: ['/portal/invoices/treatments']
+  //     });
+  //   })
+  // );
+
   @Effect()
   deleteTreatmentForRow$ = this.actions$.ofType(userActions.DELETE_TREATMENT_FOR_ROW).pipe(
     map((action: userActions.DeleteTreatmentForInvoiceRow) => action.payload),
     switchMap((request: DeleteTreatmentForRowRequest) => {
-      return this.invoicesService
-        .deleteTreatmentForRow(request)
-        .pipe(
-          switchMap(res => [new userActions.DeleteTreatmentForInvoiceRowSuccess(request)]),
-          catchError(error => of(new userActions.DeleteTreatmentForInvoiceRowFail(error)))
-        );
+      return this.invoicesService.deleteTreatmentForRow(request).pipe(
+        switchMap(res => [new userActions.DeleteTreatmentForInvoiceRowSuccess(request)]),
+        catchError(error => of(new userActions.DeleteTreatmentForInvoiceRowFail(error)))
+      );
     })
   );
   @Effect()
@@ -79,6 +85,14 @@ export class TreatmentsEffects {
       this.toaster.openSnackBar(`טיפול נמחק בהצלחה`, null);
     })
     // switchMap(val => [new userActions.GetInvoiceRows(val)])
+  );
+
+  @Effect({ dispatch: false })
+  deleteTreatmentForRowFail$ = this.actions$.ofType(userActions.DELETE_TREATMENT_FOR_ROW_FAIL).pipe(
+    map((action: userActions.DeleteTreatmentForInvoiceRowFail) => action.payload),
+    tap(val => {
+      this.toaster.openSnackBar(val.errors, null);
+    })
   );
 
   // @Effect()

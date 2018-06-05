@@ -133,7 +133,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
       if (this.selectedFilter.value === 'lineNumField') {
         return +data[this.selectedFilter.value] === +filter || filter === 'all';
       } else {
-        return data[this.selectedFilter.value].toString().includes(filter) || filter === 'all';
+        return data[this.selectedFilter.value].toString() === filter || filter === 'all';
       }
     };
   }
@@ -186,11 +186,20 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
         val.invoice = inv;
       });
       this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoiceRows(val));
+      // this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoices(val));
+    });
+  }
+
+  refreshInvoices() {
+    this.dataRequest$.take(1).subscribe(val => {
+      this.currentInvoice$.take(1).subscribe(inv => {
+        val.invoice = inv;
+      });
+      this.invoiceStore.dispatch(new fromInvoiceStore.GetInvoices(val));
     });
   }
 
   initFutureRequests() {
-
     this.loggedUserName$.subscribe(username => {
       this.obligationsByIdReq.userName = username;
       this.obligationsByIdAndCommitmentReq.userName = username;
@@ -222,6 +231,7 @@ export class InvoiceRowsComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.invoiceStore.dispatch(new fromInvoiceStore.DeleteInvoiceRow(this.deleteRowRequest));
+        // this.refreshInvoices();
       } else {
       }
     });

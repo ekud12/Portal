@@ -8,6 +8,7 @@ export const GET_INVOICES_FAIL = '[Invoice] Get Invoices Fail';
 export const GET_INVOICES_COMPLETED = '[Invoice] Get Invoices Completed';
 
 export const ACTIVATE_INVOICE = '[Invoice] Activate Invoice';
+export const UPDATE_ACTIVATED_INVOICE = '[Invoice] Update Activated Invoice';
 export const ACTIVATE_INVOICE_SUCCESS = '[Invoice] Activate Invoice Success';
 export const ACTIVATE_INVOICE_FAIL = '[Invoice] Activate Invoice Fail';
 export const ACTIVATE_INVOICE_COMPLETED = '[Invoice] Activate Invoice Completed';
@@ -22,8 +23,7 @@ export const RESET_INVOICES = '[Invoice] Reset Invoices';
 /** Actions - Get All Invoices */
 export class GetInvoices implements Action {
   readonly type = GET_INVOICES;
-  constructor(public payload: SapakDataRequest) {
-  }
+  constructor(public payload: SapakDataRequest) {}
 }
 
 export class GetInvoicesSuccess implements Action {
@@ -44,6 +44,10 @@ export class GetInvoicesCompleted implements Action {
 export class ActivateInvoice implements Action {
   readonly type = ACTIVATE_INVOICE;
   constructor(public payload: SapakDataRequest) {}
+}
+
+export class UpdateActivateInvoice implements Action {
+  readonly type = UPDATE_ACTIVATED_INVOICE;
 }
 
 export class ActivateInvoiceSuccess implements Action {
@@ -68,14 +72,12 @@ export class CreateInvoice implements Action {
 
 export class CreateInvoiceSuccess implements Action {
   readonly type = CREATE_INVOICE_SUCCESS;
-  constructor(public payload: any, public reqRef) {
-  }
+  constructor(public payload: any, public reqRef) {}
 }
 
 export class CreateInvoiceFail implements Action {
   readonly type = CREATE_INVOICE_FAIL;
-  constructor(public payload: any) {
-  }
+  constructor(public payload: any) {}
 }
 
 export class CreateInvoiceCompleted implements Action {
@@ -93,6 +95,7 @@ export type userInvoiceActions =
   | GetInvoicesFail
   | GetInvoicesCompleted
   | ActivateInvoice
+  | UpdateActivateInvoice
   | ActivateInvoiceSuccess
   | ActivateInvoiceFail
   | ActivateInvoiceCompleted

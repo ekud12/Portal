@@ -132,6 +132,8 @@ export class RowEffects {
     switchMap(val => [new userActions.GetInvoiceRows(val)])
   );
 
+
+
   @Effect()
   resetInvoiceRows$ = this.actions$
     .ofType(userActions.ACTIVATE_INVOICE)

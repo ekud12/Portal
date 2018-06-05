@@ -28,13 +28,6 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
       };
     }
     case userActions.GET_INVOICES_SUCCESS: {
-      // const arr = action.payload.data.resultSetData;
-      // arr.map(val => {
-      //   if (val['totalOffsetField'] !== '0.0') {
-      //     console.log(val);
-      //   }
-      // });
-
       return {
         ...state,
         listOfInvoicesForSapak: action.payload.data.resultSetData,
@@ -58,6 +51,19 @@ export function invoiceReducer(state = invoiceInitialState, action: any): Invoic
       return {
         ...state,
         activeInvoice: action.payload.invoice
+      };
+    }
+
+    case userActions.UPDATE_ACTIVATED_INVOICE: {
+      let row: Invoice;
+      if (state.activeInvoice !== null) {
+        row = state.listOfInvoicesForSapak.filter(val => val.invoiceNumField === state.activeInvoice.invoiceNumField)[0];
+      } else {
+        row = state.activeInvoice;
+      }
+      return {
+        ...state,
+        activeInvoice: row
       };
     }
 
