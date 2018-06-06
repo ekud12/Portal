@@ -20,15 +20,17 @@ export class InvoiceEffects {
   ) {}
 
   @Effect()
-  getInvoices$ = this.actions$.ofType(userActions.GET_INVOICES, userActions.GET_INVOICE_ROWS).pipe(
-    map((action: userActions.GetInvoices) => action.payload),
-    switchMap((request: SapakDataRequest) => {
-      return this.invoicesService.getAllInvoicesForSapak(request).pipe(
-        switchMap(res => [new userActions.GetInvoicesSuccess(res)]),
-        catchError(error => of(new userActions.GetInvoicesFail(error)))
-      );
-    })
-  );
+  getInvoices$ = this.actions$
+    .ofType(userActions.GET_INVOICES, userActions.GET_INVOICE_ROWS, userActions.GET_TREATMENTS_FOR_ROW)
+    .pipe(
+      map((action: userActions.GetInvoices) => action.payload),
+      switchMap((request: SapakDataRequest) => {
+        return this.invoicesService.getAllInvoicesForSapak(request).pipe(
+          switchMap(res => [new userActions.GetInvoicesSuccess(res)]),
+          catchError(error => of(new userActions.GetInvoicesFail(error)))
+        );
+      })
+    );
 
   @Effect()
   refreshActivatedInvoice$ = this.actions$

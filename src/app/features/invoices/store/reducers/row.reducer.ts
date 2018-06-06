@@ -25,6 +25,20 @@ export function rowReducer(state = invoiceRowInitialState, action: any): Invoice
         activeInvoiceRow: action.payload
       };
     }
+
+    case userActions.UPDATE_ACTIVATED_INVOICE_ROW: {
+      let row: InvoiceRow;
+      if (state.activeInvoiceRow !== null) {
+        row = state.listOfRowsForInvoice.filter(val => val.lineNumField === state.activeInvoiceRow.lineNumField)[0];
+      } else {
+        row = state.activeInvoiceRow;
+      }
+      return {
+        ...state,
+        activeInvoiceRow: row
+      };
+    }
+
     /** Reset invoice rows Submodule */
     case userActions.RESET_INVOICE_ROWS: {
       return {

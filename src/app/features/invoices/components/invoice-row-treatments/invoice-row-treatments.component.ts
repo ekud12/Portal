@@ -100,12 +100,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
     this.isLoading$ = this.invoiceStore.select(fromInvoiceStore.treatmentRowLoadingSelector);
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }, 1);
-  }
+  ngAfterViewInit() {}
 
   ngOnInit() {
     this.getAllTreatmentsForInvoiceRow();
@@ -116,6 +111,8 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
       } else {
         this.dataSource = new MatTableDataSource<InvoiceTreatment>([]);
       }
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 

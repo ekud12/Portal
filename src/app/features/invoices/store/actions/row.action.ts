@@ -8,6 +8,7 @@ export const GET_INVOICE_ROWS_FAIL = '[Invoice] Get Invoices Rows Fail';
 export const GET_INVOICE_ROWS_COMPLETED = '[Invoice] Get Invoices Rows Completed';
 
 export const ACTIVATE_INVOICE_ROW = '[Invoice] Activate Invoice Row';
+export const UPDATE_ACTIVATED_INVOICE_ROW = '[Invoice] Update Activated Invoice Row';
 export const ACTIVATE_INVOICE_ROW_SUCCESS = '[Invoice] Activate Invoice Row Success';
 export const ACTIVATE_INVOICE_ROW_FAIL = '[Invoice] Activate Invoice Row Fail';
 export const ACTIVATE_INVOICE_ROW_COMPLETED = '[Invoice] Activate Invoice Row Completed';
@@ -53,6 +54,9 @@ export class GetInvoiceRowsCompleted implements Action {
 export class ActivateInvoiceRow implements Action {
   readonly type = ACTIVATE_INVOICE_ROW;
   constructor(public payload: any) {}
+}
+export class UpdateActivatedInvoiceRow implements Action {
+  readonly type = UPDATE_ACTIVATED_INVOICE_ROW;
 }
 export class ActivateInvoiceRowSuccess implements Action {
   readonly type = ACTIVATE_INVOICE_ROW_SUCCESS;
@@ -123,6 +127,7 @@ export class ResetInvoiceRows implements Action {
 
 export type userRowActions =
   | ActivateInvoiceRow
+  | UpdateActivatedInvoiceRow
   | ActivateInvoiceRowSuccess
   | ActivateInvoiceRowFail
   | ActivateInvoiceRowCompleted

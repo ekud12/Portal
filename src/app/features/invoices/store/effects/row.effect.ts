@@ -23,28 +23,29 @@ export class RowEffects {
   );
 
   @Effect()
-  getInvoiceRows$ = this.actions$.ofType(userActions.GET_INVOICE_ROWS).pipe(
+  getInvoiceRows$ = this.actions$.ofType(userActions.GET_INVOICE_ROWS, userActions.GET_TREATMENTS_FOR_ROW).pipe(
     map((action: userActions.GetInvoiceRows) => action.payload),
     switchMap((request: SapakDataRequest) => {
-      return this.invoicesService
-        .getAllInvoiceRows(request)
-        .pipe(
-          switchMap(res => [new userActions.GetInvoiceRowsSuccess(res)]),
-          catchError(error => of(new userActions.GetInvoiceRowsFail(error)))
-        );
+      return this.invoicesService.getAllInvoiceRows(request).pipe(
+        switchMap(res => [new userActions.GetInvoiceRowsSuccess(res)]),
+        catchError(error => of(new userActions.GetInvoiceRowsFail(error)))
+      );
     })
   );
+
+  @Effect()
+  refreshActivatedInvoice$ = this.actions$
+    .ofType(userActions.GET_INVOICE_ROWS_SUCCESS)
+    .pipe(switchMap(val => [new userActions.UpdateActivatedInvoiceRow()]));
 
   @Effect()
   createInvoiceRow$ = this.actions$.ofType(userActions.CREATE_INVOICE_ROW).pipe(
     map((action: userActions.CreateInvoiceRow) => action.payload),
     switchMap((request: NewInvoiceRowRequest) => {
-      return this.invoicesService
-        .createInvoiceRow(request)
-        .pipe(
-          switchMap(res => [new userActions.CreateInvoiceRowSuccess(res)]),
-          catchError(error => of(new userActions.CreateInvoiceRowFail(error)))
-        );
+      return this.invoicesService.createInvoiceRow(request).pipe(
+        switchMap(res => [new userActions.CreateInvoiceRowSuccess(res)]),
+        catchError(error => of(new userActions.CreateInvoiceRowFail(error)))
+      );
     })
   );
 
@@ -64,12 +65,10 @@ export class RowEffects {
   updateInvoiceRow$ = this.actions$.ofType(userActions.UPDATE_INVOICE_ROW).pipe(
     map((action: userActions.UpdateInvoiceRow) => action.payload),
     switchMap((request: UpdateInvoiceRowRequest) => {
-      return this.invoicesService
-        .updateInvoiceRow(request)
-        .pipe(
-          switchMap(res => [new userActions.UpdateInvoiceRowSuccess(res, request)]),
-          catchError(error => of(new userActions.UpdateInvoiceRowFail(error)))
-        );
+      return this.invoicesService.updateInvoiceRow(request).pipe(
+        switchMap(res => [new userActions.UpdateInvoiceRowSuccess(res, request)]),
+        catchError(error => of(new userActions.UpdateInvoiceRowFail(error)))
+      );
     })
   );
 
@@ -105,12 +104,10 @@ export class RowEffects {
   deleteInvoiceRow$ = this.actions$.ofType(userActions.DELETE_INVOICE_ROW).pipe(
     map((action: userActions.DeleteInvoiceRow) => action.payload),
     switchMap((request: DeleteInvoiceRowRequest) => {
-      return this.invoicesService
-        .deleteInvoiceRow(request)
-        .pipe(
-          switchMap(res => [new userActions.DeleteInvoiceRowSuccess(request)]),
-          catchError(error => of(new userActions.DeleteInvoiceRowFail(error)))
-        );
+      return this.invoicesService.deleteInvoiceRow(request).pipe(
+        switchMap(res => [new userActions.DeleteInvoiceRowSuccess(request)]),
+        catchError(error => of(new userActions.DeleteInvoiceRowFail(error)))
+      );
     })
   );
 
@@ -131,8 +128,6 @@ export class RowEffects {
     }),
     switchMap(val => [new userActions.GetInvoiceRows(val)])
   );
-
-
 
   @Effect()
   resetInvoiceRows$ = this.actions$

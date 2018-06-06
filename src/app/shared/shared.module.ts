@@ -7,24 +7,24 @@ import { RouterModule } from '@angular/router';
 import { MdePopoverModule } from '@material-extended/mde';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgUploaderModule } from 'ngx-uploader';
-
+import { BackendService } from '../core/services/backend.service';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { CustomMatPaginatorIntl } from './global-models/material-custom-impl.class';
 import { materialImports } from './material-imports';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PrintLayoutComponent } from './print-layout/print-layout.component';
 import { effects, sharedReducer } from './store';
+import { As400DatePipe } from './utils/as400-date.pipe';
+import { DatetimePipe } from './utils/datetime.pipe';
+import { FileSizePipe } from './utils/file-size.pipe';
 import { InvoiceRowDatePipe } from './utils/invoice-row-date.pipe';
 import { InvoiceStatusColorPipe } from './utils/invoice-status-color.pipe';
 import { InvoiceStatusPipe } from './utils/invoice-status.pipe';
-import { TranslateModule } from '@ngx-translate/core';
-import { As400DatePipe } from './utils/as400-date.pipe';
-import { DatetimePipe } from './utils/datetime.pipe';
-import { CustomMatPaginatorIntl } from './global-models/material-custom-impl.class';
-import { BackendService } from '../core/services/backend.service';
-import { FileSizePipe } from './utils/file-size.pipe';
+import { ValidityCheckerPipe } from './utils/validity-checker.pipe';
 
 @NgModule({
   imports: [
@@ -51,7 +51,8 @@ import { FileSizePipe } from './utils/file-size.pipe';
     FileUploadComponent,
     As400DatePipe,
     DatetimePipe,
-    FileSizePipe
+    FileSizePipe,
+    ValidityCheckerPipe
   ],
   entryComponents: [AlertDialogComponent, FileUploadComponent],
   providers: [
@@ -71,6 +72,7 @@ import { FileSizePipe } from './utils/file-size.pipe';
     InvoiceStatusColorPipe,
     InvoiceRowDatePipe,
     DatetimePipe,
+    ValidityCheckerPipe,
     FileUploadComponent
   ]
 })
