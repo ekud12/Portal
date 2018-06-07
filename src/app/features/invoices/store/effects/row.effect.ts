@@ -34,8 +34,8 @@ export class RowEffects {
   );
 
   @Effect()
-  refreshActivatedInvoice$ = this.actions$
-    .ofType(userActions.GET_INVOICE_ROWS_SUCCESS)
+  refreshActivatedInvoiceRow$ = this.actions$
+    .ofType(userActions.GET_INVOICE_ROWS_SUCCESS, userActions.GET_INVOICE_ROWS_FAIL)
     .pipe(switchMap(val => [new userActions.UpdateActivatedInvoiceRow()]));
 
   @Effect()

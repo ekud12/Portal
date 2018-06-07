@@ -1,4 +1,5 @@
 export class Invoice {
+  constructor() {}
   requestTypeField: string;
   userIdField: string;
   supplierCodeField: string;
@@ -23,6 +24,7 @@ export class Invoice {
 }
 
 export class InvoiceRow {
+  constructor() {}
   PropertyChanged?: string;
   lineNumField?: string;
   custIdTypeField?: string;
@@ -108,6 +110,7 @@ export class InvoiceTreatment {
 }
 
 export class CardSwipeForSapak {
+  constructor() {}
   PropertyChanged?: string;
   commitmentIdField?: string;
   custFirstNameField?: string;
@@ -129,6 +132,7 @@ export class CardSwipeForSapak {
 }
 
 export class ObligationByCustomerId {
+  constructor() {}
   requestTypeField?: string;
   userField?: string;
   supplierCodeField?: string;
@@ -182,6 +186,7 @@ export class ObligationByCustomerId {
 }
 
 export class ObligationByCustomerIdAndCommitment {
+  constructor() {}
   requestTypeField?: string;
   userField?: string;
   supplierCodeField?: string;

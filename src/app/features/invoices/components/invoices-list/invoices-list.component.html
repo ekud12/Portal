@@ -39,7 +39,7 @@
         <ng-container *ngFor="let col of displayedColumns; let i = index" matColumnDef="{{col}}">
           <mat-header-cell *matHeaderCellDef mat-sort-header> {{ getViewValue(col)}}</mat-header-cell>
 
-          <mat-cell *matCellDef=" let element" [style.color]="(element.statusField | invoiceStatusColor)"> {{(element[col] | invoiceRowDate:col | invoiceStatus:col)}} </mat-cell>
+          <mat-cell *matCellDef=" let element" [style.color]="(element.statusField | invoiceStatusColor)"> {{(element[col] | invoiceRowDate:col | invoiceStatus:col | validityChecker)}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef=" displayedColumns "></mat-header-row>

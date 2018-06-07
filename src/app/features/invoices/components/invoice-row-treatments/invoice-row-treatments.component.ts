@@ -143,7 +143,7 @@ export class InvoiceRowTreatmentsComponent implements OnInit, AfterViewInit {
       }
     });
     this.currentInvoiceRow$.subscribe(val => {
-      if (val !== null) {
+      if (val !== null && val !== undefined) {
         this.updateRowRequest.rowNum = val.lineNumField;
         this.updateRowRequest.custId = val.custIdField;
         this.updateRowRequest.custIdType = val.custIdTypeField;

@@ -114,7 +114,7 @@ export class NewTreatmentForRowComponent implements OnInit, AfterViewInit {
       }
     });
     this.currentInvoiceRow$.subscribe(row => {
-      if (row !== null) {
+      if (row) {
         this.newTreatmentForRowRequest.rowNum = row.lineNumField;
       }
     });

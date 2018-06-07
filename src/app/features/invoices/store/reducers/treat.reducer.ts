@@ -50,6 +50,7 @@ export function treatReducer(state = invoiceRowTreatInitialState, action: any): 
     }
     case userActions.GET_TREATMENTS_FOR_ROW_SUCCESS: {
       const data = action.payload.data.resultSetData;
+      console.log(data);
       return {
         ...state,
         listOfTreatmentsForRow: data,
