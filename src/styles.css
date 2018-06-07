@@ -166,3 +166,7 @@ a:link {
   margin-bottom: 5px;
   width: 70%;
 }
+
+mat-header-cell {
+  font-weight: bold !important;
+}
